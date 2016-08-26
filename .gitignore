@@ -1,0 +1,5 @@
+.env
+.ropeproject
+__pycache__
+pages
+watch.yml
