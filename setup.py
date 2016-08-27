@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 from setuptools import setup
 
@@ -11,7 +10,6 @@ with open('HISTORY.rst') as history_file:
 
 requirements = [
     'Click>=6.0',
-    # TODO: put package requirements here
     'html2text',
     'requests',
     'schedule',
@@ -36,8 +34,9 @@ setup(
     packages=[
         'webwatcher',
     ],
-    package_dir={'webwatcher':
-                 'webwatcher'},
+    package_dir={
+        'webwatcher': 'webwatcher',
+    },
     entry_points={
         'console_scripts': [
             'webwatcher=webwatcher.cli:main'
