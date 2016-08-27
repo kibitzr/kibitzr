@@ -8,6 +8,7 @@ import schedule
 from .fetcher import fetch
 from .storage import report_changes
 from .settings import PAGES
+from .mailgun import post_mailgun
 
 
 def main():
@@ -40,9 +41,14 @@ def check_page(conf):
 
 def notify(conf, report):
     for rule in conf.get('notify', []):
-        for key, value in rule.items():
-            if key == 'slack':
-                post_slack(value, report)
+        try:
+            key, value = next(iter(rule.items()))
+        except AttributeError:
+            key, value = rule, None
+        if key == 'slack':
+            post_slack(value, report)
+        if key == 'mailgun':
+            post_mailgun(conf, report)
 
 
 def post_slack(channel, text):

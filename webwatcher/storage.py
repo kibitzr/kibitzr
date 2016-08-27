@@ -36,19 +36,19 @@ class PageHistory(object):
         with open(self.target, 'w') as fp:
             fp.write(content)
 
-    def commit():
-        git('add', '-A', '.')
+    def commit(self):
+        self.git('add', '-A', '.')
         try:
-            git.commit('-m', 'Web watch')
+            self.git.commit('-m', 'Web watch')
             return True
         except sh.ErrorReturnCode_1:
             return False
 
-    def last_log():
-        return git.log('-1', '-p', '--no-color').stdout
+    def last_log(self):
+        return self.git.log('-1', '-p', '--no-color').stdout
 
     def ensure_repo_exists(self):
         if not os.path.isdir(self.cwd):
-            os.mkdir(self.cwd)
+            os.makedirs(self.cwd)
         if not os.path.isdir(os.path.join(self.cwd, ".git")):
             self.git.init()
