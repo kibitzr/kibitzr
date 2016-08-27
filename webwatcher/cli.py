@@ -1,14 +1,12 @@
-# -*- coding: utf-8 -*-
-
 import click
+
+from webwatcher.main import main as webwatcher_main
 
 
 @click.command()
 def main(args=None):
     """Console script for webwatcher"""
-    click.echo("Replace this message by putting your code into "
-               "webwatcher.cli.main")
-    click.echo("See click documentation at http://click.pocoo.org/")
+    webwatcher_main()
 
 
 if __name__ == "__main__":
