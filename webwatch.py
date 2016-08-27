@@ -1,55 +1,77 @@
 #!/usr/bin/env python
-
+import json
 import os
 import time
 from contextlib import closing, contextmanager
-from xmlrpc.client import ServerProxy
+import functools
 
 import html2text
+import requests
+import schedule
 import sh
 import yaml
 from selenium import webdriver
+from xmlrpc.client import ServerProxy
 from xvfbwrapper import Xvfb
-import schedule
 
 
 git = sh.git.bake('--no-pager', _cwd="pages")
 
 
 def main():
-    check_pages()
-    schedule.every(5).minutes.do(check_pages)
+    conf = pages_conf()
+    check_all_pages(conf)
+    schedule_checks(conf)
     while True:
         schedule.run_pending()
         time.sleep(60)
 
 
-def check_pages():
-    for conf in pages_conf():
-        save_page(conf, download_page(conf))
+def schedule_checks(confs):
+    for conf in confs:
+        period = conf.get('period', 300)
+        schedule.every(period).seconds.do(functools.partial(check_page, conf))
+
+
+def check_all_pages(confs):
+    for conf in confs:
+        check_page(conf)
+
+
+def check_page(conf):
+    save_page(conf, download_page(conf))
     if save_changes():
         report = report_diff()
-        notify(report)
+        notify(conf, report)
 
 
 def download_page(conf):
-    with firefox() as browser:
-        browser.get(conf['url'])
-        if conf.get('delay'):
-            time.sleep(conf['delay'])
-        tag_name = conf.get('tag')
-        if tag_name:
-            elem = browser.find_element_by_tag_name(tag_name)
-            html = elem.get_attribute('outerHTML')
+    url = conf['url']
+    output_format = conf.get('format', 'html')
+    if output_format in ('asis', 'json'):
+        response = requests.get(url)
+        if output_format == 'json':
+            return json.dumps(response.json, indent=True)
         else:
-            xpath = conf.get('xpath', '//*')
-            elem = browser.find_element_by_xpath(xpath)
-            html = elem.get_attribute('outerHTML')
-        output_format = conf.get('format', 'html')
-        if output_format == 'text':
-            return sanitize(html)
-        elif output_format == 'html':
-            return html
+            return response.text
+    else:
+        delay = conf.get('delay')
+        tag_name = conf.get('tag')
+        xpath = conf.get('xpath', '//*')
+        with firefox() as browser:
+            browser.get(url)
+            if delay:
+                time.sleep(delay)
+            if tag_name:
+                elem = browser.find_element_by_tag_name(tag_name)
+                html = elem.get_attribute('outerHTML')
+            else:
+                elem = browser.find_element_by_xpath(xpath)
+                html = elem.get_attribute('outerHTML')
+            if output_format == 'text':
+                return sanitize(html)
+            elif output_format == 'html':
+                return html
 
 
 def save_page(conf, content):
@@ -86,7 +108,7 @@ def report_diff():
     return git.log('-1', '-p', '--no-color').stdout
 
 
-def notify(report):
+def notify(conf, report):
     for rule in notify_conf():
         for key, value in rule.items():
             if key == 'slack':
