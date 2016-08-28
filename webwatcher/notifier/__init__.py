@@ -1,7 +1,6 @@
 import logging
 
 from .mailgun import post_mailgun
-from .slack import post_slack
 from .custom import post_python
 
 
@@ -14,9 +13,14 @@ def notify(conf, report):
             key, value = next(iter(rule.items()))
         except AttributeError:
             key, value = rule, None
-        if key == 'slack':
-            post_slack(value, report)
-        elif key == 'python':
-            post_python(value, report)
-        elif key == 'mailgun':
-            post_mailgun(conf, report)
+        try:
+            if key == 'python':
+                post_python(value, report)
+            elif key == 'mailgun':
+                post_mailgun(conf, report)
+            else:
+                logger.error("Unknown notifier %r", rule)
+        except Exception:
+            logger.exception(
+                "Exception occured during sending notification"
+            )
