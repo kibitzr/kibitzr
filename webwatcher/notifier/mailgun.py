@@ -2,7 +2,7 @@ import logging
 
 import requests
 
-from .settings import NOTIFIERS
+from ..settings import NOTIFIERS
 
 
 logger = logging.getLogger(__name__)
