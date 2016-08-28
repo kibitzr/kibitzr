@@ -3,6 +3,7 @@
 __pycache__
 pages
 watch.yml
+*.sw[po]
 # Byte-compiled / optimized / DLL files
 *.py[cod]
 *$py.class
