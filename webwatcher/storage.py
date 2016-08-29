@@ -26,6 +26,7 @@ class PageHistory(object):
             _cwd=self.cwd,
         )
         self.ensure_repo_exists()
+        self.commit_msg = "{name} at {url}".format(**conf)
 
     def report_changes(self, content):
         self.write(content)
@@ -39,13 +40,13 @@ class PageHistory(object):
     def commit(self):
         self.git('add', '-A', '.')
         try:
-            self.git.commit('-m', 'Web watch')
+            self.git.commit('-m', self.commit_msg)
             return True
         except sh.ErrorReturnCode_1:
             return False
 
     def last_log(self):
-        return self.git.log('-1', '-p', '--no-color').stdout
+        return self.git.log('-1', '-p', '--no-color', '--format=%s').stdout
 
     def ensure_repo_exists(self):
         if not os.path.isdir(self.cwd):
