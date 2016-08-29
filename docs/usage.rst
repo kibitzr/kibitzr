@@ -2,75 +2,80 @@
 Usage
 =====
 
-webwatcher [OPTIONS]
+::
 
-Options:
-  --once                          Run checks once and exit
-  -l, --log-level [debug|info|warning|error]
-                                  Logging level
-  --help                          Show this message and exit.
+    webwatcher [OPTIONS]
+    
+    Options:
+      --once                          Run checks once and exit
+      -l, --log-level [debug|info|warning|error]
+                                      Logging level
+      --help                          Show this message and exit.
 
 
-CLI reads its configuration from `watch.yml` file in current working directory.
+CLI reads its configuration from ``watch.yml`` file in current working directory.
 
 YAML file must have following structure:
 
-1. Key `pages` with a list of web pages dictionaries.
+1. Key ``pages`` with a list of web pages dictionaries.
    Each dictionary must have following mandatory keys:
-   1. `name` - unique (in the scope of this file) user-friendly name of the web page.
-   2. `url` - pages URL
+   
+   1. ``name`` - unique (in the scope of this file) user-friendly name of the web page.
+   2. ``url`` - pages URL
+   
    Other keys are optional:
-   1. `format` - page contents format for reporting changes.
+   
+   1. ``format`` - page contents format for reporting changes.
       May be one of: html, text, json, asis.
-      `json` and `asis` formats are using requests_.get query and,
+      ``json`` and ``asis`` formats are using requests_.get query and,
       while being useful for simple HTTP(s) requests,
       don't provide great flexibility.
-      `html` format uses FireFox browser to open given `url`,
-      then it delays for `delay` seconds to make sure all Javascript finished loading,
-      then it finds first `tag` or `xpath` on loaded page,
+      ``html`` format uses FireFox browser to open given ``url``,
+      then it delays for ``delay`` seconds to make sure all Javascript finished loading,
+      then it finds first ``tag`` or ``xpath`` on loaded page,
       and returns it's contents.
-      `text` format is the same as `html` but before returning, HTML is converted
+      ``text`` format is the same as ``html`` but before returning, HTML is converted
       to plain text using html2text_ library.
-   2. `period` - how often to check the URL for changes.
-   3. `notify` must be a list of notifiers to use when the page is changed.
+   2. ``period`` - how often to check the URL for changes.
+   3. ``notify`` must be a list of notifiers to use when the page is changed.
       Currently implemented notifiers are:
-      1. `python` - execute any python code, having change report inside `text` global variable.
-      2. `mailgun` - send an e-mail through mailgun_.
+      1. ``python`` - execute any python code, having change report inside ``text`` global variable.
+      2. ``mailgun`` - send an e-mail through mailgun_.
 
-2. Key `notifiers` must contain dictionary of notifiers configurations.
+2. Key ``notifiers`` must contain dictionary of notifiers configurations.
 
 Example configuration:
 
-```yaml
-pages:
+.. highlight:: yaml
 
-  - name: NASA awards on preview
-    url: http://preview.ncbi.nlm.nih.gov/pmc/utils/granthub/award/?authority.code=nasa&format=json
-    format: json
-    period: 300
-    notify:
-      - mailgun
-      - python: slackrpc
-
-  - name: Rocket launches
-    url: http://www.nasa.gov/centers/kennedy/launchingrockets/index.html
-    format: text
-    period: 600
-    notify:
-      - mailgun
-
-notifiers:
-
-    mailgun:
-        key: <mailgun api key>
-        domain: <your domain>
-        to: <your email>
-
-    slackrpc: |
-        from xmlrpc.client import ServerProxy
-        s = ServerProxy('http://localhost:34278', allow_none=True)
-        s.post("@petr", text)
-```
+    pages:
+    
+      - name: NASA awards on preview
+        url: http://preview.ncbi.nlm.nih.gov/pmc/utils/granthub/award/?authority.code=nasa&format=json
+        format: json
+        period: 300
+        notify:
+          - mailgun
+          - python: slackrpc
+    
+      - name: Rocket launches
+        url: http://www.nasa.gov/centers/kennedy/launchingrockets/index.html
+        format: text
+        period: 600
+        notify:
+          - mailgun
+    
+    notifiers:
+    
+        mailgun:
+            key: <mailgun api key>
+            domain: <your domain>
+            to: <your email>
+    
+        slackrpc: |
+            from xmlrpc.client import ServerProxy
+            s = ServerProxy('http://localhost:34278', allow_none=True)
+            s.post("@petr", text)
 
 This configuration tells webwatcher to check URL at http://preview... every 5 minutes (300 seconds)
 
