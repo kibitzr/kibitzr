@@ -1,13 +1,49 @@
+import copy
 import logging.config
 
 import yaml
 
 
-with open('watch.yml') as fp:
-    conf = yaml.load(fp)
+def _load_settings(filename):
+    """
+    Read configuration file and substitute references into pages conf
+    """
+    with open(filename) as fp:
+        conf = yaml.load(fp)
+    pages = conf.get('pages', [])
+    notifiers = conf.get('notifiers', {})
+    templates = conf.get('templates', {})
+    scenarios = conf.get('scenarios', {})
+    for i, page in enumerate(pages):
+        name = page['name']
+        if 'template' in page:
+            if page['template'] in templates:
+                templated_page = copy.deepcopy(templates[page['template']])
+            else:
+                raise RuntimeError(
+                    "Template %r not found. Referenced in page %r"
+                    % (page['template'], name)
+                )
+            templated_page.update(page)
+            page = templated_page
+            pages[i] = page
+        if 'scenario' in page:
+            if page['scenario'] in scenarios:
+                page['scenario'] = scenarios[page['scenario']]
+        if 'notify' in page:
+            for notify in page['notify']:
+                if hasattr(notify, 'keys'):
+                    notify_type = next(iter(notify.keys()))
+                    notify_param = next(iter(notify.values()))
+                    if notify_param in notifiers:
+                        notify[notify_type] = notifiers[notify_param]
+    return {
+        'PAGES': pages,
+        'NOTIFIERS': notifiers,
+    }
 
-PAGES = conf.get('pages', [])
-NOTIFIERS = conf.get('notifiers', {})
+
+globals().update(_load_settings('watch.yml'))
 
 
 logging.config.dictConfig({

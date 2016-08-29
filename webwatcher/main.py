@@ -17,6 +17,7 @@ def main(once=False, log_level=logging.INFO):
     logging.getLogger("").setLevel(log_level)
     logger.info("Arguments: %r",
                 {"once": once, "log_level": log_level})
+    logger.debug("Configration: %r", PAGES)
     check_all_pages(PAGES)
     if not once:
         schedule_checks(PAGES)

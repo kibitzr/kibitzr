@@ -18,7 +18,7 @@ FETCHERS = {
 
 def fetch(conf):
     try:
-        return FETCHERS[conf['format']](conf)
+        return FETCHERS[conf.get('format', 'asis')](conf)
     except Exception:
         logger.exception(
             "Exception occured during sending notification"
