@@ -2,6 +2,10 @@
 webwatcher
 ===============================
 
+.. image:: https://badges.gitter.im/webwatcher/Lobby.svg
+   :alt: Join the chat at https://gitter.im/webwatcher/Lobby
+   :target: https://gitter.im/webwatcher/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
+
 
 .. image:: https://img.shields.io/pypi/v/webwatcher.svg
         :target: https://pypi.python.org/pypi/webwatcher
