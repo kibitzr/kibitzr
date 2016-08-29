@@ -1,3 +1,4 @@
+import logging
 import time
 from contextlib import closing, contextmanager
 
@@ -6,14 +7,20 @@ from selenium import webdriver
 from xvfbwrapper import Xvfb
 
 
+logger = logging.getLogger(__name__)
+
+
 def browser(conf):
     url = conf['url']
     output_format = conf.get('format', 'html')
     delay = conf.get('delay')
     tag_name = conf.get('tag')
     xpath = conf.get('xpath', '//*')
+    scenario = conf.get('scenario')
     with firefox() as driver:
         driver.get(url)
+        if scenario:
+            run_scenario(driver, scenario)
         if delay:
             time.sleep(delay)
         if tag_name:
@@ -55,3 +62,9 @@ def firefox():
     with virtual_buffer():
         with closing(webdriver.Firefox()) as driver:
             yield driver
+
+
+def run_scenario(driver, code):
+    logger.info("Executing custom scenario")
+    logger.debug(code)
+    exec(code, {'driver': driver})
