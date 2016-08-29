@@ -46,7 +46,7 @@ YAML file must have following structure:
 
 Example configuration:
 
-.. highlight:: yaml
+.. code-block:: yaml
 
     pages:
     
