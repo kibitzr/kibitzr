@@ -34,8 +34,8 @@ class PageHistory(object):
             return self.last_log()
 
     def write(self, content):
-        with open(self.target, 'w') as fp:
-            fp.write(content.encode('utf-8', 'replace'))
+        with open(self.target, 'w', 'utf-8') as fp:
+            fp.write(content)
 
     def commit(self):
         self.git('add', '-A', '.')
