@@ -17,11 +17,11 @@ def main(once=False, log_level=logging.INFO):
     logging.getLogger("").setLevel(log_level)
     logger.info("Arguments: %r",
                 {"once": once, "log_level": log_level})
-    logger.debug("Configration: %r", settings.PAGES)
+    logger.debug("Configration: %r", settings.pages)
     try:
-        check_all_pages(settings.PAGES)
+        check_all_pages(settings.pages)
         if not once:
-            schedule_checks(settings.PAGES)
+            schedule_checks(settings.pages)
             logger.info("Starting infinite loop")
             while True:
                 schedule.run_pending()

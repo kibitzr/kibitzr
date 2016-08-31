@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 
 
 def post_mailgun(conf, report):
-    mailgun = settings.NOTIFIERS['mailgun']
+    mailgun = settings.notifiers['mailgun']
     subject = "WebWatcher notification for " + conf['name']
     response = requests.post(
         "https://api.mailgun.net/v3/{domain}/messages"
