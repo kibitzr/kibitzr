@@ -15,8 +15,8 @@ logger = logging.getLogger(__name__)
 
 def main(once=False, log_level=logging.INFO):
     logging.getLogger("").setLevel(log_level)
-    logger.info("Arguments: %r",
-                {"once": once, "log_level": log_level})
+    logger.debug("Arguments: %r",
+                 {"once": once, "log_level": log_level})
     logger.debug("Configration: %r", settings.pages)
     try:
         check_all_pages(settings.pages)
@@ -49,6 +49,7 @@ def check_all_pages(page_confs):
 
 
 def check_page(conf):
+    logger.info("Checking %r at %r", conf['name'], conf['url'])
     ok, content = fetch(conf)
     if ok:
         report = report_changes(conf, content)

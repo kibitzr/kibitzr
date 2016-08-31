@@ -72,5 +72,8 @@ logging.config.dictConfig({
             'level': 'INFO',
             'propagate': True,
         },
+        'sh.command': {
+            'level': 'WARNING',
+        }
     }
 })
