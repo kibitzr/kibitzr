@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import os
+from io import open
 
 import sh
 

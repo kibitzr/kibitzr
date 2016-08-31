@@ -51,7 +51,7 @@ def browser(conf):
 
 
 def sanitize(html):
-    return '\n'.join([
+    return u'\n'.join([
         line
         for line in BeautifulSoup(html, "html.parser").stripped_strings
         if line
