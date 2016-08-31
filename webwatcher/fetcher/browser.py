@@ -1,6 +1,6 @@
 import logging
 import time
-from contextlib import closing, contextmanager
+from contextlib import contextmanager
 
 import html2text
 from selenium import webdriver
@@ -8,6 +8,21 @@ from xvfbwrapper import Xvfb
 
 
 logger = logging.getLogger(__name__)
+
+
+firefox_instance = {
+    'xvfb_display': None,
+    'driver': None,
+}
+
+
+def cleanup():
+    """Must be called before exit"""
+    global firefox_instance
+    if firefox_instance['driver'] is not None:
+        firefox_instance['driver'].quit()
+    if firefox_instance['xvfb_display'] is not None:
+        firefox_instance['xvfb_display'].stop()
 
 
 def browser(conf):
@@ -40,6 +55,15 @@ def sanitize(html):
 
 
 @contextmanager
+def firefox():
+    global firefox_instance
+    if firefox_instance['xvfb_display'] is None:
+        firefox_instance['xvfb_display'] = virtual_buffer()
+    if firefox_instance['driver'] is None:
+        firefox_instance['driver'] = webdriver.Firefox()
+    yield firefox_instance['driver']
+
+
 def virtual_buffer():
     """
     Try to start xvfb, trying multiple (up to 5) times if a failure
@@ -49,19 +73,8 @@ def virtual_buffer():
         xvfb_display.start()
         # If Xvfb started, return.
         if xvfb_display.proc is not None:
-            try:
-                yield
-                return
-            finally:
-                xvfb_display.stop()
+            return xvfb_display
     raise Exception("Xvfb could not be started after six attempts.")
-
-
-@contextmanager
-def firefox():
-    with virtual_buffer():
-        with closing(webdriver.Firefox()) as driver:
-            yield driver
 
 
 def run_scenario(driver, code):

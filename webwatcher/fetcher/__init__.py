@@ -1,7 +1,7 @@
 import logging
 import traceback
 
-from .browser import browser
+from .browser import browser, cleanup
 from .simple import simple
 
 
@@ -24,3 +24,7 @@ def fetch(conf):
             "Exception occured during sending notification"
         )
         return traceback.format_exc()
+
+
+def cleanup_fetchers():
+    cleanup()
