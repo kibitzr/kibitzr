@@ -1,4 +1,3 @@
-import functools
 import time
 import logging
 
@@ -39,7 +38,7 @@ def schedule_checks(page_confs):
             period,
         )
         schedule.every(period).seconds.do(
-            functools.partial(check_page, conf)
+            lambda conf=conf: check_page(conf)
         )
 
 
