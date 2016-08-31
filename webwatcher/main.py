@@ -7,7 +7,7 @@ import schedule
 from .fetcher import fetch
 from .storage import report_changes
 from .notifier import notify
-from .settings import PAGES
+from .conf import settings
 
 
 logger = logging.getLogger(__name__)
@@ -17,10 +17,10 @@ def main(once=False, log_level=logging.INFO):
     logging.getLogger("").setLevel(log_level)
     logger.info("Arguments: %r",
                 {"once": once, "log_level": log_level})
-    logger.debug("Configration: %r", PAGES)
-    check_all_pages(PAGES)
+    logger.debug("Configration: %r", settings.PAGES)
+    check_all_pages(settings.PAGES)
     if not once:
-        schedule_checks(PAGES)
+        schedule_checks(settings.PAGES)
         logger.info("Starting infinite loop")
         while True:
             schedule.run_pending()

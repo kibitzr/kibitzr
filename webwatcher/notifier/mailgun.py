@@ -2,14 +2,14 @@ import logging
 
 import requests
 
-from ..settings import NOTIFIERS
+from ..conf import settings
 
 
 logger = logging.getLogger(__name__)
 
 
 def post_mailgun(conf, report):
-    mailgun = NOTIFIERS['mailgun']
+    mailgun = settings.NOTIFIERS['mailgun']
     subject = "WebWatcher notification for " + conf['name']
     response = requests.post(
         "https://api.mailgun.net/v3/{domain}/messages"
