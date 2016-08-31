@@ -2,9 +2,9 @@ import logging
 import time
 from contextlib import contextmanager
 
-import html2text
 from selenium import webdriver
 from xvfbwrapper import Xvfb
+from bs4 import BeautifulSoup
 
 
 logger = logging.getLogger(__name__)
@@ -51,7 +51,11 @@ def browser(conf):
 
 
 def sanitize(html):
-    return html2text.html2text(html)
+    return '\n'.join([
+        line
+        for line in BeautifulSoup(html, "html.parser").stripped_strings
+        if line
+    ])
 
 
 @contextmanager

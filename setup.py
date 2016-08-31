@@ -10,13 +10,13 @@ with open('HISTORY.rst') as history_file:
 
 requirements = [
     'Click>=6.0',
-    'html2text',
     'requests',
     'schedule',
     'sh',
     'pyyaml',
     'selenium',
     'xvfbwrapper',
+    'bs4',
 ]
 
 test_requirements = [
