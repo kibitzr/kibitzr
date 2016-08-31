@@ -25,7 +25,7 @@ test_requirements = [
 
 setup(
     name='webwatcher',
-    version='0.10.3',
+    version='0.10.4',
     description="Self hosted web page changes monitoring",
     long_description=readme + '\n\n' + history,
     author="Peter Demin",
