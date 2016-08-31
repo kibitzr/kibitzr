@@ -18,12 +18,12 @@ FETCHERS = {
 
 def fetch(conf):
     try:
-        return FETCHERS[conf.get('format', 'asis')](conf)
+        return True, FETCHERS[conf.get('format', 'asis')](conf)
     except Exception:
         logger.exception(
             "Exception occured during sending notification"
         )
-        return traceback.format_exc()
+        return False, traceback.format_exc()
 
 
 def cleanup_fetchers():

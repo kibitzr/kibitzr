@@ -49,8 +49,17 @@ def check_all_pages(page_confs):
 
 
 def check_page(conf):
-    content = fetch(conf)
-    report = report_changes(conf, content)
+    ok, content = fetch(conf)
+    if ok:
+        report = report_changes(conf, content)
+    else:
+        error_policy = conf.get('error', 'notify')
+        if error_policy == 'notify':
+            report = content
+        elif error_policy == 'ignore':
+            report = None
+        else:  # output
+            report = report_changes(conf, content)
     if report:
         logger.info("Sending notification for %r", conf["name"])
         notify(conf, report)
