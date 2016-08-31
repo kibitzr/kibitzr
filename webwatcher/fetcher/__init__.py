@@ -21,7 +21,7 @@ def fetch(conf):
         return True, FETCHERS[conf.get('format', 'asis')](conf)
     except Exception:
         logger.exception(
-            "Exception occured during sending notification"
+            "Exception occured while fetching page"
         )
         return False, traceback.format_exc()
 

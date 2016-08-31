@@ -13,7 +13,7 @@ def simple(conf):
             indent=True,
             sort_keys=True,
             ensure_ascii=False,
-            encoding='utf-8',
+            # encoding='utf-8',
         )
     else:
         return response.text
