@@ -34,3 +34,12 @@ def test_browser_xpath(target, html_text_conf):
     ok, content = fetch(html_text_conf)
     assert ok is True
     assert content == 'Footer content'
+
+
+def test_scenario(target, html_text_conf):
+    html_text_conf.update({
+        'scenario': 'driver.find_element_by_id("page-link").click()'
+    })
+    ok, content = fetch(html_text_conf)
+    assert ok is True
+    assert content == 'Another page'

@@ -1,7 +1,7 @@
 .env
 .ropeproject
 __pycache__
-pages
+/pages
 watch.yml
 *.sw[po]
 # Byte-compiled / optimized / DLL files
@@ -61,6 +61,6 @@ coverage.xml
 docs/_build/
 
 # PyBuilder
-target/
+/target/
 ui/src/client/public/
 ui/node_modules/
