@@ -1,5 +1,5 @@
 import pytest
-from target.server import start_server
+from .target.server import start_server
 from webwatcher.fetcher import cleanup_fetchers
 
 

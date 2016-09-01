@@ -1,7 +1,7 @@
 import os
 import socket
-import BaseHTTPServer
-from SimpleHTTPServer import SimpleHTTPRequestHandler
+from six.moves import BaseHTTPServer
+from six.moves.SimpleHTTPServer import SimpleHTTPRequestHandler
 from multiprocessing import Process
 
 

@@ -37,6 +37,7 @@ setup(
         'selenium',
         'xvfbwrapper',
         'bs4',
+        'six',
     ],
     license="MIT license",
     zip_safe=False,
