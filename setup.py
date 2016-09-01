@@ -58,6 +58,7 @@ setup(
     setup_requires=['pytest-runner'],
     tests_require=[
         'pytest',
+        'pytest-pep8',
         'pylint',
         'mock',
         'pytest-mock',
