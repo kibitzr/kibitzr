@@ -24,7 +24,7 @@ def main(once=False, log_level=logging.INFO):
             logger.info("Starting infinite loop")
             while True:
                 schedule.run_pending()
-                time.sleep(60)
+                time.sleep(5)
     finally:
         cleanup_fetchers()
 
