@@ -47,12 +47,18 @@ class PageHistory(object):
             return False
 
     def last_log(self):
-        return self.git.log(
+        output = self.git.log(
             '-1',
             '-p',
             '--no-color',
             '--format=%s',
         ).stdout.decode('utf-8')
+        lines = output.splitlines()
+        if len(lines) >= 6:
+            # remove meaningless git header
+            return u'\n'.join(lines[:1] + lines[6:])
+        else:
+            return output
 
     def ensure_repo_exists(self):
         if not os.path.isdir(self.cwd):

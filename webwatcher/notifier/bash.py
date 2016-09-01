@@ -14,4 +14,7 @@ def post_bash(code, report):
         fp.write(code.encode('utf-8'))
         fp.flush()
         logger.debug("Launching script %r", fp.name)
-        logger.info(sh.bash(fp.name, _in=report))
+        result = sh.bash(fp.name, _in=report)
+        logger.debug("Bash exit_code: %r", result.exit_code)
+        logger.debug("Bash stdout: %s", result.stdout.decode('utf-8'))
+        logger.debug("Bash stderr: %s", result.stderr.decode('utf-8'))
