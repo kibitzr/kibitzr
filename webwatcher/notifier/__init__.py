@@ -2,6 +2,7 @@ import logging
 
 from .mailgun import post_mailgun
 from .custom import post_python
+from .bash import post_bash
 
 
 logger = logging.getLogger(__name__)
@@ -27,6 +28,8 @@ def notify(conf, report):
         try:
             if key == 'python':
                 post_python(value, report)
+            elif key == 'bash':
+                post_bash(value, report)
             elif key == 'mailgun':
                 post_mailgun(conf, report)
             else:

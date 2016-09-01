@@ -47,7 +47,12 @@ class PageHistory(object):
             return False
 
     def last_log(self):
-        return self.git.log('-1', '-p', '--no-color', '--format=%s').stdout
+        return self.git.log(
+            '-1',
+            '-p',
+            '--no-color',
+            '--format=%s',
+        ).stdout.decode('utf-8')
 
     def ensure_repo_exists(self):
         if not os.path.isdir(self.cwd):
