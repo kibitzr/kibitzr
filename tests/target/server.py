@@ -1,26 +1,34 @@
 import os
+import time
 import socket
 from six.moves import BaseHTTPServer
 from six.moves.SimpleHTTPServer import SimpleHTTPRequestHandler
-from multiprocessing import Process
+from multiprocessing import Process, Event
 
 
 def start_server():
     port = free_port()
     server_address = ('127.0.0.1', port)
     root = os.path.join(os.path.dirname(__file__), 'www')
-    process = Process(target=run_server, args=(root, server_address))
-    process.daemon = True
+    initialized = Event()
+    process = Process(target=run_server, args=(root, server_address, initialized))
     process.start()
-    return server_address
+    initialized.wait()
+    time.sleep(0.1)
+    return process, server_address
 
 
-def run_server(root, server_address):
+def stop_server(process):
+    process.terminate()
+
+
+def run_server(root, server_address, initialized):
     os.chdir(root)
     SimpleHTTPRequestHandler.protocol_version = "HTTP/1.0"
     httpd = BaseHTTPServer.HTTPServer(server_address, SimpleHTTPRequestHandler)
     sa = httpd.socket.getsockname()
     print("Serving HTTP on {0} port {1}...".format(sa[0], sa[1]))
+    initialized.set()
     httpd.serve_forever()
 
 
