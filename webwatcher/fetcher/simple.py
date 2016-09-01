@@ -5,7 +5,7 @@ import requests
 
 def simple(conf):
     url = conf['url']
-    output_format = conf.get('format', 'html')
+    output_format = conf.get('format', 'asis')
     response = requests.get(url)
     if output_format == 'json':
         return json.dumps(
