@@ -40,10 +40,9 @@ def browser(conf):
             time.sleep(delay)
         if tag_name:
             elem = driver.find_element_by_tag_name(tag_name)
-            html = elem.get_attribute('outerHTML')
         else:
             elem = driver.find_element_by_xpath(xpath)
-            html = elem.get_attribute('outerHTML')
+        html = elem.get_attribute('outerHTML')
         if output_format == 'text':
             return sanitize(html)
         elif output_format == 'html':

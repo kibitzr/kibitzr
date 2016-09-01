@@ -50,16 +50,19 @@ def check_all_pages(page_confs):
 def check_page(conf):
     logger.info("Checking %r at %r", conf['name'], conf['url'])
     ok, content = fetch(conf)
+    report = make_report(conf, ok, content)
+    if report:
+        notify(conf, report)
+
+
+def make_report(conf, ok, content):
     if ok:
-        report = report_changes(conf, content)
+        return report_changes(conf, content)
     else:
         error_policy = conf.get('error', 'notify')
         if error_policy == 'notify':
-            report = content
+            return content
         elif error_policy == 'ignore':
-            report = None
+            return None
         else:  # output
-            report = report_changes(conf, content)
-    if report:
-        logger.info("Sending notification for %r", conf["name"])
-        notify(conf, report)
+            return report_changes(conf, content)

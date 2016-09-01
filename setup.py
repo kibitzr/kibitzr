@@ -8,21 +8,6 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = [
-    'Click>=6.0',
-    'requests',
-    'schedule',
-    'sh',
-    'pyyaml',
-    'selenium',
-    'xvfbwrapper',
-    'bs4',
-]
-
-test_requirements = [
-    # TODO: put package test requirements here
-]
-
 setup(
     name='webwatcher',
     version='0.10.4',
@@ -43,7 +28,16 @@ setup(
         ]
     },
     include_package_data=True,
-    install_requires=requirements,
+    install_requires=[
+        'Click>=6.0',
+        'requests',
+        'schedule',
+        'sh',
+        'pyyaml',
+        'selenium',
+        'xvfbwrapper',
+        'bs4',
+    ],
     license="MIT license",
     zip_safe=False,
     keywords='webwatcher',
@@ -61,5 +55,11 @@ setup(
         'Programming Language :: Python :: 3.5',
     ],
     test_suite='tests',
-    tests_require=test_requirements,
+    setup_requires=['pytest-runner'],
+    tests_require=[
+        'pytest',
+        'pylint',
+        'mock',
+        'pytest-mock',
+    ],
 )

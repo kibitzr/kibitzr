@@ -8,7 +8,18 @@ logger = logging.getLogger(__name__)
 
 
 def notify(conf, report):
-    for rule in conf.get('notify', []):
+    rules = conf.get('notify', [])
+    if rules:
+        logger.info(
+            "Sending notification for %r",
+            conf["name"],
+        )
+    else:
+        logger.warning(
+            "No notifications configured for %r",
+            conf['name'],
+        )
+    for rule in rules:
         try:
             key, value = next(iter(rule.items()))
         except AttributeError:
