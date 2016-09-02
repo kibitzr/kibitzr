@@ -1,12 +1,11 @@
-var AccountFields = require('./AccountFields.jsx')
-// var SurveyFields  = require('./SurveyFields')
-// var Confirmation  = require('./Confirmation')
-var Success       = require('./Success.jsx')
+import Mandatory from './Mandatory.jsx'
+import Fetcher from './Fetcher.jsx'
+import Success from './Success.jsx'
 import React from 'react';
 import _ from 'underscore';
 
 
-class Registration extends React.Component {
+class PageWizard extends React.Component {
 
     constructor(props) {
         super(props);
@@ -30,12 +29,14 @@ class Registration extends React.Component {
     render () {
         switch (this.state.step) {
             case 1:
-                return <AccountFields
+                return <Mandatory
                         saveValues={ (data) => this.saveValues(data) }
                         nextStep={ () => this.nextStep() } />
             case 2:
-//                return <SurveyFields />
-//            case 3:
+                return <Fetcher
+                        saveValues={ (data) => this.saveValues(data) }
+                        nextStep={ () => this.nextStep() } />
+            case 3:
 //                return <Confirmation />
 //            case 4:
                 return <Success
@@ -44,4 +45,4 @@ class Registration extends React.Component {
     }
 }
 
-module.exports = Registration
+module.exports = PageWizard
