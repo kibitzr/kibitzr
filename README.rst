@@ -36,10 +36,19 @@ Self hosted web page changes monitoring
 Features
 --------
 
-* TODO
+* Easy to install and run
+* Whole configuration in one YAML file
+* Python requests for simple HTTP queries (with optional JSON formatting)
+* Firefox for complex interactions with scenarios and HTML parsing
+* BeautifulSoup for formatting HTML contents
+* E-mail notifications through MailGun 
+* Extensible with bash and python scripts
+* Vibrant friendly community (on gitter)
+* Python 2 and 3 compatible
+
 
 Credits
----------
+-------
 
 This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
 
