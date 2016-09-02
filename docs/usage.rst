@@ -35,7 +35,7 @@ YAML file must have following structure:
       then it finds first ``tag`` or ``xpath`` on loaded page,
       and returns it's contents.
       ``text`` format is the same as ``html`` but before returning, HTML is converted
-      to plain text using html2text_ library.
+      to plain text using BeautifulSoup_ library.
    2. ``period`` - how often to check the URL for changes.
    3. ``notify`` must be a list of notifiers to use when the page is changed.
       Currently implemented notifiers are:
@@ -53,10 +53,9 @@ Example configuration:
       - name: NASA awards on preview
         url: http://preview.ncbi.nlm.nih.gov/pmc/utils/granthub/award/?authority.code=nasa&format=json
         format: json
-        period: 300
+        period: 30
         notify:
           - mailgun
-          - python: slackrpc
     
       - name: Rocket launches
         url: http://www.nasa.gov/centers/kennedy/launchingrockets/index.html
@@ -71,15 +70,10 @@ Example configuration:
             key: <mailgun api key>
             domain: <your domain>
             to: <your email>
-    
-        slackrpc: |
-            from xmlrpc.client import ServerProxy
-            s = ServerProxy('http://localhost:34278', allow_none=True)
-            s.post("@petr", text)
 
 This configuration tells kibitzer to check URL at http://preview... every 5 minutes (300 seconds)
 
 
 .. _requests: http://docs.python-requests.org/
-.. _html2text: https://github.com/aaronsw/html2text
+.. _BeautifulSoup: https://www.crummy.com/software/BeautifulSoup/
 .. _mailgun: https://mailgun.com/
