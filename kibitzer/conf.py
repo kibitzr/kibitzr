@@ -48,7 +48,7 @@ class ReloadableSettings(object):
         self.notifiers = notifiers
 
 
-settings = ReloadableSettings('watch.yml')
+settings = ReloadableSettings('kibitzer.yml')
 
 
 logging.config.dictConfig({
@@ -72,8 +72,11 @@ logging.config.dictConfig({
             'level': 'INFO',
             'propagate': True,
         },
+        'sh': {
+            'level': 'INFO',
+        },
         'sh.command': {
             'level': 'WARNING',
-        }
+        },
     }
 })

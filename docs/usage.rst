@@ -13,7 +13,7 @@ Usage
       --help                          Show this message and exit.
 
 
-CLI reads its configuration from ``watch.yml`` file in current working directory.
+CLI reads its configuration from ``kibitzer.yml`` file in current working directory.
 
 YAML file must have following structure:
 
