@@ -21,6 +21,10 @@ kibitzer
      :target: https://pyup.io/repos/github/peterdemin/kibitzer/
      :alt: Updates
 
+.. image:: https://pyup.io/repos/github/peterdemin/kibitzer/python-3-shield.svg
+     :target: https://pyup.io/repos/github/peterdemin/kibitzer/
+          :alt: Python 3
+
 
 Self hosted web page changes monitoring
 
