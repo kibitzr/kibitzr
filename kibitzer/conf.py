@@ -4,11 +4,16 @@ import logging.config
 import yaml
 
 
+logger = logging.getLogger(__name__)
+
+
 class ReloadableSettings(object):
-    def __init__(self, filename):
+    def __init__(self, filename, creds_filename):
         self.filename = filename
+        self.creds_filename = creds_filename
         self.pages = None
         self.notifiers = None
+        self.creds = None
         self.reread()
 
     def reread(self):
@@ -17,6 +22,7 @@ class ReloadableSettings(object):
         """
         with open(self.filename) as fp:
             conf = yaml.load(fp)
+        changed = self.read_creds()
         pages = conf.get('pages', [])
         notifiers = conf.get('notifiers', {})
         templates = conf.get('templates', {})
@@ -49,10 +55,23 @@ class ReloadableSettings(object):
             self.notifiers = notifiers
             return True
         else:
-            return False
+            return changed
+
+    def read_creds(self):
+        try:
+            with open(self.creds_filename, 'r') as fp:
+                creds = yaml.load(fp)
+                if creds != self.creds:
+                    self.creds = creds
+                    return True
+        except IOError:
+            pass
+        except Exception:
+            logger.exception("Error loading credentials file")
+        return False
 
 
-settings = ReloadableSettings('kibitzer.yml')
+settings = ReloadableSettings('kibitzer.yml', 'kibitzer-creds.yml')
 
 
 logging.config.dictConfig({

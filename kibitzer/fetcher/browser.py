@@ -6,6 +6,8 @@ from selenium import webdriver
 from xvfbwrapper import Xvfb
 from bs4 import BeautifulSoup
 
+from ..conf import settings
+
 
 logger = logging.getLogger(__name__)
 
@@ -83,4 +85,4 @@ def virtual_buffer():
 def run_scenario(driver, code):
     logger.info("Executing custom scenario")
     logger.debug(code)
-    exec(code, {'driver': driver})
+    exec(code, {'driver': driver, 'creds': settings.creds})
