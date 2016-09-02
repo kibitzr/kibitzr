@@ -7,7 +7,7 @@ tox==2.3.1
 coverage==4.2
 Sphinx==1.4.5
 cryptography==1.5
-pytest==3.0.1
+pytest==3.0.2
 pylint==1.6.4
 pytest-cov==2.3.1
 pep8==1.7.0
