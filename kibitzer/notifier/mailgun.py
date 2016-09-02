@@ -10,13 +10,13 @@ logger = logging.getLogger(__name__)
 
 def post_mailgun(conf, report):
     mailgun = settings.notifiers['mailgun']
-    subject = "WebWatcher notification for " + conf['name']
+    subject = "Kibitzer update for " + conf['name']
     response = requests.post(
         "https://api.mailgun.net/v3/{domain}/messages"
         .format(domain=mailgun['domain']),
         auth=("api", mailgun['key']),
         data={
-            "from": "Web Watcher <mailgun@{domain}>"
+            "from": "Kibitzer <mailgun@{domain}>"
                     .format(domain=mailgun['domain']),
             "to": [mailgun['to']],
             "subject": subject,

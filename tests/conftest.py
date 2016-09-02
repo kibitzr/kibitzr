@@ -1,6 +1,6 @@
 import pytest
 from .target.server import start_server, stop_server
-from webwatcher.fetcher import cleanup_fetchers
+from kibitzer.fetcher import cleanup_fetchers
 
 
 server_addess = None

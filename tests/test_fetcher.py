@@ -1,5 +1,5 @@
 import requests
-from webwatcher.fetcher import fetch
+from kibitzer.fetcher import fetch
 
 
 def test_server_is_alive(target):

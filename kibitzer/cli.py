@@ -2,7 +2,7 @@ import logging
 
 import click
 
-from webwatcher.main import main as webwatcher_main
+from kibitzer.main import main as kibitzer_main
 
 
 LOG_LEVEL_CODES = {
@@ -20,9 +20,8 @@ LOG_LEVEL_CODES = {
               type=click.Choice(LOG_LEVEL_CODES.keys()),
               help="Logging level")
 def main(once, log_level):
-    """Webwatcher"""
     log_level_code = LOG_LEVEL_CODES[log_level]
-    webwatcher_main(once=once, log_level=log_level_code)
+    kibitzer_main(once=once, log_level=log_level_code)
 
 
 if __name__ == "__main__":

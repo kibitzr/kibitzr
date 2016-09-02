@@ -9,22 +9,22 @@ with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
 setup(
-    name='webwatcher',
+    name='kibitzer',
     version='0.10.7',
     description="Self hosted web page changes monitoring",
     long_description=readme + '\n\n' + history,
     author="Peter Demin",
     author_email='peterdemin@gmail.com',
-    url='https://github.com/peterdemin/webwatcher',
+    url='https://github.com/peterdemin/kibitzer',
     packages=[
-        'webwatcher',
+        'kibitzer',
     ],
     package_dir={
-        'webwatcher': 'webwatcher',
+        'kibitzer': 'kibitzer',
     },
     entry_points={
         'console_scripts': [
-            'webwatcher=webwatcher.cli:main'
+            'kibitzer=kibitzer.cli:main'
         ]
     },
     include_package_data=True,
@@ -41,7 +41,7 @@ setup(
     ],
     license="MIT license",
     zip_safe=False,
-    keywords='webwatcher',
+    keywords='kibitzer',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',

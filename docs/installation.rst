@@ -8,13 +8,13 @@ Installation
 Stable release
 --------------
 
-To install webwatcher, run this command in your terminal:
+To install kibitzer, run this command in your terminal:
 
 .. code-block:: console
 
-    $ pip install webwatcher
+    $ pip install kibitzer
 
-This is the preferred method to install webwatcher, as it will always install the most recent stable release. 
+This is the preferred method to install kibitzer, as it will always install the most recent stable release. 
 
 If you don't have `pip`_ installed, this `Python installation guide`_ can guide
 you through the process.
@@ -26,19 +26,19 @@ you through the process.
 From sources
 ------------
 
-The sources for webwatcher can be downloaded from the `Github repo`_.
+The sources for kibitzer can be downloaded from the `Github repo`_.
 
 You can either clone the public repository:
 
 .. code-block:: console
 
-    $ git clone git://github.com/peterdemin/webwatcher
+    $ git clone git://github.com/peterdemin/kibitzer
 
 Or download the `tarball`_:
 
 .. code-block:: console
 
-    $ curl  -OL https://github.com/peterdemin/webwatcher/tarball/master
+    $ curl  -OL https://github.com/peterdemin/kibitzer/tarball/master
 
 Once you have a copy of the source, you can install it with:
 
@@ -47,5 +47,5 @@ Once you have a copy of the source, you can install it with:
     $ python setup.py install
 
 
-.. _Github repo: https://github.com/peterdemin/webwatcher
-.. _tarball: https://github.com/peterdemin/webwatcher/tarball/master
+.. _Github repo: https://github.com/peterdemin/kibitzer
+.. _tarball: https://github.com/peterdemin/kibitzer/tarball/master

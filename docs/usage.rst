@@ -4,7 +4,7 @@ Usage
 
 ::
 
-    webwatcher [OPTIONS]
+    kibitzer [OPTIONS]
     
     Options:
       --once                          Run checks once and exit
@@ -77,7 +77,7 @@ Example configuration:
             s = ServerProxy('http://localhost:34278', allow_none=True)
             s.post("@petr", text)
 
-This configuration tells webwatcher to check URL at http://preview... every 5 minutes (300 seconds)
+This configuration tells kibitzer to check URL at http://preview... every 5 minutes (300 seconds)
 
 
 .. _requests: http://docs.python-requests.org/
