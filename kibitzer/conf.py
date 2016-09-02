@@ -44,8 +44,12 @@ class ReloadableSettings(object):
                         notify_param = next(iter(notify.values()))
                         if notify_param in notifiers:
                             notify[notify_type] = notifiers[notify_param]
-        self.pages = pages
-        self.notifiers = notifiers
+        if self.pages != pages or self.notifiers != notifiers:
+            self.pages = pages
+            self.notifiers = notifiers
+            return True
+        else:
+            return False
 
 
 settings = ReloadableSettings('kibitzer.yml')
