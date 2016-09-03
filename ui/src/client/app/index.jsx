@@ -5,7 +5,7 @@ import AwesomeComponent from './AwesomeComponent.jsx';
 import PageWizard from './PageWizard.jsx';
 
 global.jQuery = require('jquery');
-require('bootstrap');
+require("bootstrap-webpack");
 
 
 class App extends React.Component {
