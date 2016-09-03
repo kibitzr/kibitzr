@@ -4,11 +4,14 @@ import {render} from 'react-dom';
 import AwesomeComponent from './AwesomeComponent.jsx';
 import PageWizard from './PageWizard.jsx';
 
+global.jQuery = require('jquery');
+require('bootstrap');
+
 
 class App extends React.Component {
   render () {
     return (
-      <div>
+      <div className="container">
         <AwesomeComponent />
         <PageWizard />
       </div>

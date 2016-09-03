@@ -12,20 +12,29 @@ class Mandatory extends React.Component {
 
     render () {
         return (
-            <div>
-                <label>Name</label> 
-                <input type="text"
-                     ref="name"
-                     defaultValue={ this.state.name } />
+            <div className="container">
 
-                <label>URL</label>
-                <input type="text"
-                     ref="url"
-                     defaultValue={ this.state.url } />
+                <div className="form-group label-floating">
+                    <label className="control-label">Name</label>
+                    <input type="text"
+                        ref="name"
+                        className="form-control"
+                        defaultValue={ this.state.name } />
+                </div>
 
-                <button onClick={ (e) => this.saveAndContinue(e) }>
+                <div className="form-group label-floating">
+                    <label className="control-label">URL</label>
+                    <input type="text"
+                        ref="url"
+                        className="form-control"
+                        defaultValue={ this.state.url } />
+                </div>
+
+                <button className="btn btn-primary"
+                        onClick={ (e) => this.saveAndContinue(e) }>
                     Save and Continue
                 </button>
+
             </div>
         )
     }
