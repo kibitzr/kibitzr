@@ -7,54 +7,41 @@ class Fetcher extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            format: 'asis',
+            fetcher: 'requests',
         }
     }
 
     render () {
         return (
-            <div className="form-group">
+            <div className="container">
+              <div className="well bs-component">
+                <legend>Choose HTTP fetcher</legend>
+                <div className="form-group">
 
                   <div className="radio">
                     <label>
                       <input type="radio"
-                             name="format"
-                             ref="format"
-                             value="asis" />
+                             name="fetcher"
+                             ref="fetcher"
+                             value="requests" />
                       <span className="circle"></span><span className="check"></span>
-                      As is
+                      <b>requests.get</b> &mdash;
+                      Fast and simple.
+                      Good for APIs and small text pages without JavaScript.
                     </label>
                   </div>
 
                   <div className="radio">
                     <label>
                       <input type="radio"
-                             name="format"
-                             ref="format"
-                             value="json" />
+                             name="fetcher"
+                             ref="fetcher"
+                             value="browser" />
                       <span className="circle"></span><span className="check"></span>
-                      JSON
-                    </label>
-                  </div>
-
-                  <div className="radio">
-                    <label>
-                      <input type="radio"
-                             ref="format"
-                             name="format"
-                             value="html" />
-                      <span className="circle"></span><span className="check"></span>
-                      HTML using Firefox
-                    </label>
-                  </div>
-                  <div className="radio">
-                    <label>
-                      <input type="radio"
-                             ref="format"
-                             name="format"
-                             value="text" />
-                      <span className="circle"></span><span className="check"></span>
-                      Text using Firefox
+                      <b>Firefox</b> &mdash;
+                      Full power of a modern web browser.<br />
+                      You will be able to script user interactions,
+                      process JavaScript and filter contents by tag name or X-Path.
                     </label>
                   </div>
 
@@ -64,6 +51,8 @@ class Fetcher extends React.Component {
                 </button>
 
             </div>
+          </div>
+        </div>
         )
     }
 
@@ -71,7 +60,7 @@ class Fetcher extends React.Component {
     e.preventDefault()
 
     var data = {
-      format: this.refs.format.value,
+      fetcher: this.refs.fetcher.value,
     }
 
     this.props.saveValues(data)

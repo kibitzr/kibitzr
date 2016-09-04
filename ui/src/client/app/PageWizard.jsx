@@ -1,5 +1,7 @@
 import Mandatory from './Mandatory.jsx'
 import Fetcher from './Fetcher.jsx'
+import Browser from './Browser.jsx'
+import Notifier from './Notifier.jsx'
 import Success from './Success.jsx'
 import React from 'react';
 import _ from 'underscore';
@@ -10,7 +12,7 @@ class PageWizard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            step: 1,
+            step: 4,
             data: {}
         }
     }
@@ -21,8 +23,12 @@ class PageWizard extends React.Component {
     }
 
     nextStep() {
+        let increment = 1
+        if (this.state.step == 2 && this.state.data.fetcher == 'requests') {
+            increment = 2
+        }
         this.setState({
-            step: this.state.step + 1
+            step: this.state.step + increment
         })
     }
 
@@ -37,8 +43,14 @@ class PageWizard extends React.Component {
                         saveValues={ (data) => this.saveValues(data) }
                         nextStep={ () => this.nextStep() } />
             case 3:
-//                return <Confirmation />
-//            case 4:
+                return <Browser
+                        saveValues={ (data) => this.saveValues(data) }
+                        nextStep={ () => this.nextStep() } />
+            case 4:
+                return <Notifier
+                        saveValues={ (data) => this.saveValues(data) }
+                        nextStep={ () => this.nextStep() } />
+            case 5:
                 return <Success
 						email={ this.state.data.email } />
         }

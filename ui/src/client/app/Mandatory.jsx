@@ -15,6 +15,8 @@ class Mandatory extends React.Component {
     render () {
         return (
             <div className="container">
+              <div className="well bs-component">
+                <legend>Select target</legend>
 
                 <div className="form-group label-floating">
                     <label className="control-label">Name</label>
@@ -38,6 +40,7 @@ class Mandatory extends React.Component {
                     <div className="ripple-container" />
                 </button>
 
+              </div>
             </div>
         )
     }
