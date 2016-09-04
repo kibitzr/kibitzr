@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactTimeout from 'react-timeout';
 
 
 class Fetcher extends React.Component {
@@ -78,4 +79,4 @@ class Fetcher extends React.Component {
   }
 }
 
-export default ReactTimeout(Mandatory)
+export default ReactTimeout(Fetcher)
