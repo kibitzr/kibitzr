@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 class Fetcher extends React.Component {
 
     constructor(props) {
@@ -11,19 +12,56 @@ class Fetcher extends React.Component {
 
     render () {
         return (
-            <div>
-                <label>Fetcher type</label> 
+            <div className="form-group">
 
-                <select ref="format" defaultValue="asis">
-                    <option value="asis">As is</option>
-                    <option value="json">JSON</option>
-                    <option value="html">HTML using Firefox</option>
-                    <option value="text">Text using Firefox</option>
-                </select>
+                  <div className="radio">
+                    <label>
+                      <input type="radio"
+                             name="format"
+                             ref="format"
+                             value="asis" />
+                      <span className="circle"></span><span className="check"></span>
+                      As is
+                    </label>
+                  </div>
 
-                <button onClick={ (e) => this.saveAndContinue(e) }>
+                  <div className="radio">
+                    <label>
+                      <input type="radio"
+                             name="format"
+                             ref="format"
+                             value="json" />
+                      <span className="circle"></span><span className="check"></span>
+                      JSON
+                    </label>
+                  </div>
+
+                  <div className="radio">
+                    <label>
+                      <input type="radio"
+                             ref="format"
+                             name="format"
+                             value="html" />
+                      <span className="circle"></span><span className="check"></span>
+                      HTML using Firefox
+                    </label>
+                  </div>
+                  <div className="radio">
+                    <label>
+                      <input type="radio"
+                             ref="format"
+                             name="format"
+                             value="text" />
+                      <span className="circle"></span><span className="check"></span>
+                      Text using Firefox
+                    </label>
+                  </div>
+
+                <button className="btn btn-raised btn-primary"
+                        onClick={ (e) => this.saveAndContinue(e) }>
                     Save and Continue
                 </button>
+
             </div>
         )
     }
@@ -36,8 +74,8 @@ class Fetcher extends React.Component {
     }
 
     this.props.saveValues(data)
-    this.props.nextStep()
+    this.props.setTimeout(this.props.nextStep, 250);
   }
 }
 
-module.exports = Fetcher
+export default ReactTimeout(Mandatory)

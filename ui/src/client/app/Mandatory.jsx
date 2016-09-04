@@ -1,4 +1,6 @@
 import React from 'react';
+import ReactTimeout from 'react-timeout';
+
 
 class Mandatory extends React.Component {
 
@@ -30,9 +32,10 @@ class Mandatory extends React.Component {
                         defaultValue={ this.state.url } />
                 </div>
 
-                <button className="btn btn-primary"
+                <button className="btn btn-raised btn-primary"
                         onClick={ (e) => this.saveAndContinue(e) }>
                     Save and Continue
+                    <div className="ripple-container" />
                 </button>
 
             </div>
@@ -41,15 +44,13 @@ class Mandatory extends React.Component {
 
   saveAndContinue (e) {
     e.preventDefault()
-
     var data = {
       name: this.refs.name.value,
       url: this.refs.url.value,
     }
-
     this.props.saveValues(data)
-    this.props.nextStep()
+    this.props.setTimeout(this.props.nextStep, 250);
   }
 }
 
-module.exports = Mandatory
+export default ReactTimeout(Mandatory)
