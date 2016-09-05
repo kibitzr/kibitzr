@@ -29,6 +29,7 @@ class Notifier extends React.Component {
                              name="mailgun"
                              ref="mailgun"
                              value="mailgun" />
+                      <span className="checkbox-material"><span className="check"></span></span>
                       Mailgun &mdash; e-mail <a href="http://www.mailgun.com/">service</a> by
                       RackSpace.
                       (requires registration).

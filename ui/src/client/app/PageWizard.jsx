@@ -12,7 +12,7 @@ class PageWizard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            step: 4,
+            step: 1,
             data: {}
         }
     }
