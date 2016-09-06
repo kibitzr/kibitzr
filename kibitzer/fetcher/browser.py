@@ -46,9 +46,9 @@ def browser(conf):
             elem = driver.find_element_by_xpath(xpath)
         html = elem.get_attribute('outerHTML')
         if output_format == 'text':
-            return sanitize(html)
+            return True, sanitize(html)
         elif output_format == 'html':
-            return html
+            return True, html
 
 
 def sanitize(html):

@@ -7,8 +7,9 @@ def simple(conf):
     url = conf['url']
     output_format = conf.get('format', 'asis')
     response = requests.get(url)
-    if output_format == 'json':
-        return json.dumps(
+    ok = (response.status_code == 200)
+    if ok and output_format == 'json':
+        return ok, json.dumps(
             response.json(),
             indent=True,
             sort_keys=True,
@@ -16,4 +17,4 @@ def simple(conf):
             # encoding='utf-8',
         )
     else:
-        return response.text
+        return ok, response.text

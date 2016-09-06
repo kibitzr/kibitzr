@@ -18,7 +18,7 @@ FETCHERS = {
 
 def fetch(conf):
     try:
-        return True, FETCHERS[conf.get('format', 'asis')](conf)
+        return FETCHERS[conf.get('format', 'asis')](conf)
     except Exception:
         logger.exception(
             "Exception occured while fetching page"
