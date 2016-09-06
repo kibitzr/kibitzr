@@ -8,6 +8,8 @@ logger = logging.getLogger(__name__)
 
 
 class ReloadableSettings(object):
+    _instances = {}
+
     def __init__(self, filename, creds_filename):
         self.filename = filename
         self.creds_filename = creds_filename
@@ -15,6 +17,13 @@ class ReloadableSettings(object):
         self.notifiers = None
         self.creds = None
         self.reread()
+
+    @classmethod
+    def instance(cls, filename, creds_filename):
+        key = (filename, creds_filename)
+        if key not in cls._instances:
+            cls._instances[key] = cls(filename, creds_filename)
+        return cls._instances[key]
 
     def reread(self):
         """
@@ -71,7 +80,8 @@ class ReloadableSettings(object):
         return False
 
 
-settings = ReloadableSettings('kibitzer.yml', 'kibitzer-creds.yml')
+def settings():
+    return ReloadableSettings.instance('kibitzer.yml', 'kibitzer-creds.yml')
 
 
 logging.config.dictConfig({

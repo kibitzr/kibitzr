@@ -27,14 +27,14 @@ def main(once=False, log_level=logging.INFO):
             if interrupted:
                 break
             if reload_conf_pending:
-                settings.reread()
+                settings().reread()
                 reload_conf_pending = False
             logger.debug("Configration: %r", settings.pages)
-            check_all_pages(settings.pages)
+            check_all_pages(settings().pages)
             if once or interrupted:
                 break
             else:
-                schedule_checks(settings.pages)
+                schedule_checks(settings().pages)
                 logger.info("Starting infinite loop")
                 while not reload_conf_pending:
                     if interrupted:

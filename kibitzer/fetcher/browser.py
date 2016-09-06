@@ -85,4 +85,4 @@ def virtual_buffer():
 def run_scenario(driver, code):
     logger.info("Executing custom scenario")
     logger.debug(code)
-    exec(code, {'driver': driver, 'creds': settings.creds})
+    exec(code, {'driver': driver, 'creds': settings().creds})
