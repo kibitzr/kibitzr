@@ -19,7 +19,18 @@ class Browser extends React.Component {
               <div className="well bs-component">
                 <legend>Setup Firefox fetcher</legend>
 
-                <div className="form-group" style={{ paddingBottom: '36px' }}>
+                <p>
+                    You can add optional Selenium scenario.
+                    It is a regular Python script.<br />
+                    You have global variable <code>driver</code> which
+                    references <a href="http://selenium-python.readthedocs.io/api.html">
+                        Selenium Firefox webdriver
+                    </a>.<br />
+                    It will be executed right after target page is loaded.
+                    Leave this field blank if no user interactions are required.
+                </p>
+
+                <div className="form-group">
                     <label htmlFor="scenario" className="control-label">
                         Selenium scenario
                     </label>
@@ -27,15 +38,6 @@ class Browser extends React.Component {
                               rows="7"
                               ref="scenario"
                               style={{ fontFamily: 'monospace' }} />
-                    <span className="help-block">
-                        It is regular Python script.
-                        You have global variable <code>driver</code> which
-                        references <a href="http://selenium-python.readthedocs.io/api.html">
-                            Selenium Firefox webdriver
-                        </a>.<br />
-                        It will be executed right after target page is loaded.
-                        Leave this field blank if no user interactions are required.
-                    </span>
                 </div>
 
                 <p>
