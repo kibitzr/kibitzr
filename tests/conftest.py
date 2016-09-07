@@ -1,7 +1,10 @@
 import pytest
-from mock import patch
 from .target.server import start_server, stop_server
 from kibitzer.fetcher import cleanup_fetchers
+try:
+    from unittest.mock import patch
+except ImportError:
+    from mock import patch
 
 
 server_addess = None
