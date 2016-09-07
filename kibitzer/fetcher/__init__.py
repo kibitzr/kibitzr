@@ -1,18 +1,18 @@
 import logging
 import traceback
 
-from .browser import browser, cleanup
-from .simple import simple
+from .browser import firefox_fetcher, cleanup
+from .simple import simple_fetcher
 
 
 logger = logging.getLogger(__name__)
 
 
 FETCHERS = {
-    'asis': simple,
-    'json': simple,
-    'text': browser,
-    'html': browser,
+    'asis': simple_fetcher,
+    'json': simple_fetcher,
+    'text': firefox_fetcher,
+    'html': firefox_fetcher,
 }
 
 

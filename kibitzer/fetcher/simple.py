@@ -3,7 +3,7 @@ import json
 import requests
 
 
-def simple(conf):
+def simple_fetcher(conf):
     url = conf['url']
     output_format = conf.get('format', 'asis')
     response = requests.get(url)

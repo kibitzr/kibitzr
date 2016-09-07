@@ -27,7 +27,7 @@ def cleanup():
         firefox_instance['xvfb_display'].stop()
 
 
-def browser(conf):
+def firefox_fetcher(conf):
     url = conf['url']
     output_format = conf.get('format', 'html')
     delay = conf.get('delay')

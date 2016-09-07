@@ -8,7 +8,7 @@ from ..conf import settings
 logger = logging.getLogger(__name__)
 
 
-def post_mailgun(conf, report):
+def post_mailgun(conf, report, **kwargs):
     mailgun = settings().notifiers.get('mailgun', {})
     mailgun.update(settings().creds.get('mailgun', {}))
     subject = "Kibitzer update for " + conf['name']

@@ -6,7 +6,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def post_bash(code, report):
+def post_bash(code, report, **kwargs):
     logger.info("Executing custom notifier")
     logger.debug(code)
     with tempfile.NamedTemporaryFile() as fp:
