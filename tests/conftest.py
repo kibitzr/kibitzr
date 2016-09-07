@@ -1,9 +1,17 @@
 import pytest
+from mock import patch
 from .target.server import start_server, stop_server
 from kibitzer.fetcher import cleanup_fetchers
 
 
 server_addess = None
+
+
+class SettingsMock(object):
+    def __init__(self):
+        self.pages = []
+        self.notifiers = {}
+        self.creds = {}
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -12,6 +20,10 @@ def target_website(request):
     server_process, server_addess = start_server()
     request.addfinalizer(cleanup_fetchers)
     request.addfinalizer(lambda: stop_server(server_process))
+    patch_object = patch("kibitzer.fetcher.browser.settings",
+                         return_value=SettingsMock())
+    patch_object.start()
+    request.addfinalizer(lambda: patch_object.stop())
 
 
 @pytest.fixture
