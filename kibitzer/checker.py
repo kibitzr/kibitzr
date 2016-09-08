@@ -25,8 +25,9 @@ class Checker(object):
     def check(self):
         status_code, content = self.fetch()
         report = self.make_report(status_code, content)
-        for notifier in self.notifiers:
-            self.notify(notifier, status_code, report)
+        if report:
+            for notifier in self.notifiers:
+                self.notify(notifier, status_code, report)
 
     def fetch(self):
         logger.info("Fetching %r at %r",
