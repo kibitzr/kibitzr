@@ -52,6 +52,7 @@ class PageWizard extends React.Component {
                         nextStep={ () => this.nextStep() } />
             case 5:
                 return <Success
+                        conf={ this.state.data }
 						email={ this.state.data.email } />
         }
     }
