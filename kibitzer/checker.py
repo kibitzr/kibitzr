@@ -42,10 +42,16 @@ class Checker(object):
         return ok, content
 
     def choose_downloader(self):
-        if self.conf.get('scenario'):
+        if self.needs_firefox():
             return firefox_fetcher
         else:
             return simple_fetcher
+
+    def needs_firefox(self):
+        return any(
+            self.conf.get(key)
+            for key in ('scenario', 'delay', 'xpath', 'tag')
+        )
 
     def make_report(self, ok, content):
         if ok:
