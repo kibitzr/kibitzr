@@ -23,23 +23,23 @@ class Checker(object):
                 for conf in pages]
 
     def check(self):
-        status_code, content = self.fetch()
-        report = self.make_report(status_code, content)
+        ok, content = self.fetch()
+        report = self.make_report(ok, content)
         if report:
             for notifier in self.notifiers:
-                self.notify(notifier, status_code, report)
+                self.notify(notifier, ok, report)
 
     def fetch(self):
         logger.info("Fetching %r at %r",
                     self.conf['name'], self.conf['url'])
         try:
-            status_code, content = self.downloader(self.conf)
+            ok, content = self.downloader(self.conf)
         except Exception:
             logger.exception(
                 "Exception occured while fetching page"
             )
-            status_code, content = None, traceback.format_exc()
-        return status_code, content
+            ok, content = None, traceback.format_exc()
+        return ok, content
 
     def choose_downloader(self):
         if self.conf.get('scenario'):
@@ -47,8 +47,8 @@ class Checker(object):
         else:
             return simple_fetcher
 
-    def make_report(self, status_code, content):
-        if self.http_ok(status_code):
+    def make_report(self, ok, content):
+        if ok:
             return self.persistent_changes(content)
         else:
             return self.report_error(content)
@@ -61,10 +61,6 @@ class Checker(object):
             return self.mute
         else:  # output
             return self.persistent_changes
-
-    @staticmethod
-    def http_ok(status_code):
-        return (status_code is not None) and (200 <= status_code < 300)
 
     def persistent_changes(self, content):
         return report_changes(self.conf, content)
@@ -105,11 +101,11 @@ class Checker(object):
                 logger.error("Unknown notifier %r", key)
         return result
 
-    def notify(self, notifier, status_code, report):
+    def notify(self, notifier, ok, report):
         try:
             notifier(
                 conf=self.conf,
-                status_code=status_code,
+                ok=ok,
                 report=report,
             )
         except Exception:
