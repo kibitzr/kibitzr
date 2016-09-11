@@ -39,6 +39,8 @@ class PageHistory(object):
     def write(self, content):
         with open(self.target, 'w', encoding='utf-8') as fp:
             fp.write(content)
+            if not content.endswith('\n'):
+                fp.write('\n')
 
     def commit(self):
         self.git('add', '-A', '.')
