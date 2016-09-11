@@ -1,5 +1,5 @@
 import requests
-from kibitzer.fetcher import fetch
+from kibitzer.checker import Checker
 
 
 def test_server_is_alive(target):
@@ -9,7 +9,7 @@ def test_server_is_alive(target):
 
 
 def test_simple_fetcher(target, json_conf):
-    ok, content = fetch(json_conf)
+    ok, content = Checker(json_conf).check()
     assert ok is True
     assert content == (
         '{\n'
@@ -18,20 +18,20 @@ def test_simple_fetcher(target, json_conf):
     )
 
 
-def test_browser_text_fetcher(target, html_text_conf):
-    html_text_conf.update({
+def test_tag_transformer(target, html_text_conf):
+    html_text_conf['transform'].insert(0, {
         'tag': 'div',
     })
-    ok, content = fetch(html_text_conf)
+    ok, content = Checker(html_text_conf).check()
     assert ok is True
     assert content == 'Hello world!'
 
 
-def test_browser_xpath(target, html_text_conf):
-    html_text_conf.update({
-        'xpath': '//*[contains(@class, "footer")]',
+def test_browser_css(target, html_text_conf):
+    html_text_conf['transform'].insert(0, {
+        'css': '.footer',
     })
-    ok, content = fetch(html_text_conf)
+    ok, content = Checker(html_text_conf).check()
     assert ok is True
     assert content == 'Footer content'
 
@@ -40,6 +40,6 @@ def test_scenario(target, html_text_conf):
     html_text_conf.update({
         'scenario': 'driver.find_element_by_id("page-link").click()'
     })
-    ok, content = fetch(html_text_conf)
+    ok, content = Checker(html_text_conf).check()
     assert ok is True
     assert content == 'Another page'

@@ -40,7 +40,7 @@ def json_conf(target):
     return {
         'name': 'Test page',
         'url': "http://{0}:{1}/api.json".format(*target),
-        'format': 'json',
+        'transform': ['json'],
     }
 
 
@@ -49,5 +49,5 @@ def html_text_conf(target):
     return {
         'name': 'Index',
         'url': "http://{0}:{1}/index.html".format(*target),
-        'format': 'text',
+        'transform': ['text'],
     }

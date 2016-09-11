@@ -35,6 +35,7 @@ class Checker(object):
         ok, report = self.transform(ok, content)
         if ok:
             self.notify(report=report)
+        return ok, report
 
     def fetch(self):
         logger.info("Fetching %r at %r",
