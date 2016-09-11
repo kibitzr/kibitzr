@@ -32,7 +32,9 @@ class PageHistory(object):
     def report_changes(self, content):
         self.write(content)
         if self.commit():
-            return self.last_log()
+            return True, self.last_log()
+        else:
+            return False, None
 
     def write(self, content):
         with open(self.target, 'w', encoding='utf-8') as fp:

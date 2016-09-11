@@ -3,8 +3,15 @@ import logging
 import traceback
 
 from .fetcher import firefox_fetcher, simple_fetcher
+from .notifier import (
+    post_mailgun,
+    post_python,
+    post_bash,
+    post_gitter,
+    post_slack,
+)
 from .storage import report_changes
-from .notifier import post_mailgun, post_python, post_bash
+from .transformer import pipeline_factory
 
 
 logger = logging.getLogger(__name__)
@@ -13,9 +20,10 @@ logger = logging.getLogger(__name__)
 class Checker(object):
     def __init__(self, conf):
         self.conf = conf
-        self.downloader = self.choose_downloader()
-        self.report_error = self.choose_error_reporter()
+        self.downloader = self.downloader_factory()
+        self.report_error = self.error_reporter_factory()
         self.notifiers = self.create_notifiers()
+        self.transform_pipeline = pipeline_factory(self.conf)
 
     @staticmethod
     def create_from_settings(pages):
@@ -24,10 +32,9 @@ class Checker(object):
 
     def check(self):
         ok, content = self.fetch()
-        report = self.make_report(ok, content)
-        if report:
-            for notifier in self.notifiers:
-                self.notify(notifier, ok, report)
+        ok, report = self.transform(ok, content)
+        if ok:
+            self.notify(report=report)
 
     def fetch(self):
         logger.info("Fetching %r at %r",
@@ -38,10 +45,10 @@ class Checker(object):
             logger.exception(
                 "Exception occured while fetching page"
             )
-            ok, content = None, traceback.format_exc()
+            ok, content = False, traceback.format_exc()
         return ok, content
 
-    def choose_downloader(self):
+    def downloader_factory(self):
         if self.needs_firefox():
             return firefox_fetcher
         else:
@@ -50,16 +57,16 @@ class Checker(object):
     def needs_firefox(self):
         return any(
             self.conf.get(key)
-            for key in ('scenario', 'delay', 'xpath', 'tag')
+            for key in ('scenario', 'delay')
         )
 
-    def make_report(self, ok, content):
-        if ok:
-            return self.persistent_changes(content)
-        else:
-            return self.report_error(content)
+    def transform(self, ok, content):
+        ok, content = self.transform_pipeline(ok, content)
+        if not ok:
+            content = self.report_error(content)
+        return ok, content
 
-    def choose_error_reporter(self):
+    def error_reporter_factory(self):
         error_policy = self.conf.get('error', 'notify')
         if error_policy == 'notify':
             return self.noop
@@ -81,40 +88,43 @@ class Checker(object):
 
     def create_notifiers(self):
         notifiers_conf = self.conf.get('notify', [])
-        if notifiers_conf:
-            logger.info(
-                "Sending notification for %r",
-                self.conf["name"],
-            )
-        else:
+        if not notifiers_conf:
             logger.warning(
                 "No notifications configured for %r",
                 self.conf['name'],
             )
-        result = []
-        for notifier in notifiers_conf:
-            try:
-                key, value = next(iter(notifier.items()))
-            except AttributeError:
-                key, value = notifier, None
-            if key == 'python':
-                result.append(functools.partial(post_python, code=value))
-            elif key == 'bash':
-                result.append(functools.partial(post_bash, code=value))
-            elif key == 'mailgun':
-                result.append(post_mailgun)
-            else:
-                logger.error("Unknown notifier %r", key)
-        return result
+        return filter(None, [
+            self.notifier_factory(notifier_conf)
+            for notifier_conf in notifiers_conf
+        ])
 
-    def notify(self, notifier, ok, report):
+    @staticmethod
+    def notifier_factory(notifier_conf):
         try:
-            notifier(
-                conf=self.conf,
-                ok=ok,
-                report=report,
-            )
-        except Exception:
-            logger.exception(
-                "Exception occured during sending notification"
-            )
+            key, value = next(iter(notifier_conf.items()))
+        except AttributeError:
+            key, value = notifier_conf, None
+        if key == 'python':
+            return functools.partial(post_python, code=value)
+        elif key == 'bash':
+            return functools.partial(post_bash, code=value)
+        elif key == 'mailgun':
+            return post_mailgun
+        elif key == 'gitter':
+            return post_gitter
+        elif key == 'slack':
+            return post_slack
+        else:
+            logger.error("Unknown notifier %r", key)
+
+    def notify(self, report, **kwargs):
+        for notifier in self.notifiers:
+            try:
+                notifier(
+                    conf=self.conf,
+                    report=report,
+                )
+            except Exception:
+                logger.exception(
+                    "Exception occured during sending notification"
+                )

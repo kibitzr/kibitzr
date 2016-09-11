@@ -4,8 +4,6 @@ from contextlib import contextmanager
 
 from selenium import webdriver
 from xvfbwrapper import Xvfb
-from bs4 import BeautifulSoup
-
 from ..conf import settings
 
 
@@ -29,10 +27,7 @@ def cleanup():
 
 def firefox_fetcher(conf):
     url = conf['url']
-    output_format = conf.get('format', 'html')
     delay = conf.get('delay')
-    tag_name = conf.get('tag')
-    xpath = conf.get('xpath', '//*')
     scenario = conf.get('scenario')
     with firefox() as driver:
         driver.get(url)
@@ -40,23 +35,8 @@ def firefox_fetcher(conf):
             run_scenario(driver, scenario)
         if delay:
             time.sleep(delay)
-        if tag_name:
-            elem = driver.find_element_by_tag_name(tag_name)
-        else:
-            elem = driver.find_element_by_xpath(xpath)
-        html = elem.get_attribute('outerHTML')
-        if output_format == 'text':
-            return True, sanitize(html)
-        elif output_format == 'html':
-            return True, html
-
-
-def sanitize(html):
-    return u'\n'.join([
-        line
-        for line in BeautifulSoup(html, "html.parser").stripped_strings
-        if line
-    ])
+        html = driver.find_element_by_xpath("//*").get_attribute("outerHTML")
+        return True, html
 
 
 @contextmanager
