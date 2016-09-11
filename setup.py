@@ -38,6 +38,7 @@ setup(
         'xvfbwrapper',
         'bs4',
         'six',
+        'lxml',
     ],
     license="MIT license",
     zip_safe=False,

@@ -1,5 +1,6 @@
 import functools
 import json
+from lxml import etree
 
 import six
 from bs4 import BeautifulSoup
@@ -36,6 +37,8 @@ def transformer_factory(conf, rule):
         name, value = rule, None
     if name == 'css':
         return functools.partial(css_selector, value)
+    elif name == 'xpath':
+        return functools.partial(xpath_selector, value)
     elif name == 'tag':
         return functools.partial(tag_selector, value)
     elif name == 'text':
@@ -74,6 +77,20 @@ def css_selector(selector, html):
     element = soup.select_one(selector)
     if element:
         return True, six.text_type(element)
+    else:
+        return False, html
+
+
+def xpath_selector(selector, html):
+    root = etree.fromstring(html, parser=etree.HTMLParser())
+    elements = root.xpath(selector)
+    if elements:
+        return True, etree.tostring(
+            next(iter(elements)),
+            method='html',
+            pretty_print=True,
+            encoding='unicode',
+        )
     else:
         return False, html
 

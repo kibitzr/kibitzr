@@ -36,6 +36,15 @@ def test_browser_css(target, html_text_conf):
     assert content == 'Footer content'
 
 
+def test_browser_xpath(target, html_text_conf):
+    html_text_conf['transform'].insert(0, {
+        'xpath': './/*[@class="footer"]',
+    })
+    ok, content = Checker(html_text_conf).check()
+    assert ok is True
+    assert content == 'Footer content'
+
+
 def test_scenario(target, html_text_conf):
     html_text_conf.update({
         'scenario': 'driver.find_element_by_id("page-link").click()'
