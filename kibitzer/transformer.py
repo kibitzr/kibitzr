@@ -47,6 +47,8 @@ def transformer_factory(conf, rule):
         return PageHistory(conf).report_changes
     elif name == 'json':
         return pretty_json
+    elif name == 'sort':
+        return sort_lines
     else:
         raise RuntimeError(
             "Unknown transformer: %r" % (name,)
@@ -100,5 +102,13 @@ def extract_text(html):
     return True, u'\n'.join([
         line
         for line in strings
+        if line
+    ])
+
+
+def sort_lines(text):
+    return True, u''.join([
+        line + u'\n'
+        for line in sorted(text.splitlines())
         if line
     ])
