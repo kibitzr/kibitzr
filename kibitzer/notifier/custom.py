@@ -6,7 +6,7 @@ from ..conf import settings
 logger = logging.getLogger(__name__)
 
 
-def post_python(code, report, **kwargs):
+def post_python(conf, code, report, **kwargs):
     logger.info("Executing custom notifier")
     logger.debug(code)
-    exec(code, {'text': report, 'creds': settings().creds})
+    exec(code, {'text': report, 'conf': conf, 'creds': settings().creds})
