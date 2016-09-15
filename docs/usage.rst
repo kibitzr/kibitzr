@@ -14,6 +14,7 @@ Usage
 
 
 CLI reads its configuration from ``kibitzer.yml`` file in current working directory.
+Optionally ``kibitzer-creds.yml`` can be used to separate credentials from general configuration.
 
 YAML file must have following structure:
 
@@ -25,22 +26,18 @@ YAML file must have following structure:
    
    Other keys are optional:
    
-   1. ``format`` - page contents format for reporting changes.
-      May be one of: html, text, json, asis.
-      ``json`` and ``asis`` formats are using requests_.get query and,
-      while being useful for simple HTTP(s) requests,
-      don't provide great flexibility.
-      ``html`` format uses FireFox browser to open given ``url``,
-      then it delays for ``delay`` seconds to make sure all Javascript finished loading,
-      then it finds first ``tag`` or ``xpath`` on loaded page,
-      and returns it's contents.
-      ``text`` format is the same as ``html`` but before returning, HTML is converted
-      to plain text using BeautifulSoup_ library.
-   2. ``period`` - how often to check the URL for changes.
-   3. ``notify`` must be a list of notifiers to use when the page is changed.
+   1. ``period`` - how often to check the URL for changes.
+   2. ``notify`` must be a list of notifiers to use when the page is changed.
       Currently implemented notifiers are:
-      1. ``python`` - execute any python code, having change report inside ``text`` global variable.
-      2. ``mailgun`` - send an e-mail through mailgun_.
+      1. ``python`` - execute any python code, having change report inside ``text`` global variable,
+           page configuration in ``conf`` dictionary and credentials in ``creds``.
+      2. ``bash`` - execute any bash script report is passed to stdin.
+      3. ``mailgun`` - send an e-mail through mailgun_.
+      4. ``slack`` - send an e-mail through slack_.
+   3. ``transform`` - list of transformations to sequentially apply to page's content.
+         Here are some available transformations: css, xpath, tag, text, changes, json, sort.
+   4. ``delay`` - number of seconds to wait after page loaded in browser to process Javascipt.
+   5. ``scenario`` - python scenario acting on selenium_ driver after page load.
 
 2. Key ``notifiers`` must contain dictionary of notifiers configurations.
 
@@ -52,28 +49,34 @@ Example configuration:
     
       - name: NASA awards on preview
         url: http://preview.ncbi.nlm.nih.gov/pmc/utils/granthub/award/?authority.code=nasa&format=json
-        format: json
+        transform:
+          - json
+          - changes
         period: 30
         notify:
           - mailgun
     
       - name: Rocket launches
         url: http://www.nasa.gov/centers/kennedy/launchingrockets/index.html
-        format: text
+        transform: changes
         period: 600
         notify:
           - mailgun
     
     notifiers:
     
+        # This can be moved to kibitzer-creds.yml:
         mailgun:
             key: <mailgun api key>
             domain: <your domain>
             to: <your email>
 
-This configuration tells kibitzer to check URL at http://preview... every 5 minutes (300 seconds)
+This configuration tells kibitzer to check URL at http://preview... every 5 minutes (300 seconds),
+prettify JSON and compare against previously saved result. git diff output is sent through mailgun.
 
 
 .. _requests: http://docs.python-requests.org/
 .. _BeautifulSoup: https://www.crummy.com/software/BeautifulSoup/
 .. _mailgun: https://mailgun.com/
+.. _slack: https://slack.com/
+.. _selenium: https://selenium-python.readthedocs.io/api.html
