@@ -29,13 +29,15 @@ YAML file must have following structure:
    1. ``period`` - how often to check the URL for changes.
    2. ``notify`` must be a list of notifiers to use when the page is changed.
       Currently implemented notifiers are:
+      
       1. ``python`` - execute any python code, having change report inside ``text`` global variable,
-           page configuration in ``conf`` dictionary and credentials in ``creds``.
+         page configuration in ``conf`` dictionary and credentials in ``creds``.
       2. ``bash`` - execute any bash script report is passed to stdin.
       3. ``mailgun`` - send an e-mail through mailgun_.
       4. ``slack`` - send an e-mail through slack_.
+
    3. ``transform`` - list of transformations to sequentially apply to page's content.
-         Here are some available transformations: css, xpath, tag, text, changes, json, sort.
+      Here are some available transformations: css, xpath, tag, text, changes, json, sort.
    4. ``delay`` - number of seconds to wait after page loaded in browser to process Javascipt.
    5. ``scenario`` - python scenario acting on selenium_ driver after page load.
 
