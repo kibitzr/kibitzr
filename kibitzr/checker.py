@@ -2,13 +2,13 @@ import functools
 import logging
 import traceback
 
-from .fetcher import firefox_fetcher, simple_fetcher
+from .fetcher import firefox_fetcher, SessionFetcher
 from .notifier import (
     post_mailgun,
     post_python,
     post_bash,
     post_gitter,
-    post_slack,
+    SlackSession,
 )
 from .storage import report_changes
 from .transformer import pipeline_factory
@@ -53,7 +53,7 @@ class Checker(object):
         if self.needs_firefox():
             return firefox_fetcher
         else:
-            return simple_fetcher
+            return SessionFetcher(self.conf).fetch
 
     def needs_firefox(self):
         return any(
@@ -114,7 +114,7 @@ class Checker(object):
         elif key == 'gitter':
             return post_gitter
         elif key == 'slack':
-            return post_slack
+            return SlackSession().post
         else:
             logger.error("Unknown notifier %r", key)
 

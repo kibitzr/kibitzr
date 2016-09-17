@@ -20,3 +20,27 @@ def simple_fetcher(conf):
                 continue
         ok = (response.status_code == 200)
         return ok, response.text
+
+
+class SessionFetcher(object):
+    def __init__(self, conf):
+        self.conf = conf
+        self.session = requests.Session()
+        self.session.headers.update({
+            'User-agent': 'Kibitzer/' + version,
+        })
+        self.url = conf['url']
+
+    def fetch(self, *args, **kwargs):
+        retries = 3
+        for retry in range(retries):
+            try:
+                response = self.session.get(self.url)
+            except requests.HTTPError:
+                if retry == retries - 1:
+                    raise
+                else:
+                    sleep(5)
+                    continue
+            ok = (response.status_code == 200)
+            return ok, response.text
