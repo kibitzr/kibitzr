@@ -8,12 +8,13 @@ Welcome to kibitzr's documentation!
 
 Contents:
 
+.. include:: ../README.rst
+.. installation:: installation.rst
+.. usage:: usage.rst
+
 .. toctree::
    :maxdepth: 2
 
-   readme
-   installation
-   usage
    receipts
    contributing
    authorshistory
