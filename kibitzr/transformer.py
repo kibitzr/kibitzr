@@ -58,7 +58,7 @@ def transformer_factory(conf, rule):
 def pretty_json(text):
     return True, json.dumps(
         json.loads(text),
-        indent=True,
+        indent=2,
         sort_keys=True,
         ensure_ascii=False,
         # encoding='utf-8',
