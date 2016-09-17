@@ -8,12 +8,13 @@ def test_server_is_alive(target):
     assert response.status_code == 200
 
 
-def test_simple_fetcher(target, json_conf):
+def test_simple_fetcher_with_pretty_json(target, json_conf):
     ok, content = Checker(json_conf).check()
     assert ok is True
     assert content == (
         '{\n'
-        ' "key": "value"\n'
+        '  "first name": "Peter",\n'
+        '  "last name": "Demin"\n'
         '}'
     )
 
