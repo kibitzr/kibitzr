@@ -46,7 +46,7 @@ class Notifier extends React.Component {
                               style={{ fontFamily: 'monospace' }} />
                     <span className="help-block">
                         You have global variable <code>text</code> referencing change report
-                        and <code>creds</code> dictionary with contents of <code>kibitzer-creds.yml</code> file.
+                        and <code>creds</code> dictionary with contents of <code>kibitzr-creds.yml</code> file.
                     </span>
                 </div>
 

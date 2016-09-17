@@ -1,5 +1,5 @@
 import requests
-from kibitzer.checker import Checker
+from kibitzr.checker import Checker
 
 
 def test_server_is_alive(target):

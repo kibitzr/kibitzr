@@ -1,28 +1,28 @@
 ===============================
-kibitzer
+kibitzr
 ===============================
 
-.. image:: https://badges.gitter.im/kibitzer/Lobby.svg
-   :alt: Join the chat at https://gitter.im/kibitzer/Lobby
-   :target: https://gitter.im/kibitzer/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
+.. image:: https://badges.gitter.im/kibitzr/Lobby.svg
+   :alt: Join the chat at https://gitter.im/kibitzr/Lobby
+   :target: https://gitter.im/kibitzr/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
 
 
-.. image:: https://img.shields.io/pypi/v/kibitzer.svg
-        :target: https://pypi.python.org/pypi/kibitzer
+.. image:: https://img.shields.io/pypi/v/kibitzr.svg
+        :target: https://pypi.python.org/pypi/kibitzr
 
-.. image:: https://img.shields.io/travis/peterdemin/kibitzer.svg
-        :target: https://travis-ci.org/peterdemin/kibitzer
+.. image:: https://img.shields.io/travis/peterdemin/kibitzr.svg
+        :target: https://travis-ci.org/peterdemin/kibitzr
 
-.. image:: https://readthedocs.org/projects/kibitzer/badge/?version=latest
-        :target: https://kibitzer.readthedocs.io/en/latest/?badge=latest
+.. image:: https://readthedocs.org/projects/kibitzr/badge/?version=latest
+        :target: https://kibitzr.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
 
-.. image:: https://pyup.io/repos/github/peterdemin/kibitzer/shield.svg
-     :target: https://pyup.io/repos/github/peterdemin/kibitzer/
+.. image:: https://pyup.io/repos/github/peterdemin/kibitzr/shield.svg
+     :target: https://pyup.io/repos/github/peterdemin/kibitzr/
      :alt: Updates
 
-.. image:: https://pyup.io/repos/github/peterdemin/kibitzer/python-3-shield.svg
-     :target: https://pyup.io/repos/github/peterdemin/kibitzer/
+.. image:: https://pyup.io/repos/github/peterdemin/kibitzr/python-3-shield.svg
+     :target: https://pyup.io/repos/github/peterdemin/kibitzr/
           :alt: Python 3
 
 
@@ -30,7 +30,7 @@ Self hosted web page changes monitoring
 
 
 * Free software: MIT license
-* Documentation: https://kibitzer.readthedocs.io.
+* Documentation: https://kibitzr.readthedocs.io.
 
 
 Features

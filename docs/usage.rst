@@ -4,7 +4,7 @@ Usage
 
 ::
 
-    kibitzer [OPTIONS]
+    kibitzr [OPTIONS]
     
     Options:
       --once                          Run checks once and exit
@@ -13,8 +13,8 @@ Usage
       --help                          Show this message and exit.
 
 
-CLI reads its configuration from ``kibitzer.yml`` file in current working directory.
-Optionally ``kibitzer-creds.yml`` can be used to separate credentials from general configuration.
+CLI reads its configuration from ``kibitzr.yml`` file in current working directory.
+Optionally ``kibitzr-creds.yml`` can be used to separate credentials from general configuration.
 
 YAML file must have following structure:
 
@@ -67,13 +67,13 @@ Example configuration:
     
     notifiers:
     
-        # This can be moved to kibitzer-creds.yml:
+        # This can be moved to kibitzr-creds.yml:
         mailgun:
             key: <mailgun api key>
             domain: <your domain>
             to: <your email>
 
-This configuration tells kibitzer to check URL at http://preview... every 5 minutes (300 seconds),
+This configuration tells kibitzr to check URL at http://preview... every 5 minutes (300 seconds),
 prettify JSON and compare against previously saved result. git diff output is sent through mailgun.
 
 

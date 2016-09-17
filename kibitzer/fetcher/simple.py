@@ -1,7 +1,7 @@
 from time import sleep
 import requests
 
-from kibitzer import __version__ as version
+from kibitzr import __version__ as version
 
 
 def simple_fetcher(conf):

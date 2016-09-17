@@ -1,6 +1,6 @@
 import pytest
 from .target.server import start_server, stop_server
-from kibitzer.fetcher import cleanup_fetchers
+from kibitzr.fetcher import cleanup_fetchers
 try:
     from unittest.mock import patch
 except ImportError:
@@ -23,7 +23,7 @@ def target_website(request):
     server_process, server_addess = start_server()
     request.addfinalizer(cleanup_fetchers)
     request.addfinalizer(lambda: stop_server(server_process))
-    patch_object = patch("kibitzer.fetcher.browser.settings",
+    patch_object = patch("kibitzr.fetcher.browser.settings",
                          return_value=SettingsMock())
     patch_object.start()
     request.addfinalizer(lambda: patch_object.stop())

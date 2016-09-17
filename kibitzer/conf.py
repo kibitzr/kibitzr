@@ -81,7 +81,7 @@ class ReloadableSettings(object):
 
 
 def settings():
-    return ReloadableSettings.instance('kibitzer.yml', 'kibitzer-creds.yml')
+    return ReloadableSettings.instance('kibitzr.yml', 'kibitzr-creds.yml')
 
 
 logging.config.dictConfig({

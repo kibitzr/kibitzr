@@ -2,7 +2,7 @@ import logging
 
 import click
 
-from kibitzer.main import main as kibitzer_main
+from kibitzr.main import main as kibitzr_main
 
 
 LOG_LEVEL_CODES = {
@@ -21,7 +21,7 @@ LOG_LEVEL_CODES = {
               help="Logging level")
 def main(once, log_level):
     log_level_code = LOG_LEVEL_CODES[log_level]
-    kibitzer_main(once=once, log_level=log_level_code)
+    kibitzr_main(once=once, log_level=log_level_code)
 
 
 if __name__ == "__main__":

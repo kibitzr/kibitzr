@@ -10,7 +10,7 @@ class Success extends React.Component {
               <div className="well bs-component">
                 <legend>Here is your page configuration</legend>
                 <p>
-                    Now copy-paste it to your <code>kibitzer.yml</code>
+                    Now copy-paste it to your <code>kibitzr.yml</code>
                     into <code>pages</code> section.
                 </p>
                 <pre className='yaml'>

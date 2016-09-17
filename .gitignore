@@ -2,8 +2,8 @@
 .ropeproject
 __pycache__
 /pages
-kibitzer.yml
-kibitzer-creds.yml
+kibitzr.yml
+kibitzr-creds.yml
 *.sw[po]
 # Byte-compiled / optimized / DLL files
 *.py[cod]

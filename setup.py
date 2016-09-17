@@ -9,22 +9,22 @@ with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
 setup(
-    name='kibitzer',
+    name='kibitzr',
     version='2.1.0',
     description="Self hosted web page changes monitoring",
     long_description=readme + '\n\n' + history,
     author="Peter Demin",
     author_email='peterdemin@gmail.com',
-    url='https://github.com/peterdemin/kibitzer',
+    url='https://github.com/peterdemin/kibitzr',
     packages=[
-        'kibitzer',
+        'kibitzr',
     ],
     package_dir={
-        'kibitzer': 'kibitzer',
+        'kibitzr': 'kibitzr',
     },
     entry_points={
         'console_scripts': [
-            'kibitzer=kibitzer.cli:main'
+            'kibitzr=kibitzr.cli:main'
         ]
     },
     include_package_data=True,
@@ -42,7 +42,7 @@ setup(
     ],
     license="MIT license",
     zip_safe=False,
-    keywords='kibitzer',
+    keywords='kibitzr',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
