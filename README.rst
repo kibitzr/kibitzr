@@ -17,14 +17,6 @@ kibitzr
         :target: https://kibitzr.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
 
-.. image:: https://pyup.io/repos/github/peterdemin/kibitzr/shield.svg
-     :target: https://pyup.io/repos/github/peterdemin/kibitzr/
-     :alt: Updates
-
-.. image:: https://pyup.io/repos/github/peterdemin/kibitzr/python-3-shield.svg
-     :target: https://pyup.io/repos/github/peterdemin/kibitzr/
-          :alt: Python 3
-
 
 Self hosted web page changes monitoring
 
