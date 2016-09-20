@@ -18,7 +18,8 @@ Contents:
 
    receipts
    contributing
-   authorshistory
+   authors
+   history
 
 Indices and tables
 ==================

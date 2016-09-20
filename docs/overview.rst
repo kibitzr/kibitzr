@@ -31,7 +31,7 @@ Kibitzr can be represented as following sequence of actions:
 3. Run set of notifiers with transformed content.
 
 
-.. _`unified diff`:: https://en.wikipedia.org/wiki/Diff_utility#Unified_format
-.. _git:: https://git-scm.com/
-.. _`CSS selectors`:: http://www.w3schools.com/cssref/css_selectors.asp
-.. _`XPath`:: http://www.w3schools.com/xsl/xpath_syntax.asp
+.. _`unified diff`: https://en.wikipedia.org/wiki/Diff_utility#Unified_format
+.. _git: https://git-scm.com/
+.. _`CSS selectors`: http://www.w3schools.com/cssref/css_selectors.asp
+.. _`XPath`: http://www.w3schools.com/xsl/xpath_syntax.asp
