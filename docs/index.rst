@@ -9,8 +9,9 @@ Welcome to kibitzr's documentation!
 Contents:
 
 .. include:: ../README.rst
-.. installation:: installation.rst
-.. usage:: usage.rst
+.. include:: overview.rst
+.. include:: installation.rst
+.. include:: usage.rst
 
 .. toctree::
    :maxdepth: 2
