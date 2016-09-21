@@ -27,7 +27,10 @@ class PageHistory(object):
             _cwd=self.cwd,
         )
         self.ensure_repo_exists()
-        self.commit_msg = "{name} at {url}".format(**conf)
+        self.commit_msg = "{name} at {url}".format(
+            name=conf['name'],
+            url=conf.get('url'),
+        )
 
     def report_changes(self, content):
         self.write(content)

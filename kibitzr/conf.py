@@ -15,7 +15,7 @@ class ReloadableSettings(object):
         self.creds_filename = creds_filename
         self.pages = None
         self.notifiers = None
-        self.creds = None
+        self.creds = {}
         self.reread()
 
     @classmethod

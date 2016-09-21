@@ -2,7 +2,11 @@ import functools
 import logging
 import traceback
 
-from .fetcher import firefox_fetcher, SessionFetcher
+from .fetcher import (
+    firefox_fetcher,
+    SessionFetcher,
+    fetch_bash,
+)
 from .notifier import (
     post_mailgun,
     post_python,
@@ -38,8 +42,12 @@ class Checker(object):
         return ok, report
 
     def fetch(self):
-        logger.info("Fetching %r at %r",
-                    self.conf['name'], self.conf['url'])
+        if self.is_script():
+            logger.info("Fetching %r using bash script",
+                        self.conf['name'])
+        else:
+            logger.info("Fetching %r at %r",
+                        self.conf['name'], self.conf['url'])
         try:
             ok, content = self.downloader(self.conf)
         except Exception:
@@ -52,8 +60,16 @@ class Checker(object):
     def downloader_factory(self):
         if self.needs_firefox():
             return firefox_fetcher
+        elif self.is_script():
+            return fetch_bash
         else:
             return SessionFetcher(self.conf).fetch
+
+    def is_script(self):
+        return all((
+            'url' not in self.conf,
+            'script' in self.conf,
+        ))
 
     def needs_firefox(self):
         return any(
