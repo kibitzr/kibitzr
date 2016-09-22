@@ -22,4 +22,8 @@ def fetch_bash(conf, **kwargs):
         logger.debug("Bash stdout: %s", stdout)
         logger.debug("Bash stderr: %s", stderr)
         ok = (result.exit_code == 0)
-        return ok, stdout
+        if ok:
+            report = stdout
+        else:
+            report = u'\n'.join([stdout, stderr])
+        return ok, report
