@@ -13,6 +13,7 @@ logger = logging.getLogger(__name__)
 firefox_instance = {
     'xvfb_display': None,
     'driver': None,
+    'headed_driver': None,
 }
 
 
@@ -21,15 +22,21 @@ def cleanup():
     global firefox_instance
     if firefox_instance['driver'] is not None:
         firefox_instance['driver'].quit()
+        firefox_instance['driver'] = None
+    if firefox_instance['headed_driver'] is not None:
+        firefox_instance['headed_driver'].quit()
+        firefox_instance['headed_driver'] = None
     if firefox_instance['xvfb_display'] is not None:
         firefox_instance['xvfb_display'].stop()
+        firefox_instance['xvfb_display'] = None
 
 
 def firefox_fetcher(conf):
     url = conf['url']
     delay = conf.get('delay')
     scenario = conf.get('scenario')
-    with firefox() as driver:
+    headless = conf.get('headless', True)
+    with firefox(headless) as driver:
         driver.get(url)
         if scenario:
             run_scenario(driver, scenario)
@@ -40,13 +47,18 @@ def firefox_fetcher(conf):
 
 
 @contextmanager
-def firefox():
+def firefox(headless=True):
     global firefox_instance
-    if firefox_instance['xvfb_display'] is None:
-        firefox_instance['xvfb_display'] = virtual_buffer()
-    if firefox_instance['driver'] is None:
-        firefox_instance['driver'] = webdriver.Firefox()
-    yield firefox_instance['driver']
+    if headless:
+        if firefox_instance['xvfb_display'] is None:
+            firefox_instance['xvfb_display'] = virtual_buffer()
+        if firefox_instance['driver'] is None:
+            firefox_instance['driver'] = webdriver.Firefox()
+        yield firefox_instance['driver']
+    else:
+        if firefox_instance['headed_driver'] is None:
+            firefox_instance['headed_driver'] = webdriver.Firefox()
+        yield firefox_instance['headed_driver']
 
 
 def virtual_buffer():
