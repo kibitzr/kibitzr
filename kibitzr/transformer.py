@@ -51,6 +51,8 @@ def transformer_factory(conf, rule):
         return pretty_json
     elif name == 'sort':
         return sort_lines
+    elif name == 'cut':
+        return functools.partial(cut_lines, value)
     else:
         raise RuntimeError(
             "Unknown transformer: %r" % (name,)
@@ -120,6 +122,13 @@ def sort_lines(text):
         line + u'\n'
         for line in sorted(text.splitlines())
         if line
+    ])
+
+
+def cut_lines(last_line, text):
+    return True, u''.join([
+        line + u'\n'
+        for line in text.splitlines()[:last_line]
     ])
 
 
