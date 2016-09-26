@@ -1,3 +1,5 @@
+import sys
+import contextlib
 import functools
 import json
 from lxml import etree
@@ -70,21 +72,23 @@ def pretty_json(text):
 
 
 def tag_selector(name, html):
-    soup = BeautifulSoup(html, "html.parser")
-    element = soup.find(name)
-    if element:
-        return True, six.text_type(element)
-    else:
-        return False, html
+    with deep_recursion():
+        soup = BeautifulSoup(html, "html.parser")
+        element = soup.find(name)
+        if element:
+            return True, six.text_type(element)
+        else:
+            return False, html
 
 
 def css_selector(selector, html):
-    soup = BeautifulSoup(html, "html.parser")
-    element = soup.select_one(selector)
-    if element:
-        return True, six.text_type(element)
-    else:
-        return False, html
+    with deep_recursion():
+        soup = BeautifulSoup(html, "html.parser")
+        element = soup.select_one(selector)
+        if element:
+            return True, six.text_type(element)
+        else:
+            return False, html
 
 
 def xpath_selector(selector, html):
@@ -102,12 +106,13 @@ def xpath_selector(selector, html):
 
 
 def extract_text(html):
-    strings = BeautifulSoup(html, "html.parser").stripped_strings
-    return True, u'\n'.join([
-        line
-        for line in strings
-        if line
-    ])
+    with deep_recursion():
+        strings = BeautifulSoup(html, "html.parser").stripped_strings
+        return True, u'\n'.join([
+            line
+            for line in strings
+            if line
+        ])
 
 
 def sort_lines(text):
@@ -116,3 +121,13 @@ def sort_lines(text):
         for line in sorted(text.splitlines())
         if line
     ])
+
+
+@contextlib.contextmanager
+def deep_recursion():
+    old_limit = sys.getrecursionlimit()
+    try:
+        sys.setrecursionlimit(100000)
+        yield
+    finally:
+        sys.setrecursionlimit(old_limit)
