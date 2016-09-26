@@ -81,6 +81,8 @@ class Checker(object):
         ok, content = self.transform_pipeline(ok, content)
         if not ok:
             content = self.report_error(content)
+        if content:
+            content = content.strip()
         return ok, content
 
     def error_reporter_factory(self):
@@ -135,13 +137,14 @@ class Checker(object):
             logger.error("Unknown notifier %r", key)
 
     def notify(self, report, **kwargs):
-        for notifier in self.notifiers:
-            try:
-                notifier(
-                    conf=self.conf,
-                    report=report,
-                )
-            except Exception:
-                logger.exception(
-                    "Exception occured during sending notification"
-                )
+        if report:
+            logger.debug('Sending report: %r', report)
+            for notifier in self.notifiers:
+                try:
+                    notifier(conf=self.conf, report=report)
+                except Exception:
+                    logger.exception(
+                        "Exception occured during sending notification"
+                    )
+        else:
+            logger.debug('Report is empty, skipping notification')
