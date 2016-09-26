@@ -54,10 +54,12 @@ def firefox(headless=True):
             firefox_instance['xvfb_display'] = virtual_buffer()
         if firefox_instance['driver'] is None:
             firefox_instance['driver'] = webdriver.Firefox()
+            firefox_instance['driver'].set_window_size(1024, 768)
         yield firefox_instance['driver']
     else:
         if firefox_instance['headed_driver'] is None:
             firefox_instance['headed_driver'] = webdriver.Firefox()
+            firefox_instance['headed_driver'].set_window_size(1024, 768)
         yield firefox_instance['headed_driver']
 
 
