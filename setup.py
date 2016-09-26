@@ -10,7 +10,7 @@ with open('HISTORY.rst') as history_file:
 
 setup(
     name='kibitzr',
-    version='2.3.0',
+    version='2.4.0',
     description="Self hosted web page changes monitoring",
     long_description=readme + '\n\n' + history,
     author="Peter Demin",
