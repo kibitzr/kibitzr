@@ -34,7 +34,7 @@ setup(
         'schedule',
         'sh',
         'pyyaml',
-        'selenium',
+        'selenium~=2.0',
         'xvfbwrapper',
         'bs4',
         'six',
