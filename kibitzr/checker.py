@@ -112,10 +112,10 @@ class Checker(object):
                 "No notifications configured for %r",
                 self.conf['name'],
             )
-        return filter(None, [
+        return list(filter(None, [
             self.notifier_factory(notifier_conf)
             for notifier_conf in notifiers_conf
-        ])
+        ]))
 
     @staticmethod
     def notifier_factory(notifier_conf):
