@@ -1,6 +1,7 @@
 import logging
 import signal
 import time
+import code
 
 import schedule
 
@@ -12,6 +13,7 @@ from .checker import Checker
 logger = logging.getLogger(__name__)
 reload_conf_pending = False
 interrupted = False
+open_backdoor = False
 
 
 def main(once=False, log_level=logging.INFO):
@@ -20,6 +22,7 @@ def main(once=False, log_level=logging.INFO):
     logger.debug("Arguments: %r",
                  {"once": once, "log_level": log_level})
     signal.signal(signal.SIGUSR1, on_reload_config)
+    signal.signal(signal.SIGUSR2, on_backdoor)
     signal.signal(signal.SIGINT, on_interrupt)
     try:
         while True:
@@ -39,12 +42,15 @@ def main(once=False, log_level=logging.INFO):
 
 
 def check_forever(checkers):
-    global reload_conf_pending, interrupted
+    global reload_conf_pending, interrupted, open_backdoor
     schedule_checks(checkers)
     logger.info("Starting infinite loop")
     while not reload_conf_pending:
         if interrupted:
             break
+        if open_backdoor:
+            open_backdoor = False
+            console = code.interact(banner="Kibitzr debug shell", local=locals())
         schedule.run_pending()
         if interrupted:
             break
@@ -75,6 +81,13 @@ def on_reload_config(*args, **kwargs):
     global reload_conf_pending
     logger.info("Received SIGUSR1. Flagging configuration reload")
     reload_conf_pending = True
+
+
+
+def on_backdoor(*args, **kwargs):
+    global open_backdoor
+    logger.info("Received SIGUSR2. Flagging backdoor to open")
+    open_backdoor = True
 
 
 def on_interrupt(*args, **kwargs):
