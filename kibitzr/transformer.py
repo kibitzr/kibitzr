@@ -1,4 +1,5 @@
 import sys
+import logging
 import contextlib
 import functools
 import json
@@ -8,6 +9,9 @@ import six
 from bs4 import BeautifulSoup
 
 from .storage import PageHistory
+
+
+logger = logging.getLogger(__name__)
 
 
 def pipeline_factory(conf):
@@ -80,6 +84,8 @@ def tag_selector(name, html):
         if element:
             return True, six.text_type(element)
         else:
+            logger.debug('Tag not found: %r',
+                         name)
             return False, html
 
 
@@ -90,6 +96,8 @@ def css_selector(selector, html):
         if element:
             return True, six.text_type(element)
         else:
+            logger.debug('CSS selector not found: %r',
+                         selector)
             return False, html
 
 
@@ -104,6 +112,8 @@ def xpath_selector(selector, html):
             encoding='unicode',
         )
     else:
+        logger.debug('XPath selector not found: %r',
+                     selector)
         return False, html
 
 
