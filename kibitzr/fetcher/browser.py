@@ -3,6 +3,7 @@ import time
 from contextlib import contextmanager
 
 from selenium import webdriver
+from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from xvfbwrapper import Xvfb
 from ..conf import settings
 
@@ -52,15 +53,19 @@ def firefox(headless=True):
     if headless:
         if firefox_instance['xvfb_display'] is None:
             firefox_instance['xvfb_display'] = virtual_buffer()
-        if firefox_instance['driver'] is None:
-            firefox_instance['driver'] = webdriver.Firefox()
-            firefox_instance['driver'].set_window_size(1024, 768)
-        yield firefox_instance['driver']
+        driver_key = 'driver'
     else:
-        if firefox_instance['headed_driver'] is None:
-            firefox_instance['headed_driver'] = webdriver.Firefox()
-            firefox_instance['headed_driver'].set_window_size(1024, 768)
-        yield firefox_instance['headed_driver']
+        driver_key = 'headed_driver'
+    if firefox_instance[driver_key] is None:
+        if logger.level == logging.DEBUG:
+            firefox_binary = FirefoxBinary(log_file=sys.stdout)
+        else:
+            firefox_binary = None
+        firefox_instance[driver_key] = webdriver.Firefox(
+            firefox_binary=firefox_binary,
+        )
+        firefox_instance[driver_key].set_window_size(1024, 768)
+    yield firefox_instance[driver_key]
 
 
 def virtual_buffer():
