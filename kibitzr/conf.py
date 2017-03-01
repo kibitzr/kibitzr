@@ -57,8 +57,12 @@ class ReloadableSettings(object):
                     if hasattr(notify, 'keys'):
                         notify_type = next(iter(notify.keys()))
                         notify_param = next(iter(notify.values()))
-                        if notify_param in notifiers:
+                        try:
                             notify[notify_type] = notifiers[notify_param]
+                        except (TypeError, KeyError):
+                            # notify_param is not a predefined notifier name
+                            # Save it as is:
+                            notify[notify_type] = notify_param
         if self.pages != pages or self.notifiers != notifiers:
             self.pages = pages
             self.notifiers = notifiers

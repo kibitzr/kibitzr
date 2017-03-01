@@ -8,11 +8,12 @@ from .fetcher import (
     fetch_bash,
 )
 from .notifier import (
-    post_mailgun,
-    post_python,
+    SlackSession,
     post_bash,
     post_gitter,
-    SlackSession,
+    post_mailgun,
+    post_python,
+    post_smtp,
 )
 from .storage import report_changes
 from .transformer import pipeline_factory
@@ -133,6 +134,8 @@ class Checker(object):
             return post_gitter
         elif key == 'slack':
             return SlackSession().post
+        elif key == 'smtp':
+            return functools.partial(post_smtp, notifier_conf=value)
         else:
             logger.error("Unknown notifier %r", key)
 
