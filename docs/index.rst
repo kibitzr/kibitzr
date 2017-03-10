@@ -16,7 +16,7 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   receipts
+   recipes
    contributing
    authors
    history

@@ -1,6 +1,6 @@
-========
-Receipts
-========
+=======
+Recipes
+=======
 
 TeamCity build status change
     
