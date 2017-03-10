@@ -2,11 +2,9 @@
 Receipts
 ========
 
-.. highlight: yaml
-
 TeamCity build status change
     
-.. code-block:: 
+.. code-block:: yaml
 
     pages:
 	  - name: TeamCity Build
@@ -36,11 +34,12 @@ TeamCity build status change
 
 BitBucket pull request ready to merge
 
-.. code-block:: 
+.. code-block:: yaml
+
     pages:
 	  - name: PR ready to merge
 	    template: bitbucket-pr-ready
-	    url: https://bitbucket.ncbi.nlm.nih.gov/projects/PMC/repos/granthub-service/pull-requests/307/overview
+	    url: https://bitbucket/repos/kibitzr/pull-requests/307/overview
 
     templates:
         bitbucket-pr-ready:
@@ -64,7 +63,8 @@ BitBucket pull request ready to merge
 
 Mailgun notifications configuration
 
-.. code-block:: 
+.. code-block:: yaml
+
     notifiers:
         mailgun:
             key: key-asdkljdiytjk89038247102384
