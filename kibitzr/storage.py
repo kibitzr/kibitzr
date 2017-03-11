@@ -80,12 +80,12 @@ class PageHistory(object):
         ).stdout.decode('utf-8')
         return u'\n'.join(
             itertools.islice(
-               itertools.dropwhile(
-                   lambda x: not x.startswith('+++'),
-                   output.splitlines()
-               ),
-               1,
-               None,
+                itertools.dropwhile(
+                    lambda x: not x.startswith('+++'),
+                    output.splitlines()
+                ),
+                1,
+                None,
             )
         )
 
@@ -108,3 +108,5 @@ class PageHistory(object):
             os.makedirs(self.cwd)
         if not os.path.isdir(os.path.join(self.cwd, ".git")):
             self.git.init()
+            self.git.config("user.email", "you@example.com")
+            self.git.config("user.name", "Your Name")
