@@ -1,5 +1,5 @@
 ===============================
-kibitzr
+Kibitzr
 ===============================
 
 .. image:: https://badges.gitter.im/kibitzr/Lobby.svg
@@ -17,33 +17,24 @@ kibitzr
         :target: https://kibitzr.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
 
+Kibitzr is like a secret twin brother who does routine tasks and asks for nothing in return.
 
-Self hosted web page changes monitoring
+* Install with ``pip install kibitzr`` (Works with both Python 2 and 3)
+* Configure recurrent tasks in ``kibitzr.yml``
+* Put credentials in ``kibitzr-creds.yml``
+* Launch with ``kibitzr``
+* Problems? Ask in issues_, or gitter_
+* Fork_
 
-
-* Free software: MIT license
 * Documentation: https://kibitzr.readthedocs.io.
 
+* Free software: MIT license
 
-Features
---------
-
-* Easy to install and run
-* Whole configuration in one YAML file
-* Python requests for simple HTTP queries (with optional JSON formatting)
-* Firefox for complex interactions with scenarios and HTML parsing
-* BeautifulSoup for formatting HTML contents
-* E-mail notifications through MailGun 
-* Extensible with bash and python scripts
-* Vibrant friendly community (on gitter)
-* Python 2 and 3 compatible
-
-
-Credits
--------
-
-This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
-
-.. _Cookiecutter: https://github.com/audreyr/cookiecutter
-.. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
-
+.. _Selenium: https://selenium-python.readthedocs.io/getting-started.html
+.. _gitter: https://gitter.im/kibitzr/Lobby
+.. _requests: http://docs.python-requests.org/en/master/
+.. _issue: https://github.com/kibitzr/kibitzr/issues/new
+.. _issues: https://github.com/kibitzr/kibitzr/issues/
+.. _Python: https://www.python.org/
+.. _bash: https://www.gnu.org/software/bash/
+.. _Fork: https://github.com/kibitzr/kibitzr/
