@@ -26,7 +26,7 @@ class Checker(object):
     def __init__(self, conf):
         self.conf = conf
         self.downloader = self.downloader_factory()
-        self.report_error = self.error_reporter_factory()
+        self.transform_error = self.transform_error_factory()
         self.notifiers = self.create_notifiers()
         self.transform_pipeline = pipeline_factory(self.conf)
 
@@ -38,8 +38,9 @@ class Checker(object):
     def check(self):
         ok, content = self.fetch()
         ok, report = self.transform(ok, content)
-        if ok:
-            self.notify(report=report)
+        if not ok:
+            content = self.transform_error(content)
+        self.notify(report=report)
         return ok, report
 
     def fetch(self):
@@ -80,26 +81,22 @@ class Checker(object):
 
     def transform(self, ok, content):
         ok, content = self.transform_pipeline(ok, content)
-        if not ok:
-            content = self.report_error(content)
         if content:
             content = content.strip()
         return ok, content
 
-    def error_reporter_factory(self):
+    def transform_error_factory(self):
         error_policy = self.conf.get('error', 'notify')
-        if error_policy == 'notify':
-            return self.noop
-        elif error_policy == 'ignore':
+        if error_policy == 'ignore':
             return self.mute
-        else:  # output
-            return self.persistent_changes
+        else:  # notify
+            return self.echo
 
     def persistent_changes(self, content):
         return report_changes(self.conf, content)
 
     @staticmethod
-    def noop(content):
+    def echo(content):
         return content
 
     @staticmethod
