@@ -4,7 +4,7 @@ Transforms
 ==========
 
 Each Kibitzr transform modifies content and passes it forward.
-Then can be divided into following groups: HTML, plain text, others.
+Then can be divided into following groups: HTML, plain text, JSON.
 
 HTML
 ----
@@ -22,10 +22,11 @@ Plain text
 3. ``sort`` - Sort lines of text alphabetically
 4. ``cut: N`` - Remove lines after ``N``'th
 
-Others
-------
+JSON (for APIs)
+---------------
 
-1. ``json`` - Pretty pring JSON content (useful for APIs).
+1. ``json`` - Pretty print JSON content.
+2. ``jq`` - Apply jq JSON transformation (`jq`_ must be installed).
 
 Examples
 --------
@@ -47,7 +48,6 @@ Complete ``kibitzr.yml`` could look like this:
 .. code-block:: yaml
 
     pages:
-
       - name: JetPack updates
         url: https://wordpress.org/plugins/jetpack/
         transform:
@@ -69,5 +69,28 @@ Once page contents changes, on next kibitzr launch the e-mail will be::
     New value:
     Download Version 4.7
 
+Next config will notify on new Kibitzr releases published on GitHub:
+
+.. code-block:: yaml
+
+    pages:
+      - name: Kibitzr releases
+        url: https://api.github.com/repos/kibitzr/kibitzr/releases
+        transform:
+          - jq: ".[] | .tag_name + \" \" + .name"
+          - changes
+        notify:
+          - slack
+        period: 3600
+
+Example Slack message::
+
+    @@ -1,2 +1,3 @@
+    +"v2.6.2 Added jq transformer"
+    "2.6.1 Fixed git repo configuration"
+    "2.6.0 Added \"changes: verbose\" transformer"
+
+
 .. _`CSS selector`: http://www.w3schools.com/cssref/css_selectors.asp
 .. _`XPath`: http://www.w3schools.com/xsl/xpath_syntax.asp
+.. _`jq`: https://stedolan.github.io/jq/
