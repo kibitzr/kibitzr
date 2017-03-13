@@ -7,11 +7,13 @@ from lxml import etree
 
 import six
 from bs4 import BeautifulSoup
+import sh
 
 from .storage import PageHistory
 
 
 logger = logging.getLogger(__name__)
+jq = sh.jq.bake('--monochrome-output')
 
 
 def pipeline_factory(conf):
@@ -57,6 +59,8 @@ def transformer_factory(conf, rule):
             return PageHistory(conf).report_changes
     elif name == 'json':
         return pretty_json
+    elif name == 'jq':
+        return functools.partial(run_jq, value)
     elif name == 'sort':
         return sort_lines
     elif name == 'cut':
@@ -144,6 +148,26 @@ def cut_lines(last_line, text):
         line + u'\n'
         for line in text.splitlines()[:last_line]
     ])
+
+
+def run_jq(query, text):
+    logger.debug("Running jq query %s against %s", query, text)
+    try:
+        command = jq(query, _in=text)
+    except sh.ErrorReturnCode as exc:
+        # If query syntax is incorrect it will be in stderr:
+        logger.exception("jq failure")
+        success, result = False, exc.stderr
+    else:
+        if command.stderr.startswith(b'jq: error:'):
+            # If data structure didn't match a query,
+            # it will be specially formatted stdout:
+            success, result = False, command.stderr.decode('utf-8')
+        else:
+            success, result = True, command.stdout.decode('utf-8')
+    logger.debug("jq transform success: %r, content: %r",
+                 success, result)
+    return success, result
 
 
 @contextlib.contextmanager
