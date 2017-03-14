@@ -154,17 +154,13 @@ def run_jq(query, text):
     logger.debug("Running jq query %s against %s", query, text)
     try:
         command = jq(query, _in=text)
+        if not command.stderr:
+            success, result = True, command.stdout.decode('utf-8')
+        else:
+            success, result = False, command.stderr.decode('utf-8')
     except sh.ErrorReturnCode as exc:
-        # If query syntax is incorrect it will be in stderr:
         logger.exception("jq failure")
         success, result = False, exc.stderr
-    else:
-        if command.stderr.startswith(b'jq: error:'):
-            # If data structure didn't match a query,
-            # it will be specially formatted stdout:
-            success, result = False, command.stderr.decode('utf-8')
-        else:
-            success, result = True, command.stdout.decode('utf-8')
     logger.debug("jq transform success: %r, content: %r",
                  success, result)
     return success, result
