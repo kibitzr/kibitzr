@@ -48,7 +48,7 @@ class ReloadableSettings(object):
         with open(self.filename) as fp:
             conf = yaml.load(fp)
         changed = self.read_creds()
-        pages = conf.get('pages', [])
+        pages = conf.get('checks', conf.get('pages', []))
         notifiers = conf.get('notifiers', {})
         templates = conf.get('templates', {})
         scenarios = conf.get('scenarios', {})
