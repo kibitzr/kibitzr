@@ -1,3 +1,4 @@
+import os
 import copy
 import logging.config
 
@@ -9,26 +10,41 @@ logger = logging.getLogger(__name__)
 
 class ReloadableSettings(object):
     _instances = {}
+    CONFIG_DIRS = (
+        '',
+        '~/.config/kibitzr/',
+        '~/',
+    )
+    CONFIG_FILENAME = 'kibitzr.yml'
+    CREDENTIALS_FILENAME = 'kibitzr-creds.yml'
 
-    def __init__(self, filename, creds_filename):
-        self.filename = filename
-        self.creds_filename = creds_filename
+    def __init__(self, config_dir):
+        self.filename = os.path.join(config_dir, self.CONFIG_FILENAME)
+        self.creds_filename = os.path.join(config_dir, self.CREDENTIALS_FILENAME)
         self.pages = None
         self.notifiers = None
         self.creds = {}
         self.reread()
 
     @classmethod
-    def instance(cls, filename, creds_filename):
-        key = (filename, creds_filename)
+    def detect_config_dir(cls):
+        for directory in map(os.path.expanduser, cls.CONFIG_DIRS):
+            if os.path.exists(os.path.join(directory, cls.CONFIG_FILENAME)):
+                return directory
+
+    @classmethod
+    def instance(cls, config_dir):
+        key = config_dir
         if key not in cls._instances:
-            cls._instances[key] = cls(filename, creds_filename)
+            cls._instances[key] = cls(key)
         return cls._instances[key]
 
     def reread(self):
         """
         Read configuration file and substitute references into pages conf
         """
+        logger.debug("Loading settings from %s",
+                     os.path.abspath(self.filename))
         with open(self.filename) as fp:
             conf = yaml.load(fp)
         changed = self.read_creds()
@@ -71,6 +87,8 @@ class ReloadableSettings(object):
             return changed
 
     def read_creds(self):
+        logger.debug("Loading credentials from %s",
+                     os.path.abspath(self.creds_filename))
         try:
             with open(self.creds_filename, 'r') as fp:
                 creds = yaml.load(fp)
@@ -78,14 +96,16 @@ class ReloadableSettings(object):
                     self.creds = creds
                     return True
         except IOError:
-            pass
-        except Exception:
+            logger.info("No credentials file found at %s",
+                        os.path.abspath(self.creds_filename))
+        except:
             logger.exception("Error loading credentials file")
         return False
 
 
 def settings():
-    return ReloadableSettings.instance('kibitzr.yml', 'kibitzr-creds.yml')
+    config_dir = ReloadableSettings.detect_config_dir()
+    return ReloadableSettings.instance(config_dir)
 
 
 logging.config.dictConfig({
