@@ -52,6 +52,7 @@ class ReloadableSettings(object):
         notifiers = conf.get('notifiers', {})
         templates = conf.get('templates', {})
         scenarios = conf.get('scenarios', {})
+        pages = list(self.unpack_batches(pages))
         for i, page in enumerate(pages):
             name = page['name']
             if 'template' in page:
@@ -85,6 +86,21 @@ class ReloadableSettings(object):
             return True
         else:
             return changed
+
+    def unpack_batches(self, pages):
+        for page in pages:
+            if 'batch' in page:
+                base = copy.deepcopy(page)
+                batch = base.pop('batch')
+                url_pattern = base.pop('url-pattern')
+                items = base.pop('items')
+                for item in items:
+                    new_page = copy.deepcopy(base)
+                    new_page['name'] = batch.format(item)
+                    new_page['url'] = url_pattern.format(item)
+                    yield new_page
+            else:
+                yield page
 
     def read_creds(self):
         logger.debug("Loading credentials from %s",
