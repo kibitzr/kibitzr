@@ -1,3 +1,4 @@
+import sys
 import logging
 import time
 from contextlib import contextmanager
@@ -72,7 +73,7 @@ def virtual_buffer():
     """
     Try to start xvfb, trying multiple (up to 5) times if a failure
     """
-    for i in range(0, 6):
+    for _ in range(0, 6):
         xvfb_display = Xvfb()
         xvfb_display.start()
         # If Xvfb started, return.
