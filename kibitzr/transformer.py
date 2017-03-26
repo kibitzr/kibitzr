@@ -96,7 +96,7 @@ def tag_selector(name, html):
         if element:
             return True, six.text_type(element)
         else:
-            logger.debug('Tag not found: %r',
+            logger.warning('Tag not found: %r',
                          name)
             return False, html
 
@@ -108,7 +108,7 @@ def css_selector(selector, html):
         if element:
             return True, six.text_type(element)
         else:
-            logger.debug('CSS selector not found: %r',
+            logger.warning('CSS selector not found: %r',
                          selector)
             return False, html
 
@@ -124,7 +124,7 @@ def xpath_selector(selector, html):
             encoding='unicode',
         )
     else:
-        logger.debug('XPath selector not found: %r',
+        logger.warning('XPath selector not found: %r',
                      selector)
         return False, html
 
