@@ -1,3 +1,6 @@
+"""
+Built-in transforms
+"""
 import sys
 import logging
 import contextlib
@@ -8,12 +11,13 @@ from lxml import etree
 import six
 from bs4 import BeautifulSoup
 import sh
+from lazy_object_proxy import Proxy as lazy
 
 from .storage import PageHistory
 
 
 logger = logging.getLogger(__name__)
-jq = sh.jq.bake('--monochrome-output')
+jq = lazy(lambda: sh.jq.bake('--monochrome-output'))
 
 
 def pipeline_factory(conf):

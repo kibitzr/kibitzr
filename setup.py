@@ -39,6 +39,7 @@ setup(
         'bs4',
         'six',
         'lxml',
+        'lazy-object-proxy',
     ],
     license="MIT license",
     zip_safe=False,
