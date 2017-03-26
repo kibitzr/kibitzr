@@ -50,7 +50,10 @@ def check_forever(checkers):
             break
         if open_backdoor:
             open_backdoor = False
-            console = code.interact(banner="Kibitzr debug shell", local=locals())
+            code.interact(
+                banner="Kibitzr debug shell",
+                local=locals(),
+            )
         schedule.run_pending()
         if interrupted:
             break
@@ -81,7 +84,6 @@ def on_reload_config(*args, **kwargs):
     global reload_conf_pending
     logger.info("Received SIGUSR1. Flagging configuration reload")
     reload_conf_pending = True
-
 
 
 def on_backdoor(*args, **kwargs):

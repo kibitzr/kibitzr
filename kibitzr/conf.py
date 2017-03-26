@@ -20,7 +20,8 @@ class ReloadableSettings(object):
 
     def __init__(self, config_dir):
         self.filename = os.path.join(config_dir, self.CONFIG_FILENAME)
-        self.creds_filename = os.path.join(config_dir, self.CREDENTIALS_FILENAME)
+        self.creds_filename = os.path.join(config_dir,
+                                           self.CREDENTIALS_FILENAME)
         self.pages = None
         self.notifiers = None
         self.creds = {}
@@ -103,6 +104,10 @@ class ReloadableSettings(object):
                 yield page
 
     def read_creds(self):
+        """
+        Read and parse credentials file.
+        If something goes wrong, log exception and continue.
+        """
         logger.debug("Loading credentials from %s",
                      os.path.abspath(self.creds_filename))
         try:
@@ -120,6 +125,9 @@ class ReloadableSettings(object):
 
 
 def settings():
+    """
+    Returns singleton instance of settings
+    """
     config_dir = ReloadableSettings.detect_config_dir()
     return ReloadableSettings.instance(config_dir)
 

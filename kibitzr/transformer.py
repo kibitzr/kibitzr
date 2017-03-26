@@ -11,13 +11,13 @@ from lxml import etree
 import six
 from bs4 import BeautifulSoup
 import sh
-from lazy_object_proxy import Proxy as lazy
+from lazy_object_proxy import Proxy as Lazy
 
 from .storage import PageHistory
 
 
 logger = logging.getLogger(__name__)
-jq = lazy(lambda: sh.jq.bake('--monochrome-output'))
+jq = Lazy(lambda: sh.jq.bake('--monochrome-output'))
 
 
 def pipeline_factory(conf):
