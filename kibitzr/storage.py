@@ -78,14 +78,18 @@ class PageHistory(object):
             '--no-color',
             '--format=%s',
         ).stdout.decode('utf-8')
+        lines = output.splitlines()
         return u'\n'.join(
-            itertools.islice(
-                itertools.dropwhile(
-                    lambda x: not x.startswith('+++'),
-                    output.splitlines()
+            itertools.chain(
+                lines[:1],
+                itertools.islice(
+                    itertools.dropwhile(
+                        lambda x: not x.startswith('+++'),
+                        lines[1:],
+                    ),
+                    1,
+                    None,
                 ),
-                1,
-                None,
             )
         )
 

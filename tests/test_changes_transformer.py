@@ -17,8 +17,8 @@ class PageHistoryTestCase(unittest.TestCase):
 
     def test_unified_diff_sample(self):
         scenario = (
-            (u"hello", True, u"@@ -0,0 +1 @@\n+hello"),
-            (u"world", True, u"@@ -1 +1 @@\n-hello\n+world"),
+            (u"hello", True, u"test at web\n@@ -0,0 +1 @@\n+hello"),
+            (u"world", True, u"test at web\n@@ -1 +1 @@\n-hello\n+world"),
             (u"world", False, None),
         )
         for content, changed, report in scenario:
