@@ -2,7 +2,7 @@ import logging
 
 import click
 
-from kibitzr.main import main as kibitzr_main
+from kibitzr.main import main
 
 
 LOG_LEVEL_CODES = {
@@ -19,10 +19,11 @@ LOG_LEVEL_CODES = {
 @click.option("-l", "--log-level", default="info",
               type=click.Choice(LOG_LEVEL_CODES.keys()),
               help="Logging level")
-def main(once, log_level):
+@click.argument('name', nargs=-1)
+def entry(once, log_level, name):
     log_level_code = LOG_LEVEL_CODES[log_level]
-    kibitzr_main(once=once, log_level=log_level_code)
+    main(once=once, log_level=log_level_code, names=name)
 
 
 if __name__ == "__main__":
-    main()
+    entry()

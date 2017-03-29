@@ -31,9 +31,25 @@ class Checker(object):
         self.transform_pipeline = pipeline_factory(self.conf)
 
     @staticmethod
-    def create_from_settings(pages):
+    def create_from_settings(checks, names=None):
+        if names:
+            selected_checks = [
+                conf
+                for conf in checks
+                if conf['name'] in names
+            ]
+            selected_names = [conf['name'] for conf in selected_checks]
+            if len(selected_checks) < len(checks):
+                logger.info("Filtered list of checks to: %r",
+                            ", ".join(sorted(selected_names)))
+                checks = selected_checks
+            if len(selected_names) < len(names):
+                logger.error(
+                    "Following check(s) were not found: %r",
+                    ", ".join(sorted(set(names).difference(selected_names)))
+                )
         return [Checker(conf)
-                for conf in pages]
+                for conf in checks]
 
     def check(self):
         ok, content = self.fetch()
@@ -143,7 +159,7 @@ class Checker(object):
         else:
             logger.error("Unknown notifier %r", key)
 
-    def notify(self, report, **kwargs):
+    def notify(self, report, **_kwargs):
         if report:
             logger.debug('Sending report: %r', report)
             for notifier in self.notifiers:

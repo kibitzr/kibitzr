@@ -1,6 +1,6 @@
 import os
 import itertools
-from io import open
+import io
 
 import sh
 
@@ -56,7 +56,7 @@ class PageHistory(object):
 
     def write(self, content):
         """Save content on disk"""
-        with open(self.target, 'w', encoding='utf-8') as fp:
+        with io.open(self.target, 'w', encoding='utf-8') as fp:
             fp.write(content)
             if not content.endswith(u'\n'):
                 fp.write(u'\n')

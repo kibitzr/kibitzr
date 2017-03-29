@@ -16,7 +16,7 @@ interrupted = False
 open_backdoor = False
 
 
-def main(once=False, log_level=logging.INFO):
+def main(once=False, log_level=logging.INFO, names=None):
     global reload_conf_pending, interrupted
     logging.getLogger("").setLevel(log_level)
     logger.debug("Arguments: %r",
@@ -31,8 +31,11 @@ def main(once=False, log_level=logging.INFO):
             if reload_conf_pending:
                 settings().reread()
                 reload_conf_pending = False
-            checkers = Checker.create_from_settings(settings().pages)
-            check_all_pages(checkers)
+            checkers = Checker.create_from_settings(
+                checks=settings().pages,
+                names=names
+            )
+            execute_all(checkers)
             if once or interrupted:
                 break
             else:
@@ -73,7 +76,7 @@ def schedule_checks(checkers):
         schedule.every(period).seconds.do(checker.check)
 
 
-def check_all_pages(checkers):
+def execute_all(checkers):
     global interrupted
     for checker in checkers:
         if not interrupted:
