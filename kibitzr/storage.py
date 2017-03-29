@@ -101,10 +101,10 @@ class PageHistory(object):
             before = None
         after = self.git.show('HEAD:content').strip()
         if before is not None:
-            return (u'Previous value:\n{before}\nNew value:\n{after}\n'
-                    .format(before=before, after=after))
+            return (u'{subject}\nPrevious value:\n{before}\nNew value:\n{after}'
+                    .format(subject=self.commit_msg, before=before, after=after))
         else:
-            return after
+            return u'\n'.join([self.commit_msg, after])
 
     def ensure_repo_exists(self):
         """Create git repo if one does not exist yet"""
