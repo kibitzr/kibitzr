@@ -17,7 +17,7 @@ from .storage import PageHistory
 
 
 logger = logging.getLogger(__name__)
-jq = Lazy(lambda: sh.jq.bake('--monochrome-output'))
+jq = Lazy(lambda: sh.jq.bake('--monochrome-output', '--raw-output'))
 
 
 def pipeline_factory(conf):

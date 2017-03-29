@@ -70,3 +70,58 @@ Mailgun notifications configuration
             key: key-asdkljdiytjk89038247102384
             domain: sandbox57895483457894350345.mailgun.org
             to: John Doe <john.doe@gmail.com>
+
+
+GitHub API release notification
+
+.. code-block:: yaml
+
+    checks:
+      - name: Kibitzr GitHub release
+        url: https://api.github.com/repos/kibitzr/kibitzr/releases/latest
+        transform:
+          - jq: .tag_name + " " + .name
+          - changes: verbose
+        notify:
+          - slack
+
+
+Wordpress Plugin update (featuring batch syntax)
+
+.. code-block:: yaml
+
+    checks:
+      - batch: "Wordpress plugin {0} updates"
+        transform:
+            - xpath: '//*[@id="changelog"]/h4[1]'
+            - text
+            - changes: verbose
+        notify:
+            - slack
+        period: 3600
+        url-pattern: "https://wordpress.org/plugins/{0}/" 
+        items:
+          - advanced-custom-fields
+          - akismet
+          - better-wp-security
+          - black-studio-tinymce-widget
+          - contact-form-7
+          - disable-comments
+          - duplicate-post
+
+
+Travis CI build status
+
+.. code-block:: yaml
+
+    checks:
+      - name: Kibitzer Build Status
+        url: https://travis-ci.org/kibitzr/kibitzr
+        transform:
+          - css: div.build-info > h3
+          - text
+          - changes
+        delay: 1
+        period: 600
+        notify:
+          - slack
