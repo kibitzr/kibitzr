@@ -39,7 +39,7 @@ class Checker(object):
         ok, content = self.fetch()
         ok, report = self.transform(ok, content)
         if not ok:
-            content = self.transform_error(content)
+            report = self.transform_error(report)
         self.notify(report=report)
         return ok, report
 
@@ -89,7 +89,11 @@ class Checker(object):
         error_policy = self.conf.get('error', 'notify')
         if error_policy == 'ignore':
             return self.mute
-        else:  # notify
+        elif error_policy == 'notify':
+            return self.echo
+        else:
+            logger.warning("Unknown error policy: %r", error_policy)
+            logger.info("Defaulting to 'notify'")
             return self.echo
 
     def persistent_changes(self, content):
@@ -97,10 +101,13 @@ class Checker(object):
 
     @staticmethod
     def echo(content):
+        # content will be logged in notifier
+        logger.debug("Notifying on error")
         return content
 
     @staticmethod
     def mute(content):
+        logger.debug("Ignoring error in %s", content)
         return None
 
     def create_notifiers(self):
