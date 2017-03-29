@@ -5,7 +5,7 @@ Credits
 Development Lead
 ----------------
 
-* Peter Demin <peterdemin@gmail.com>
+* Peter Demin <kibitzrrr@gmail.com>
 
 Contributors
 ------------

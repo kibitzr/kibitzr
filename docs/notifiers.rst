@@ -23,3 +23,26 @@ It's recommended to restrict access to this file to the owner.
 
 .. _mailgun: https://www.mailgun.com/
 .. _Slack Incomming Webhook: https://api.slack.com/incoming-webhooks
+
+
+Examples
+========
+
+.. code:: yaml
+
+    mailgun:
+        key: key-asdkljdiytjk89038247102380
+        domain: sandbox57895483457894350345.mailgun.org
+        to: John Doe <john.doe@gmail.com>
+
+    gitter:
+        url: https://webhooks.gitter.im/e/24a1042f49211ca9504a
+
+    slack:
+        url: https://hooks.slack.com/services/T5665TUV/B21J7KCTX/Ov2xUt84atxi4yjvBnEqMIKX
+
+    smtp:
+        host: smtp.gmail.com
+        port: 587
+        user: kibitzrrr@gmail.com
+        password: (sat;hfsDA5wa@#$%^jh

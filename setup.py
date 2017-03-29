@@ -14,8 +14,8 @@ setup(
     description="Self hosted web page changes monitoring",
     long_description=readme + '\n\n' + history,
     author="Peter Demin",
-    author_email='peterdemin@gmail.com',
-    url='https://github.com/peterdemin/kibitzr',
+    author_email='kibitzrrr@gmail.com',
+    url='https://github.com/kibitzr/kibitzr',
     packages=[
         'kibitzr',
     ],
