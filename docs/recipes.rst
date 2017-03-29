@@ -2,17 +2,6 @@
 Recipes
 =======
 
-Mailgun notifications configuration
------------------------------------
-
-.. code-block:: yaml
-
-    notifiers:
-        mailgun:
-            key: key-asdkljdiytjk89038247102384
-            domain: sandbox57895483457894350345.mailgun.org
-            to: John Doe <john.doe@gmail.com>
-
 
 GitHub API release notification
 -------------------------------

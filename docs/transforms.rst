@@ -4,7 +4,7 @@ Transforms
 ==========
 
 Each Kibitzr transform modifies content and passes it forward.
-Then can be divided into following groups: HTML, plain text, JSON.
+Transforms can be divided into following groups: HTML, plain text, JSON.
 
 HTML
 ----
@@ -18,7 +18,7 @@ Plain text
 ----------
 
 1. ``changes`` - Compare to the previous version of the content and return difference report
-2. ``changes: verbose`` - Same as ``changes``, but report is in human-friendly format
+2. ``changes: verbose`` - Same as ``changes``, but in human-friendly format
 3. ``sort`` - Sort lines of text alphabetically
 4. ``cut: N`` - Remove lines after ``N``'th
 
@@ -40,8 +40,8 @@ Here is a sequence of transformations, that will
 .. code-block:: yaml
 
     - css: "#plugin-description > div > p > a"
-    - text                                                                                                         
-    - changes: verbose      
+    - text
+    - changes: verbose
 
 Complete ``kibitzr.yml`` could look like this:
 

@@ -4,7 +4,7 @@ Welcome to Kibitzr's documentation!
 Kibitzr is like a secret twin brother who does routine tasks and asks for nothing in return.
 
 * `Install`_ with ``pip install kibitzr`` (Works with both Python 2 and 3)
-* Configure recurrent tasks in ``kibitzr.yml``
+* :ref:`Configure <configuration>` recurrent tasks in ``kibitzr.yml``
 * Put credentials in ``kibitzr-creds.yml``
 * Launch with ``kibitzr``
 * Problems? Ask in Github issues_, or gitter_
@@ -32,7 +32,7 @@ Or build your own notifier in Python_ or bash_.
 .. include:: usage.rst
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    transforms
    notifiers
@@ -40,9 +40,6 @@ Or build your own notifier in Python_ or bash_.
    contributing
    authors
    history
-
-Indices and tables
-==================
 
 * :ref:`genindex`
 * :ref:`modindex`
