@@ -21,6 +21,8 @@ LOG_LEVEL_CODES = {
               help="Logging level")
 @click.argument('name', nargs=-1)
 def entry(once, log_level, name):
+    """Run kibitzr in the foreground mode"""
+    import pdb; pdb.set_trace()
     log_level_code = LOG_LEVEL_CODES[log_level]
     main(once=once, log_level=log_level_code, names=name)
 
