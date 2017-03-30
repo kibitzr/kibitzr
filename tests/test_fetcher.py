@@ -53,3 +53,12 @@ def test_scenario(target, html_text_conf):
     ok, content = Checker(html_text_conf).check()
     assert ok is True
     assert content == 'Another page'
+
+
+def test_valid_http_404(target, not_found_conf):
+    not_found_conf.update({
+        'valid_http': [404],
+    })
+    ok, content = Checker(not_found_conf).check()
+    assert ok is True
+    assert '404' in content

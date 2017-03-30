@@ -30,8 +30,9 @@ class SessionFetcher(object):
             'User-agent': 'Kibitzer/' + version,
         })
         self.url = conf['url']
+        self.valid_http = set(conf.get('valid_http', [200]))
 
-    def fetch(self, *args, **kwargs):
+    def fetch(self, *args, **_kwargs):
         retries = 3
         for retry in range(retries):
             try:
@@ -42,5 +43,5 @@ class SessionFetcher(object):
                 else:
                     sleep(5)
                     continue
-            ok = (response.status_code == 200)
+            ok = (response.status_code in self.valid_http)
             return ok, response.text

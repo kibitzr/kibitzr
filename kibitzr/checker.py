@@ -15,7 +15,6 @@ from .notifier import (
     post_python,
     post_smtp,
 )
-from .storage import report_changes
 from .transformer import pipeline_factory
 
 
@@ -111,9 +110,6 @@ class Checker(object):
             logger.warning("Unknown error policy: %r", error_policy)
             logger.info("Defaulting to 'notify'")
             return self.echo
-
-    def persistent_changes(self, content):
-        return report_changes(self.conf, content)
 
     @staticmethod
     def echo(content):

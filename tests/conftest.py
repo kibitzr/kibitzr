@@ -36,6 +36,14 @@ def target():
 
 
 @pytest.fixture
+def not_found_conf(target):
+    return {
+        'name': '404',
+        'url': "http://{0}:{1}/page-not-found".format(*target),
+    }
+
+
+@pytest.fixture
 def json_conf(target):
     return {
         'name': 'Test page',
