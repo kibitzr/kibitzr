@@ -31,10 +31,13 @@ class PageHistory(object):
             _cwd=self.cwd,
         )
         self.ensure_repo_exists()
-        self.commit_msg = "{name} at {url}".format(
-            name=conf['name'],
-            url=conf.get('url'),
-        )
+        if conf.get('url'):
+            self.commit_msg = "{name} at {url}".format(
+                name=conf['name'],
+                url=conf.get('url'),
+            )
+        else:
+            self.commit_msg = conf['name']
 
     def report_changes(self, content, verbose=False):
         """

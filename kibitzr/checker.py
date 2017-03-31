@@ -5,7 +5,7 @@ import traceback
 from .fetcher import (
     firefox_fetcher,
     SessionFetcher,
-    fetch_bash,
+    fetch_by_script,
 )
 from .notifier import (
     SlackSession,
@@ -60,7 +60,7 @@ class Checker(object):
 
     def fetch(self):
         if self.is_script():
-            logger.info("Fetching %r using bash script",
+            logger.info("Fetching %r using script",
                         self.conf['name'])
         else:
             logger.info("Fetching %r at %r",
@@ -78,7 +78,7 @@ class Checker(object):
         if self.needs_firefox():
             return firefox_fetcher
         elif self.is_script():
-            return fetch_bash
+            return fetch_by_script
         else:
             return SessionFetcher(self.conf).fetch
 

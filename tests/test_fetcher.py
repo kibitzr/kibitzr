@@ -62,3 +62,9 @@ def test_valid_http_404(target, not_found_conf):
     ok, content = Checker(not_found_conf).check()
     assert ok is True
     assert '404' in content
+
+
+def test_python_script_sample(python_script_conf):
+    ok, content = Checker(python_script_conf).check()
+    assert ok is True
+    assert content == "python"

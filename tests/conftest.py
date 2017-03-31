@@ -59,3 +59,11 @@ def html_text_conf(target):
         'url': "http://{0}:{1}/index.html".format(*target),
         'transform': ['text'],
     }
+
+
+@pytest.fixture()
+def python_script_conf():
+    return {
+        'name': 'Echo',
+        'script': {'python': 'ok, content = True, "python"'},
+    }
