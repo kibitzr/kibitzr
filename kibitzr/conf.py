@@ -8,6 +8,10 @@ import yaml
 logger = logging.getLogger(__name__)
 
 
+class ConfigurationError(RuntimeError):
+    pass
+
+
 class ReloadableSettings(object):
     _instances = {}
     CONFIG_DIRS = (
@@ -29,9 +33,17 @@ class ReloadableSettings(object):
 
     @classmethod
     def detect_config_dir(cls):
-        for directory in map(os.path.expanduser, cls.CONFIG_DIRS):
-            if os.path.exists(os.path.join(directory, cls.CONFIG_FILENAME)):
+        candidates = [
+            (directory, os.path.join(directory, cls.CONFIG_FILENAME))
+            for directory in map(os.path.expanduser, cls.CONFIG_DIRS)
+        ]
+        for directory, file_path in candidates:
+            if os.path.exists(file_path):
                 return directory
+        raise ConfigurationError(
+            "kibitzr.yml not found in following locations: %s"
+            % ", ".join([x[1] for x in candidates])
+        )
 
     @classmethod
     def instance(cls, config_dir):
@@ -60,7 +72,7 @@ class ReloadableSettings(object):
                 if page['template'] in templates:
                     templated_page = copy.deepcopy(templates[page['template']])
                 else:
-                    raise RuntimeError(
+                    raise ConfigurationError(
                         "Template %r not found. Referenced in page %r"
                         % (page['template'], name)
                     )

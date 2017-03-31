@@ -23,10 +23,13 @@ def target_website(request):
     server_process, server_addess = start_server()
     request.addfinalizer(cleanup_fetchers)
     request.addfinalizer(lambda: stop_server(server_process))
-    patch_object = patch("kibitzr.fetcher.browser.settings",
-                         return_value=SettingsMock())
-    patch_object.start()
-    request.addfinalizer(lambda: patch_object.stop())
+    for module in ("browser", "script"):
+        patch_object = patch(
+            "kibitzr.fetcher.%s.settings" % module,
+            return_value=SettingsMock()
+        )
+        patch_object.start()
+        request.addfinalizer(patch_object.stop)
 
 
 @pytest.fixture
