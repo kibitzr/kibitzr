@@ -2,22 +2,22 @@ FROM ubuntu:16.04
 
 RUN apt -qqy update
 
-RUN apt -y install
-    curl
-    firefox
-    git
-    python-lazy-object-proxy
-    python-lxml
-    python-pip
-    python-yaml
+RUN apt -y install \
+    curl \
+    firefox \
+    git \
+    python-lazy-object-proxy \
+    python-lxml \
+    python-pip \
+    python-yaml \
     xvfb
 
-RUN cd /usr/local/bin/
-    && curl -L https://github.com/mozilla/geckodriver/releases/download/v0.15.0/geckodriver-v0.15.0-linux64.tar.gz
+RUN cd /usr/local/bin/ \
+    && curl -L https://github.com/mozilla/geckodriver/releases/download/v0.15.0/geckodriver-v0.15.0-linux64.tar.gz \
     | tar zxf -
 
-RUN pip install -U
-    kibitzr
+RUN pip install -U \
+    kibitzr \
     selenium
 
 ENTRYPOINT ["kibitzr"]

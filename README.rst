@@ -28,6 +28,12 @@ Kibitzr is like a secret twin brother who does routine tasks and asks for nothin
 
 * Documentation: https://kibitzr.readthedocs.io.
 
+Run with docker:
+
+``` console
+$ docker run -v $PWD:/root/.config/kibitzr peterdemin/kibitzr
+```
+
 * Free software: MIT license
 
 .. _Selenium: https://selenium-python.readthedocs.io/getting-started.html
