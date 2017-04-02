@@ -24,15 +24,15 @@ Kibitzr is like a secret twin brother who does routine tasks and asks for nothin
 * Put credentials in ``kibitzr-creds.yml``
 * Launch with ``kibitzr``
 * Problems? Ask in issues_, or gitter_
-* Fork_
 
 * Documentation: https://kibitzr.readthedocs.io.
 
-Run with docker:
+Run with docker::
 
-``` console
-$ docker run -v $PWD:/root/.config/kibitzr peterdemin/kibitzr
-```
+.. code-block:: console
+
+    $ docker run -v $PWD:/root/.config/kibitzr peterdemin/kibitzr
+
 
 * Free software: MIT license
 
