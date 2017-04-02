@@ -29,8 +29,6 @@ Kibitzr is like a secret twin brother who does routine tasks and asks for nothin
 
 Run with docker::
 
-.. code-block: console
-
     $ docker run -v $PWD:/root/.config/kibitzr peterdemin/kibitzr
 
 
