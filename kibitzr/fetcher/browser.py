@@ -45,6 +45,13 @@ def firefox_fetcher(conf):
         if delay:
             time.sleep(delay)
         html = driver.find_element_by_xpath("//*").get_attribute("outerHTML")
+        # Create a new tab and close the old one
+        # to avoid idle page resource usage
+        old_tab = driver.current_window_handle
+        driver.execute_script('''window.open("about:blank", "_blank");''')
+        driver.switch_to.window(old_tab)
+        driver.close()
+        driver.switch_to.window(driver.window_handles[0])
         return True, html
 
 
