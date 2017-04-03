@@ -2,6 +2,7 @@ import logging
 
 import click
 
+from kibitzr import __version__ as VERSION
 from kibitzr.main import main
 
 
@@ -19,11 +20,16 @@ LOG_LEVEL_CODES = {
 @click.option("-l", "--log-level", default="info",
               type=click.Choice(LOG_LEVEL_CODES.keys()),
               help="Logging level")
+@click.option("-v", "--version", is_flag=True,
+              help="Print version and exit")
 @click.argument('name', nargs=-1)
-def entry(once, log_level, name):
+def entry(once, log_level, version, name):
     """Run kibitzr in the foreground mode"""
-    log_level_code = LOG_LEVEL_CODES[log_level]
-    main(once=once, log_level=log_level_code, names=name)
+    if version:
+        print(VERSION)
+    else:
+        log_level_code = LOG_LEVEL_CODES[log_level]
+        main(once=once, log_level=log_level_code, names=name)
 
 
 if __name__ == "__main__":
