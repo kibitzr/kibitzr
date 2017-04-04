@@ -8,6 +8,9 @@ from ..conf import settings
 logger = logging.getLogger(__name__)
 
 
+PYTHON_ERROR = "script.python must set global variables ok and content"
+
+
 def fetch_by_script(conf, **_kwargs):
     code = conf['script']
     try:
@@ -50,8 +53,8 @@ def fetch_by_bash(code):
 def fetch_by_python(code):
     logger.info("Fetch using Python script")
     logger.debug(code)
-    assert 'ok' in code, "script.python must set global variables ok and content"
-    assert 'content' in code, "script.python must set global variables ok and content"
+    assert 'ok' in code, PYTHON_ERROR
+    assert 'content' in code, PYTHON_ERROR
     try:
         # ok, content = False, None
         namespace = {}

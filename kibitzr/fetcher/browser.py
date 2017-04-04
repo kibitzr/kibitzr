@@ -4,6 +4,7 @@ import time
 from contextlib import contextmanager
 
 from selenium import webdriver
+from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from xvfbwrapper import Xvfb
 from ..conf import settings
@@ -41,10 +42,20 @@ def firefox_fetcher(conf):
     with firefox(headless) as driver:
         driver.get(url)
         if scenario:
+            old_root = driver.find_element_by_xpath("//*")
             run_scenario(driver, scenario)
         if delay:
             time.sleep(delay)
-        html = driver.find_element_by_xpath("//*").get_attribute("outerHTML")
+        elem = driver.find_element_by_xpath("//*")
+        try:
+            html = elem.get_attribute("outerHTML")
+        except StaleElementReferenceException:
+            # Crazy (but stable) race condition,
+            # new page loaded after call to find_element_by_xpath
+            # Just retry:
+            if elem.id == old_root.id:
+                elem = driver.find_element_by_xpath("//*")
+                html = elem.get_attribute("outerHTML")
         # Create a new tab and close the old one
         # to avoid idle page resource usage
         old_tab = driver.current_window_handle

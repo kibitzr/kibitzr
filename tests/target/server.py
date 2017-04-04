@@ -11,7 +11,10 @@ def start_server():
     server_address = ('127.0.0.1', port)
     root = os.path.join(os.path.dirname(__file__), 'www')
     initialized = Event()
-    process = Process(target=run_server, args=(root, server_address, initialized))
+    process = Process(
+        target=run_server,
+        args=(root, server_address, initialized),
+    )
     process.start()
     initialized.wait()
     time.sleep(0.1)

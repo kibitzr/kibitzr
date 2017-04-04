@@ -28,7 +28,8 @@ class PageHistoryTestCase(unittest.TestCase):
     def test_verbose_diff_sample(self):
         scenario = (
             (u"hello", True, u"test at web\nhello"),
-            (u"world", True, u"test at web\nPrevious value:\nhello\nNew value:\nworld"),
+            (u"world", True, u"test at web\nPrevious value:\n"
+                             u"hello\nNew value:\nworld"),
             (u"world", False, None),
         )
         for content, changed, report in scenario:
