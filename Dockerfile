@@ -17,7 +17,7 @@ RUN apt -qqy update                     \
        | tar zxf -                      \
     && pip install kibitzr              \
     && apt-get remove -y python-pip curl \
-    && apt-get clean
+    && apt-get clean                    \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ENTRYPOINT ["kibitzr"]
