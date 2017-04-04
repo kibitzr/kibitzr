@@ -5,6 +5,7 @@ include CONTRIBUTING.rst
 include HISTORY.rst
 include LICENSE
 include README.rst
+include CHANGELOG.md
 
 recursive-include tests *
 recursive-include kibitzr *

@@ -8,12 +8,14 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-with open('CHANGELOG.md') as fp:
-    for line in fp:
-        if line.startswith('## '):
-            version = line.split()[1].strip('[]')
-            if set(version).issubset('0123456789.'):
-                break
+
+def changelog_version():
+    with open('CHANGELOG.md') as fp:
+        for line in fp:
+            if line.startswith('## '):
+                version = line.split()[1].strip('[]')
+                if set(version).issubset('0123456789.'):
+                    return version
 
 setup(
     name='kibitzr',
