@@ -1,6 +1,7 @@
 import contextlib
 
-from kibitzr.conf import ReloadableSettings
+import pytest
+from kibitzr.conf import settings, ReloadableSettings, ConfigurationError
 from ..compat import mock
 
 
@@ -17,7 +18,7 @@ templates:
         scenario:
             login
         notify:
-            - slack
+            - smtp: kibitzrrr@gmail.com
         period: 3600
 
 scenarios:
@@ -51,7 +52,7 @@ pages = [
         'url': 'http://teamcity/build/id',
         'transforms': ['text', {'changes': 'verbose'}],
         'scenario': 'driver.find_element_by_css_selector(".login").click()\n',
-        'notify': ['slack'],
+        'notify': [{'smtp': 'kibitzrrr@gmail.com'}],
         'period': 60,
     },
     {
@@ -78,10 +79,10 @@ notifiers = {
 def test_complex_conf_sample():
     with patch_source("open_conf", sample_conf):
         with patch_source("open_creds", sample_creds):
-            settings = ReloadableSettings('')
-    assert settings.pages == pages
-    assert settings.creds == creds
-    assert settings.notifiers == notifiers
+            conf = ReloadableSettings('::')
+    assert conf.pages == pages
+    assert conf.creds == creds
+    assert conf.notifiers == notifiers
 
 
 @contextlib.contextmanager
@@ -92,3 +93,27 @@ def patch_source(method, data):
                            fake_file,
                            create=True) as fake_method:
         yield fake_method
+
+
+@mock.patch("kibitzr.conf.os.path.exists", return_value=False)
+def test_missing_config_raises_configuration_error(exists):
+    with pytest.raises(ConfigurationError):
+        settings()
+
+
+def test_reread():
+    conf1 = (
+        "checks:\n"
+        "  - name: Name\n"
+        "    url: URL\n"
+    )
+    conf2 = conf1 + "    period: 60\n"
+    with patch_source("open_creds", ""):
+        with patch_source("open_conf", conf1):
+            conf = ReloadableSettings('::')
+            # Config didn't change:
+            assert not conf.reread()
+        with patch_source("open_conf", conf2):
+            # Config changed:
+            assert conf.reread()
+    assert conf.pages == [{'name': 'Name', 'url': 'URL', 'period': 60}]

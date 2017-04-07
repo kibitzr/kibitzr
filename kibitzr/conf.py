@@ -135,17 +135,18 @@ class ReloadableSettings(object):
         """
         logger.debug("Loading credentials from %s",
                      os.path.abspath(self.creds_filename))
+        creds = {}
         try:
             with self.open_creds() as fp:
                 creds = yaml.load(fp)
-                if creds != self.creds:
-                    self.creds = creds
-                    return True
         except IOError:
             logger.info("No credentials file found at %s",
                         os.path.abspath(self.creds_filename))
         except:
             logger.exception("Error loading credentials file")
+        if creds != self.creds:
+            self.creds = creds
+            return True
         return False
 
     @contextlib.contextmanager
