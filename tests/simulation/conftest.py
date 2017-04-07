@@ -1,20 +1,11 @@
 import pytest
 from .target.server import start_server, stop_server
 from kibitzr.fetcher import cleanup_fetchers
-try:
-    from unittest.mock import patch
-except ImportError:
-    from mock import patch
+from ..compat import mock
+from ..helpers import SettingsMock
 
 
 server_addess = None
-
-
-class SettingsMock(object):
-    def __init__(self):
-        self.pages = []
-        self.notifiers = {}
-        self.creds = {}
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -24,7 +15,7 @@ def target_website(request):
     request.addfinalizer(cleanup_fetchers)
     request.addfinalizer(lambda: stop_server(server_process))
     for module in ("browser", "script"):
-        patch_object = patch(
+        patch_object = mock.patch(
             "kibitzr.fetcher.%s.settings" % module,
             return_value=SettingsMock()
         )

@@ -1,9 +1,5 @@
-try:
-    from unittest import mock
-except ImportError:
-    import mock
-
 from kibitzr.conf import ReloadableSettings
+from ..compat import mock
 
 
 sample_conf = """
