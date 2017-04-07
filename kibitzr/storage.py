@@ -6,8 +6,6 @@ import sh
 
 from .utils import normalize_filename
 
-git = sh.git.bake('--no-pager', _cwd="pages")
-
 
 def report_changes(conf, content):
     return PageHistory(conf).report_changes(content)
@@ -66,7 +64,7 @@ class PageHistory(object):
 
     def commit(self):
         """git commit and return whether there were changes"""
-        self.git('add', '-A', '.')
+        self.git.add('-A', '.')
         try:
             self.git.commit('-m', self.commit_msg)
             return True
