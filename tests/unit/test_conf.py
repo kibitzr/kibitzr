@@ -1,3 +1,5 @@
+import contextlib
+
 from kibitzr.conf import ReloadableSettings
 from ..compat import mock
 
@@ -74,11 +76,19 @@ notifiers = {
 
 
 def test_complex_conf_sample():
-    fake_conf = mock.mock_open(read_data=sample_conf)
-    fake_creds = mock.mock_open(read_data=sample_creds)
-    with mock.patch.object(ReloadableSettings, "open_conf", fake_conf, create=True):
-        with mock.patch.object(ReloadableSettings, "open_creds", fake_creds, create=True):
+    with patch_source("open_conf", sample_conf):
+        with patch_source("open_creds", sample_creds):
             settings = ReloadableSettings('')
     assert settings.pages == pages
     assert settings.creds == creds
     assert settings.notifiers == notifiers
+
+
+@contextlib.contextmanager
+def patch_source(method, data):
+    fake_file = mock.mock_open(read_data=data)
+    with mock.patch.object(ReloadableSettings,
+                           method,
+                           fake_file,
+                           create=True) as fake_method:
+        yield fake_method
