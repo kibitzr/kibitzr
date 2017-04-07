@@ -82,6 +82,7 @@ def firefox(headless=True):
             firefox_binary = None
         firefox_instance[driver_key] = webdriver.Firefox(
             firefox_binary=firefox_binary,
+            firefox_profile=webdriver.FirefoxProfile('profile'),
         )
         firefox_instance[driver_key].set_window_size(1024, 768)
     yield firefox_instance[driver_key]
