@@ -14,7 +14,7 @@ class ConfigurationError(RuntimeError):
 
 
 class ReloadableSettings(object):
-    _instances = {}
+    _instance = None
     CONFIG_DIRS = (
         '',
         '~/.config/kibitzr/',
@@ -47,11 +47,11 @@ class ReloadableSettings(object):
         )
 
     @classmethod
-    def instance(cls, config_dir):
-        key = config_dir
-        if key not in cls._instances:
-            cls._instances[key] = cls(key)
-        return cls._instances[key]
+    def instance(cls):
+        if cls._instance is None:
+            config_dir = cls.detect_config_dir()
+            cls._instance = cls(config_dir)
+        return cls._instance
 
     def reread(self):
         """
@@ -158,8 +158,7 @@ def settings():
     """
     Returns singleton instance of settings
     """
-    config_dir = ReloadableSettings.detect_config_dir()
-    return ReloadableSettings.instance(config_dir)
+    return ReloadableSettings.instance()
 
 
 logging.config.dictConfig({
