@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## [3.0.1] - 2017-04-07
+## Fixed
+- Exit if no checks defined
+- Better credentials reloading
+
 ## [3.0.0] - 2017-04-04
 ## Changed
 - Switched to selenium >3 and Firefox >48
