@@ -1,8 +1,9 @@
+import sys
 import logging
 
 import click
 
-from kibitzr import __version__ as VERSION
+from kibitzr import __version__ as kibitzr_version
 from kibitzr.main import main
 
 
@@ -26,10 +27,10 @@ LOG_LEVEL_CODES = {
 def entry(once, log_level, version, name):
     """Run kibitzr in the foreground mode"""
     if version:
-        print(VERSION)
+        print(kibitzr_version)
     else:
         log_level_code = LOG_LEVEL_CODES[log_level]
-        main(once=once, log_level=log_level_code, names=name)
+        sys.exit(main(once=once, log_level=log_level_code, names=name))
 
 
 if __name__ == "__main__":

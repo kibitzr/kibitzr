@@ -1,4 +1,3 @@
-import sys
 import logging
 import signal
 import time
@@ -18,7 +17,9 @@ open_backdoor = False
 
 
 def main(once=False, log_level=logging.INFO, names=None):
-    global reload_conf_pending, interrupted
+    global reload_conf_pending, interrupted, open_backdoor
+    # Reset global state for testability:
+    reload_conf_pending, interrupted, open_backdoor = False, False, False
     logging.getLogger("").setLevel(log_level)
     logger.debug("Arguments: %r",
                  {"once": once, "log_level": log_level})
@@ -44,9 +45,10 @@ def main(once=False, log_level=logging.INFO, names=None):
                     check_forever(checkers)
             else:
                 logger.warning("No checks defined. Exiting")
-                sys.exit(1)
+                return 1
     finally:
         cleanup_fetchers()
+    return 0
 
 
 def check_forever(checkers):
