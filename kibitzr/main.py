@@ -1,3 +1,4 @@
+import sys
 import logging
 import signal
 import time
@@ -35,11 +36,15 @@ def main(once=False, log_level=logging.INFO, names=None):
                 checks=settings().pages,
                 names=names
             )
-            execute_all(checkers)
-            if once or interrupted:
-                break
+            if checkers:
+                execute_all(checkers)
+                if once or interrupted:
+                    break
+                else:
+                    check_forever(checkers)
             else:
-                check_forever(checkers)
+                logger.warning("No checks defined. Exiting")
+                sys.exit(1)
     finally:
         cleanup_fetchers()
 
