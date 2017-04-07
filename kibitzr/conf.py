@@ -14,7 +14,7 @@ class ConfigurationError(RuntimeError):
 
 
 class ReloadableSettings(object):
-    _instances = {}
+    _instance = None
     CONFIG_DIRS = (
         '',
         '~/.config/kibitzr/',
@@ -47,11 +47,11 @@ class ReloadableSettings(object):
         )
 
     @classmethod
-    def instance(cls, config_dir):
-        key = config_dir
-        if key not in cls._instances:
-            cls._instances[key] = cls(key)
-        return cls._instances[key]
+    def instance(cls):
+        if cls._instance is None:
+            config_dir = cls.detect_config_dir()
+            cls._instance = cls(config_dir)
+        return cls._instance
 
     def reread(self):
         """
@@ -135,17 +135,18 @@ class ReloadableSettings(object):
         """
         logger.debug("Loading credentials from %s",
                      os.path.abspath(self.creds_filename))
+        creds = {}
         try:
             with self.open_creds() as fp:
                 creds = yaml.load(fp)
-                if creds != self.creds:
-                    self.creds = creds
-                    return True
         except IOError:
             logger.info("No credentials file found at %s",
                         os.path.abspath(self.creds_filename))
         except:
             logger.exception("Error loading credentials file")
+        if creds != self.creds:
+            self.creds = creds
+            return True
         return False
 
     @contextlib.contextmanager
@@ -158,8 +159,7 @@ def settings():
     """
     Returns singleton instance of settings
     """
-    config_dir = ReloadableSettings.detect_config_dir()
-    return ReloadableSettings.instance(config_dir)
+    return ReloadableSettings.instance()
 
 
 logging.config.dictConfig({
