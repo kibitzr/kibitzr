@@ -1,6 +1,7 @@
 import os
 import copy
 import logging.config
+import contextlib
 
 import yaml
 
@@ -58,8 +59,7 @@ class ReloadableSettings(object):
         """
         logger.debug("Loading settings from %s",
                      os.path.abspath(self.filename))
-        with open(self.filename) as fp:
-            conf = yaml.load(fp)
+        conf = self.read_conf()
         changed = self.read_creds()
         pages = conf.get('checks', conf.get('pages', []))
         notifiers = conf.get('notifiers', {})
@@ -78,6 +78,7 @@ class ReloadableSettings(object):
                     )
                 templated_page.update(page)
                 page = templated_page
+                del page['template']
                 pages[i] = page
             if 'scenario' in page:
                 if page['scenario'] in scenarios:
@@ -115,6 +116,18 @@ class ReloadableSettings(object):
             else:
                 yield page
 
+    def read_conf(self):
+        """
+        Read and parse configuration file
+        """
+        with self.open_conf() as fp:
+            return yaml.load(fp)
+
+    @contextlib.contextmanager
+    def open_conf(self):
+        with open(self.filename) as fp:
+            yield fp
+
     def read_creds(self):
         """
         Read and parse credentials file.
@@ -123,7 +136,7 @@ class ReloadableSettings(object):
         logger.debug("Loading credentials from %s",
                      os.path.abspath(self.creds_filename))
         try:
-            with open(self.creds_filename, 'r') as fp:
+            with self.open_creds() as fp:
                 creds = yaml.load(fp)
                 if creds != self.creds:
                     self.creds = creds
@@ -134,6 +147,11 @@ class ReloadableSettings(object):
         except:
             logger.exception("Error loading credentials file")
         return False
+
+    @contextlib.contextmanager
+    def open_creds(self):
+        with open(self.creds_filename) as fp:
+            yield fp
 
 
 def settings():
