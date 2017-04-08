@@ -7,12 +7,12 @@ RUN apt -qqy update                     \
        curl                             \
        firefox                          \
        git                              \
+       jq                               \
        python-lazy-object-proxy         \
        python-lxml                      \
        python-pip                       \
        python-yaml                      \
        xvfb                             \
-       jq                               \
     && cd /usr/local/bin/               \
     && curl -L https://github.com/mozilla/geckodriver/releases/download/v0.15.0/geckodriver-v0.15.0-linux64.tar.gz \
        | tar zxf -                      \
