@@ -1,7 +1,5 @@
 FROM phusion/baseimage:0.9.20
 
-ENV DEBIAN_FRONTEND noninteractive
-
 RUN apt -qqy update                     \
     && apt -y install                   \
        curl                             \
@@ -20,5 +18,8 @@ RUN apt -qqy update                     \
     && apt-get remove -y python-pip curl \
     && apt-get clean                    \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+ENV DEBIAN_FRONTEND noninteractive
+ENV PYTHONUNBUFFERED true
 
 ENTRYPOINT ["kibitzr"]

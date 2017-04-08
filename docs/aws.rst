@@ -15,7 +15,7 @@ Define a simple check:
 
 .. code-block:: shell
     
-    echo > kibitzr.yml << EOF
+    cat >kibitzr.yml <<EOF
     checks:
       - name: Kibitzr GitHub release
         url: https://api.github.com/repos/kibitzr/kibitzr/releases/latest
