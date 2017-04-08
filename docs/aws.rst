@@ -15,9 +15,8 @@ Launch Amazon Linux AMI and execute following commands:
 Define a simple check:
 
 .. code-block:: shell
-	
-	echo > kibitzr.yml << EOF
-
+    
+    echo > kibitzr.yml << EOF
     checks:
       - name: Kibitzr GitHub release
         url: https://api.github.com/repos/kibitzr/kibitzr/releases/latest
@@ -25,8 +24,8 @@ Define a simple check:
           - jq: .tag_name + " " + .name
           - changes: verbose
         notify:
-          - slack
-	EOF
+          - python: print(text)
+    EOF
 
 Run kibitzr inside docker container:
 
