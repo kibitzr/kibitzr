@@ -28,12 +28,12 @@ Or build your own notifier in Python_ or bash_.
 .. _Fork: https://github.com/kibitzr/kibitzr/
 
 .. include:: overview.rst
-.. include:: installation.rst
 .. include:: usage.rst
 
 .. toctree::
    :maxdepth: 1
 
+   installation
    transforms
    notifiers
    recipes
