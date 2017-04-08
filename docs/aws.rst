@@ -10,7 +10,6 @@ Launch Amazon Linux AMI and execute following commands:
     sudo yum update -y
     sudo yum install -y docker
     sudo service docker start
-    sudo usermod -a -G docker ec2-user
 
 Define a simple check:
 
@@ -31,8 +30,7 @@ Run kibitzr inside docker container:
 
 .. code-block:: shell
 
-    docker run --rm -v $PWD:/root/.config/kibitzr -v $PWD/pages:/pages peterdemin/kibitzr
-
+    sudo docker run --rm -v $PWD:/root/.config/kibitzr -v $PWD/pages:/pages peterdemin/kibitzr
 
 .. _t2.micro: https://aws.amazon.com/ec2/instance-types/
 .. _`AWS Free Tier`: https://aws.amazon.com/free
