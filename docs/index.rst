@@ -1,5 +1,5 @@
-Welcome to Kibitzr's documentation!
-======================================
+Kibitzr - Personal Network Assistant
+=====================================
 
 Kibitzr is like a secret twin brother who does routine tasks and asks for nothing in return.
 
