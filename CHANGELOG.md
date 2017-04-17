@@ -1,6 +1,8 @@
 # Changelog
 
 ## Unreleased
+## Added
+- Short form for SMTP notifier #11
 
 ## [3.0.1] - 2017-04-07
 ## Fixed
