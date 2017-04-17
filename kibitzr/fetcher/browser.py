@@ -1,3 +1,4 @@
+import os
 import sys
 import logging
 import time
@@ -11,6 +12,7 @@ from ..conf import settings
 
 
 logger = logging.getLogger(__name__)
+PROFILE_DIR = 'firefox_profile'
 
 
 firefox_instance = {
@@ -80,9 +82,18 @@ def firefox(headless=True):
             firefox_binary = FirefoxBinary(log_file=sys.stdout)
         else:
             firefox_binary = None
+        if not os.path.isdir(PROFILE_DIR):
+            try:
+                os.makedirs(PROFILE_DIR)
+                firefox_profile = webdriver.FirefoxProfile(PROFILE_DIR)
+            except IOError as exc:
+                logger.warning("Failed to create Firefox profile directory")
+                firefox_profile = None
+        else:
+            firefox_profile = webdriver.FirefoxProfile(PROFILE_DIR)
         firefox_instance[driver_key] = webdriver.Firefox(
             firefox_binary=firefox_binary,
-            firefox_profile=webdriver.FirefoxProfile('profile'),
+            firefox_profile=firefox_profile,
         )
         firefox_instance[driver_key].set_window_size(1024, 768)
     yield firefox_instance[driver_key]
