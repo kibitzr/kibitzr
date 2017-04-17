@@ -1,6 +1,8 @@
 import logging
 import smtplib
 
+import six
+
 from ..conf import settings
 
 
@@ -14,8 +16,16 @@ def post_smtp(conf, report, notifier_conf, **kwargs):
     password = credentials['password']
     host = credentials['host']
     port = credentials['port']
-    recipients = notifier_conf['recipients']
-    subject = notifier_conf['subject']
+    try:
+        recipients = notifier_conf['recipients']
+    except (TypeError, KeyError) as exc:
+        recipients = notifier_conf
+    if isinstance(recipients, six.string_types):
+        recipients = [recipients]
+    try:
+        subject = notifier_conf['subject']
+    except (TypeError, KeyError) as exc:
+        subject = "Kibitzr update for " + conf['name']
     send_email(
         user=user,
         password=password,
