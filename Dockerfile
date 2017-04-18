@@ -13,7 +13,6 @@ RUN apt -qqy update                     \
        python-pip                       \
        python-yaml                      \
        xvfb                             \
-    && cd /usr/local/bin/               \
     && pip install kibitzr              \
     && apt-get remove -y python-pip curl \
     && apt-get clean                    \
