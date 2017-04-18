@@ -1,8 +1,12 @@
 # Changelog
 
 ## Unreleased
+
+## [3.0.2] - 2017-04-18
 ## Added
 - Short form for SMTP notifier #11
+## Fixed
+- Weird BS4 misbehaviour in CSS selector
 
 ## [3.0.1] - 2017-04-07
 ## Fixed
