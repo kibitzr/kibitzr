@@ -48,13 +48,15 @@ def cleanup():
 
 
 def persistent_firefox():
+    if not os.path.exists(PROFILE_DIR):
+        os.makedirs(PROFILE_DIR)
     with firefox(headless=False) as driver:
         driver.get(HOME_PAGE)
         while True:
             try:
                 # Property raises when browser is closed:
                 driver.title
-            except (WebDriverException, OSError) as _exc:
+            except (WebDriverException, OSError) as exc:
                 break
             else:
                 time.sleep(0.2)
