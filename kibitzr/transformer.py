@@ -103,10 +103,10 @@ def tag_selector(name, html):
 def css_selector(selector, html):
     with deep_recursion():
         soup = BeautifulSoup(html, "html.parser")
-        element = soup.select_one(selector)
-        if element:
+        try:
+            element = soup.select(selector)[0]
             return True, six.text_type(element)
-        else:
+        except IndexError:
             logger.warning('CSS selector not found: %r', selector)
             return False, html
 
