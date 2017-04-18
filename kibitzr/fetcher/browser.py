@@ -33,11 +33,13 @@ def cleanup():
     global firefox_instance
     temp_dirs = []
     if firefox_instance['driver'] is not None:
-        temp_dirs.append(firefox_instance['driver'].profile.profile_dir)
+        if firefox_instance['driver'].profile:
+            temp_dirs.append(firefox_instance['driver'].profile.profile_dir)
         firefox_instance['driver'].quit()
         firefox_instance['driver'] = None
     if firefox_instance['headed_driver'] is not None:
-        temp_dirs.append(firefox_instance['headed_driver'].profile.profile_dir)
+        if firefox_instance['headed_driver'].profile:
+            temp_dirs.append(firefox_instance['headed_driver'].profile.profile_dir)
         firefox_instance['headed_driver'].quit()
         firefox_instance['headed_driver'] = None
     if firefox_instance['xvfb_display'] is not None:
