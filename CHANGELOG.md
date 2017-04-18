@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## [3.0.3] - 2017-04-18
+## Added
+- Persistent firefox profile [undocumented]
+
 ## [3.0.2] - 2017-04-18
 ## Added
 - Short form for SMTP notifier #11
