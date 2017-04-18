@@ -6,7 +6,7 @@ import code
 import schedule
 
 from .conf import settings
-from .fetcher import cleanup_fetchers
+from .fetcher import cleanup_fetchers, persistent_firefox
 from .checker import Checker
 
 
@@ -16,13 +16,17 @@ interrupted = False
 open_backdoor = False
 
 
+__all__ = [
+    'main',
+    'run_firefox',
+]
+
+
 def main(once=False, log_level=logging.INFO, names=None):
     global reload_conf_pending, interrupted, open_backdoor
     # Reset global state for testability:
     reload_conf_pending, interrupted, open_backdoor = False, False, False
-    logging.getLogger("").setLevel(log_level)
-    logger.debug("Arguments: %r",
-                 {"once": once, "log_level": log_level})
+    setup_logger(log_level)
     signal.signal(signal.SIGUSR1, on_reload_config)
     signal.signal(signal.SIGUSR2, on_backdoor)
     signal.signal(signal.SIGINT, on_interrupt)
@@ -49,6 +53,15 @@ def main(once=False, log_level=logging.INFO, names=None):
     finally:
         cleanup_fetchers()
     return 0
+
+
+def run_firefox():
+    setup_logger(logging.DEBUG)
+    persistent_firefox()
+
+
+def setup_logger(log_level=logging.INFO):
+    logging.getLogger("").setLevel(log_level)
 
 
 def check_forever(checkers):

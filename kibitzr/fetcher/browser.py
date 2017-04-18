@@ -1,16 +1,24 @@
+import os
 import sys
-import logging
 import time
+import shutil
+import logging
 from contextlib import contextmanager
 
-from selenium import webdriver
-from selenium.common.exceptions import StaleElementReferenceException
-from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from xvfbwrapper import Xvfb
+from selenium import webdriver
+from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
+from selenium.common.exceptions import (
+    WebDriverException,
+    StaleElementReferenceException,
+)
+
 from ..conf import settings
 
 
 logger = logging.getLogger(__name__)
+PROFILE_DIR = 'firefox_profile'
+HOME_PAGE = 'https://kibitzr.github.io/'
 
 
 firefox_instance = {
@@ -23,15 +31,54 @@ firefox_instance = {
 def cleanup():
     """Must be called before exit"""
     global firefox_instance
+    temp_dirs = []
     if firefox_instance['driver'] is not None:
+        if firefox_instance['driver'].profile:
+            temp_dirs.append(firefox_instance['driver'].profile.profile_dir)
         firefox_instance['driver'].quit()
         firefox_instance['driver'] = None
     if firefox_instance['headed_driver'] is not None:
+        if firefox_instance['headed_driver'].profile:
+            temp_dirs.append(firefox_instance['headed_driver'].profile.profile_dir)
         firefox_instance['headed_driver'].quit()
         firefox_instance['headed_driver'] = None
     if firefox_instance['xvfb_display'] is not None:
         firefox_instance['xvfb_display'].stop()
         firefox_instance['xvfb_display'] = None
+    for temp_dir in temp_dirs:
+        shutil.rmtree(temp_dir, ignore_errors=True)
+
+
+def persistent_firefox():
+    if not os.path.exists(PROFILE_DIR):
+        os.makedirs(PROFILE_DIR)
+    with firefox(headless=False) as driver:
+        driver.get(HOME_PAGE)
+        while True:
+            try:
+                # Property raises when browser is closed:
+                driver.title
+            except (WebDriverException, OSError) as exc:
+                break
+            else:
+                time.sleep(0.2)
+        update_profile(driver)
+
+
+def update_profile(driver):
+    if os.path.exists(PROFILE_DIR):
+        shutil.rmtree(PROFILE_DIR)
+    shutil.copytree(
+        driver.profile.profile_dir,
+        PROFILE_DIR,
+        ignore=shutil.ignore_patterns(
+            "parent.lock",
+            "lock",
+            ".parentlock",
+            "*.sqlite-shm",
+            "*.sqlite-wal",
+        ),
+    )
 
 
 def firefox_fetcher(conf):
@@ -80,8 +127,14 @@ def firefox(headless=True):
             firefox_binary = FirefoxBinary(log_file=sys.stdout)
         else:
             firefox_binary = None
+        # Load profile, if it exists:
+        if os.path.isdir(PROFILE_DIR):
+            firefox_profile = webdriver.FirefoxProfile(PROFILE_DIR)
+        else:
+            firefox_profile = None
         firefox_instance[driver_key] = webdriver.Firefox(
             firefox_binary=firefox_binary,
+            firefox_profile=firefox_profile,
         )
         firefox_instance[driver_key].set_window_size(1024, 768)
     yield firefox_instance[driver_key]
