@@ -62,7 +62,8 @@ def persistent_firefox():
 
 
 def update_profile(driver):
-    shutil.rmtree(PROFILE_DIR)
+    if os.path.exists(PROFILE_DIR):
+        shutil.rmtree(PROFILE_DIR)
     shutil.copytree(
         driver.profile.profile_dir,
         PROFILE_DIR,
@@ -122,15 +123,11 @@ def firefox(headless=True):
             firefox_binary = FirefoxBinary(log_file=sys.stdout)
         else:
             firefox_binary = None
-        if not os.path.isdir(PROFILE_DIR):
-            try:
-                os.makedirs(PROFILE_DIR)
-                firefox_profile = webdriver.FirefoxProfile(PROFILE_DIR)
-            except IOError as exc:
-                logger.warning("Failed to create Firefox profile directory")
-                firefox_profile = None
-        else:
+        # Load profile, if it exists:
+        if os.path.isdir(PROFILE_DIR):
             firefox_profile = webdriver.FirefoxProfile(PROFILE_DIR)
+        else:
+            firefox_profile = None
         firefox_instance[driver_key] = webdriver.Firefox(
             firefox_binary=firefox_binary,
             firefox_profile=firefox_profile,
