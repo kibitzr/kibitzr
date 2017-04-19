@@ -36,7 +36,8 @@ Example of running kibitzr within docker container.
 Manual installation
 -------------------
 
-The hard way is to install all dependencies. Consult `Dockerfile`_ on required steps.
+The hard way is to install all dependencies.
+Consult `Dockerfile`_ and :ref:`gcp` tutorial on required steps.
 
 Kibitzr uses several Python packages, that have C extensions.
 When installed through pip, they are compiling libraries.

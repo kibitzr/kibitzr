@@ -3,8 +3,8 @@ Kibitzr - Personal Network Assistant
 
 Kibitzr is like a secret twin brother who does routine tasks and asks for nothing in return.
 
-* `Install`_ with ``pip install kibitzr`` (Works with both Python 2 and 3)
-* :ref:`Configure <configuration>` recurrent tasks in ``kibitzr.yml``
+* :ref:`Install` with ``pip install kibitzr`` (Works with both Python 2 and 3)
+* :ref:`Configure <configuration>` recurrent checks in ``kibitzr.yml``
 * Put credentials in ``kibitzr-creds.yml``
 * Launch with ``kibitzr``
 * Problems? Ask in Github issues_, or gitter_
@@ -26,21 +26,17 @@ Or build your own notifier in Python_ or bash_.
 .. _Python: https://www.python.org/
 .. _bash: https://www.gnu.org/software/bash/
 .. _Fork: https://github.com/kibitzr/kibitzr/
+.. _Selenium: http://www.seleniumhq.org/
 
 .. include:: overview.rst
-.. include:: usage.rst
 
 .. toctree::
    :maxdepth: 1
 
    installation
+   configuration
+   usage
    transforms
    notifiers
    recipes
    contributing
-   authors
-   history
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
