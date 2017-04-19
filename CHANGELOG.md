@@ -1,6 +1,8 @@
 # Changelog
 
 ## Unreleased
+
+## [3.0.7] - 2017-04-19
 ## Added
 - Zapier notifier
 
