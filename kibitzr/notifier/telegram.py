@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import logging
 
 from lazy_object_proxy import Proxy as Lazy
