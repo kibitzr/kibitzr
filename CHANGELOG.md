@@ -2,11 +2,7 @@
 
 ## Unreleased
 
-## [3.0.5] - 2017-04-19
-## Fixed
-- Added missing Telegram Bot dependency
-
-## [3.0.4] - 2017-04-19
+## [3.0.6] - 2017-04-19
 ## Added
 - Telegram notifier
 
