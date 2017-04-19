@@ -9,9 +9,11 @@ logger = logging.getLogger(__name__)
 
 
 class ZapierSession(object):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, url=None, *args, **kwargs):
         zapier_conf = settings().notifiers.get('zapier', {})
         zapier_conf.update(settings().creds.get('zapier', {}))
+        if url is not None:
+            zapier_conf.update({'url': url})
         self.url = zapier_conf['url']
         self.session = requests.Session()
 

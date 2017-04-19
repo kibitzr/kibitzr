@@ -155,7 +155,7 @@ class Checker(object):
         elif key == 'telegram':
             return TelegramBot().post
         elif key == 'zapier':
-            return ZapierSession().post
+            return ZapierSession(value).post
         elif key == 'smtp':
             return functools.partial(post_smtp, notifier_conf=value)
         else:
