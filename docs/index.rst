@@ -3,7 +3,7 @@ Kibitzr - Personal Network Assistant
 
 Kibitzr is like a secret twin brother who does routine tasks and asks for nothing in return.
 
-* :ref:`Install` with ``pip install kibitzr`` (Works with both Python 2 and 3)
+* :ref:`Install <install>` with ``pip install kibitzr`` (Works with both Python 2 and 3)
 * :ref:`Configure <configuration>` recurrent checks in ``kibitzr.yml``
 * Put credentials in ``kibitzr-creds.yml``
 * Launch with ``kibitzr``
