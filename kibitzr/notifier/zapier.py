@@ -20,6 +20,7 @@ class ZapierSession(object):
     def post(self, report, **kwargs):
         response = self.session.post(
             url=self.url,
+            headers={"Content-Type": "application/x-www-form-urlencoded"},
             data={"text": report},
         )
         logger.debug(response.text)
