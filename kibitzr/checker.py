@@ -9,6 +9,7 @@ from .fetcher import (
 )
 from .notifier import (
     SlackSession,
+    TelegramBot,
     post_bash,
     post_gitter,
     post_mailgun,
@@ -150,6 +151,8 @@ class Checker(object):
             return post_gitter
         elif key == 'slack':
             return SlackSession().post
+        elif key == 'telegram':
+            return TelegramBot().post
         elif key == 'smtp':
             return functools.partial(post_smtp, notifier_conf=value)
         else:
