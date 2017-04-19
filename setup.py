@@ -49,6 +49,7 @@ setup(
         'six',
         'lxml',
         'lazy-object-proxy',
+        'python-telegram-bot',
     ],
     license="MIT license",
     zip_safe=False,
