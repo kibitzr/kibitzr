@@ -1,4 +1,5 @@
 import os
+import re
 import copy
 import logging.config
 import contextlib
@@ -22,6 +23,8 @@ class ReloadableSettings(object):
     )
     CONFIG_FILENAME = 'kibitzr.yml'
     CREDENTIALS_FILENAME = 'kibitzr-creds.yml'
+    RE_PUNCTUATION = re.compile(r'\W+')
+    UNNAMED_PATTERN = 'Unnamed check {0}'
 
     def __init__(self, config_dir):
         self.filename = os.path.join(config_dir, self.CONFIG_FILENAME)
@@ -65,8 +68,15 @@ class ReloadableSettings(object):
         notifiers = conf.get('notifiers', {})
         templates = conf.get('templates', {})
         scenarios = conf.get('scenarios', {})
+        unnamed_check_counter = 1
         pages = list(self.unpack_batches(pages))
         for i, page in enumerate(pages):
+            if not page.get('name'):
+                if page.get('url'):
+                    page['name'] = self.url_to_name(page['url'])
+                else:
+                    page['name'] = self.UNNAMED_PATTERN.format(unnamed_check_counter)
+                    unnamed_check_counter += 1
             name = page['name']
             if 'template' in page:
                 if page['template'] in templates:
@@ -100,6 +110,10 @@ class ReloadableSettings(object):
             return True
         else:
             return changed
+
+    @classmethod
+    def url_to_name(cls, url):
+        return cls.RE_PUNCTUATION.sub('-', url)
 
     def unpack_batches(self, pages):
         for page in pages:
