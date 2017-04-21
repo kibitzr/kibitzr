@@ -14,8 +14,10 @@ import sh
 from lazy_object_proxy import Proxy as Lazy
 
 from .storage import PageHistory
+from .conf import settings
 
 
+PYTHON_ERROR = "transform.python must set global variables ok and content"
 logger = logging.getLogger(__name__)
 jq = Lazy(lambda: sh.jq.bake('--monochrome-output', '--raw-output'))
 
@@ -49,6 +51,8 @@ def transformer_factory(conf, rule):
         name, value = rule, None
     if name == 'css':
         return functools.partial(css_selector, value)
+    if name == 'css-all':
+        return functools.partial(css_selector, value, select_all=True)
     elif name == 'xpath':
         return functools.partial(xpath_selector, value)
     elif name == 'tag':
@@ -69,6 +73,8 @@ def transformer_factory(conf, rule):
         return sort_lines
     elif name == 'cut':
         return functools.partial(cut_lines, value)
+    elif name == 'python':
+        return functools.partial(python_transform, value)
     else:
         raise RuntimeError(
             "Unknown transformer: %r" % (name,)
@@ -100,12 +106,17 @@ def tag_selector(name, html):
             return False, html
 
 
-def css_selector(selector, html):
+def css_selector(selector, html, select_all=False):
     with deep_recursion():
         soup = BeautifulSoup(html, "html.parser")
         try:
-            element = soup.select(selector)[0]
-            return True, six.text_type(element)
+            elements = soup.select(selector)
+            if select_all:
+                result = u"".join(six.text_type(x)
+                                  for x in elements)
+            else:
+                result = six.text_type(elements[0])
+            return True, result
         except IndexError:
             logger.warning('CSS selector not found: %r', selector)
             return False, html
@@ -165,6 +176,20 @@ def run_jq(query, text):
     logger.debug("jq transform success: %r, content: %r",
                  success, result)
     return success, result
+
+
+def python_transform(code, content):
+    logger.info("Python transform")
+    logger.debug(code)
+    assert 'ok' in code, PYTHON_ERROR
+    assert 'content' in code, PYTHON_ERROR
+    try:
+        namespace = {'content': content}
+        exec(code, {'creds': settings().creds}, namespace)
+        return namespace['ok'], six.text_type(namespace['content'])
+    except:
+        logger.exception("Python transform raised an Exception")
+        return False, None
 
 
 @contextlib.contextmanager
