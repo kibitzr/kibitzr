@@ -73,8 +73,9 @@ checks:
   - name: TeamCity Build
     url: https://teamcity/viewQueued.html?itemId=10270004
     scenario: |
+        # Click "guest login" link
         driver.find_element_by_css_selector(
-            "#pageContent > form > table > tbody > tr:nth-child(4) > td > span > a:nth-child(1)"
+            "form a:nth-child(1)"
         ).click()
     transforms:
       - xpath: //*[@id="buildResults" or contains(@class, 'statusBlock')]//table/tbody/tr[1]/td[2]
