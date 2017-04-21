@@ -17,6 +17,10 @@ Kibitzr
         :target: https://kibitzr.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
 
+.. image:: https://gitpitch.com/assets/badge.svg
+        :target: https://gitpitch.com/kibitzr/kibitzr/master?grs=github&t=white
+        :alt: GitPitch
+
 Kibitzr is like a secret twin brother who does routine tasks and asks for nothing in return.
 
 * Install with ``pip install kibitzr`` (Works with both Python 2 and 3)
