@@ -29,7 +29,7 @@ Or build your own notifier in Python or bash.
 .. include:: overview.rst
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
    installation
    configuration

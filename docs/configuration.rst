@@ -3,6 +3,9 @@
 =============
 Configuration
 =============
+
+.. _configuration-location:
+
 Location
 --------
 
@@ -15,6 +18,8 @@ It tries to find it in following places:
 
 ``kibitzr-creds.yml`` can be used to store credentials,
 it must be placed in the same directory as ``kibitzr.yml``.
+
+.. _configuration-format:
 
 Format
 ------
@@ -44,8 +49,10 @@ Kibitzr supports browser interactions. They can be activated by using any of key
    1. ``delay`` - number of seconds to wait after page loaded in browser to process Javascipt.
    2. ``scenario`` - python scenario acting on selenium_ driver after page load.
 
-Simple example
---------------
+.. _configuration-example:
+
+Example break down
+------------------
 
 Let's start with something simple. It's not very useful check, but it'll show the basics.
 
@@ -55,10 +62,10 @@ Let's start with something simple. It's not very useful check, but it'll show th
       - name: Current Time
         url: https://www.timeanddate.com/worldclock/usa/new-york
         transform:
-            - css: "#qlook > div"
-            - text
+          - css: "#qlook > div"
+          - text
         notify:
-            - python: print(text)
+          - python: print(text)
         period: 15
 
 Copy paste it to your ``kibitzr.yml`` and launch ``kibitzr``.
@@ -143,40 +150,6 @@ Last line of configuration file is the ``period``:
         period: 15
 
 The number of seconds to wait between (*start of*) checks.
-
-And here is the more complex example:
-
-.. code-block:: yaml
-
-    pages:
-    
-      - name: NASA awards on preview
-        url: http://preview.ncbi.nlm.nih.gov/pmc/utils/granthub/award/?authority.code=nasa&format=json
-        transform:
-          - json
-          - changes
-        period: 30
-        notify:
-          - mailgun
-    
-      - name: Rocket launches
-        url: http://www.nasa.gov/centers/kennedy/launchingrockets/index.html
-        transform: changes
-        period: 600
-        notify:
-          - mailgun
-    
-    notifiers:
-    
-        # This can be moved to kibitzr-creds.yml:
-        mailgun:
-            key: <mailgun api key>
-            domain: <your domain>
-            to: <your email>
-
-This configuration tells kibitzr to check URL at http://preview... every 5 minutes (300 seconds),
-prettify JSON and compare against previously saved result. git diff output is sent through mailgun.
-
 
 .. _requests: http://docs.python-requests.org/
 .. _BeautifulSoup: https://www.crummy.com/software/BeautifulSoup/
