@@ -54,7 +54,7 @@ Kibitzr supports browser interactions. They can be activated by using any of key
 Example break down
 ------------------
 
-Let's start with something simple. It's not very useful check, but it'll show the basics.
+Let's start with something simple. It's not very useful check, but it shows the basics.
 
 .. code-block:: yaml
 
