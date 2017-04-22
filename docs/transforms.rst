@@ -10,7 +10,8 @@ HTML
 ----
 
 1. ``tag: tagname`` - crop HTML to contents of the first matching HTML tag.
-2. ``css: selector`` - crop HTML to contents of the passed `CSS selector`_.
+2. ``css: selector`` - crop HTML to the first encountered outer HTML matching passed `CSS selector`_.
+2. ``css-all: selector`` - crop HTML to the concatenated list of all matching elements.
 3. ``xpath: path`` - crop HTML to contents of the passed `XPath`_.
 4. ``text`` - strip all HTML tags and return only text.
 
@@ -21,6 +22,7 @@ Plain text
 2. ``changes: verbose`` - Same as ``changes``, but in human-friendly format
 3. ``sort`` - Sort lines of text alphabetically
 4. ``cut: N`` - Remove lines after ``N``'th
+5. ``python: script`` - Execute arbitrary Python code on passed content. See :ref:`Python support` for details.
 
 JSON (for APIs)
 ---------------

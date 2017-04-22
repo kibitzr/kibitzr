@@ -7,6 +7,7 @@ import contextlib
 import functools
 import json
 from lxml import etree
+import traceback
 
 import six
 from bs4 import BeautifulSoup
@@ -74,7 +75,7 @@ def transformer_factory(conf, rule):
     elif name == 'cut':
         return functools.partial(cut_lines, value)
     elif name == 'python':
-        return functools.partial(python_transform, value)
+        return functools.partial(python_transform, conf=conf, code=value)
     else:
         raise RuntimeError(
             "Unknown transformer: %r" % (name,)
@@ -178,18 +179,18 @@ def run_jq(query, text):
     return success, result
 
 
-def python_transform(code, content):
+def python_transform(content, code, conf):
     logger.info("Python transform")
     logger.debug(code)
     assert 'ok' in code, PYTHON_ERROR
     assert 'content' in code, PYTHON_ERROR
     try:
         namespace = {'content': content}
-        exec(code, {'creds': settings().creds}, namespace)
+        exec(code, {'creds': settings().creds, 'conf': conf}, namespace)
         return namespace['ok'], six.text_type(namespace['content'])
     except:
         logger.exception("Python transform raised an Exception")
-        return False, None
+        return False, traceback.format_exc()
 
 
 @contextlib.contextmanager

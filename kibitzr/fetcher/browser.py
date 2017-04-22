@@ -90,7 +90,7 @@ def firefox_fetcher(conf):
         driver.get(url)
         if scenario:
             old_root = driver.find_element_by_xpath("//*")
-            run_scenario(driver, scenario)
+            run_scenario(driver, scenario, conf)
         if delay:
             time.sleep(delay)
         elem = driver.find_element_by_xpath("//*")
@@ -153,7 +153,14 @@ def virtual_buffer():
     raise Exception("Xvfb could not be started after six attempts.")
 
 
-def run_scenario(driver, code):
+def run_scenario(driver, code, conf):
     logger.info("Executing custom scenario")
     logger.debug(code)
-    exec(code, {'driver': driver, 'creds': settings().creds})
+    exec(
+        code,
+        {
+            'conf': conf,
+            'creds': settings().creds,
+            'driver': driver,
+        },
+    )

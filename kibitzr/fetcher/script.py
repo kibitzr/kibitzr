@@ -1,13 +1,12 @@
 import tempfile
 import logging
+import traceback
 
 import sh
 from ..conf import settings
 
 
 logger = logging.getLogger(__name__)
-
-
 PYTHON_ERROR = "script.python must set global variables ok and content"
 
 
@@ -19,7 +18,7 @@ def fetch_by_script(conf, **_kwargs):
         # Not a python script
         pass
     else:
-        return fetch_by_python(python_code)
+        return fetch_by_python(python_code, conf)
     try:
         # Explicit notation:
         bash_script = code['bash']
@@ -50,7 +49,7 @@ def fetch_by_bash(code):
         return ok, report
 
 
-def fetch_by_python(code):
+def fetch_by_python(code, conf):
     logger.info("Fetch using Python script")
     logger.debug(code)
     assert 'ok' in code, PYTHON_ERROR
@@ -58,8 +57,8 @@ def fetch_by_python(code):
     try:
         # ok, content = False, None
         namespace = {}
-        exec(code, {'creds': settings().creds}, namespace)
+        exec(code, {'conf': conf, 'creds': settings().creds}, namespace)
         return namespace['ok'], namespace['content']
     except:
         logger.exception("Python fetcher raised an Exception")
-        return False, None
+        return False, traceback.format_exc()
