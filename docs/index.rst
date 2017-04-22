@@ -1,32 +1,17 @@
+=====================================
 Kibitzr - Personal Network Assistant
 =====================================
 
-Kibitzr is like a secret twin brother who does routine tasks and asks for nothing in return.
+Kibitzr periodically runs checks desrcibed in ``kibitzr.yml`` file.
+Each check has following steps:
 
-* :ref:`Install <install>` with ``pip install kibitzr`` (Works with both Python 2 and 3)
-* :ref:`Configure <configuration>` recurrent checks in ``kibitzr.yml``
-* Put credentials in ``kibitzr-creds.yml``
-* Launch with ``kibitzr``
-* Problems? Ask in Github issues_, or gitter_
-* Fork_
+1. Fetch page;
+2. Pass it's contents through sequence of :ref:`transforms`;
+3. Run set of :ref:`notifiers` with transformed content.
 
-Kibitzr is built with extendability in mind.
-
-For simple HTTP requests it uses `Python requests`_.
-And for complex browser interactions it offers headless Firefox with Selenium_ scenarios.
-Or go wild with bash scripts (linux only).
-
-Send notifications through e-mail, Slack or gitter (open issue_ for new notifier).
-Or build your own notifier in Python or bash.
-
-.. _gitter: https://gitter.im/kibitzr/Lobby
-.. _Python requests: http://docs.python-requests.org/en/master/
-.. _issue: https://github.com/kibitzr/kibitzr/issues/new
-.. _issues: https://github.com/kibitzr/kibitzr/issues/
-.. _Fork: https://github.com/kibitzr/kibitzr/
-.. _Selenium: http://www.seleniumhq.org/
-
-.. include:: overview.rst
+======================
+Documentation Contents
+======================
 
 .. toctree::
    :maxdepth: 2
