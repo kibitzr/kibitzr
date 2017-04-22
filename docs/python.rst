@@ -5,6 +5,7 @@ Python support
 ==============
 
 Kibitzr check accepts Python code in 4 places:
+
 * Script (fetcher)
 * Browser automation scenario
 * Transform
