@@ -1,4 +1,3 @@
-import functools
 import logging
 import traceback
 
@@ -7,16 +6,7 @@ from .fetcher import (
     SessionFetcher,
     fetch_by_script,
 )
-from .notifier import (
-    SlackSession,
-    TelegramBot,
-    ZapierSession,
-    post_bash,
-    post_gitter,
-    post_mailgun,
-    post_python,
-    post_smtp,
-)
+from .notifier import create_notifier
 from .transformer import pipeline_factory
 
 
@@ -136,37 +126,19 @@ class Checker(object):
             for notifier_conf in notifiers_conf
         ]))
 
-    @staticmethod
-    def notifier_factory(notifier_conf):
+    def notifier_factory(self, notifier_conf):
         try:
             key, value = next(iter(notifier_conf.items()))
         except AttributeError:
             key, value = notifier_conf, None
-        if key == 'python':
-            return functools.partial(post_python, code=value)
-        elif key == 'bash':
-            return functools.partial(post_bash, code=value)
-        elif key == 'mailgun':
-            return post_mailgun
-        elif key == 'gitter':
-            return post_gitter
-        elif key == 'slack':
-            return SlackSession().post
-        elif key == 'telegram':
-            return TelegramBot().post
-        elif key == 'zapier':
-            return ZapierSession(value).post
-        elif key == 'smtp':
-            return functools.partial(post_smtp, notifier_conf=value)
-        else:
-            logger.error("Unknown notifier %r", key)
+        return create_notifier(key, conf=self.conf, value=value)
 
     def notify(self, report, **_kwargs):
         if report:
             logger.debug('Sending report: %r', report)
             for notifier in self.notifiers:
                 try:
-                    notifier(conf=self.conf, report=report)
+                    notifier(report=report)
                 except Exception:
                     logger.exception(
                         "Exception occured during sending notification"

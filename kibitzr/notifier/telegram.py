@@ -1,7 +1,6 @@
 from __future__ import absolute_import
 import logging
 
-from lazy_object_proxy import Proxy as Lazy
 from telegram.bot import Bot
 
 from ..conf import settings
@@ -11,10 +10,11 @@ logger = logging.getLogger(__name__)
 
 
 class TelegramBot(object):
-    def __init__(self, *args, **kwargs):
-        telegram_creds = settings().notifiers.get('telegram', {})
-        telegram_creds.update(settings().creds.get('telegram', {}))
-        self.bot = Bot(token=telegram_creds['token'])
+    def __init__(self, token=None):
+        if not token:
+            telegram_creds = settings().creds['telegram']
+            token = telegram_creds['token']
+        self.bot = Bot(token=token)
         self._chat_id = None
 
     @property
@@ -29,3 +29,9 @@ class TelegramBot(object):
     def post(self, report, **kwargs):
         message = self.bot.send_message(self.chat_id, report)
         return message
+
+    __call__ = post
+
+
+def notify_factory(conf, value):
+    return TelegramBot(value).post

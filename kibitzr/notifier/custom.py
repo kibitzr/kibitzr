@@ -4,17 +4,28 @@ from ..conf import settings
 
 
 logger = logging.getLogger(__name__)
+NAME = 'python'
 
 
-def post_python(conf, code, report, **_kwargs):
-    logger.info("Executing custom notifier")
-    logger.debug(code)
-    exec(
-        code,
-        {
-            'text': report,  # legacy
-            'content': report,
+class PythonNotify(object):
+
+    def __init__(self, conf, value):
+        self.code = value
+        self.context = {
             'conf': conf,
             'creds': settings().creds,
-        },
-    )
+        }
+
+    def __call__(self, report):
+        context = dict(
+            self.context,
+            text=report,  # legacy
+            content=report,
+        )
+        logger.info("Executing Python notifier")
+        logger.debug(self.code)
+        exec(self.code, context)
+
+
+def notify_factory(conf, value):
+    return PythonNotify(conf, value)

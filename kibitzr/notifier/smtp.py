@@ -9,7 +9,7 @@ from ..conf import settings
 logger = logging.getLogger(__name__)
 
 
-def post_smtp(conf, report, notifier_conf, **kwargs):
+def notify(conf, report, notifier_conf, **kwargs):
     logger.info("Executing SMTP notifier")
     credentials = settings().creds['smtp']
     user = credentials['user']

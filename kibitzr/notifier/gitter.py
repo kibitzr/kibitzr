@@ -1,20 +1,8 @@
-import logging
-
-import requests
-
-from ..conf import settings
+from .webhook import WebHookNotify, webhook_factory
 
 
-logger = logging.getLogger(__name__)
+class GitterNotify(WebHookNotify):
+    CREDS_KEY = 'gitter'
 
 
-def post_gitter(conf, report, **kwargs):
-    gitter = settings().notifiers.get('gitter', {})
-    gitter.update(settings().creds.get('gitter', {}))
-    response = requests.post(
-        gitter['url'],
-        data={"message": report},
-    )
-    logger.debug(response.text)
-    response.raise_for_status()
-    return response
+notify_factory = webhook_factory(GitterNotify)
