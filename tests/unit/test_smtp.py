@@ -21,7 +21,7 @@ def test_smtp_shortcut(fake_send_email, settings):
             'port': 'port',
         }
     })
-    smtp.post_smtp({'name': 'Name'}, 'report', 'you@site.com')
+    smtp.notify({'name': 'Name'}, 'report', 'you@site.com')
     fake_send_email.assert_called_once_with(
         user='user',
         password='password',
@@ -43,7 +43,7 @@ def test_smtp_explicit_form(fake_send_email, settings):
             'port': 'port',
         }
     })
-    smtp.post_smtp(
+    smtp.notify(
         {'name': 'Name'},
         'report',
         {'recipients': ['you@site.com'], 'subject': 'subject'},

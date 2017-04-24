@@ -26,3 +26,7 @@ class ZapierSession(object):
         logger.debug(response.text)
         response.raise_for_status()
         return response
+
+
+def notify_factory():
+    return ZapierSession().post

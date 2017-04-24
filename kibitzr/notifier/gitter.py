@@ -8,7 +8,7 @@ from ..conf import settings
 logger = logging.getLogger(__name__)
 
 
-def post_gitter(conf, report, **kwargs):
+def notify(conf, report, **kwargs):
     gitter = settings().notifiers.get('gitter', {})
     gitter.update(settings().creds.get('gitter', {}))
     response = requests.post(

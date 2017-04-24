@@ -4,9 +4,10 @@ from ..conf import settings
 
 
 logger = logging.getLogger(__name__)
+NAME = 'python'
 
 
-def post_python(conf, code, report, **_kwargs):
+def notify(conf, code, report, **_kwargs):
     logger.info("Executing custom notifier")
     logger.debug(code)
     exec(

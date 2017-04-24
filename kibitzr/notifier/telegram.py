@@ -1,7 +1,6 @@
 from __future__ import absolute_import
 import logging
 
-from lazy_object_proxy import Proxy as Lazy
 from telegram.bot import Bot
 
 from ..conf import settings
@@ -29,3 +28,7 @@ class TelegramBot(object):
     def post(self, report, **kwargs):
         message = self.bot.send_message(self.chat_id, report)
         return message
+
+
+def notify_factory():
+    return TelegramBot().post
