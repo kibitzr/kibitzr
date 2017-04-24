@@ -1,6 +1,8 @@
 # Changelog
 
 ## Unreleased
+## Changed
+- Changed kibitzr CLI commands structure (`kibitzr run` instead of `kibitzr`)
 
 ## [3.1.4] - 2017-05-04
 ## Changed
