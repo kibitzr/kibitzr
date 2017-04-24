@@ -1,6 +1,8 @@
 # Changelog
 
 ## Unreleased
+
+## [3.0.8] - 2017-04-24
 ## Added
 - Transformer css-all selector which returns all elements instead of first
 - Python transformer
