@@ -126,20 +126,19 @@ class Checker(object):
             for notifier_conf in notifiers_conf
         ]))
 
-    @staticmethod
-    def notifier_factory(notifier_conf):
+    def notifier_factory(self, notifier_conf):
         try:
             key, value = next(iter(notifier_conf.items()))
         except AttributeError:
             key, value = notifier_conf, None
-        return create_notifier(key, value)
+        return create_notifier(key, conf=self.conf, value=value)
 
     def notify(self, report, **_kwargs):
         if report:
             logger.debug('Sending report: %r', report)
             for notifier in self.notifiers:
                 try:
-                    notifier(conf=self.conf, report=report)
+                    notifier(report=report)
                 except Exception:
                     logger.exception(
                         "Exception occured during sending notification"
