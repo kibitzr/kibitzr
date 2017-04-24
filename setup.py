@@ -19,7 +19,7 @@ def changelog_version():
 
 setup(
     name='kibitzr',
-    version='3.0.7',
+    version='3.0.8',
     description="Self hosted web page changes monitoring",
     long_description=readme + '\n\n' + history,
     author="Peter Demin",
