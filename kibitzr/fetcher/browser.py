@@ -58,7 +58,8 @@ def persistent_firefox():
             try:
                 # Property raises when browser is closed:
                 driver.title
-            except (WebDriverException, OSError) as exc:
+            except:
+                # All kinds of things happen when closing Firefox
                 break
             else:
                 time.sleep(0.2)
@@ -89,20 +90,21 @@ def firefox_fetcher(conf):
     with firefox(headless) as driver:
         driver.get(url)
         if scenario:
-            old_root = driver.find_element_by_xpath("//*")
             run_scenario(driver, scenario, conf)
         if delay:
             time.sleep(delay)
         elem = driver.find_element_by_xpath("//*")
-        try:
-            html = elem.get_attribute("outerHTML")
-        except StaleElementReferenceException:
-            # Crazy (but stable) race condition,
-            # new page loaded after call to find_element_by_xpath
-            # Just retry:
-            if elem.id == old_root.id:
-                elem = driver.find_element_by_xpath("//*")
+        for attempt in range(3):
+            try:
                 html = elem.get_attribute("outerHTML")
+            except StaleElementReferenceException:
+                # Crazy (but stable) race condition,
+                # new page loaded after call to find_element_by_xpath
+                # Just retry:
+                time.sleep(1)
+                elem = driver.find_element_by_xpath("//*")
+            else:
+                break
         # Create a new tab and close the old one
         # to avoid idle page resource usage
         old_tab = driver.current_window_handle
