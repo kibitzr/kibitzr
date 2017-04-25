@@ -36,7 +36,7 @@ Here is an example configuration to get you up and running:
     serverurl=unix:///%(here)s/supervisor.sock
 
     [program:kibitzr]
-    command=kibitzr
+    command=kibitzr run
     directory=%(here)s
     startsecs=30
     stopwaitsecs=600
