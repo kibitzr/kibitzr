@@ -87,4 +87,4 @@
 ## [2.7.3] - 2017-03-31
 ## Added
 - Started CHANGELOG
-- script.python fetcher [undocumented]
+- script.python fetcher
