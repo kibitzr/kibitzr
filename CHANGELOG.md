@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## [3.0.9] - 2017-04-25
+## Fixed
+- Firefox fetcher: retry 3 times on stale element exception
+- Persistent Firefox: Ignore all exceptions when closing
+
 ## [3.0.8] - 2017-04-24
 ## Added
 - Transformer css-all selector which returns all elements instead of first
