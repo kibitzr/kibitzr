@@ -4,7 +4,7 @@ from kibitzr.conf import ReloadableSettings
 class SettingsMock(ReloadableSettings):
 
     def __init__(self):
-        self.pages = []
+        self.checks = []
         self.notifiers = {}
         self.creds = {}
 

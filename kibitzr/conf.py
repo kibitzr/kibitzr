@@ -30,9 +30,9 @@ class ReloadableSettings(object):
         self.filename = os.path.join(config_dir, self.CONFIG_FILENAME)
         self.creds_filename = os.path.join(config_dir,
                                            self.CREDENTIALS_FILENAME)
-        self.pages = None
-        self.notifiers = None
+        self.checks = None
         self.creds = {}
+        self.parser = SettingsParser()
         self.reread()
 
     @classmethod
@@ -58,77 +58,18 @@ class ReloadableSettings(object):
 
     def reread(self):
         """
-        Read configuration file and substitute references into pages conf
+        Read configuration file and substitute references into checks conf
         """
         logger.debug("Loading settings from %s",
                      os.path.abspath(self.filename))
         conf = self.read_conf()
         changed = self.read_creds()
-        pages = conf.get('checks', conf.get('pages', []))
-        notifiers = conf.get('notifiers', {})
-        templates = conf.get('templates', {})
-        scenarios = conf.get('scenarios', {})
-        unnamed_check_counter = 1
-        pages = list(self.unpack_batches(pages))
-        for i, page in enumerate(pages):
-            if not page.get('name'):
-                if page.get('url'):
-                    page['name'] = self.url_to_name(page['url'])
-                else:
-                    page['name'] = self.UNNAMED_PATTERN.format(unnamed_check_counter)
-                    unnamed_check_counter += 1
-            name = page['name']
-            if 'template' in page:
-                if page['template'] in templates:
-                    templated_page = copy.deepcopy(templates[page['template']])
-                else:
-                    raise ConfigurationError(
-                        "Template %r not found. Referenced in page %r"
-                        % (page['template'], name)
-                    )
-                templated_page.update(page)
-                page = templated_page
-                del page['template']
-                pages[i] = page
-            if 'scenario' in page:
-                if page['scenario'] in scenarios:
-                    page['scenario'] = scenarios[page['scenario']]
-            if 'notify' in page:
-                for notify in page['notify']:
-                    if hasattr(notify, 'keys'):
-                        notify_type = next(iter(notify.keys()))
-                        notify_param = next(iter(notify.values()))
-                        try:
-                            notify[notify_type] = notifiers[notify_param]
-                        except (TypeError, KeyError):
-                            # notify_param is not a predefined notifier name
-                            # Save it as is:
-                            notify[notify_type] = notify_param
-        if self.pages != pages or self.notifiers != notifiers:
-            self.pages = pages
-            self.notifiers = notifiers
+        checks = self.parser.parse_checks(conf)
+        if self.checks != checks:
+            self.checks = checks
             return True
         else:
             return changed
-
-    @classmethod
-    def url_to_name(cls, url):
-        return cls.RE_PUNCTUATION.sub('-', url)
-
-    def unpack_batches(self, pages):
-        for page in pages:
-            if 'batch' in page:
-                base = copy.deepcopy(page)
-                batch = base.pop('batch')
-                url_pattern = base.pop('url-pattern')
-                items = base.pop('items')
-                for item in items:
-                    new_page = copy.deepcopy(base)
-                    new_page['name'] = batch.format(item)
-                    new_page['url'] = url_pattern.format(item)
-                    yield new_page
-            else:
-                yield page
 
     def read_conf(self):
         """
@@ -174,6 +115,96 @@ def settings():
     Returns singleton instance of settings
     """
     return ReloadableSettings.instance()
+
+
+class SettingsParser(object):
+    RE_PUNCTUATION = re.compile(r'\W+')
+    UNNAMED_PATTERN = 'Unnamed check {0}'
+
+    def parse_checks(self, conf):
+        """
+        Unpack configuration from human-friendly form
+        to strict check definitions.
+        """
+        checks = conf.get('checks', conf.get('pages', []))
+        checks = list(self.unpack_batches(checks))
+        checks = list(self.unpack_templates(checks, conf.get('templates', {})))
+        self.inject_missing_names(checks)
+        self.inject_scenarios(checks, conf.get('scenarios', {}))
+        self.inject_notifiers(checks, conf.get('notifiers', {}))
+        return checks
+
+    @staticmethod
+    def inject_notifiers(checks, notifiers):
+        for check in checks:
+            if 'notify' in check:
+                for notify in check['notify']:
+                    if hasattr(notify, 'keys'):
+                        notify_type = next(iter(notify.keys()))
+                        notify_param = next(iter(notify.values()))
+                        try:
+                            notify[notify_type] = notifiers[notify_param]
+                        except (TypeError, KeyError):
+                            # notify_param is not a predefined notifier name
+                            # Save it as is:
+                            notify[notify_type] = notify_param
+
+    @staticmethod
+    def inject_scenarios(checks, scenarios):
+        for check in checks:
+            if 'scenario' in check:
+                if check['scenario'] in scenarios:
+                    check['scenario'] = scenarios[check['scenario']]
+
+    def unpack_batches(self, checks):
+        for check in checks:
+            if 'batch' in check:
+                base = copy.deepcopy(check)
+                batch = base.pop('batch')
+                url_pattern = base.pop('url-pattern')
+                items = base.pop('items')
+                for item in items:
+                    yield dict(
+                        copy.deepcopy(base),
+                        name=batch.format(item),
+                        url=url_pattern.format(item),
+                    )
+            else:
+                yield check
+
+    @classmethod
+    def inject_missing_names(cls, checks):
+        unnamed_check_counter = 1
+        for check in checks:
+            if not check.get('name'):
+                if check.get('url'):
+                    check['name'] = cls.url_to_name(check['url'])
+                else:
+                    check['name'] = cls.UNNAMED_PATTERN.format(unnamed_check_counter)
+                    unnamed_check_counter += 1
+
+    @classmethod
+    def url_to_name(cls, url):
+        return cls.RE_PUNCTUATION.sub('-', url)
+
+    @staticmethod
+    def unpack_templates(checks, templates):
+        for check in checks:
+            if 'template' in check:
+                if check['template'] in templates:
+                    templated_check = dict(
+                        copy.deepcopy(templates[check['template']]),
+                        **check
+                    )
+                    del templated_check['template']
+                    yield templated_check
+                else:
+                    raise ConfigurationError(
+                        "Template %r not found. Referenced in check %r"
+                        % (check['template'], check['name'])
+                    )
+            else:
+                yield check
 
 
 logging.config.dictConfig({

@@ -22,7 +22,7 @@ def test_loop_aborts_without_checks():
 
 @mock.patch.object(main, "check_forever", side_effect=main.on_interrupt)
 def test_main_executes_all_checks_before_loop(the_loop):
-    main.settings().pages.append({
+    main.settings().checks.append({
         'name': 'A',
         'script': {'python': 'ok, content = True, "ok"'}
     })
@@ -33,7 +33,7 @@ def test_main_executes_all_checks_before_loop(the_loop):
 
 def test_dummy_schedule():
     main.Checker.check.side_effect = interrupt_on_nth_call(2)
-    main.settings().pages.append({
+    main.settings().checks.append({
         'name': 'A',
         'script': {'python': 'ok, content = True, "ok"'},
         'period': 0,

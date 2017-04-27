@@ -46,7 +46,7 @@ mailgun:
 """
 
 
-pages = [
+checks = [
     {
         'name': 'Project Build Status',
         'url': 'http://teamcity/build/id',
@@ -80,9 +80,8 @@ def test_complex_conf_sample():
     with patch_source("open_conf", sample_conf):
         with patch_source("open_creds", sample_creds):
             conf = ReloadableSettings('::')
-    assert conf.pages == pages
+    assert conf.checks == checks
     assert conf.creds == creds
-    assert conf.notifiers == notifiers
 
 
 @contextlib.contextmanager
@@ -116,14 +115,14 @@ def test_reread():
         with patch_source("open_conf", conf2):
             # Config changed:
             assert conf.reread()
-    assert conf.pages == [{'name': 'Name', 'url': 'URL', 'period': 60}]
+    assert conf.checks == [{'name': 'Name', 'url': 'URL', 'period': 60}]
 
 
 def test_name_from_url_population():
     conf = "checks: [{url: 'http://example.com/page_name'}]"
     with patch_source("open_conf", conf):
         conf = ReloadableSettings('::')
-    assert conf.pages == [{
+    assert conf.checks == [{
         'name': 'http-example-com-page_name',
         'url': 'http://example.com/page_name',
     }]
@@ -133,7 +132,7 @@ def test_unnamed_check():
     conf = "checks: [{period: 1}]"
     with patch_source("open_conf", conf):
         conf = ReloadableSettings('::')
-    assert conf.pages == [{
+    assert conf.checks == [{
         'name': 'Unnamed check 1',
         'period': 1,
     }]

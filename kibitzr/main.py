@@ -38,7 +38,7 @@ def main(once=False, log_level=logging.INFO, names=None):
                 settings().reread()
                 reload_conf_pending = False
             checkers = Checker.create_from_settings(
-                checks=settings().pages,
+                checks=settings().checks,
                 names=names
             )
             if checkers:
