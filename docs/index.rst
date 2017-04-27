@@ -19,6 +19,7 @@ Documentation Contents
    installation
    configuration
    usage
+   scenario
    transforms
    notifiers
    python
