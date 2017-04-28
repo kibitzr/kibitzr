@@ -1,6 +1,8 @@
 # Changelog
 
 ## Unreleased
+## Fixed
+- jq transform input encoding
 
 ## [3.0.9] - 2017-04-25
 ## Fixed

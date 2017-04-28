@@ -166,7 +166,7 @@ def cut_lines(last_line, text):
 def run_jq(query, text):
     logger.debug("Running jq query %s against %s", query, text)
     try:
-        command = jq(query, _in=text)
+        command = jq(query, _in=text.encode('utf-8'))
         if not command.stderr:
             success, result = True, command.stdout.decode('utf-8')
         else:
