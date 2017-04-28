@@ -62,11 +62,8 @@ def transformer_factory(conf, rule):
     elif name == 'text':
         return extract_text
     elif name == 'changes':
-        if value and value.lower() == 'verbose':
-            return functools.partial(PageHistory(conf).report_changes,
-                                     verbose=True)
-        else:
-            return PageHistory(conf).report_changes
+        style = value.lower() if value else None
+        return PageHistory(conf, style=style).report_changes
     elif name == 'json':
         return pretty_json
     elif name == 'jq':
