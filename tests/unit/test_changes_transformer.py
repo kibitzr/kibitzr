@@ -47,11 +47,14 @@ def test_verbose_diff_sample():
 def test_word_diff_sample():
     with history('word') as page_history:
         scenario = (
-            (u"hello", True, u"hello\n"),
-            (u"world", True, u"[-hello-]{+world+}\n"
-                             u"last change was 0 seconds ago"),
+            (u"hello", True, u"hello"),
+            (u"world", True, u"[-hello-]{+world+}"),
             (u"world", False, None),
         )
         for content, changed, report in scenario:
-            result = page_history.report_changes(content)
-            assert result == (changed, report)
+            r_changed, r_content = page_history.report_changes(content)
+            assert r_changed == changed
+            if r_content:
+                assert r_content.splitlines()[0] == report
+            else:
+                assert r_content == report
