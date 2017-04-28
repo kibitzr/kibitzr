@@ -7,7 +7,7 @@ Try kibitzr on GCP Free Tier
 Kibitzr can be run on `f1-micro`_ instance, which is included in `GCP Free Tier`_.
 Launch Ubuntu 16.04 and execute following commands:
 
-.. code-block:: shell
+.. code-block:: bash
 
 	sudo apt -qqy update
 	sudo apt -y install curl firefox=45.0.2+build1-0ubuntu1 libcanberra-gtk*
@@ -17,7 +17,7 @@ Launch Ubuntu 16.04 and execute following commands:
 
 Define a simple check:
 
-.. code-block:: shell
+.. code-block:: bash
     
     cat >kibitzr.yml <<EOF
     checks:
@@ -32,7 +32,7 @@ Define a simple check:
 
 Run kibitzr:
 
-.. code-block:: shell
+.. code-block:: bash
 
     kibitzr
 
