@@ -10,6 +10,7 @@ from xvfbwrapper import Xvfb
 from selenium import webdriver
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.common.exceptions import (
+    NoSuchElementException,
     StaleElementReferenceException,
 )
 from jinja2 import Template
@@ -242,17 +243,16 @@ class FirefoxFetcher(object):
             time.sleep(delay)
 
     def _get_html(self):
-        elem = self.driver.find_element_by_xpath("//*")
         for attempt in range(3):
             try:
+                elem = self.driver.find_element_by_xpath("//*")
                 html = elem.get_attribute("outerHTML")
-            except StaleElementReferenceException:
+            except (NoSuchElementException, StaleElementReferenceException):
                 # Crazy (but stable) race condition,
                 # new page loaded after call to find_element_by_xpath
                 # Just retry:
                 if attempt < 2:
                     time.sleep(1)
-                    elem = self.driver.find_element_by_xpath("//*")
                 else:
                     raise
             else:

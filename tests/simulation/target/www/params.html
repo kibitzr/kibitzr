@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+			function getUrlVars() {
+				var vars = {};
+				var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+					vars[key] = value;
+				});
+				return vars;
+			}
+    </script>
+  </head>
+	<body>
+		<ul id="params">
+		</ul>
+	</body>
+  <script>
+    var params = getUrlVars();
+    var text = "";
+    for (var key in params) {
+      text = text + "<li>" + key + " = " + params[key] + "</li>";
+    }
+    var ul = document.getElementById("params");
+    ul.innerHTML = text;
+  </script>
+</html>
