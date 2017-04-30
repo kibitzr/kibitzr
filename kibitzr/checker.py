@@ -8,7 +8,7 @@ from .fetcher import (
     fetch_by_script,
 )
 from .notifier import create_notifier
-from .transformer import pipeline_factory
+from .transformer import transform_factory
 
 
 logger = logging.getLogger(__name__)
@@ -18,9 +18,9 @@ class Checker(object):
     def __init__(self, conf):
         self.conf = conf
         self.downloader = self.downloader_factory()
-        self.transform_error = self.transform_error_factory()
         self.notifiers = self.create_notifiers()
-        self.transform_pipeline = pipeline_factory(self.conf)
+        self.transform = transform_factory(self.conf)
+        self.transform_error = self.transform_error_factory()
 
     @staticmethod
     def create_from_settings(checks, names=None):
@@ -80,12 +80,6 @@ class Checker(object):
             'url' not in self.conf,
             'script' in self.conf,
         ))
-
-    def transform(self, ok, content):
-        ok, content = self.transform_pipeline(ok, content)
-        if content:
-            content = content.strip()
-        return ok, content
 
     def transform_error_factory(self):
         error_policy = self.conf.get('error', 'notify')

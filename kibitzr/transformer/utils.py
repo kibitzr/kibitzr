@@ -7,11 +7,19 @@ def wrap_dummy(transform_func):
     return transform
 
 
-def bake_parametrized(transform_func, **kwargs):
+def bake_parametrized(transform_func, pass_conf=False, **kwargs):
     def transform(value, conf):
-        return functools.partial(
-            transform_func,
-            value,
-            **kwargs
-        )
+        if pass_conf:
+            return functools.partial(
+                transform_func,
+                value,
+                conf=conf,
+                **kwargs
+            )
+        else:
+            return functools.partial(
+                transform_func,
+                value,
+                **kwargs
+            )
     return transform
