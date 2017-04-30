@@ -11,9 +11,9 @@ HTML
 
 1. ``tag: tagname`` - crop HTML to contents of the first matching HTML tag.
 2. ``css: selector`` - crop HTML to the first encountered outer HTML matching passed `CSS selector`_.
-2. ``css-all: selector`` - crop HTML to the concatenated list of all matching elements.
-3. ``xpath: path`` - crop HTML to contents of the passed `XPath`_.
-4. ``text`` - strip all HTML tags and return only text.
+3. ``css-all: selector`` - crop HTML to the concatenated list of all matching elements.
+4. ``xpath: path`` - crop HTML to contents of the passed `XPath`_.
+5. ``text`` - strip all HTML tags and return only text.
 
 Plain text
 ----------
@@ -23,6 +23,7 @@ Plain text
 3. ``sort`` - Sort lines of text alphabetically
 4. ``cut: N`` - Remove lines after ``N``'th
 5. ``python: script`` - Execute arbitrary Python code on passed content. See :ref:`Python support` for details.
+6. ``bash: script`` - Execute arbitrary bash code on passed content. Call ``grep``, ``awk`` or ``sed``, for example.
 
 JSON (for APIs)
 ---------------
