@@ -5,6 +5,7 @@ import sys
 import logging
 import contextlib
 import functools
+import tempfile
 import json
 from lxml import etree
 import traceback
@@ -76,6 +77,8 @@ def transformer_factory(conf, rule):
         return functools.partial(cut_lines, value)
     elif name == 'python':
         return functools.partial(python_transform, conf=conf, code=value)
+    elif name == 'bash':
+        return functools.partial(bash_transform, code=value)
     else:
         raise RuntimeError(
             "Unknown transformer: %r" % (name,)
@@ -191,6 +194,21 @@ def python_transform(content, code, conf):
     except:
         logger.exception("Python transform raised an Exception")
         return False, traceback.format_exc()
+
+
+def bash_transform(content, code):
+    logger.info("Bash transform")
+    logger.debug(code)
+    with tempfile.NamedTemporaryFile() as fp:
+        logger.debug("Saving code to %r", fp.name)
+        fp.write(code.encode('utf-8'))
+        fp.flush()
+        logger.debug("Launching script %r", fp.name)
+        result = sh.bash(fp.name, _in=content.encode('utf-8'))
+        logger.debug("Bash exit_code: %r", result.exit_code)
+        logger.debug("Bash stdout: %s", result.stdout.decode('utf-8'))
+        logger.debug("Bash stderr: %s", result.stderr.decode('utf-8'))
+    return True, result.stdout.decode('utf-8')
 
 
 @contextlib.contextmanager
