@@ -4,8 +4,10 @@ Built-in transforms
 import logging
 import functools
 import traceback
+import tempfile
 
 import six
+import sh
 
 from ..storage import PageHistory
 from ..conf import settings
@@ -24,6 +26,7 @@ def load_transforms():
     registry.update({
         'changes': changes_transform_factory,
         'python': python_transform_factory,
+        'bash': bash_transform_factory,
     })
     return registry
 
@@ -99,6 +102,13 @@ def python_transform_factory(value, conf):
     )
 
 
+def bash_transform_factory(value, conf):
+    return functools.partial(
+        bash_transform,
+        code=value,
+    )
+
+
 def python_transform(content, code, conf):
     logger.info("Python transform")
     logger.debug(code)
@@ -111,6 +121,21 @@ def python_transform(content, code, conf):
     except:
         logger.exception("Python transform raised an Exception")
         return False, traceback.format_exc()
+
+
+def bash_transform(content, code):
+    logger.info("Bash transform")
+    logger.debug(code)
+    with tempfile.NamedTemporaryFile() as fp:
+        logger.debug("Saving code to %r", fp.name)
+        fp.write(code.encode('utf-8'))
+        fp.flush()
+        logger.debug("Launching script %r", fp.name)
+        result = sh.bash(fp.name, _in=content.encode('utf-8'))
+        logger.debug("Bash exit_code: %r", result.exit_code)
+        logger.debug("Bash stdout: %s", result.stdout.decode('utf-8'))
+        logger.debug("Bash stderr: %s", result.stderr.decode('utf-8'))
+    return True, result.stdout.decode('utf-8')
 
 
 REGISTRY = load_transforms()
