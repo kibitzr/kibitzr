@@ -1,6 +1,8 @@
 # Changelog
 
 ## Unreleased
+## Added
+- Bash transform
 ## Fixed
 - jq transform input encoding
 
