@@ -127,7 +127,8 @@ class FirefoxFetcher(object):
         self._run_scenario(conf)
         self._delay(conf)
 
-    def _fill_form(self, form):
+    @staticmethod
+    def _fill_form(form):
         """
         Fill all inputs with provided Jinja2 templates.
         If no field had click key, submit last element.
@@ -190,11 +191,10 @@ class FirefoxFetcher(object):
             selector = field.get(selector_type)
             if selector:
                 return selector_type, selector
-        else:
-            logger.warning("Form field does not define any selector "
-                           "(id, css and xpath available): %r",
-                           field)
-            return None, None
+        logger.warning("Form field does not define any selector "
+                       "(id, css and xpath available): %r",
+                       field)
+        return None, None
 
     @staticmethod
     def _parse_field_text(field, conf, creds):
