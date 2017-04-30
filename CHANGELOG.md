@@ -1,6 +1,8 @@
 # Changelog
 
 ## Unreleased
+
+## [3.0.11] - 2017-04-30
 ## Added
 - Browser form filling shorthand
 
