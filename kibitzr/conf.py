@@ -3,7 +3,6 @@ import re
 import copy
 import logging.config
 import contextlib
-import collections
 
 import yaml
 
