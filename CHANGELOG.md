@@ -1,6 +1,8 @@
 # Changelog
 
 ## Unreleased
+
+## [3.0.10] - 2017-04-29
 ## Added
 - Bash transform
 ## Fixed
