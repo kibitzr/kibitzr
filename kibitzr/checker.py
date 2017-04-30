@@ -2,6 +2,7 @@ import logging
 import traceback
 
 from .fetcher import (
+    needs_firefox,
     firefox_fetcher,
     SessionFetcher,
     fetch_by_script,
@@ -67,7 +68,7 @@ class Checker(object):
         return ok, content
 
     def downloader_factory(self):
-        if self.needs_firefox():
+        if needs_firefox(self.conf):
             return firefox_fetcher
         elif self.is_script():
             return fetch_by_script
@@ -79,12 +80,6 @@ class Checker(object):
             'url' not in self.conf,
             'script' in self.conf,
         ))
-
-    def needs_firefox(self):
-        return any(
-            self.conf.get(key)
-            for key in ('scenario', 'delay')
-        )
 
     def transform(self, ok, content):
         ok, content = self.transform_pipeline(ok, content)

@@ -26,11 +26,14 @@ Format
 
 ``kibitzr`` serves list of ``checks``.
 
-Each check must have a **unique** ``name``.
+Each check may have a ``name``. If ``name`` is present it **must be unique**.
+If no name is provided, it will be auto-generated.
+
 The name is used in notifications and internally as a check identifier.
 
-Next, check may have ``url``. If it is provided, it will be used to fetch data.
-Another option is ``script``, which is arbitrary bash script.
+Check may have ``url``.
+If it is provided, it will be used to fetch data.
+Another option is ``script``, which is an arbitrary bash script.
 
 Check will be executed every ``period`` seconds.
 
@@ -48,6 +51,10 @@ Kibitzr supports browser interactions. They can be activated by using any of key
 
    1. ``delay`` - number of seconds to wait after page loaded in browser to process Javascipt.
    2. ``scenario`` - python scenario acting on selenium_ driver after page load.
+   3. ``form`` - shorthand for simple selenium_ scenarios.
+
+Browser interaction is a strong side of Kibitzr and a tough article in itself.
+Please refer to :ref:`Browser automation <scenario>` documentation.
 
 .. _configuration-example:
 

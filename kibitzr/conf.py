@@ -152,9 +152,12 @@ class SettingsParser(object):
     @staticmethod
     def inject_scenarios(checks, scenarios):
         for check in checks:
-            if 'scenario' in check:
-                if check['scenario'] in scenarios:
-                    check['scenario'] = scenarios[check['scenario']]
+            try:
+                shared_scenario = scenarios[check['scenario']]
+            except (KeyError, TypeError) as exc:
+                pass
+            else:
+                check['scenario'] = shared_scenario
 
     def unpack_batches(self, checks):
         for check in checks:

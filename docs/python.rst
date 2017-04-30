@@ -28,7 +28,7 @@ Here is a simlistic example of ``kibitzr.yml`` file, that uses all three:
 
 Once executed with debug log level it will generate following output:
 
-.. code-block:: shell
+.. code-block:: bash
 
 	$ kibitzr --once -l debug
 	2017-04-22 10:47:04,401 [DEBUG] kibitzr.conf: Loading settings from /home/kibitzr/kibitzr.yml

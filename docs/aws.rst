@@ -5,7 +5,7 @@ Try kibitzr on AWS Free Tier
 Kibitzr can be run on `t2.micro`_ instance, which is included in `AWS Free Tier`_.
 Launch Amazon Linux AMI and execute following commands:
 
-.. code-block:: shell
+.. code-block:: bash
 
     sudo yum update -y
     sudo yum install -y docker
@@ -13,7 +13,7 @@ Launch Amazon Linux AMI and execute following commands:
 
 Define a simple check:
 
-.. code-block:: shell
+.. code-block:: bash
     
     cat >kibitzr.yml <<EOF
     checks:
@@ -28,7 +28,7 @@ Define a simple check:
 
 Run kibitzr inside docker container:
 
-.. code-block:: shell
+.. code-block:: bash
 
     sudo docker run --rm -v $PWD:/root/.config/kibitzr -v $PWD/pages:/pages peterdemin/kibitzr
 
