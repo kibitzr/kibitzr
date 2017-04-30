@@ -20,8 +20,6 @@ Plain text
 
 1. ``changes`` - Compare to the previous version of the content and return difference report
 2. ``changes: verbose`` - Same as ``changes``, but in human-friendly format
-3. ``sort`` - Sort lines of text alphabetically
-4. ``cut: N`` - Remove lines after ``N``'th
 5. ``python: script`` - Execute arbitrary Python code on passed content. See :ref:`Python support` for details.
 6. ``bash: script`` - Execute arbitrary bash code on passed content. Call ``grep``, ``awk`` or ``sed``, for example.
 
