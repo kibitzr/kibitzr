@@ -1,5 +1,4 @@
 import logging
-import functools
 import traceback
 import tempfile
 
@@ -16,11 +15,8 @@ logger = logging.getLogger(__name__)
 
 
 def changes_transform_factory(value, conf):
-    if value and value.lower() == 'verbose':
-        return functools.partial(PageHistory(conf).report_changes,
-                                 verbose=True)
-    else:
-        return PageHistory(conf).report_changes
+    style = value.lower() if value else None
+    return PageHistory(conf, style=style).report_changes
 
 
 def python_transform(content, code, conf):
