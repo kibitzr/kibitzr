@@ -106,7 +106,9 @@ class Checker(object):
 
     @staticmethod
     def mute(content):
-        logger.debug("Ignoring error in %s", content)
+        if content:
+            logger.error("Ignoring error in %s",
+                         repr(content)[:60])
         return None
 
     def create_notifiers(self):
