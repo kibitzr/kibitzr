@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## [3.1.1] - 2017-05-01
+## Fixed
+- Bash and Python transforms parameter (dis)order
+
 ## [3.1.0] - 2017-05-01
 ## Added
 - Jinja transform

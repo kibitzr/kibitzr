@@ -19,7 +19,7 @@ def changes_transform_factory(value, conf):
     return PageHistory(conf, style=style).report_changes
 
 
-def python_transform(content, code, conf):
+def python_transform(code, content, conf):
     logger.info("Python transform")
     logger.debug(code)
     assert 'ok' in code, PYTHON_ERROR
@@ -33,7 +33,7 @@ def python_transform(content, code, conf):
         return False, traceback.format_exc()
 
 
-def bash_transform(content, code):
+def bash_transform(code, content):
     logger.info("Bash transform")
     logger.debug(code)
     with tempfile.NamedTemporaryFile() as fp:
