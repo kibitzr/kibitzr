@@ -2,10 +2,12 @@
 
 ## Unreleased
 
-## [3.1.2] - 2017-05-01
+## [3.1.3] - 2017-05-01
 ## Fixed
 - Bash and Python transforms parameter (dis)order
 - Skip Bash transform if input is empty
+## Changed
+- Requests fetcher uses caching
 
 ## [3.1.0] - 2017-05-01
 ## Added
