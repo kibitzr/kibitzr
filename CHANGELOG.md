@@ -1,6 +1,10 @@
 # Changelog
 
 ## Unreleased
+
+## [3.1.0] - 2017-05-01
+## Added
+- Jinja transform
 ## Removed
 - cut and sort transforms (superseeded by bash)
 
