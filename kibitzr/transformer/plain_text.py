@@ -36,6 +36,9 @@ def python_transform(code, content, conf):
 def bash_transform(code, content):
     logger.info("Bash transform")
     logger.debug(code)
+    if not content.strip():
+        logger.info("Skipping transform for empty content")
+        return True, content
     with tempfile.NamedTemporaryFile() as fp:
         logger.debug("Saving code to %r", fp.name)
         fp.write(code.encode('utf-8'))
