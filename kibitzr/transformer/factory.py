@@ -8,6 +8,7 @@ import six
 from .html import HTML_REGISTRY
 from .json_transforms import JSON_REGISTRY
 from .plain_text import PLAIN_TEXT_REGISTRY
+from .jinja_transform import JINJA_REGISTRY
 
 
 logger = logging.getLogger(__name__)
@@ -22,6 +23,7 @@ def load_transforms():
     registry.update(HTML_REGISTRY)
     registry.update(JSON_REGISTRY)
     registry.update(PLAIN_TEXT_REGISTRY)
+    registry.update(JINJA_REGISTRY)
     return registry
 
 

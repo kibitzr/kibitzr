@@ -50,6 +50,7 @@ setup(
         'lxml',
         'lazy-object-proxy',
         'python-telegram-bot',
+        'Jinja2',
     ],
     license="MIT license",
     zip_safe=False,
