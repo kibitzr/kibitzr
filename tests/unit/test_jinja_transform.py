@@ -27,3 +27,13 @@ def test_css_selector_is_passed():
     )
     assert ok is True
     assert content == "P"
+
+
+def test_xpath_selector_is_passed():
+    ok, content = jinja_transform(
+        '<div><a>A</a><p>P</p></div>',
+        '{{ xpath("//div/p") | text }}',
+        {},
+    )
+    assert ok is True
+    assert content == "P"
