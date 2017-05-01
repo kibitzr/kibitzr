@@ -9,33 +9,35 @@ Transforms can be divided into following groups: HTML, plain text, JSON.
 HTML
 ----
 
-1. ``tag: tagname`` - crop HTML to contents of the first matching HTML tag.
-2. ``css: selector`` - crop HTML to the first encountered outer HTML matching passed `CSS selector`_.
-3. ``css-all: selector`` - crop HTML to the concatenated list of all matching elements.
-4. ``xpath: path`` - crop HTML to contents of the passed `XPath`_.
-5. ``text`` - strip all HTML tags and return only text.
+* ``tag: tagname`` - crop HTML to contents of the first matching HTML tag.
+* ``css: selector`` - crop HTML to the first encountered outer HTML matching passed `CSS selector`_.
+* ``css-all: selector`` - crop HTML to the concatenated list of all matching elements.
+* ``xpath: path`` - crop HTML to contents of the passed `XPath`_.
+* ``text`` - strip all HTML tags and return only text.
 
 Plain text
 ----------
 
-1. ``changes`` - Compare to the previous version of the content and return difference report
-2. ``changes: verbose`` - Same as ``changes``, but in human-friendly format
-3. ``python: script`` - Execute arbitrary Python code on passed content. See :ref:`Python support` for details.
-4. ``bash: script`` - Execute arbitrary bash code on passed content. Call ``grep``, ``awk`` or ``sed``, for example.
-5. ``jinja: template`` - Render Jinja2 template. See `jinja transform`_ for reference.
+* ``changes`` - Compare to the previous version of the content and return difference report.
+* ``changes: verbose`` - Same as ``changes``, but in human-friendly format.
+* ``changes: word`` - Same as ``changes``, but highlight changes within a string.
+* ``python: code`` - Execute arbitrary Python *code* on passed content. See :ref:`Python support` for details.
+* ``bash: code`` - Execute arbitrary bash *code* on passed content. Call ``grep``, ``awk`` or ``sed``, for example.
+* ``jinja: template`` - Render Jinja2 template. See `jinja transform`_ for reference.
 
-JSON (for APIs)
----------------
+JSON
+----
 
-1. ``json`` - Pretty print JSON content.
-2. ``jq`` - Apply jq JSON transformation (`jq`_ must be installed).
+* ``json`` - Pretty print JSON content.
+* ``jq`` - Apply jq JSON transformation (`jq`_ must be installed).
 
 .. _jinja transform:
 
 Jinja Transform
 ---------------
 
-Kibitzr supportrs Jinja2_ templates. Following variables are passed into a context:
+Kibitzr supportrs Jinja2_ templates.
+Following variables are passed into a context:
 
 * ``conf`` - check configuration dictionary
 * ``content`` - input as plain text
@@ -72,7 +74,7 @@ Complete ``kibitzr.yml`` could look like this:
 
 .. code-block:: yaml
 
-    pages:
+    checks:
       - name: JetPack updates
         url: https://wordpress.org/plugins/jetpack/
         transform:
@@ -98,7 +100,7 @@ Next config will notify on new Kibitzr releases published on GitHub:
 
 .. code-block:: yaml
 
-    pages:
+    checks:
       - name: Kibitzr releases
         url: https://api.github.com/repos/kibitzr/kibitzr/releases
         transform:
@@ -111,9 +113,9 @@ Next config will notify on new Kibitzr releases published on GitHub:
 Example Slack message::
 
     @@ -1,2 +1,3 @@
-    +"v2.6.2 Added jq transformer"
-    "2.6.1 Fixed git repo configuration"
-    "2.6.0 Added \"changes: verbose\" transformer"
+    + "v2.6.2 Added jq transformer"
+      "2.6.1 Fixed git repo configuration"
+      "2.6.0 Added \"changes: verbose\" transformer"
 
 
 .. _`CSS selector`: http://www.w3schools.com/cssref/css_selectors.asp
