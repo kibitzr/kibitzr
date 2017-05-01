@@ -17,6 +17,7 @@ def changelog_version():
                 if set(version).issubset('0123456789.'):
                     return version
 
+
 setup(
     name='kibitzr',
     version='3.1.2',
@@ -40,6 +41,7 @@ setup(
     install_requires=[
         'Click>=6.0',
         'requests',
+        'cachecontrol',
         'schedule',
         'sh',
         'pyyaml',
