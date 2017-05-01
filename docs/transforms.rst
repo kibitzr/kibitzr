@@ -20,14 +20,38 @@ Plain text
 
 1. ``changes`` - Compare to the previous version of the content and return difference report
 2. ``changes: verbose`` - Same as ``changes``, but in human-friendly format
-5. ``python: script`` - Execute arbitrary Python code on passed content. See :ref:`Python support` for details.
-6. ``bash: script`` - Execute arbitrary bash code on passed content. Call ``grep``, ``awk`` or ``sed``, for example.
+3. ``python: script`` - Execute arbitrary Python code on passed content. See :ref:`Python support` for details.
+4. ``bash: script`` - Execute arbitrary bash code on passed content. Call ``grep``, ``awk`` or ``sed``, for example.
+5. ``jinja: template`` - Render Jinja2 template. See `jinja transform`_ for reference.
 
 JSON (for APIs)
 ---------------
 
 1. ``json`` - Pretty print JSON content.
 2. ``jq`` - Apply jq JSON transformation (`jq`_ must be installed).
+
+.. _jinja transform:
+
+Jinja Transform
+---------------
+
+Kibitzr supportrs Jinja2_ templates. Following variables are passed into a context:
+
+* ``conf`` - check configuration dictionary
+* ``content`` - input as plain text
+* ``lines`` - input as a list of lines
+* ``json`` - input parsed from JSON
+* ``css`` - crop input HTML to CSS selector, similar to ``css-all`` transform
+* ``xpath`` - crop input XML to XPath selector, similar to ``xpath`` transform
+
+Also set of built-in Jinja filters is augmented with:
+
+* ``text`` - strip all HTML tags and return only text
+
+Because Jinja transform uses general-purpose template engine, it can supersede simpler transforms.
+However greater powers come with more points of failure.
+Debugging of failed Jinja2 template might be challenging.
+Generally I recommend using it only if you can't acheive desired effect without it.
 
 Examples
 --------
@@ -95,3 +119,4 @@ Example Slack message::
 .. _`CSS selector`: http://www.w3schools.com/cssref/css_selectors.asp
 .. _`XPath`: http://www.w3schools.com/xsl/xpath_syntax.asp
 .. _`jq`: https://stedolan.github.io/jq/
+.. _Jinja2: http://jinja.pocoo.org/
