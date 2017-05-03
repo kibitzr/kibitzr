@@ -21,6 +21,11 @@ Kibitzr
         :target: https://gitpitch.com/kibitzr/kibitzr/master?grs=github&t=white
         :alt: GitPitch
 
+.. image:: https://www.codefactor.io/repository/github/kibitzr/kibitzr/badge
+        :target: https://www.codefactor.io/repository/github/kibitzr/kibitzr
+        :alt: CodeFactor
+
+
 Kibitzr is like a secret twin brother who does routine tasks and asks for nothing in return.
 
 * Install with ``pip install kibitzr`` (Works with both Python 2 and 3)
