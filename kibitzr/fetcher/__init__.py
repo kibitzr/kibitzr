@@ -1,4 +1,4 @@
-from .simple import SessionFetcher  # noqa
+from .simple import requests_fetcher  # noqa
 from .script import fetch_by_script  # noqa
 from .browser import (  # noqa
     firefox_fetcher,

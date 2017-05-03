@@ -4,7 +4,7 @@ import traceback
 from .fetcher import (
     needs_firefox,
     firefox_fetcher,
-    SessionFetcher,
+    requests_fetcher,
     fetch_by_script,
 )
 from .notifier import create_notifier
@@ -60,7 +60,7 @@ class Checker(object):
                         self.conf['name'], self.conf['url'])
         try:
             ok, content = self.downloader(self.conf)
-        except Exception:
+        except:
             logger.exception(
                 "Exception occured while fetching page"
             )
@@ -73,7 +73,7 @@ class Checker(object):
         elif self.is_script():
             return fetch_by_script
         else:
-            return SessionFetcher(self.conf).fetch
+            return requests_fetcher(self.conf)
 
     def is_script(self):
         return all((
@@ -112,10 +112,12 @@ class Checker(object):
                 "No notifications configured for %r",
                 self.conf['name'],
             )
-        return list(filter(None, [
+        notifiers = [
             self.notifier_factory(notifier_conf)
             for notifier_conf in notifiers_conf
-        ]))
+        ]
+        # Drop None:
+        return [x for x in notifiers if x]
 
     def notifier_factory(self, notifier_conf):
         try:
