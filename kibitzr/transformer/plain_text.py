@@ -1,12 +1,11 @@
 import logging
 import traceback
-import tempfile
 
 import six
-import sh
 
 from ..conf import settings
 from ..storage import PageHistory
+from ..bash import execute_bash
 from .utils import bake_parametrized
 
 
@@ -22,10 +21,9 @@ def changes_transform_factory(value, conf):
 def python_transform(code, content, conf):
     logger.info("Python transform")
     logger.debug(code)
-    assert 'ok' in code, PYTHON_ERROR
     assert 'content' in code, PYTHON_ERROR
     try:
-        namespace = {'content': content}
+        namespace = {'ok': True, 'content': content}
         exec(code, {'creds': settings().creds, 'conf': conf}, namespace)
         return namespace['ok'], six.text_type(namespace['content'])
     except:
@@ -34,21 +32,7 @@ def python_transform(code, content, conf):
 
 
 def bash_transform(code, content):
-    logger.info("Bash transform")
-    logger.debug(code)
-    if not content.strip():
-        logger.info("Skipping transform for empty content")
-        return True, content
-    with tempfile.NamedTemporaryFile() as fp:
-        logger.debug("Saving code to %r", fp.name)
-        fp.write(code.encode('utf-8'))
-        fp.flush()
-        logger.debug("Launching script %r", fp.name)
-        result = sh.bash(fp.name, _in=content.encode('utf-8'))
-        logger.debug("Bash exit_code: %r", result.exit_code)
-        logger.debug("Bash stdout: %s", result.stdout.decode('utf-8'))
-        logger.debug("Bash stderr: %s", result.stderr.decode('utf-8'))
-    return True, result.stdout.decode('utf-8')
+    return execute_bash(code, content)
 
 
 PLAIN_TEXT_REGISTRY = {
