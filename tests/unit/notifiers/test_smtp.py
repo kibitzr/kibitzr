@@ -1,8 +1,8 @@
 import pytest
 from kibitzr.notifier import smtp
 
-from ..compat import mock
-from ..helpers import SettingsMock
+from ...compat import mock
+from ...helpers import SettingsMock
 
 
 @pytest.fixture()

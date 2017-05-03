@@ -46,7 +46,7 @@ class TransformPipeline(object):
             if ok:
                 ok, content = transform(content)
             else:
-                break
+                content = self.on_error(content)
         if content:
             content = content.strip()
         return ok, content
@@ -63,3 +63,18 @@ class TransformPipeline(object):
             raise RuntimeError(
                 "Unknown transform: %r" % (name,)
             )
+
+    def on_error(self, content):
+        error_policy = self.conf.get('error', 'notify')
+        if error_policy == 'ignore':
+            if content:
+                logger.error("Ignoring error in %s",
+                             repr(content)[:60])
+            return None
+        elif error_policy == 'notify':
+            logger.debug("Notifying on error")
+            return content
+        else:
+            logger.warning("Unknown error policy: %r", error_policy)
+            logger.info("Defaulting to 'notify'")
+            return content

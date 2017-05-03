@@ -16,7 +16,12 @@ class SessionFetcher(object):
         (requests.ConnectionError, 15),
         (requests.Timeout, lambda retry: 60 * (retry + 1)),
     )
-    EXCEPTED = tuple(exc for exc, _ in RETRIABLE_EXCEPTIONS)
+    # Explicitly listing exceptions from above to make pylint happy:
+    EXCEPTED = (
+        requests.HTTPError,
+        requests.ConnectionError,
+        requests.Timeout,
+    )
 
     def __init__(self, conf):
         self.conf = conf
@@ -25,21 +30,22 @@ class SessionFetcher(object):
             'User-agent': 'Kibitzr/' + version,
         })
         self.url = conf['url']
-        self.valid_http = set(conf.get('valid_http', [200, 304]))
+        self.valid_http = set(conf.get('valid_http', [200]))
 
-    def fetch(self, *args, **_kwargs):
+    def fetch(self):
         retries = 3
         for retry in range(retries):
             try:
                 response = self.session.get(self.url)
-            except self.RETRIABLE_EXCEPTIONS as exc:
+            except self.EXCEPTED as exc:
                 if retry < retries - 1:
                     self.sleep_on_exception(exc, retry)
                 else:
                     raise
-            ok = (response.status_code in self.valid_http)
-            text = response.text
-            return ok, text
+            else:
+                ok = (response.status_code in self.valid_http)
+                text = response.text
+                return ok, text
 
     def sleep_on_exception(self, exc, retry):
         for klass, seconds in self.RETRIABLE_EXCEPTIONS:
@@ -48,3 +54,10 @@ class SessionFetcher(object):
                     seconds = seconds(retry)
                 sleep(seconds)
                 break
+
+
+def requests_fetcher(conf):
+    def fetcher(conf):
+        return session_fetcher.fetch()
+    session_fetcher = SessionFetcher(conf)
+    return fetcher

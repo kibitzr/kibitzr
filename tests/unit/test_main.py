@@ -51,3 +51,14 @@ def interrupt_on_nth_call(n):
         return None
     interrupter.n = n
     return interrupter
+
+
+@mock.patch.object(main, "check_forever", side_effect=main.on_interrupt)
+def test_main_filters_names(the_loop):
+    main.settings().checks.extend([
+        {'name': 'A', 'url': 'A'},
+        {'name': 'B', 'url': 'B'},
+    ])
+    assert 0 == main.main(names=['B'])
+    assert the_loop.call_count == 1
+    assert the_loop.call_args[0][0][0].check.call_count == 1

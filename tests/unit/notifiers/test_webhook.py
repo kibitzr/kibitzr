@@ -1,6 +1,6 @@
 from kibitzr.notifier.webhook import WebHookNotify
 
-from ..compat import mock
+from ...compat import mock
 
 
 def test_webhook_sample():
