@@ -19,10 +19,9 @@ Here is a simlistic example of ``kibitzr.yml`` file, that uses all three:
 	  - name: Python example
 		script:
 		  python: |
-			ok = True
 			content = "\n".join([str(x**2) for x in range(1, 4)])
 		transform:
-		  - python: ok, content = True, " ".join(reversed(content.splitlines()))
+		  - python: content = " ".join(reversed(content.splitlines()))
 		notify:
 		  - python: print(content)
 
@@ -35,11 +34,10 @@ Once executed with debug log level it will generate following output:
 	2017-04-22 10:47:04,404 [DEBUG] kibitzr.conf: Loading credentials from /home/kibitzr/kibitzr-creds.yml
 	2017-04-22 10:47:04,406 [INFO] kibitzr.checker: Fetching 'Python example' using script
 	2017-04-22 10:47:04,406 [INFO] kibitzr.fetcher.script: Fetch using Python script
-	2017-04-22 10:47:04,406 [DEBUG] kibitzr.fetcher.script: ok = True
-	content = "\n".join([str(x**2) for x in range(1, 4)])
+	2017-04-22 10:47:04,406 [DEBUG] kibitzr.fetcher.script: content = "\n".join([str(x**2) for x in range(1, 4)])
 
 	2017-04-22 10:47:04,406 [INFO] kibitzr.transformer: Python transform
-	2017-04-22 10:47:04,406 [DEBUG] kibitzr.transformer: ok, content = True, " ".join(reversed(content.splitlines()))
+	2017-04-22 10:47:04,406 [DEBUG] kibitzr.transformer: content = " ".join(reversed(content.splitlines()))
 	2017-04-22 10:47:04,407 [DEBUG] kibitzr.checker: Sending report: u'9 4 1'
 	2017-04-22 10:47:04,407 [INFO] kibitzr.notifier.custom: Executing custom notifier
 	2017-04-22 10:47:04,407 [DEBUG] kibitzr.notifier.custom: print(content)
@@ -61,10 +59,11 @@ If ``script``'s only key is ``python``, then it's value will be
 executed as a Python script.
 Script is an arbitrary Python code with few constraints:
 
-1. Script must define ``ok`` boolean variable,
+1. Script can define ``ok`` boolean variable,
    which is either ``True`` or ``False``. 
    When ok is ``True`` it means that content was fetched without errors.
    When ok is ``False``, content should hold error message.
+   By default ``ok`` is ``True``.
 2. Script must define ``content`` string variable.
    ``content`` will be passed to through ``transform`` list to ``notify`` list.
 3. Script has access to check's configuration in ``conf`` global variable
@@ -117,7 +116,6 @@ It accepts ``content`` variable and it puts transformed result in the same ``con
     
     transform:
       - python: |
-          ok = True
           content = content.replace("election", "eating contest")
 
 
@@ -140,7 +138,7 @@ To put break point inside Python code, just add following line:
 .. code-block:: python
 
     import pdb; pdb.set_trace()
-    
+
 It will stop Kibitzr execution and start Pdb_ session.
 You will have access to all variables and full execution Stack.
 However, Pdb won't show current line of code, which is not convinient,
