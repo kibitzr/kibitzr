@@ -20,3 +20,5 @@ install:
   - pip install dist/kibitzr*.whl -r requirements_dev.txt coveralls
 before_script: flake8 kibitzr tests
 script: coverage run --source=kibitzr setup.py test
+after_success:
+  coveralls
