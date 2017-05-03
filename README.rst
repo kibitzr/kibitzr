@@ -25,6 +25,9 @@ Kibitzr
         :target: https://www.codefactor.io/repository/github/kibitzr/kibitzr
         :alt: CodeFactor
 
+.. image:: https://coveralls.io/repos/github/kibitzr/kibitzr/badge.svg?branch=master
+        :target: https://coveralls.io/github/kibitzr/kibitzr?branch=master
+        :alt: Coveralls
 
 Kibitzr is like a secret twin brother who does routine tasks and asks for nothing in return.
 
