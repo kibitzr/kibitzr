@@ -22,7 +22,7 @@ class SessionFetcher(object):
         self.conf = conf
         self.session = CacheControl(requests.Session())
         self.session.headers.update({
-            'User-agent': 'Kibitzer/' + version,
+            'User-agent': 'Kibitzr/' + version,
         })
         self.url = conf['url']
         self.valid_http = set(conf.get('valid_http', [200, 304]))

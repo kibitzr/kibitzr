@@ -66,3 +66,4 @@ docs/_build/
 /target/
 ui/src/client/public/
 ui/node_modules/
+firefox_profile

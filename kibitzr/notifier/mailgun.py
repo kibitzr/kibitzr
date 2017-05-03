@@ -16,7 +16,7 @@ class MailgunNotify(object):
         domain = mailgun_creds['domain']
         self.context = {
             'subject': 'Kibitzr update for ' + conf['name'],
-            'from': 'Kibitzer <mailgun@{0}>'.format(domain),
+            'from': 'Kibitzr <mailgun@{0}>'.format(domain),
             'to': [mailgun_creds['to']],
         }
         self.url = 'https://api.mailgun.net/v3/{0}/messages'.format(domain)

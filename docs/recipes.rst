@@ -57,7 +57,7 @@ Travis CI build status
 .. code-block:: yaml
 
     checks:
-      - name: Kibitzer Build Status
+      - name: Kibitzr Build Status
         url: https://travis-ci.org/kibitzr/kibitzr
         transform:
           - css: div.build-info > h3
