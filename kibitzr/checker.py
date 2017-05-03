@@ -7,7 +7,7 @@ from .fetcher import (
     requests_fetcher,
     fetch_by_script,
 )
-from .notifier import create_notifier
+from .notifier import notify_factory
 from .transformer import transform_factory
 
 
@@ -18,7 +18,7 @@ class Checker(object):
     def __init__(self, conf):
         self.conf = conf
         self.downloader = self.downloader_factory()
-        self.notifiers = self.create_notifiers()
+        self.notify = notify_factory(self.conf)
         self.transform = transform_factory(self.conf)
         self.transform_error = self.transform_error_factory()
 
@@ -104,37 +104,3 @@ class Checker(object):
             logger.error("Ignoring error in %s",
                          repr(content)[:60])
         return None
-
-    def create_notifiers(self):
-        notifiers_conf = self.conf.get('notify', [])
-        if not notifiers_conf:
-            logger.warning(
-                "No notifications configured for %r",
-                self.conf['name'],
-            )
-        notifiers = [
-            self.notifier_factory(notifier_conf)
-            for notifier_conf in notifiers_conf
-        ]
-        # Drop None:
-        return [x for x in notifiers if x]
-
-    def notifier_factory(self, notifier_conf):
-        try:
-            key, value = next(iter(notifier_conf.items()))
-        except AttributeError:
-            key, value = notifier_conf, None
-        return create_notifier(key, conf=self.conf, value=value)
-
-    def notify(self, report, **_kwargs):
-        if report:
-            logger.debug('Sending report: %r', report)
-            for notifier in self.notifiers:
-                try:
-                    notifier(report=report)
-                except Exception:
-                    logger.exception(
-                        "Exception occured during sending notification"
-                    )
-        else:
-            logger.debug('Report is empty, skipping notification')
