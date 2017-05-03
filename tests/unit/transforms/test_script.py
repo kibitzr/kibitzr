@@ -42,4 +42,4 @@ def test_python_exception_is_captured():
         conf=None,
     )
     assert ok is False
-    assert content.splitlines()[-1] == "ZeroDivisionError: division by zero"
+    assert content.splitlines()[-1].startswith("ZeroDivisionError")

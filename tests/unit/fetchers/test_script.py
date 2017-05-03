@@ -39,7 +39,7 @@ def test_python_script_exception_is_reported():
         {'script': {'python': 'content = 1 / 0'}}
     )
     assert ok is False
-    assert content.splitlines()[-1] == "ZeroDivisionError: division by zero"
+    assert content.splitlines()[-1].startswith("ZeroDivisionError")
 
 
 def test_ok_is_optional_in_python_script():
