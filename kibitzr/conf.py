@@ -154,7 +154,7 @@ class SettingsParser(object):
         for check in checks:
             try:
                 shared_scenario = scenarios[check['scenario']]
-            except (KeyError, TypeError) as exc:
+            except (KeyError, TypeError):
                 pass
             else:
                 check['scenario'] = shared_scenario
