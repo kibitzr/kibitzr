@@ -17,6 +17,6 @@ install:
     curl -L https://github.com/mozilla/geckodriver/releases/download/v0.15.0/geckodriver-v0.15.0-linux64.tar.gz
     | tar zxf -
     && sudo mv geckodriver /usr/local/bin/
-  - pip install dist/kibitzr*.whl -r requirements_dev.txt
+  - pip install dist/kibitzr*.whl -r requirements_dev.txt coveralls
 before_script: flake8 kibitzr tests
-script: py.test -v --cov kibitzr --cov-report term-missing
+script: coverage run --source=kibitzr setup.py test
