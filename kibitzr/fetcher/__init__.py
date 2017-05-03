@@ -1,10 +1,7 @@
-from .simple import requests_fetcher  # noqa
-from .script import fetch_by_script  # noqa
-from .browser import (  # noqa
-    firefox_fetcher,
+from .factory import fetcher_factory  # noqa
+from .browser import (
     cleanup,
     persistent_firefox,
-    needs_firefox,
 )
 
 
