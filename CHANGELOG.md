@@ -1,6 +1,8 @@
 # Changelog
 
 ## Unreleased
+
+## [3.1.4] - 2017-05-04
 ## Changed
 - human-readable period
 
