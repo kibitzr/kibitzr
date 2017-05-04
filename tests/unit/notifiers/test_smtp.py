@@ -34,8 +34,8 @@ def test_smtp_shortcut(fake_send_email, settings):
     )
 
 
-@mock.patch.object(smtp, 'send_email')
-def test_smtp_explicit_form(fake_send_email, settings):
+@mock.patch.object(smtp.smtplib, 'SMTP')
+def test_smtp_explicit_form(fake_smtp, settings):
     settings.creds.update({
         'smtp': {
             'user': 'user',
@@ -49,14 +49,12 @@ def test_smtp_explicit_form(fake_send_email, settings):
         'report',
         {'recipients': ['you@site.com'], 'subject': 'subject'},
     )
-    fake_send_email.assert_called_once_with(
-        user='user',
-        password='password',
-        recipients=['you@site.com'],
-        subject='subject',
-        body='report',
-        host='host',
-        port='port',
+    fake_smtp.assert_called_once_with('host', 'port')
+    fake_smtp.return_value.login.assert_called_once_with('user', 'password')
+    fake_smtp.return_value.sendmail.assert_called_once_with(
+        'user',
+        ['you@site.com'],
+        b'From: user\r\nTo: you@site.com\r\nSubject: subject\r\n\r\nreport\r\n',
     )
 
 
