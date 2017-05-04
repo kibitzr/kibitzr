@@ -9,6 +9,6 @@ def test_webhook_sample():
     with mock.patch.object(notify.session, 'post') as fake_post:
         notify('report')
     fake_post.assert_called_once_with(
-        url=url,
+        url,
         data={'message': 'report'},
     )
