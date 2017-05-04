@@ -23,7 +23,7 @@ class MailgunNotify(object):
         self.auth = ('api', mailgun_creds['key'])
         self.session = requests.Session()
 
-    def __call__(self, report):
+    def notify(self, report):
         response = self.session.post(
             self.url,
             auth=self.auth,
@@ -32,6 +32,7 @@ class MailgunNotify(object):
         logger.debug(response.text)
         response.raise_for_status()
         return response
+    __call__ = notify
 
     def payload(self, report):
         return dict(
