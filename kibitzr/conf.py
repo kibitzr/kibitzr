@@ -4,7 +4,9 @@ import copy
 import logging.config
 import contextlib
 
+import six
 import yaml
+import pytimeparse
 
 
 logger = logging.getLogger(__name__)
@@ -130,36 +132,46 @@ class SettingsParser(object):
         checks = list(self.unpack_batches(checks))
         checks = list(self.unpack_templates(checks, conf.get('templates', {})))
         self.inject_missing_names(checks)
-        self.inject_scenarios(checks, conf.get('scenarios', {}))
-        self.inject_notifiers(checks, conf.get('notifiers', {}))
+        for check in checks:
+            self.inject_scenarios(check, conf.get('scenarios', {}))
+            self.inject_notifiers(check, conf.get('notifiers', {}))
+            self.fix_period(check)
         return checks
 
     @staticmethod
-    def inject_notifiers(checks, notifiers):
-        for check in checks:
-            if 'notify' in check:
-                for notify in check['notify']:
-                    if hasattr(notify, 'keys'):
-                        notify_type = next(iter(notify.keys()))
-                        notify_param = next(iter(notify.values()))
-                        try:
-                            notify[notify_type] = notifiers[notify_param]
-                        except (TypeError, KeyError):
-                            # notify_param is not a predefined notifier name
-                            # Save it as is:
-                            notify[notify_type] = notify_param
+    def inject_notifiers(check, notifiers):
+        if 'notify' in check:
+            for notify in check['notify']:
+                if hasattr(notify, 'keys'):
+                    notify_type = next(iter(notify.keys()))
+                    notify_param = next(iter(notify.values()))
+                    try:
+                        notify[notify_type] = notifiers[notify_param]
+                    except (TypeError, KeyError):
+                        # notify_param is not a predefined notifier name
+                        # Save it as is:
+                        notify[notify_type] = notify_param
 
     @staticmethod
-    def inject_scenarios(checks, scenarios):
-        for check in checks:
-            try:
-                shared_scenario = scenarios[check['scenario']]
-            except (KeyError, TypeError):
-                pass
-            else:
-                check['scenario'] = shared_scenario
+    def inject_scenarios(check, scenarios):
+        try:
+            shared_scenario = scenarios[check['scenario']]
+        except (KeyError, TypeError):
+            pass
+        else:
+            check['scenario'] = shared_scenario
 
-    def unpack_batches(self, checks):
+    @staticmethod
+    def fix_period(check):
+        period = check.get('period', 300)
+        if isinstance(period, six.string_types):
+            seconds = int(pytimeparse.parse(period))
+            logger.debug('Parsed "%s" to %d seconds',
+                         period, seconds)
+            check['period'] = seconds
+
+    @staticmethod
+    def unpack_batches(checks):
         for check in checks:
             if 'batch' in check:
                 base = copy.deepcopy(check)

@@ -157,9 +157,12 @@ Last line of configuration file is the ``period``:
         period: 15
 
 The number of seconds to wait between (*start of*) checks.
+Kibitzr understands time to the extent, you can write ``1 hour`` instead of ``3600``.
+For the more complete list of available formats refer to pytimeparse_ docs.
 
 .. _requests: http://docs.python-requests.org/
 .. _BeautifulSoup: https://www.crummy.com/software/BeautifulSoup/
 .. _mailgun: https://mailgun.com/
 .. _slack: https://slack.com/
 .. _selenium: https://selenium-python.readthedocs.io/api.html
+.. _pytimeparse: https://pypi.python.org/pypi/pytimeparse/

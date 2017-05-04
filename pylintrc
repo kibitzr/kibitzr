@@ -113,7 +113,8 @@ disable=missing-docstring,
         hex-method,
         nonzero-method,
         map-builtin-not-iterating,
-        bare-except
+        bare-except,
+        bad-builtin
 
 
 [REPORTS]

@@ -53,6 +53,7 @@ setup(
         'lazy-object-proxy',
         'python-telegram-bot',
         'Jinja2',
+        'pytimeparse',
     ],
     license="MIT license",
     zip_safe=False,
