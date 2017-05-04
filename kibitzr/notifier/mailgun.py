@@ -1,38 +1,29 @@
-import logging
-
-import requests
+from .webhook import WebHookNotify, webhook_factory
 
 from ..conf import settings
 
 
-logger = logging.getLogger(__name__)
+class MailgunNotify(WebHookNotify):
 
+    CREDS_KEY = 'mailgun'
 
-class MailgunNotify(object):
-
-    def __init__(self, conf, value):
-        mailgun_creds = settings().creds.get('mailgun', {})
-        mailgun_creds.update(value or {})
-        domain = mailgun_creds['domain']
+    def __init__(self, conf, value, **kwargs):
+        self.mailgun_creds = settings().creds.get('mailgun', {})
+        self.mailgun_creds.update(value or {})
+        domain = self.mailgun_creds['domain']
         self.context = {
             'subject': 'Kibitzr update for ' + conf['name'],
             'from': 'Kibitzr <mailgun@{0}>'.format(domain),
-            'to': [mailgun_creds['to']],
+            'to': [self.mailgun_creds['to']],
         }
-        self.url = 'https://api.mailgun.net/v3/{0}/messages'.format(domain)
-        self.auth = ('api', mailgun_creds['key'])
-        self.session = requests.Session()
+        super(MailgunNotify, self).__init__(conf=conf, value=value, **kwargs)
 
-    def notify(self, report):
-        response = self.session.post(
-            self.url,
-            auth=self.auth,
-            data=self.payload(report),
-        )
-        logger.debug(response.text)
-        response.raise_for_status()
-        return response
-    __call__ = notify
+    def load_url(self, creds_key, value):
+        return ('https://api.mailgun.net/v3/{0}/messages'
+                .format(self.mailgun_creds['domain']))
+
+    def configure_session(self):
+        self.session.auth = ('api', self.mailgun_creds['key'])
 
     def payload(self, report):
         return dict(
@@ -41,5 +32,4 @@ class MailgunNotify(object):
         )
 
 
-def notify_factory(conf, value):
-    return MailgunNotify(conf, value)
+notify_factory = webhook_factory(MailgunNotify)
