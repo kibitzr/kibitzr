@@ -87,7 +87,7 @@ def schedule_checks(checkers):
     schedule.clear()
     for checker in checkers:
         conf = checker.conf
-        period = conf.get("period", 300)
+        period = conf["period"]
         logger.info(
             "Scheduling checks for %r every %r seconds",
             conf["name"],

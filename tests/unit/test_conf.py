@@ -136,3 +136,10 @@ def test_unnamed_check():
         'name': 'Unnamed check 1',
         'period': 1,
     }]
+
+
+def test_period_parse():
+    conf = "checks: [{period: 1 hour}]"
+    with patch_source("open_conf", conf):
+        conf = ReloadableSettings('::')
+    assert conf.checks[0]['period'] == 3600
