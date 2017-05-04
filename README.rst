@@ -11,7 +11,7 @@ Kibitzr
         :target: https://pypi.python.org/pypi/kibitzr
 
 .. image:: https://img.shields.io/travis/kibitzr/kibitzr.svg
-        :target: https://travis-ci.org/kibitzr/kibitzr
+        :target: https://travis-ci.org/kibitzr/kibitzr?branch=master
 
 .. image:: https://readthedocs.org/projects/kibitzr/badge/?version=latest
         :target: https://kibitzr.readthedocs.io/en/latest/?badge=latest
