@@ -1,6 +1,8 @@
 # Changelog
 
 ## Unreleased
+
+## [4.0.0beta] - 2017-05-05
 ## Added
 - `kibitzr init` - create sample configuration files
 ## Changed
