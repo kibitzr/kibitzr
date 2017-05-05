@@ -8,6 +8,7 @@ import schedule
 from .conf import settings, SettingsParser
 from .fetcher import cleanup_fetchers, persistent_firefox
 from .checker import Checker
+from .bootstrap import create_boilerplate
 
 
 logger = logging.getLogger(__name__)
@@ -20,7 +21,12 @@ __all__ = [
     'main',
     'run_firefox',
     'execute_conf',
+    'create_boilerplate',
 ]
+
+
+def bootstrap():
+    create_boilerplate()
 
 
 def main(once=False, log_level=logging.INFO, names=None):
