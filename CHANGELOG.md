@@ -1,6 +1,8 @@
 # Changelog
 
 ## Unreleased
+## Added
+- `kibitzr init` - create sample configuration files
 ## Changed
 - Changed kibitzr CLI commands structure (`kibitzr run` instead of `kibitzr`)
 
