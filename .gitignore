@@ -67,3 +67,4 @@ docs/_build/
 ui/src/client/public/
 ui/node_modules/
 firefox_profile
+CHANGELOG.rst
