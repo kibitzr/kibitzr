@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## [3.1.5] - 2017-05-05
+## Fixed
+- Jinja transform
+
 ## [3.1.4] - 2017-05-04
 ## Changed
 - human-readable period
