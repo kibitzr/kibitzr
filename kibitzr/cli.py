@@ -54,5 +54,12 @@ def run(ctx, name):
     sys.exit(main(once=False, log_level=ctx.obj['log_level'], names=name))
 
 
+@cli.command()
+def init():
+    """Create boilerplate configuration files"""
+    from kibitzr.main import bootstrap
+    bootstrap()
+
+
 if __name__ == "__main__":
     cli()
