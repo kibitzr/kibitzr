@@ -13,7 +13,7 @@ from .html import deep_recursion, extract_text
 logger = logging.getLogger(__name__)
 
 
-def jinja_transform(content, code, conf):
+def jinja_transform(code, content, conf):
     html = LazyHTML(content)
     xml = LazyXML(content)
     context = {
