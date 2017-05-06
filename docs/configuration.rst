@@ -49,7 +49,7 @@ supported notifiers.
 
 Kibitzr supports browser interactions. They can be activated by using any of keys:
 
-   1. ``delay`` - number of seconds to wait after page loaded in browser to process Javascipt.
+   1. ``delay`` - number of seconds to wait after page loaded in browser to process JavaScript.
    2. ``scenario`` - python scenario acting on selenium_ driver after page load.
    3. ``form`` - shorthand for simple selenium_ scenarios.
 
