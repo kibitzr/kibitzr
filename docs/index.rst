@@ -25,3 +25,4 @@ Documentation Contents
    python
    recipes
    contributing
+   contributors
