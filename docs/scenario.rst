@@ -117,7 +117,7 @@ Working around two-factor authentication
 ----------------------------------------
 
 Some sites require entering code sent in a SMS for logging from the new device.
-2-FA can't be automated without weakining security.
+2-FA can't be automated without weakening security.
 But Kibitzr can use persistent Firefox profile.
 Start persistent Firefox session with
 
@@ -136,7 +136,7 @@ Note: if running kibitzr remotely through SSH, use `X11 forwarding`_.
 Debugging/Troubleshooting
 -------------------------
 
-Writting robust Selenium scenarios is no easy task, and most likely
+Writing robust Selenium scenarios is no easy task, and most likely
 it won't work from the first time.
 Kibitzr has a few options to help with debugging.
 
