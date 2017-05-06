@@ -23,7 +23,7 @@
 ## Added
 - Jinja transform
 ## Removed
-- cut and sort transforms (superseeded by bash)
+- cut and sort transforms (superseded by bash)
 
 ## [3.0.11] - 2017-04-30
 ## Added
