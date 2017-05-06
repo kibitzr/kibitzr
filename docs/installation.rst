@@ -13,7 +13,7 @@ To install kibitzr, run this command in your terminal:
 
     $ pip install kibitzr
 
-This is the preferred method to install kibitzr, as it will always install the most recent stable release. 
+This is the preferred method to install kibitzr, as it will always install the most recent stable release.
 
 If you don't have `pip`_ installed, this `Python installation guide`_ can guide
 you through the process.
@@ -42,7 +42,7 @@ Consult `Dockerfile`_ and :ref:`gcp` tutorial on required steps.
 Kibitzr uses several Python packages, that have C extensions.
 When installed through pip, they are compiling libraries.
 This process requires gcc (which is almost always present)
-and Python header files (which are not installed on vanila Linux).
+and Python header files (which are not installed on vanilla Linux).
 
 You can either install those dependencies use OS installer::
 
@@ -61,7 +61,7 @@ Some of the dependencies are used only when corresponding features are used in `
 2. ``delay`` and ``scenario`` - triggers for using Firefox as a fetcher.
     Installing Firefox can be cumbersome, please refer to :ref:`FireFox installation guide <firefox>`.
 3. HTML selectors ``xpath``, ``css`` and ``tag`` require ``lxml`` which
-   compiles low-level extensions during pip installation. 
+   compiles low-level extensions during pip installation.
    So again, you either install ``python-dev``, or install ``lxml`` from OS repo::
 
         apt install python-lxml

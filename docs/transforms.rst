@@ -36,7 +36,7 @@ JSON
 Jinja Transform
 ---------------
 
-Kibitzr supportrs Jinja2_ templates.
+Kibitzr supports Jinja2_ templates.
 Following variables are passed into a context:
 
 * ``conf`` - check configuration dictionary
@@ -53,7 +53,7 @@ Also set of built-in Jinja filters is augmented with:
 Because Jinja transform uses general-purpose template engine, it can supersede simpler transforms.
 However greater powers come with more points of failure.
 Debugging of failed Jinja2 template might be challenging.
-Generally I recommend using it only if you can't acheive desired effect without it.
+Generally I recommend using it only if you can't achieve desired effect without it.
 
 Examples
 --------

@@ -97,7 +97,7 @@ checks:
 
 * IMs: Slack, Telegram, gitter
 * e-mail: SMTP, Mailgun
-* Zapier  
+* Zapier
 * Any bash or Python script
 
 ---
@@ -116,7 +116,7 @@ Anything you have to check manually
 # I want to try!
 
 * Run inside Docker container
-* Install on tyniest (free) Amazon Web Service or Google Cloud Platform VM
+* Install on tiniest (free) Amazon Web Service or Google Cloud Platform VM
 * Install on your development server
 * Install at home
 

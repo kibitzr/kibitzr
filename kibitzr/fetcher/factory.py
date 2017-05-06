@@ -33,7 +33,7 @@ class URLFetcher(object):
             ok, content = self.fetcher_func(self.conf)
         except:
             logger.exception(
-                "Exception occured while fetching check"
+                "Exception occurred while fetching check"
             )
             ok, content = False, traceback.format_exc()
         return ok, content

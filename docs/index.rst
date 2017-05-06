@@ -2,7 +2,7 @@
 Kibitzr - Personal Network Assistant
 =====================================
 
-Kibitzr periodically runs checks desrcibed in ``kibitzr.yml`` file.
+Kibitzr periodically runs checks described in ``kibitzr.yml`` file.
 Each check has following steps:
 
 1. Fetch page;
