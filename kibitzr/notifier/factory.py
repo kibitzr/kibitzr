@@ -69,7 +69,7 @@ class CompositeNotifier(object):
                     notifier(report=report)
                 except:
                     logger.exception(
-                        "Exception occured during sending notification"
+                        "Exception occurred during sending notification"
                     )
         else:
             logger.debug('Report is empty, skipping notification')
