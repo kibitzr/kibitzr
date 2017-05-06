@@ -5,13 +5,13 @@ from ..compat import mock
 from ..helpers import SettingsMock
 
 
-server_addess = None
+server_address = None
 
 
 @pytest.fixture(scope="session", autouse=True)
 def target_website(request):
-    global server_addess
-    server_process, server_addess = start_server()
+    global server_address
+    server_process, server_address = start_server()
     request.addfinalizer(cleanup_fetchers)
     request.addfinalizer(lambda: stop_server(server_process))
     for module in ("browser", "script"):
@@ -25,8 +25,8 @@ def target_website(request):
 
 @pytest.fixture
 def target():
-    global server_addess
-    return server_addess
+    global server_address
+    return server_address
 
 
 @pytest.fixture
