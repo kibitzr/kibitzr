@@ -5,8 +5,12 @@ from setuptools import setup
 with open('README.rst') as readme_file:
     readme = readme_file.read()
 
-with open('CHANGELOG.rst') as history_file:
-    history = history_file.read()
+try:
+    # Might be missing if no pandoc installed
+    with open('CHANGELOG.rst') as history_file:
+        history = history_file.read()
+except IOError:
+    history = ""
 
 
 def changelog_version():
