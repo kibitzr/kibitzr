@@ -30,5 +30,5 @@ def test_exception_is_captured(fake_logger):
     notify_func = CompositeNotifier({'notify': [{'python': 'print(1 / 0)'}]})
     notify_func("bang")
     fake_logger.exception.assert_called_once_with(
-        "Exception occured during sending notification"
+        "Exception occurred during sending notification"
     )
