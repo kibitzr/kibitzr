@@ -11,7 +11,7 @@ Kibitzr check accepts Python code in 4 places:
 * Transform
 * Notify
 
-Here is a simlistic example of ``kibitzr.yml`` file, that uses all three:
+Here is a simplistic example of ``kibitzr.yml`` file, that uses all three:
 
 .. code-block:: yaml
 
@@ -60,7 +60,7 @@ executed as a Python script.
 Script is an arbitrary Python code with few constraints:
 
 1. Script can define ``ok`` boolean variable,
-   which is either ``True`` or ``False``. 
+   which is either ``True`` or ``False``.
    When ok is ``True`` it means that content was fetched without errors.
    When ok is ``False``, content should hold error message.
    By default ``ok`` is ``True``.
@@ -68,7 +68,7 @@ Script is an arbitrary Python code with few constraints:
    ``content`` will be passed to through ``transform`` list to ``notify`` list.
 3. Script has access to check's configuration in ``conf`` global variable
    and credentials dictionary in ``creds``.
- 
+
 If fetching script raises an exception, the fetcher will return ``ok=False``
 and ``content`` will contain full traceback.
 
@@ -113,7 +113,7 @@ Python transform is similar to Python fetcher with one difference.
 It accepts ``content`` variable and it puts transformed result in the same ``content`` variable.
 
 .. code-block:: yaml
-    
+
     transform:
       - python: |
           content = content.replace("election", "eating contest")
@@ -141,8 +141,8 @@ To put break point inside Python code, just add following line:
 
 It will stop Kibitzr execution and start Pdb_ session.
 You will have access to all variables and full execution Stack.
-However, Pdb won't show current line of code, which is not convinient,
-but managable, since you know exactly where break point stands.
+However, Pdb won't show current line of code, which is not convenient,
+but manageable, since you know exactly where break point stands.
 
 .. _Pdb: https://docs.python.org/3.6/library/pdb.html
 .. _Selenium: https://selenium-python.readthedocs.io/
