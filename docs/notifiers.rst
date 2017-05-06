@@ -11,7 +11,7 @@ Kibitzr supports following notifier types:
 
 1. ``smtp`` - Send an e-mail through any SMTP server
 2. ``mailgun`` - or send it through mailgun_ API
-3. ``slack`` - Trigger `Slack Incomming Webhook`_
+3. ``slack`` - Trigger `Slack Incoming Webhook`_
 4. ``telegram`` - Send message through :ref:`private Telegram Bot <telegram>`
 5. ``zapier`` - Trigger `Zapier Catch Hook`_
 6. ``gitter`` - Or post to gitter's chat
@@ -25,7 +25,7 @@ be stored in separate file - ``kibitzr-creds.yml``
 It's recommended to restrict access to this file to the owner.
 
 .. _mailgun: https://www.mailgun.com/
-.. _Slack Incomming Webhook: https://api.slack.com/incoming-webhooks
+.. _Slack Incoming Webhook: https://api.slack.com/incoming-webhooks
 .. _Zapier Catch Hook: https://zapier.com/developer/documentation/v2/static-webhooks/
 
 
