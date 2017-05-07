@@ -31,7 +31,7 @@ def test_bash_transform_error_is_captured():
     assert ok is False
     assert "ls: cannot access" in content
     assert "/NO-SUCH-DIR" in content
-    assert "No such file or directory" in content 
+    assert "No such file or directory" in content
 
 
 def test_python_exception_is_captured():
