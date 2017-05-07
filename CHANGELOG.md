@@ -1,6 +1,8 @@
 # Changelog
 
 ## Unreleased
+## Fixed
+- Gracefull shutdown on SIGTERM
 
 ## [3.1.6] - 2017-05-05
 ## Fixed

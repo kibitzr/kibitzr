@@ -30,6 +30,7 @@ def main(once=False, log_level=logging.INFO, names=None):
     signal.signal(signal.SIGUSR1, on_reload_config)
     signal.signal(signal.SIGUSR2, on_backdoor)
     signal.signal(signal.SIGINT, on_interrupt)
+    signal.signal(signal.SIGTERM, on_interrupt)
     try:
         while True:
             if interrupted:
