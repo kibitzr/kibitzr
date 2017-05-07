@@ -4,21 +4,23 @@ Usage
 
 ::
 
-	$ kibitzr --help
+    $ kibitzr --help
     Usage: kibitzr [OPTIONS] COMMAND [ARGS]...
 
       Run kibitzr COMMAND --help for detailed descriptions
 
     Options:
-      -l, --log-level [warning|debug|info|error]
+      -l, --log-level [debug|info|warning|error]
                                       Logging level
       --help                          Show this message and exit.
 
     Commands:
       firefox  Launch Firefox with persistent profile
+      init     Create boilerplate configuration files
       once     Run kibitzr checks once and exit
       run      Run kibitzr in the foreground mode
       version  Print version
+
 
 CLI reads its configuration from ``kibitzr.yml`` file in current working directory.
 Optionally ``kibitzr-creds.yml`` can be used to separate credentials from general configuration.
