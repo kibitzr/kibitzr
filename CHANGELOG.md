@@ -1,8 +1,10 @@
 # Changelog
 
 ## Unreleased
+
+## [3.1.7] - 2017-05-06
 ## Fixed
-- Gracefull shutdown on SIGTERM
+- Gracefull shutdown on SIGTERM (as on SIGINT)
 
 ## [3.1.6] - 2017-05-05
 ## Fixed
