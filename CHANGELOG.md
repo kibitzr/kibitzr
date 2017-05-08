@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## [3.1.8] - 2017-05-08
+## Fixed
+- Unspecified period caused error (introduced in 3.1.4)
+
 ## [3.1.7] - 2017-05-06
 ## Fixed
 - Gracefull shutdown on SIGTERM (as on SIGINT)

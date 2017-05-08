@@ -59,11 +59,13 @@ checks = [
         'name': 'WordPress A Plugin',
         'url': "http://wordpress/A",
         'notify': ['mailgun'],
+        'period': 300,
     },
     {
         'name': 'WordPress B Plugin',
         'url': "http://wordpress/B",
         'notify': ['mailgun'],
+        'period': 300,
     },
 ]
 
@@ -122,10 +124,7 @@ def test_name_from_url_population():
     conf = "checks: [{url: 'http://example.com/page_name'}]"
     with patch_source("open_conf", conf):
         conf = ReloadableSettings('::')
-    assert conf.checks == [{
-        'name': 'http-example-com-page_name',
-        'url': 'http://example.com/page_name',
-    }]
+    assert conf.checks[0]['name'] == 'http-example-com-page_name'
 
 
 def test_unnamed_check():
@@ -143,3 +142,10 @@ def test_period_parse():
     with patch_source("open_conf", conf):
         conf = ReloadableSettings('::')
     assert conf.checks[0]['period'] == 3600
+
+
+def test_empty_period():
+    conf = "checks: [{name: x}]"
+    with patch_source("open_conf", conf):
+        conf = ReloadableSettings('::')
+    assert conf.checks[0]['period'] == 300

@@ -163,7 +163,7 @@ class SettingsParser(object):
 
     @staticmethod
     def fix_period(check):
-        period = check.get('period', 300)
+        period = check.setdefault('period', 300)
         if isinstance(period, six.string_types):
             seconds = int(pytimeparse.parse(period))
             logger.debug('Parsed "%s" to %d seconds',
