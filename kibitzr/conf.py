@@ -104,6 +104,12 @@ class CompositeCreds(object):
             factory = point.load()
             self.extensions[point.name] = factory()
 
+    def get(self, key, default=None):
+        try:
+            return self[key]
+        except KeyError:
+            return default
+
     def __getitem__(self, key):
         if key in self.extensions:
             return self.extensions[key]
