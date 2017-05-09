@@ -5,9 +5,10 @@ import code
 
 import schedule
 
-from .conf import settings
+from .conf import settings, SettingsParser
 from .fetcher import cleanup_fetchers, persistent_firefox
 from .checker import Checker
+from .bootstrap import create_boilerplate
 
 
 logger = logging.getLogger(__name__)
@@ -19,7 +20,13 @@ open_backdoor = False
 __all__ = [
     'main',
     'run_firefox',
+    'execute_conf',
+    'create_boilerplate',
 ]
+
+
+def bootstrap():
+    create_boilerplate()
 
 
 def main(once=False, log_level=logging.INFO, names=None):
@@ -54,6 +61,14 @@ def main(once=False, log_level=logging.INFO, names=None):
     finally:
         cleanup_fetchers()
     return 0
+
+
+def execute_conf(conf):
+    logging.basicConfig(level=logging.WARNING)
+    logging.getLogger('').handlers[0].level = logging.WARNING
+    checks = SettingsParser().parse_checks(conf)
+    for check in checks:
+        Checker(check).check()
 
 
 def run_firefox():

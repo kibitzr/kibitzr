@@ -3,9 +3,6 @@ import logging
 
 import click
 
-from kibitzr import __version__ as kibitzr_version
-from kibitzr.main import main, run_firefox
-
 
 LOG_LEVEL_CODES = {
     "debug": logging.DEBUG,
@@ -15,27 +12,54 @@ LOG_LEVEL_CODES = {
 }
 
 
-@click.command()
-@click.option("--once", is_flag=True,
-              help="Run checks once and exit")
+@click.group()
 @click.option("-l", "--log-level", default="info",
               type=click.Choice(LOG_LEVEL_CODES.keys()),
               help="Logging level")
-@click.option("-v", "--version", is_flag=True,
-              help="Print version and exit")
-@click.option("--firefox", is_flag=True,
-              help="Launch Firefox with persistent profile and exit")
+@click.pass_context
+def cli(ctx, log_level):
+    """Run kibitzr COMMAND --help for detailed descriptions"""
+    ctx.obj = {'log_level': LOG_LEVEL_CODES[log_level.lower()]}
+
+
+@cli.command()
+def version():
+    """Print version"""
+    from kibitzr import __version__ as kibitzr_version
+    print(kibitzr_version)
+
+
+@cli.command()
+def firefox():
+    """Launch Firefox with persistent profile"""
+    from kibitzr.main import run_firefox
+    run_firefox()
+
+
+@cli.command()
 @click.argument('name', nargs=-1)
-def entry(once, log_level, version, firefox, name):
+@click.pass_context
+def once(ctx, name):
+    """Run kibitzr checks once and exit"""
+    from kibitzr.main import main
+    sys.exit(main(once=True, log_level=ctx.obj['log_level'], names=name))
+
+
+@cli.command()
+@click.argument('name', nargs=-1)
+@click.pass_context
+def run(ctx, name):
     """Run kibitzr in the foreground mode"""
-    if version:
-        print(kibitzr_version)
-    elif firefox:
-        run_firefox()
-    else:
-        log_level_code = LOG_LEVEL_CODES[log_level]
-        sys.exit(main(once=once, log_level=log_level_code, names=name))
+    from kibitzr.main import main
+    sys.exit(main(once=False, log_level=ctx.obj['log_level'], names=name))
+
+
+@cli.command()
+def init():
+    """Create boilerplate configuration files"""
+    from kibitzr.main import bootstrap
+    bootstrap()
 
 
 if __name__ == "__main__":
-    entry()
+    cli()

@@ -24,7 +24,7 @@ def changelog_version():
 
 setup(
     name='kibitzr',
-    version='3.1.8',
+    version='4.0.0b2',
     description="Self hosted web page changes monitoring",
     long_description=readme + '\n\n' + history,
     author="Peter Demin",
@@ -38,7 +38,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'kibitzr=kibitzr.cli:entry'
+            'kibitzr=kibitzr.cli:cli'
         ]
     },
     include_package_data=True,

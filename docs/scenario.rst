@@ -52,7 +52,7 @@ Available Field Value Generators
 --------------------------------
 
 As in example above, field can be filled from ``creds`` dictionary.
-Another option is to provide Jinja2 template in key ``jinja``.
+Another option is to provide Jinja2 template in key ``value``.
 Template will have access to ``conf`` and ``creds``.
 However any plain text value can be passed as well.
 For example, the same value, as in creds example can be rendered by:
@@ -64,9 +64,9 @@ For example, the same value, as in creds example can be rendered by:
         url: https://bank.com
         form:
           - id: login
-            jinja: "{{ creds['bank']['login'] }}"
+            value: "{{ creds['bank']['login'] }}"
           - id: password
-            jinja: "{{ creds['bank']['password'] }}"
+            value: "{{ creds['bank']['password'] }}"
         ... (transform and notify) ...
 
 Note: don't forget to wrap Jinja2 template in quotes, since curly bracket

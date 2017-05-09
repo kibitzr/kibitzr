@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## [4.0.0beta] - 2017-05-05
+## Added
+- `kibitzr init` - create sample configuration files
+## Changed
+- Changed kibitzr CLI commands structure (`kibitzr run` instead of `kibitzr`)
+
 ## [3.1.8] - 2017-05-08
 ## Fixed
 - Unspecified period caused error (introduced in 3.1.4)
@@ -89,4 +95,4 @@
 ## [2.7.3] - 2017-03-31
 ## Added
 - Started CHANGELOG
-- script.python fetcher [undocumented]
+- script.python fetcher
