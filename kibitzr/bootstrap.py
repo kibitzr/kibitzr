@@ -1,4 +1,5 @@
 import os
+import stat
 import logging
 
 
@@ -21,7 +22,11 @@ checks:
 
 
 KIBITZR_CREDS_YML = """
-# Put credentials here
+# Plain text credentials configuration
+# Documentation and other options: http://kibitzr.readthedocs.io/en/latest/credentials.html
+service:
+  username: john
+  password: doe
 """.lstrip()
 
 
@@ -40,5 +45,6 @@ def create_boilerplate():
         with open('kibitzr-creds.yml', 'wt') as fp:
             logger.info("Creating kibitzr-creds.yml")
             fp.write(KIBITZR_CREDS_YML)
+        os.chmod('kibitzr-creds.yml', stat.S_IRUSR | stat.S_IWUSR)
     else:
         logger.info("kibitzr-creds.yml already exists. Skipping")
