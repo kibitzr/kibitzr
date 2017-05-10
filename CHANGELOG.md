@@ -1,8 +1,10 @@
 # Changelog
 
 ## Unreleased
+
+## [4.0.1] - 2017-05-10
 ## Added
-- Credentials extensions through entry points
+- Credentials extensions through entry points (for kibitzr-keyring).
 
 ## [4.0.0] - 2017-05-08
 ## Added
