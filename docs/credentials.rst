@@ -37,7 +37,7 @@ To enable, install Kibitzr extension ``kibitzr-keyring``:
 
     $ pip install kibitzr-keyring
 
-And follow the `keyring instructions`.
+And follow the `keyring instructions`_.
 
 Once configured, keyring values will be available in ``creds.keyring`` dictionary.
 
