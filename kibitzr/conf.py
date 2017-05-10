@@ -7,6 +7,7 @@ import contextlib
 import six
 import yaml
 import pytimeparse
+import entrypoints
 
 
 logger = logging.getLogger(__name__)
@@ -24,16 +25,13 @@ class ReloadableSettings(object):
         '~/',
     )
     CONFIG_FILENAME = 'kibitzr.yml'
-    CREDENTIALS_FILENAME = 'kibitzr-creds.yml'
     RE_PUNCTUATION = re.compile(r'\W+')
     UNNAMED_PATTERN = 'Unnamed check {0}'
 
     def __init__(self, config_dir):
         self.filename = os.path.join(config_dir, self.CONFIG_FILENAME)
-        self.creds_filename = os.path.join(config_dir,
-                                           self.CREDENTIALS_FILENAME)
         self.checks = None
-        self.creds = {}
+        self.creds = CompositeCreds(config_dir)
         self.parser = SettingsParser()
         self.reread()
 
@@ -65,7 +63,7 @@ class ReloadableSettings(object):
         logger.debug("Loading settings from %s",
                      os.path.abspath(self.filename))
         conf = self.read_conf()
-        changed = self.read_creds()
+        changed = self.creds.reread()
         checks = self.parser.parse_checks(conf)
         if self.checks != checks:
             self.checks = checks
@@ -85,7 +83,60 @@ class ReloadableSettings(object):
         with open(self.filename) as fp:
             yield fp
 
-    def read_creds(self):
+
+class CompositeCreds(object):
+
+    def __init__(self, config_dir):
+        self.plain = PlainYamlCreds(config_dir)
+        self.extensions = {}
+        self.load_extensions()
+
+    def reread(self):
+        changed = False
+        for extension in self.extensions:
+            reread_method = getattr(extension, 'reread', None)
+            if reread_method:
+                changed |= reread_method()
+        return changed
+
+    def load_extensions(self):
+        for point in entrypoints.get_group_all("kibitzr.creds"):
+            factory = point.load()
+            self.extensions[point.name] = factory()
+
+    def get(self, key, default=None):
+        try:
+            return self[key]
+        except KeyError:
+            return default
+
+    def __getitem__(self, key):
+        if key in self.extensions:
+            return self.extensions[key]
+        elif key in self.plain:
+            return self.plain[key]
+        else:
+            raise KeyError("Credentials not found: {0}".format(key))
+
+
+class PlainYamlCreds(object):
+
+    CREDENTIALS_FILENAME = 'kibitzr-creds.yml'
+
+    def __init__(self, config_dir):
+        super(PlainYamlCreds, self).__init__()
+        self.creds = {}
+        self.creds_filename = os.path.join(config_dir,
+                                           self.CREDENTIALS_FILENAME)
+        self.reread()
+
+    def __contains__(self, key):
+        return key in self.creds
+
+    def __getitem__(self, key):
+        return self.creds[key]
+
+    def reread(self):
         """
         Read and parse credentials file.
         If something goes wrong, log exception and continue.

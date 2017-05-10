@@ -1,6 +1,8 @@
 # Changelog
 
 ## Unreleased
+## Added
+- Credentials extensions through entry points
 
 ## [4.0.0] - 2017-05-08
 ## Added

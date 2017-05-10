@@ -18,6 +18,7 @@ Documentation Contents
 
    installation
    configuration
+   credentials
    usage
    scenario
    transforms

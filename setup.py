@@ -58,6 +58,7 @@ setup(
         'python-telegram-bot',
         'Jinja2',
         'pytimeparse',
+        'entrypoints',
     ],
     license="MIT license",
     zip_safe=False,
