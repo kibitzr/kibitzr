@@ -31,7 +31,7 @@ All modern operating systems provide some form of secure credentials storage.
 But they usually require additional configuration.
 
 Kibitzr provides access to keyrings through `python keyring`_.
-To enable, install Kibitzr extension ``kibitzr-keyring``:
+To enable, install Kibitzr extension `kibitzr-keyring`_:
 
 .. code-block:: bash
 
@@ -41,5 +41,6 @@ And follow the `keyring instructions`_.
 
 Once configured, keyring values will be available in ``creds.keyring`` dictionary.
 
-.. _python keyring: https://github.com/jaraco/keyring
-.. _keyring instructions: https://github.com/jaraco/keyring#configure-your-keyring-lib
+.. _`python keyring`: https://github.com/jaraco/keyring
+.. _`keyring instructions`: https://github.com/jaraco/keyring#configure-your-keyring-lib
+.. _kibitzr-keyring: https://pypi.python.org/pypi/kibitzr-keyring
