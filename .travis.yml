@@ -10,7 +10,7 @@ addons:
     firefox: "52.0"
 install:
   - >
-    curl -L https://github.com/mozilla/geckodriver/releases/download/v0.15.0/geckodriver-v0.15.0-linux64.tar.gz
+    curl -L https://github.com/mozilla/geckodriver/releases/download/v0.16.1/geckodriver-v0.16.1-linux64.tar.gz
     | tar zxf -
     && sudo mv geckodriver /usr/local/bin/
   - pip install -e . -r requirements_dev.txt coveralls
