@@ -27,3 +27,4 @@ Documentation Contents
    recipes
    contributing
    contributors
+   comparison
