@@ -40,7 +40,7 @@ class URLFetcher(object):
     __call__ = fetch
 
     def log_announcement(self):
-        logger.info("Fetching %r at %r",
+        logger.info(u"Fetching %s at %s",
                     self.conf['name'], self.conf['url'])
 
 

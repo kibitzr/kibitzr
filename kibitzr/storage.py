@@ -30,7 +30,7 @@ class PageHistory(object):
         )
         self.ensure_repo_exists()
         if conf.get('url'):
-            self.commit_msg = "{name} at {url}".format(
+            self.commit_msg = u"{name} at {url}".format(
                 name=conf['name'],
                 url=conf.get('url'),
             )
