@@ -1,8 +1,6 @@
 import json
 import logging
 
-import sh
-
 from .utils import wrap_dummy, bake_parametrized
 
 
@@ -24,7 +22,8 @@ def pretty_json(text):
 
 
 def run_jq(query, text):
-    jq = sh.jq.bake('--monochrome-output', '--raw-output')
+    from kibitzr.compat import sh
+    jq = sh.Command("jq").bake('--monochrome-output', '--raw-output')
     logger.debug("Running jq query %s against %s", query, text)
     try:
         command = jq(query, _in=text)

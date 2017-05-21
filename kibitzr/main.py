@@ -35,10 +35,7 @@ def main(once=False, log_level=logging.INFO, names=None):
     # Reset global state for testability:
     reload_conf_pending, interrupted, open_backdoor = False, False, False
     setup_logger(log_level)
-    signal.signal(signal.SIGUSR1, on_reload_config)
-    signal.signal(signal.SIGUSR2, on_backdoor)
-    signal.signal(signal.SIGINT, on_interrupt)
-    signal.signal(signal.SIGTERM, on_interrupt)
+    connect_signals()
     try:
         while True:
             if interrupted:
@@ -62,6 +59,17 @@ def main(once=False, log_level=logging.INFO, names=None):
     finally:
         cleanup_fetchers()
     return 0
+
+
+def connect_signals():
+    signal.signal(signal.SIGINT, on_interrupt)
+    signal.signal(signal.SIGTERM, on_interrupt)
+    try:
+        signal.signal(signal.SIGUSR1, on_reload_config)
+        signal.signal(signal.SIGUSR2, on_backdoor)
+    except AttributeError:
+        # Unavailable on Windows
+        pass
 
 
 def execute_conf(conf):

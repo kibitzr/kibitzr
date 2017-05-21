@@ -24,7 +24,7 @@ def changelog_version():
 
 setup(
     name='kibitzr',
-    version='4.0.1',
+    version='4.0.2beta7',
     description="Self hosted web page changes monitoring",
     long_description=readme + '\n\n' + history,
     author="Peter Demin",

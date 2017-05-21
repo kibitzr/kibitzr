@@ -2,7 +2,7 @@ import os
 import itertools
 import io
 
-import sh
+from kibitzr.compat import sh
 
 from .utils import normalize_filename
 
@@ -24,7 +24,7 @@ class PageHistory(object):
             normalize_filename(conf['name']),
         )
         self.target = os.path.join(self.cwd, "content")
-        self.git = sh.git.bake(
+        self.git = sh.Command('git').bake(
             '--no-pager',
             _cwd=self.cwd,
         )
