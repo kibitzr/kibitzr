@@ -1,23 +1,19 @@
 import logging
 import traceback
 
-from .browser import (
-    needs_firefox,
-    firefox_fetcher,
-)
-from .simple import requests_fetcher
-from .script import fetch_by_script
-
 
 logger = logging.getLogger(__name__)
 
 
 def fetcher_factory(conf):
     if needs_firefox(conf):
+        from .browser.fetcher import firefox_fetcher
         return URLFetcher(conf, firefox_fetcher)
     elif is_script(conf):
+        from .script import fetch_by_script
         return ScriptFetcher(conf, fetch_by_script)
     else:
+        from .simple import requests_fetcher
         return URLFetcher(conf, requests_fetcher(conf))
 
 
@@ -56,3 +52,10 @@ def is_script(conf):
         'url' not in conf,
         'script' in conf,
     ))
+
+
+def needs_firefox(conf):
+    return any(
+        conf.get(key)
+        for key in ('delay', 'scenario', 'form')
+    )

@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+## [4.0.2] - 2017-05-21
+## Added
+- Explicit telegram imprinting
+## Fixed
+- Dynamically import only what's needed in checks
+- Better Windows support
+- Support for non-ascii URLs
+
 ## [4.0.1] - 2017-05-10
 ## Added
 - Credentials extensions through entry points (for kibitzr-keyring).

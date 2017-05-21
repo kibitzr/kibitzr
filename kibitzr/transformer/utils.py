@@ -2,13 +2,13 @@ import functools
 
 
 def wrap_dummy(transform_func):
-    def transform(value, conf):
+    def transform_factory(value, conf):
         return transform_func
-    return transform
+    return transform_factory
 
 
 def bake_parametrized(transform_func, pass_conf=False, **kwargs):
-    def transform(value, conf):
+    def transform_factory(value, conf):
         if pass_conf:
             return functools.partial(
                 transform_func,
@@ -22,4 +22,4 @@ def bake_parametrized(transform_func, pass_conf=False, **kwargs):
                 value,
                 **kwargs
             )
-    return transform
+    return transform_factory

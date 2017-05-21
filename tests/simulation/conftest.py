@@ -14,7 +14,7 @@ def target_website(request):
     server_process, server_address = start_server()
     request.addfinalizer(cleanup_fetchers)
     request.addfinalizer(lambda: stop_server(server_process))
-    for module in ("browser", "script"):
+    for module in ("browser.fetcher", "script"):
         patch_object = mock.patch(
             "kibitzr.fetcher.%s.settings" % module,
             return_value=SettingsMock()

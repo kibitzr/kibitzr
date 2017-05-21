@@ -48,7 +48,8 @@ def test_browser_xpath(target, html_text_conf):
 
 def test_scenario(target, html_text_conf):
     html_text_conf.update({
-        'scenario': 'driver.find_element_by_id("page-link").click()'
+        'scenario': 'driver.find_element_by_id("page-link").click()',
+        'delay': 0.5,
     })
     ok, content = Checker(html_text_conf).check()
     assert ok is True
