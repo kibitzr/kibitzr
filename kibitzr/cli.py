@@ -67,5 +67,6 @@ def telegram_chat():
     from kibitzr.main import telegram_chat
     telegram_chat()
 
+
 if __name__ == "__main__":
     cli()
