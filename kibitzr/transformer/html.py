@@ -1,45 +1,74 @@
 import sys
 import contextlib
 import logging
+import functools
 
 import six
-from lxml import etree
-from bs4 import BeautifulSoup
 
-from .utils import wrap_dummy, bake_parametrized
+from .utils import bake_parametrized
 
 
 logger = logging.getLogger(__name__)
 
 
-def tag_selector(selector, html):
-    with deep_recursion():
-        soup = BeautifulSoup(html, "html.parser")
-        element = soup.find(selector)
-        if element:
-            return True, six.text_type(element)
-        else:
-            logger.warning('Tag not found: %r', selector)
-            return False, html
+class SoupOps(object):
+    def __init__(self, selector=None, select_all=False):
+        self.selector = selector
+        self.select_all = select_all
 
-
-def css_selector(selector, html, select_all=False):
-    with deep_recursion():
-        soup = BeautifulSoup(html, "html.parser")
-        try:
-            elements = soup.select(selector)
-            if select_all:
-                result = u"".join(six.text_type(x)
-                                  for x in elements)
+    def tag_selector(self, html):
+        with soup(html) as doc:
+            element = doc.find(self.selector)
+            if element:
+                return True, six.text_type(element)
             else:
-                result = six.text_type(elements[0])
-            return True, result
-        except IndexError:
-            logger.warning('CSS selector not found: %r', selector)
-            return False, html
+                logger.warning('Tag not found: %r', self.selector)
+                return False, html
+
+    def css_selector(self, html):
+        with soup(html) as doc:
+            try:
+                elements = doc.select(self.selector)
+                if self.select_all:
+                    result = u"".join(six.text_type(x)
+                                      for x in elements)
+                else:
+                    result = six.text_type(elements[0])
+                return True, result
+            except IndexError:
+                logger.warning('CSS selector not found: %r', self.selector)
+                return False, html
+
+    @staticmethod
+    def extract_text(html):
+        with soup(html) as doc:
+            strings = doc.stripped_strings
+            return True, u'\n'.join([
+                line
+                for line in strings
+                if line
+            ])
+
+    @classmethod
+    def factory(cls, key, value, conf):
+        def transform(content):
+            instance = cls(selector=value, select_all=select_all)
+            method = handler.__get__(instance, cls)
+            return method(content)
+        action, _, all_flag = key.partition('-')
+        select_all = (all_flag == 'all')
+        handler = cls.SHORTCUTS[action]
+        return transform
+
+    SHORTCUTS = {
+        'tag': tag_selector,
+        'css': css_selector,
+        'text': extract_text,
+    }
 
 
 def xpath_selector(selector, html):
+    from lxml import etree
     root = etree.fromstring(html, parser=etree.HTMLParser())
     elements = root.xpath(selector)
     if elements:
@@ -54,14 +83,11 @@ def xpath_selector(selector, html):
         return False, html
 
 
-def extract_text(html):
+@contextlib.contextmanager
+def soup(html):
+    from bs4 import BeautifulSoup
     with deep_recursion():
-        strings = BeautifulSoup(html, "html.parser").stripped_strings
-        return True, u'\n'.join([
-            line
-            for line in strings
-            if line
-        ])
+        yield BeautifulSoup(html, "html.parser")
 
 
 @contextlib.contextmanager
@@ -74,10 +100,17 @@ def deep_recursion():
         sys.setrecursionlimit(old_limit)
 
 
-HTML_REGISTRY = {
-    'css': bake_parametrized(css_selector),
-    'css-all': bake_parametrized(css_selector, select_all=True),
-    'xpath': bake_parametrized(xpath_selector),
-    'tag': bake_parametrized(tag_selector),
-    'text': wrap_dummy(extract_text),
-}
+def bake_html(key):
+    return functools.partial(SoupOps.factory, key)
+
+
+def register():
+    """
+    Return dictionary of tranform factories
+    """
+    registry = {
+        key: bake_html(key)
+        for key in ('css', 'css-all', 'tag', 'text')
+    }
+    registry['xpath'] = bake_parametrized(xpath_selector)
+    return registry

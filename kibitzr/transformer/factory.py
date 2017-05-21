@@ -1,14 +1,12 @@
 """
 Built-in transforms
 """
+import os
+import pkgutil
+import importlib
 import logging
 
 import six
-
-from .html import HTML_REGISTRY
-from .json_transforms import JSON_REGISTRY
-from .plain_text import PLAIN_TEXT_REGISTRY
-from .jinja_transform import JINJA_REGISTRY
 
 
 logger = logging.getLogger(__name__)
@@ -19,11 +17,14 @@ def transform_factory(conf):
 
 
 def load_transforms():
+    path = os.path.dirname(os.path.abspath(__file__))
+    before, sep, _ = __name__.rpartition('.')
+    prefix = before + sep
     registry = {}
-    registry.update(HTML_REGISTRY)
-    registry.update(JSON_REGISTRY)
-    registry.update(PLAIN_TEXT_REGISTRY)
-    registry.update(JINJA_REGISTRY)
+    for _, modname, _ in pkgutil.walk_packages([path], prefix):
+        submodule = importlib.import_module(modname, __name__)
+        if hasattr(submodule, 'register'):
+            registry.update(submodule.register())
     return registry
 
 

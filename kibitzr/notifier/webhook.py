@@ -1,7 +1,5 @@
 import logging
 
-import requests
-
 from ..conf import settings
 
 
@@ -14,6 +12,7 @@ class WebHookNotify(object):
     POST_KEY = 'message'
 
     def __init__(self, creds_key=None, conf=None, value=None, post_key=None):
+        import requests
         self.session = requests.Session()
         self.url = self.load_url(creds_key or self.CREDS_KEY, value)
         self.post_key = post_key or self.POST_KEY

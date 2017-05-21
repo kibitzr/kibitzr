@@ -2,18 +2,16 @@ import logging
 import json
 
 import six
-from jinja2 import Template, TemplateError
-from bs4 import BeautifulSoup
-from lxml import etree
 
 from .utils import bake_parametrized
-from .html import deep_recursion, extract_text
+from .html import deep_recursion, SoupOps
 
 
 logger = logging.getLogger(__name__)
 
 
 def jinja_transform(code, content, conf):
+    from jinja2 import Template, TemplateError
     html = LazyHTML(content)
     xml = LazyXML(content)
     context = {
@@ -36,7 +34,7 @@ def jinja_transform(code, content, conf):
 def text_filter(html):
     if isinstance(html, list):
         html = "".join(html)
-    ok, content = extract_text(html)
+    ok, content = SoupOps.extract_text(html)
     if ok:
         return content
     else:
@@ -65,6 +63,7 @@ class LazyHTML(object):
 
     @property
     def soup(self):
+        from bs4 import BeautifulSoup
         if self._soup is None:
             self._soup = BeautifulSoup(self.html, "html.parser")
         return self._soup
@@ -79,22 +78,24 @@ class LazyHTML(object):
 
 class LazyXML(object):
     def __init__(self, content):
+        from lxml import etree
         self.xml = content
         self._root = None
+        self.etree = etree
 
     @property
     def root(self):
         if self._root is None:
-            self._root = etree.fromstring(
+            self._root = self.etree.fromstring(
                 self.xml,
-                parser=etree.HTMLParser(),
+                parser=self.etree.HTMLParser(),
             )
         return self._root
 
     def xpath(self, selector):
         elements = self.root.xpath(selector)
         return [
-            etree.tostring(
+            self.etree.tostring(
                 element,
                 method='html',
                 pretty_print=True,
@@ -104,6 +105,7 @@ class LazyXML(object):
         ]
 
 
-JINJA_REGISTRY = {
-    'jinja': bake_parametrized(jinja_transform, pass_conf=True)
-}
+def register():
+    return {
+        'jinja': bake_parametrized(jinja_transform, pass_conf=True)
+    }

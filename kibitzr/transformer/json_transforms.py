@@ -2,15 +2,11 @@ import json
 import logging
 
 import sh
-from lazy_object_proxy import Proxy as Lazy
 
 from .utils import wrap_dummy, bake_parametrized
 
 
 logger = logging.getLogger(__name__)
-
-
-jq = Lazy(lambda: sh.jq.bake('--monochrome-output', '--raw-output'))
 
 
 def pretty_json(text):
@@ -28,6 +24,7 @@ def pretty_json(text):
 
 
 def run_jq(query, text):
+    jq = sh.jq.bake('--monochrome-output', '--raw-output')
     logger.debug("Running jq query %s against %s", query, text)
     try:
         command = jq(query, _in=text)
@@ -43,7 +40,8 @@ def run_jq(query, text):
     return success, result
 
 
-JSON_REGISTRY = {
-    'json': wrap_dummy(pretty_json),
-    'jq': bake_parametrized(run_jq),
-}
+def register():
+    return {
+        'json': wrap_dummy(pretty_json),
+        'jq': bake_parametrized(run_jq),
+    }

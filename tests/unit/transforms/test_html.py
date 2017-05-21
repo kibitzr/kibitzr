@@ -1,27 +1,27 @@
 from bs4 import BeautifulSoup
 
-from kibitzr.transformer.html import (
-    tag_selector,
-    css_selector,
-    xpath_selector,
-    extract_text,
-)
+from kibitzr.transformer import transform_factory
+
+
+def run_transform(key, value, content):
+    pipeline = transform_factory({'transform': [{key: value}]})
+    return pipeline(True, content)
 
 
 def test_tag_selector():
-    ok, content = tag_selector('a', HTML)
+    ok, content = run_transform('tag', 'a', HTML)
     assert ok is True
     assert content == '<a href="page.html" id="page-link">Page</a>'
 
 
 def test_css_selector():
-    ok, content = css_selector('body h2.nav a#page-link', HTML)
+    ok, content = run_transform('css', 'body h2.nav a#page-link', HTML)
     assert ok is True
     assert content == '<a href="page.html" id="page-link">Page</a>'
 
 
 def test_css_selector_all():
-    ok, content = css_selector('div', HTML, select_all=True)
+    ok, content = run_transform('css-all', 'div', HTML)
     assert ok is True
     assert prettify(content) == '\n'.join([
         '<div id="content">',
@@ -35,13 +35,13 @@ def test_css_selector_all():
 
 
 def test_xpath_selector():
-    ok, content = xpath_selector('//body/h2/a[@id="page-link"]', HTML)
+    ok, content = run_transform('xpath', '//body/h2/a[@id="page-link"]', HTML)
     assert ok is True
     assert content.strip() == '<a href="page.html" id="page-link">Page</a>'
 
 
 def test_extract_test():
-    ok, content = extract_text(HTML)
+    ok, content = run_transform('text', None, HTML)
     assert ok is True
     assert content.strip() == "\n".join([
         "Page",

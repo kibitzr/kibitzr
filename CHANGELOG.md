@@ -1,6 +1,10 @@
 # Changelog
 
 ## Unreleased
+## Added
+- Explicit telegram imprinting
+## Fixed
+- Dynamically import only what's needed in checks
 
 ## [4.0.1] - 2017-05-10
 ## Added

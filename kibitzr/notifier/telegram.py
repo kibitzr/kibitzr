@@ -1,8 +1,6 @@
 from __future__ import absolute_import
 import logging
 
-from telegram.bot import Bot
-
 from ..conf import settings
 
 
@@ -11,6 +9,7 @@ logger = logging.getLogger(__name__)
 
 class TelegramBot(object):
     def __init__(self, chat_id=None):
+        from telegram.bot import Bot
         telegram_creds = settings().creds['telegram']
         token = telegram_creds['token']
         if chat_id is not None:

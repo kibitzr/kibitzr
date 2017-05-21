@@ -35,8 +35,9 @@ def bash_transform(code, content):
     return execute_bash(code, content)
 
 
-PLAIN_TEXT_REGISTRY = {
-    'changes': changes_transform_factory,
-    'python': bake_parametrized(python_transform, pass_conf=True),
-    'bash': bake_parametrized(bash_transform),
-}
+def register():
+    return {
+        'changes': changes_transform_factory,
+        'python': bake_parametrized(python_transform, pass_conf=True),
+        'bash': bake_parametrized(bash_transform),
+    }
