@@ -47,7 +47,9 @@ class TransformPipeline(object):
             if ok:
                 ok, content = transform(content)
             else:
-                content = self.on_error(content)
+                break
+        if not ok:
+            content = self.on_error(content)
         if content:
             content = content.strip()
         return ok, content
