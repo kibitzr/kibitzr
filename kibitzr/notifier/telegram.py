@@ -10,12 +10,14 @@ logger = logging.getLogger(__name__)
 
 
 class TelegramBot(object):
-    def __init__(self, token=None):
-        if not token:
-            telegram_creds = settings().creds['telegram']
-            token = telegram_creds['token']
+    def __init__(self, chat_id=None):
+        telegram_creds = settings().creds['telegram']
+        token = telegram_creds['token']
+        if chat_id is not None:
+            self._chat_id = chat_id
+        else:
+            self._chat_id = telegram_creds.get('chat')
         self.bot = Bot(token=token)
-        self._chat_id = None
 
     @property
     def chat_id(self):
@@ -35,3 +37,8 @@ class TelegramBot(object):
 
 def notify_factory(conf, value):
     return TelegramBot(value).post
+
+
+def chat_id():
+    bot = TelegramBot()
+    print(bot.chat_id)

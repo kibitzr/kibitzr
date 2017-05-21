@@ -22,6 +22,7 @@ __all__ = [
     'run_firefox',
     'execute_conf',
     'create_boilerplate',
+    'telegram_chat',
 ]
 
 
@@ -74,6 +75,11 @@ def execute_conf(conf):
 def run_firefox():
     setup_logger(logging.DEBUG)
     persistent_firefox()
+
+
+def telegram_chat():
+    from .notifier.telegram import chat_id
+    chat_id()
 
 
 def setup_logger(log_level=logging.INFO):

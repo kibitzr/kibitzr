@@ -61,5 +61,11 @@ def init():
     bootstrap()
 
 
+@cli.command()
+def telegram_chat():
+    """Return chat id for the last message sent to Telegram Bot"""
+    from kibitzr.main import telegram_chat
+    telegram_chat()
+
 if __name__ == "__main__":
     cli()
