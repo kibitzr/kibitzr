@@ -23,8 +23,7 @@ Plain text
 * ``changes: word`` - Same as ``changes``, but highlight changes within a string.
 * ``python: code`` - Execute arbitrary Python *code* on passed content. See :ref:`Python support` for details.
 * ``bash: code`` - Execute arbitrary bash *code* on passed content. Call ``grep``, ``awk`` or ``sed``, for example.
-* ``jinja: template`` - Render Jinja2 template. See `jinja transform`_ for reference.
-
+* ``jinja: template`` - Render Jinja2 template. See `jinja transform`_ for reference.  
 JSON
 ----
 
@@ -40,6 +39,7 @@ Kibitzr supports Jinja2_ templates.
 Following variables are passed into a context:
 
 * ``conf`` - check configuration dictionary
+* ``stash`` - global persistent key-value storage; See :ref:`stash` for details
 * ``content`` - input as plain text
 * ``lines`` - input as a list of lines
 * ``json`` - input parsed from JSON

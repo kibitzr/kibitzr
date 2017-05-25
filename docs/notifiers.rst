@@ -17,6 +17,7 @@ Kibitzr supports following notifier types:
 6. ``gitter`` - Or post to gitter's chat
 7. ``python`` - Run Python script
 8. ``bash`` - Run bash script
+8. ``stash`` - Save to persistent global key-value storage; See :ref:`stash` for details
 
 Each notifier requires different configuration.
 For the sake of security, sensitive information

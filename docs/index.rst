@@ -24,7 +24,7 @@ Documentation Contents
    transforms
    notifiers
    python
+   stash
    recipes
    contributing
    contributors
-   comparison
