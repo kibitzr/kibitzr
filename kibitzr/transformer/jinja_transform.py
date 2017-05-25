@@ -3,33 +3,41 @@ import json
 
 import six
 
-from .utils import bake_parametrized
 from .html import deep_recursion, SoupOps
 
 
 logger = logging.getLogger(__name__)
 
 
-def jinja_transform(code, content, conf):
-    from jinja2 import Environment, TemplateError
-    html = LazyHTML(content)
-    xml = LazyXML(content)
-    context = {
-        'conf': conf,
-        'content': content,
-        'lines': content.splitlines(),
-        'json': LazyJSON(content),
-        'css': html.css,
-        'xpath': xml.xpath,
-    }
-    environment = Environment()
-    environment.filters['text'] = text_filter
-    template = environment.from_string(code)
-    try:
-        return True, template.render(context)
-    except TemplateError:
-        logger.warning("Jinja transform failed", exc_info=True)
-        return False, None
+class JinjaTransform(object):
+
+    def __init__(self, code, conf):
+        from jinja2 import Environment
+        environment = Environment()
+        environment.filters['text'] = text_filter
+        self.template = environment.from_string(code)
+        self.conf = conf
+
+    def render(self, content, context=None):
+        from jinja2 import TemplateError
+        try:
+            return True, self.template.render(context or self.context(content))
+        except TemplateError:
+            logger.warning("Jinja transform failed", exc_info=True)
+            return False, None
+    __call__ = render
+
+    def context(self, content):
+        html = LazyHTML(content)
+        xml = LazyXML(content)
+        return {
+            'conf': self.conf,
+            'content': content,
+            'lines': content.splitlines(),
+            'json': LazyJSON(content),
+            'css': html.css,
+            'xpath': xml.xpath,
+        }
 
 
 def text_filter(html):
@@ -108,5 +116,5 @@ class LazyXML(object):
 
 def register():
     return {
-        'jinja': bake_parametrized(jinja_transform, pass_conf=True)
+        'jinja': JinjaTransform,
     }
