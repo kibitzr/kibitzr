@@ -4,8 +4,8 @@ import json
 
 import six
 
-from .html import deep_recursion, SoupOps
 from kibitzr.stash import LazyStash
+from .html import deep_recursion, SoupOps
 
 
 logger = logging.getLogger(__name__)
