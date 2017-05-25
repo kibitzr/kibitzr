@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 
 def jinja_transform(code, content, conf):
-    from jinja2 import Template, TemplateError
+    from jinja2 import Environment, TemplateError
     html = LazyHTML(content)
     xml = LazyXML(content)
     context = {
@@ -22,8 +22,9 @@ def jinja_transform(code, content, conf):
         'css': html.css,
         'xpath': xml.xpath,
     }
-    template = Template(code)
-    template.environment.filters['text'] = text_filter
+    environment = Environment()
+    environment.filters['text'] = text_filter
+    template = environment.from_string(code)
     try:
         return True, template.render(context)
     except TemplateError:
