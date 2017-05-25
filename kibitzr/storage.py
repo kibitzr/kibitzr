@@ -162,3 +162,7 @@ class ChangesReporter(object):
                             after=after))
         else:
             return u'\n'.join([self.subject, after])
+
+    def new(self):
+        content = self.git.show('HEAD:content').strip()
+        return u'\n'.join([self.subject, content])
