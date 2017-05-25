@@ -1,3 +1,4 @@
+import re
 import logging
 import json
 
@@ -16,6 +17,8 @@ class JinjaTransform(object):
         from jinja2 import Environment
         environment = Environment()
         environment.filters['text'] = text_filter
+        environment.filters['float'] = float_filter
+        environment.filters['dollars'] = dollars_filter
         self.template = environment.from_string(code)
         self.conf = conf
 
@@ -40,6 +43,18 @@ class JinjaTransform(object):
             'css': html.css,
             'xpath': xml.xpath,
         }
+
+
+RE_NOT_FLOAT = re.compile(r'[^0-9\.]')
+
+
+def dollars_filter(number):
+    sign = '-' if number < 0 else ''
+    return '{0}${1:,}'.format(sign, abs(number))
+
+
+def float_filter(text):
+    return float(RE_NOT_FLOAT.sub('', text))
 
 
 def text_filter(html):
