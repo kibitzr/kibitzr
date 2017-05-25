@@ -3,9 +3,10 @@ import traceback
 
 import six
 
-from ..conf import settings
-from ..storage import PageHistory
-from ..bash import execute_bash
+from kibitzr.stash import LazyStash
+from kibitzr.conf import settings
+from kibitzr.storage import PageHistory
+from kibitzr.bash import execute_bash
 from .utils import bake_parametrized
 
 
@@ -24,7 +25,12 @@ def python_transform(code, content, conf):
     assert 'content' in code, PYTHON_ERROR
     try:
         namespace = {'ok': True, 'content': content}
-        exec(code, {'creds': settings().creds, 'conf': conf}, namespace)
+        context = {
+            'conf': conf,
+            'stash': LazyStash(),
+            'creds': settings().creds,
+        }
+        exec(code, context, namespace)
         return namespace['ok'], six.text_type(namespace['content'])
     except:
         logger.exception("Python transform raised an Exception")

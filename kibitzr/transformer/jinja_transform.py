@@ -1,34 +1,60 @@
+import re
 import logging
 import json
 
 import six
 
-from .utils import bake_parametrized
+from kibitzr.stash import LazyStash
 from .html import deep_recursion, SoupOps
 
 
 logger = logging.getLogger(__name__)
 
 
-def jinja_transform(code, content, conf):
-    from jinja2 import Template, TemplateError
-    html = LazyHTML(content)
-    xml = LazyXML(content)
-    context = {
-        'conf': conf,
-        'content': content,
-        'lines': content.splitlines(),
-        'json': LazyJSON(content),
-        'css': html.css,
-        'xpath': xml.xpath,
-    }
-    template = Template(code)
-    template.environment.filters['text'] = text_filter
-    try:
-        return True, template.render(context)
-    except TemplateError:
-        logger.warning("Jinja transform failed", exc_info=True)
-        return False, None
+class JinjaTransform(object):
+
+    def __init__(self, code, conf):
+        from jinja2 import Environment
+        environment = Environment()
+        environment.filters['text'] = text_filter
+        environment.filters['float'] = float_filter
+        environment.filters['dollars'] = dollars_filter
+        self.template = environment.from_string(code)
+        self.conf = conf
+
+    def render(self, content, context=None):
+        from jinja2 import TemplateError
+        try:
+            return True, self.template.render(context or self.context(content))
+        except TemplateError:
+            logger.warning("Jinja render failed", exc_info=True)
+            return False, None
+    __call__ = render
+
+    def context(self, content):
+        html = LazyHTML(content)
+        xml = LazyXML(content)
+        return {
+            'conf': self.conf,
+            'stash': LazyStash(),
+            'content': content,
+            'lines': content.splitlines(),
+            'json': LazyJSON(content),
+            'css': html.css,
+            'xpath': xml.xpath,
+        }
+
+
+RE_NOT_FLOAT = re.compile(r'[^0-9\.]')
+
+
+def dollars_filter(number):
+    sign = '-' if number < 0 else ''
+    return '{0}${1:,}'.format(sign, abs(number))
+
+
+def float_filter(text):
+    return float(RE_NOT_FLOAT.sub('', text))
 
 
 def text_filter(html):
@@ -107,5 +133,5 @@ class LazyXML(object):
 
 def register():
     return {
-        'jinja': bake_parametrized(jinja_transform, pass_conf=True)
+        'jinja': JinjaTransform,
     }

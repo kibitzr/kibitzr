@@ -1,5 +1,6 @@
 import logging
 
+from kibitzr.stash import LazyStash
 from ..conf import settings
 
 
@@ -21,6 +22,7 @@ class PythonNotify(object):
             self.context,
             text=report,  # legacy
             content=report,
+            stash=LazyStash(),
         )
         logger.info("Executing Python notifier")
         logger.debug(self.code)

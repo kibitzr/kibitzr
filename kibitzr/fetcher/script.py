@@ -3,6 +3,7 @@ import traceback
 
 from ..conf import settings
 from ..bash import execute_bash
+from ..stash import LazyStash
 
 
 logger = logging.getLogger(__name__)
@@ -33,7 +34,12 @@ def fetch_by_python(code, conf):
     try:
         # ok, content = False, None
         namespace = {'ok': True}
-        exec(code, {'conf': conf, 'creds': settings().creds}, namespace)
+        context = {
+            'conf': conf,
+            'stash': LazyStash(),
+            'creds': settings().creds,
+        }
+        exec(code, context, namespace)
         return namespace['ok'], namespace['content']
     except:
         logger.exception("Python fetcher raised an Exception")
