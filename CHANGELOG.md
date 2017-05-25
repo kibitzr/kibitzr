@@ -1,6 +1,8 @@
 # Changelog
 
 ## Unreleased
+
+## [4.0.3] - 2017-05-25
 ## Added
 - Changes style "new" - show only current content if it changed
 ## Fixed
