@@ -4,6 +4,7 @@ import json
 import six
 
 from .html import deep_recursion, SoupOps
+from kibitzr.stash import LazyStash
 
 
 logger = logging.getLogger(__name__)
@@ -23,7 +24,7 @@ class JinjaTransform(object):
         try:
             return True, self.template.render(context or self.context(content))
         except TemplateError:
-            logger.warning("Jinja transform failed", exc_info=True)
+            logger.warning("Jinja render failed", exc_info=True)
             return False, None
     __call__ = render
 
@@ -32,6 +33,7 @@ class JinjaTransform(object):
         xml = LazyXML(content)
         return {
             'conf': self.conf,
+            'stash': LazyStash(),
             'content': content,
             'lines': content.splitlines(),
             'json': LazyJSON(content),

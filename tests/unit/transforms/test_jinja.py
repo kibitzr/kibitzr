@@ -1,4 +1,7 @@
+from kibitzr.stash import Stash
 from kibitzr.transformer.jinja_transform import JinjaTransform
+
+from ...helpers import stash_mock
 
 
 def jinja_transform(code, content, conf=None):
@@ -39,3 +42,11 @@ def test_xpath_selector_is_passed():
     )
     assert ok is True
     assert content == "P"
+
+
+def test_stash_is_passed():
+    with stash_mock() as stash:
+        stash.write({'key': 'good'})
+        ok, content = jinja_transform('{{ stash.key }} news', '')
+        assert ok is True
+        assert content == 'good news'

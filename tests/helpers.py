@@ -1,4 +1,10 @@
+import contextlib
+import tempfile
+
 from kibitzr.conf import ReloadableSettings
+from kibitzr.stash import Stash
+
+from .compat import mock
 
 
 class SettingsMock(ReloadableSettings):
@@ -12,3 +18,11 @@ class SettingsMock(ReloadableSettings):
     def instance(cls):
         ReloadableSettings._instance = cls()
         return ReloadableSettings._instance
+
+
+@contextlib.contextmanager
+def stash_mock():
+    with tempfile.NamedTemporaryFile() as fp:
+        fp.close()
+        with mock.patch.object(Stash, 'FILENAME', fp.name):
+            yield Stash()
