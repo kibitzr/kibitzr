@@ -4,6 +4,9 @@
 Stash
 =====
 
+Overview
+--------
+
 Kibitzr maintains persistent key-value storage - ``stash``.
 All data inside ``stash`` is accessible inside all checks.
 It is meant to be populated in notify.
@@ -13,6 +16,9 @@ Stash keys are populated in notifies.
 Use ``stash`` notifier and provide it key-value dictionary.
 Each value is a Jinja template.
 It has access to the same context as Jinja transform.
+
+Example
+-------
 
 Good application for stash is checks aggregation.
 Consider this news digest example:
