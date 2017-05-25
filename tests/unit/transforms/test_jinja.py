@@ -1,4 +1,3 @@
-from kibitzr.stash import Stash
 from kibitzr.transformer.jinja_transform import JinjaTransform
 
 from ...helpers import stash_mock
