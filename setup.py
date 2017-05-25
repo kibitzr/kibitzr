@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import os
 from setuptools import setup
 
 with open('README.rst') as readme_file:
@@ -22,6 +23,29 @@ def changelog_version():
                     return version
 
 
+install_requires = [
+    'bs4',
+    'cachecontrol',
+    'Click>=6.0',
+    'entrypoints',
+    'Jinja2',
+    'lazy-object-proxy',
+    'lxml',
+    'python-telegram-bot',
+    'pytimeparse',
+    'pyyaml',
+    'requests',
+    'schedule',
+    'selenium',
+    'six',
+]
+if os.name == 'nt':
+    # sh predecessor working under Windows:
+    install_requires.append('pbs')
+else:
+    install_requires.extend(['sh', 'xvfbwrapper'])
+
+
 setup(
     name='kibitzr',
     version='4.0.2',
@@ -42,24 +66,7 @@ setup(
         ]
     },
     include_package_data=True,
-    install_requires=[
-        'Click>=6.0',
-        'requests',
-        'cachecontrol',
-        'schedule',
-        'sh',
-        'pyyaml',
-        'selenium',
-        'xvfbwrapper',
-        'bs4',
-        'six',
-        'lxml',
-        'lazy-object-proxy',
-        'python-telegram-bot',
-        'Jinja2',
-        'pytimeparse',
-        'entrypoints',
-    ],
+    install_requires=install_requires,
     license="MIT license",
     zip_safe=False,
     keywords='kibitzr',
