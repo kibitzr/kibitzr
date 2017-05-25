@@ -1,6 +1,9 @@
 # Changelog
 
 ## Unreleased
+## Fixed
+- text filter in Jinja templates
+- Adapted list of requirements for Windows
 
 ## [4.0.2] - 2017-05-21
 ## Added
