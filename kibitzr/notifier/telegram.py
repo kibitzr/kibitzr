@@ -28,7 +28,11 @@ class TelegramBot(object):
         return self._chat_id
 
     def post(self, report, **kwargs):
-        message = self.bot.send_message(self.chat_id, report)
+        message = self.bot.send_message(
+            self.chat_id,
+            report,
+            parse_mode='Markdown',
+        )
         return message
 
     __call__ = post
