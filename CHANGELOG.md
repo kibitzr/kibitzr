@@ -1,6 +1,8 @@
 # Changelog
 
 ## Unreleased
+## Changed
+- Firefox fetcher: Implicitly wait 2 seconds for selects
 
 ## [4.0.3] - 2017-05-25
 ## Added

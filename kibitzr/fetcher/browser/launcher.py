@@ -67,6 +67,7 @@ def firefox(headless=True):
             firefox_profile=firefox_profile,
         )
         FIREFOX_INSTANCE[driver_key].set_window_size(1024, 768)
+        FIREFOX_INSTANCE[driver_key].implicitly_wait(2)
     yield FIREFOX_INSTANCE[driver_key]
 
 
