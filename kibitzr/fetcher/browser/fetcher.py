@@ -71,6 +71,8 @@ class FirefoxFetcher(object):
         4. Close the tab.
         """
         url = conf['url']
+        self.driver.set_window_size(1024, 768)
+        self.driver.implicitly_wait(2)
         self.driver.get(url)
         self._run_automation(conf)
         html = self._get_html()

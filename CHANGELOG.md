@@ -3,6 +3,7 @@
 ## Unreleased
 ## Changed
 - Firefox fetcher: Implicitly wait 2 seconds for selects
+- Firefox fetcher: Resize window before each fetch
 
 ## [4.0.3] - 2017-05-25
 ## Added
