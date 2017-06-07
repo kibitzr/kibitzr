@@ -24,7 +24,11 @@ def fetch_by_script(conf):
         bash_script = code['bash']
     except (KeyError, TypeError):
         bash_script = code
-    return execute_bash(bash_script)
+    # Pass something to stdin to disable sanity check:
+    return execute_bash(
+        bash_script,
+        conf.get('name', 'dummy'),
+    )
 
 
 def fetch_by_python(code, conf):

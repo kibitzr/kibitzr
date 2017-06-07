@@ -26,19 +26,14 @@ class BashExecutor(object):
         self.code = code
 
     def execute(self, stdin=None):
-        stdin = self.prepare_input(stdin)
-        with self.temp_file() as filename:
-            ok, result = self.run_scipt(filename, stdin)
-        return self.make_report(ok, result)
-
-    @staticmethod
-    def prepare_input(stdin):
-        if stdin is not None:
-            if not stdin.strip():
-                logger.info("Skipping execution with empty content")
-                return True, stdin
+        if stdin is not None and stdin.strip():
             stdin = stdin.encode("utf-8")
-        return stdin
+            with self.temp_file() as filename:
+                ok, result = self.run_scipt(filename, stdin)
+            return self.make_report(ok, result)
+        else:
+            logger.info("Skipping execution with empty content")
+            return True, stdin
 
     @contextlib.contextmanager
     def temp_file(self):

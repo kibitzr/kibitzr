@@ -42,3 +42,12 @@ def test_python_exception_is_captured():
     )
     assert ok is False
     assert content.splitlines()[-1].startswith("ZeroDivisionError")
+
+
+def test_empty_stdin_is_skipped():
+    ok, content = bash_transform(
+        code="no such command",
+        content="",
+    )
+    assert ok is True
+    assert "" == content
