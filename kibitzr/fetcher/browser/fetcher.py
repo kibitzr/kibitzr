@@ -2,6 +2,7 @@ import os
 import time
 import shutil
 import logging
+import traceback
 import collections
 
 from selenium.common.exceptions import (
@@ -71,12 +72,20 @@ class FirefoxFetcher(object):
         4. Close the tab.
         """
         url = conf['url']
+        # If Firefox is broken, it will raise here, causing kibitzr restart:
         self.driver.set_window_size(1024, 768)
         self.driver.implicitly_wait(2)
         self.driver.get(url)
-        self._run_automation(conf)
-        html = self._get_html()
-        self._close_tab()
+        try:
+            self._run_automation(conf)
+            html = self._get_html()
+        except:
+            logger.exception(
+                "Exception occurred while fetching"
+            )
+            return False, traceback.format_exc()
+        finally:
+            self._close_tab()
         return True, html
 
     def _run_automation(self, conf):

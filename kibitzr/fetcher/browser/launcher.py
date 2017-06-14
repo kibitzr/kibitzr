@@ -24,13 +24,23 @@ def cleanup():
     if FIREFOX_INSTANCE['driver'] is not None:
         if FIREFOX_INSTANCE['driver'].profile:
             temp_dirs.append(FIREFOX_INSTANCE['driver'].profile.profile_dir)
-        FIREFOX_INSTANCE['driver'].quit()
-        FIREFOX_INSTANCE['driver'] = None
+        try:
+            FIREFOX_INSTANCE['driver'].quit()
+            FIREFOX_INSTANCE['driver'] = None
+        except:
+            logger.exception(
+                "Exception occurred in browser cleanup"
+            )
     if FIREFOX_INSTANCE['headed_driver'] is not None:
         if FIREFOX_INSTANCE['headed_driver'].profile:
             temp_dirs.append(FIREFOX_INSTANCE['headed_driver'].profile.profile_dir)
-        FIREFOX_INSTANCE['headed_driver'].quit()
-        FIREFOX_INSTANCE['headed_driver'] = None
+        try:
+            FIREFOX_INSTANCE['headed_driver'].quit()
+            FIREFOX_INSTANCE['headed_driver'] = None
+        except:
+            logger.exception(
+                "Exception occurred in browser cleanup"
+            )
     if FIREFOX_INSTANCE['xvfb_display'] is not None:
         FIREFOX_INSTANCE['xvfb_display'].stop()
         FIREFOX_INSTANCE['xvfb_display'] = None

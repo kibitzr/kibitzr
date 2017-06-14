@@ -1,5 +1,4 @@
 import logging
-import traceback
 
 
 logger = logging.getLogger(__name__)
@@ -25,13 +24,7 @@ class URLFetcher(object):
 
     def fetch(self):
         self.log_announcement()
-        try:
-            ok, content = self.fetcher_func(self.conf)
-        except:
-            logger.exception(
-                "Exception occurred while fetching check"
-            )
-            ok, content = False, traceback.format_exc()
+        ok, content = self.fetcher_func(self.conf)
         return ok, content
     __call__ = fetch
 

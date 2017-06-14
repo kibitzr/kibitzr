@@ -36,7 +36,7 @@ class SessionFetcher(object):
         retries = 3
         for retry in range(retries):
             try:
-                response = self.session.get(self.url)
+                response = self.session.get(self.url, timeout=(3.05, 27))
             except self.EXCEPTED as exc:
                 if retry < retries - 1:
                     self.sleep_on_exception(exc, retry)

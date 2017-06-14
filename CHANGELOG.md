@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## [4.0.5] - 2017-06-14
+## Fixed
+- Exit(1) Kibitzr when Firefox goes funny business
+
 ## [4.0.4] - 2017-06-07
 ## Changed
 - Firefox fetcher: Implicitly wait 2 seconds for selects
