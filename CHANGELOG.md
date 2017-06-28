@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## [4.0.6] - 2017-06-28
+## Fixed
+- Exit(2) when receiving SIGTERM/SIGINT
+
 ## [4.0.5] - 2017-06-14
 ## Fixed
 - Exit(1) Kibitzr when Firefox goes funny business
