@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## [4.0.7] - 2017-06-29
+## Fixed
+- Fixed interruption exit code (1)
+
 ## [4.0.6] - 2017-06-28
 ## Fixed
 - Exit(2) when receiving SIGTERM/SIGINT
