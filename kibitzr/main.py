@@ -50,7 +50,7 @@ def main(once=False, log_level=logging.INFO, names=None):
             if checkers:
                 execute_all(checkers)
                 if once or interrupted:
-                    return 2
+                    return 1
                 else:
                     check_forever(checkers)
             else:
