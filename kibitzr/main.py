@@ -39,7 +39,7 @@ def main(once=False, log_level=logging.INFO, names=None):
     try:
         while True:
             if interrupted:
-                break
+                return 1
             if reload_conf_pending:
                 settings().reread()
                 reload_conf_pending = False
@@ -49,8 +49,8 @@ def main(once=False, log_level=logging.INFO, names=None):
             )
             if checkers:
                 execute_all(checkers)
-                if once or interrupted:
-                    return 1
+                if once:
+                    return 0
                 else:
                     check_forever(checkers)
             else:
@@ -131,6 +131,8 @@ def execute_all(checkers):
     for checker in checkers:
         if not interrupted:
             checker.check()
+        else:
+            break
 
 
 def on_reload_config(*args, **kwargs):
