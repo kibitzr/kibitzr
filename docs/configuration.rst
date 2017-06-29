@@ -72,7 +72,7 @@ Let's start with something simple. It's not very useful check, but it shows the 
           - css: "#qlook > div"
           - text
         notify:
-          - python: print(text)
+          - python: print(content)
         period: 15
 
 Copy paste it to your ``kibitzr.yml`` and launch ``kibitzr``.
@@ -139,7 +139,7 @@ but here we are using the one, that does not require credentials management - ar
 .. code-block:: yaml
 
         notify:
-            - python: print(text)
+          - python: print(content)
 
 It is exactly the code, that produced
 
