@@ -26,7 +26,7 @@ def test_main_executes_all_checks_before_loop(the_loop):
         'name': 'A',
         'script': {'python': 'ok, content = True, "ok"'}
     })
-    assert 0 == main.main()
+    assert 1 == main.main()
     assert the_loop.call_count == 1
     assert the_loop.call_args[0][0][0].check.call_count == 1
 
@@ -38,7 +38,7 @@ def test_dummy_schedule():
         'script': {'python': 'ok, content = True, "ok"'},
         'period': 0,
     })
-    assert 0 == main.main()
+    assert 1 == main.main()
     assert main.Checker.check.call_count == 2
 
 
@@ -59,6 +59,6 @@ def test_main_filters_names(the_loop):
         {'name': 'A', 'url': 'A'},
         {'name': 'B', 'url': 'B'},
     ])
-    assert 0 == main.main(names=['B'])
+    assert 1 == main.main(names=['B'])
     assert the_loop.call_count == 1
     assert the_loop.call_args[0][0][0].check.call_count == 1
