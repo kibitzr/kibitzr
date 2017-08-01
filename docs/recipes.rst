@@ -40,7 +40,7 @@ Wordpress Plugin update (featuring batch syntax)
         notify:
             - slack
         period: 3600
-        url-pattern: "https://wordpress.org/plugins/{0}/" 
+        url-pattern: "https://wordpress.org/plugins/{0}/"
         items:
           - advanced-custom-fields
           - akismet
@@ -70,13 +70,13 @@ Travis CI build status
 
 TeamCity build status change
 ----------------------------
-    
+
 .. code-block:: yaml
 
-    pages:
-	  - name: TeamCity Build
-	    template: teamcity-build
-	    url: https://teamcity/viewQueued.html?itemId=10270004
+    checks:
+      - name: TeamCity Build
+        template: teamcity-build
+        url: https://teamcity/viewQueued.html?itemId=10270004
 
     templates:
         teamcity-build:
@@ -103,10 +103,10 @@ BitBucket pull request ready to merge
 
 .. code-block:: yaml
 
-    pages:
-	  - name: PR ready to merge
-	    template: bitbucket-pr-ready
-	    url: https://bitbucket/repos/kibitzr/pull-requests/307/overview
+    checks:
+      - name: PR ready to merge
+        template: bitbucket-pr-ready
+        url: https://bitbucket/repos/kibitzr/pull-requests/307/overview
 
     templates:
         bitbucket-pr-ready:

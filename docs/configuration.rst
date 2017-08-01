@@ -80,18 +80,18 @@ You will see something like this:
 
 .. code-block:: bash
 
-	$ kibitzr
-	2017-03-28 22:02:39,465 [INFO] kibitzr.checker: Fetching 'Current Time' at 'https://www.timeanddate.com/worldclock/usa/new-york'
-	2017-03-28 22:02:39,687 [INFO] kibitzr.notifier.custom: Executing custom notifier
-	10:02:39 pm
-	EDT
-	2017-03-28 22:02:39,687 [INFO] kibitzr.main: Scheduling checks for 'Current Time' every 15 seconds
-	2017-03-28 22:02:39,688 [INFO] kibitzr.main: Starting infinite loop
-	2017-03-28 22:02:54,705 [INFO] schedule: Running job Every 15 seconds do check() (last run: [never], next run: 2017-03-28 22:02:54)
-	2017-03-28 22:02:54,705 [INFO] kibitzr.checker: Fetching 'Current Time' at 'https://www.timeanddate.com/worldclock/usa/new-york'
-	2017-03-28 22:02:54,823 [INFO] kibitzr.notifier.custom: Executing custom notifier
-	10:02:54 pm
-	EDT
+    $ kibitzr once
+    2017-03-28 22:02:39,465 [INFO] kibitzr.checker: Fetching 'Current Time' at 'https://www.timeanddate.com/worldclock/usa/new-york'
+    2017-03-28 22:02:39,687 [INFO] kibitzr.notifier.custom: Executing custom notifier
+    10:02:39 pm
+    EDT
+    2017-03-28 22:02:39,687 [INFO] kibitzr.main: Scheduling checks for 'Current Time' every 15 seconds
+    2017-03-28 22:02:39,688 [INFO] kibitzr.main: Starting infinite loop
+    2017-03-28 22:02:54,705 [INFO] schedule: Running job Every 15 seconds do check() (last run: [never], next run: 2017-03-28 22:02:54)
+    2017-03-28 22:02:54,705 [INFO] kibitzr.checker: Fetching 'Current Time' at 'https://www.timeanddate.com/worldclock/usa/new-york'
+    2017-03-28 22:02:54,823 [INFO] kibitzr.notifier.custom: Executing custom notifier
+    10:02:54 pm
+    EDT
 
 Let's follow the configuration file line-by-line to see how it works.
 
@@ -145,8 +145,8 @@ It is exactly the code, that produced
 
 .. code-block:: bash
 
-	10:02:39 pm
-	EDT
+    10:02:39 pm
+    EDT
 
 in the ``kibitzr`` output.
 
