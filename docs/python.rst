@@ -15,33 +15,33 @@ Here is a simplistic example of ``kibitzr.yml`` file, that uses all three:
 
 .. code-block:: yaml
 
-	checks:
-	  - name: Python example
-		script:
-		  python: |
-			content = "\n".join([str(x**2) for x in range(1, 4)])
-		transform:
-		  - python: content = " ".join(reversed(content.splitlines()))
-		notify:
-		  - python: print(content)
+    checks:
+      - name: Python example
+        script:
+           python: |
+                    content = "\n".join([str(x**2) for x in range(1, 4)])
+        transform:
+              - python: content = " ".join(reversed(content.splitlines()))
+        notify:
+              - python: print(content)
 
 Once executed with debug log level it will generate following output:
 
 .. code-block:: bash
 
-	$ kibitzr --once -l debug
-	2017-04-22 10:47:04,401 [DEBUG] kibitzr.conf: Loading settings from /home/kibitzr/kibitzr.yml
-	2017-04-22 10:47:04,404 [DEBUG] kibitzr.conf: Loading credentials from /home/kibitzr/kibitzr-creds.yml
-	2017-04-22 10:47:04,406 [INFO] kibitzr.checker: Fetching 'Python example' using script
-	2017-04-22 10:47:04,406 [INFO] kibitzr.fetcher.script: Fetch using Python script
-	2017-04-22 10:47:04,406 [DEBUG] kibitzr.fetcher.script: content = "\n".join([str(x**2) for x in range(1, 4)])
+    $ kibitzr -l debug once
+    2017-04-22 10:47:04,401 [DEBUG] kibitzr.conf: Loading settings from /home/kibitzr/kibitzr.yml
+    2017-04-22 10:47:04,404 [DEBUG] kibitzr.conf: Loading credentials from /home/kibitzr/kibitzr-creds.yml
+    2017-04-22 10:47:04,406 [INFO] kibitzr.checker: Fetching 'Python example' using script
+    2017-04-22 10:47:04,406 [INFO] kibitzr.fetcher.script: Fetch using Python script
+    2017-04-22 10:47:04,406 [DEBUG] kibitzr.fetcher.script: content = "\n".join([str(x**2) for x in range(1, 4)])
 
-	2017-04-22 10:47:04,406 [INFO] kibitzr.transformer: Python transform
-	2017-04-22 10:47:04,406 [DEBUG] kibitzr.transformer: content = " ".join(reversed(content.splitlines()))
-	2017-04-22 10:47:04,407 [DEBUG] kibitzr.checker: Sending report: u'9 4 1'
-	2017-04-22 10:47:04,407 [INFO] kibitzr.notifier.custom: Executing custom notifier
-	2017-04-22 10:47:04,407 [DEBUG] kibitzr.notifier.custom: print(content)
-	9 4 1
+    2017-04-22 10:47:04,406 [INFO] kibitzr.transformer: Python transform
+    2017-04-22 10:47:04,406 [DEBUG] kibitzr.transformer: content = " ".join(reversed(content.splitlines()))
+    2017-04-22 10:47:04,407 [DEBUG] kibitzr.checker: Sending report: u'9 4 1'
+    2017-04-22 10:47:04,407 [INFO] kibitzr.notifier.custom: Executing custom notifier
+    2017-04-22 10:47:04,407 [DEBUG] kibitzr.notifier.custom: print(content)
+    9 4 1
 
 Let's break it down.
 
