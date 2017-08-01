@@ -245,7 +245,7 @@ class FirefoxFetcher(object):
         if selector_type == 'css':
             elements = self.driver.find_elements_by_css_selector(selector)
         elif selector_type == 'xpath':
-            elements = self.driver.find_elements_by_xpath_selector(selector)
+            elements = self.driver.find_elements_by_xpath(selector)
         elif selector_type == 'id':
             elements = self.driver.find_elements_by_css_selector('#' + selector)
         else:
