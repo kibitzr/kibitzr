@@ -79,23 +79,17 @@ TeamCity build status change
         url: https://teamcity/viewQueued.html?itemId=10270004
 
     templates:
-        teamcity-build:
-            xpath: //*[@id="buildResults" or contains(@class, 'statusBlock')]//table/tbody/tr[1]/td[2]
-            format: text
-            period: 30
-            scenario: teamcity-login
-
-    scenarios:
-        teamcity-login: |
-            from selenium.common.exceptions import NoSuchElementException
-            try:
-                driver.find_element_by_css_selector(
-                    "#pageContent > form > table > tbody > tr:nth-child(4) > td > span > a:nth-child(1)"
-                ).click()
-                driver.implicitly_wait(60)
-            except NoSuchElementException:
-                # Second time session will be already authorized
-                pass
+      teamcity-build:
+        form:
+          - xpath: '//*[@id="pageContent"]/form/table/tbody/tr[4]/td/span/a[1]'
+            click: true
+        delay: 3
+        transform:
+          - xpath: //*[@id="buildResults" or contains(@class, "statusBlock")]//table/tbody/tr[1]/td[2]
+          - text
+          - jinja: "{{ lines | join(' ') }}"
+          - changes: new
+        period: 30 seconds
 
 
 BitBucket pull request ready to merge
