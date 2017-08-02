@@ -61,7 +61,7 @@ copyright = u"2016, Peter Demin"
 # the built documents.
 #
 # The short X.Y version.
-version = '4.0.7'
+version = '4.0.8'
 # The full version, including alpha/beta/rc tags.
 release = version
 
