@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## [4.0.8] - 2017-08-02
+## Fixed
+- Fixed xpath selector transform
+
 ## [4.0.7] - 2017-06-29
 ## Fixed
 - Fixed interruption exit code (1)
