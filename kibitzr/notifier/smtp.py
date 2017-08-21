@@ -23,11 +23,11 @@ def notify_factory(conf, value):
 
 def notify(conf, report, notifier_conf):
     logger.info("Executing SMTP notifier")
-    credentials = settings().creds['smtp']
-    user = credentials['user']
-    password = credentials['password']
-    host = credentials['host']
-    port = credentials['port']
+    credentials = settings().creds.get('smtp', {})
+    user = credentials.get('user', '')
+    password = credentials.get('password', '')
+    host = credentials.get('host', 'localhost')
+    port = credentials.get('port', 25)
     try:
         recipients = notifier_conf['recipients']
     except (TypeError, KeyError):
@@ -38,6 +38,8 @@ def notify(conf, report, notifier_conf):
         subject = notifier_conf['subject']
     except (TypeError, KeyError):
         subject = "Kibitzr update for " + conf['name']
+    if not user:
+        user = recipients[0]
     send_email(
         user=user,
         password=password,
@@ -65,8 +67,12 @@ def send_email(user, password, recipients, subject, body, host, port):
     try:
         server = smtplib.SMTP(host, port)  # ("smtp.gmail.com", 587)
         server.ehlo()
-        server.starttls()
-        server.login(user, password)
+        try:
+            server.starttls()
+            server.login(user, password)
+        except smtplib.SMTPNotSupportedError:
+            # Localhost SMTP servers don't use authentication
+            pass
         server.sendmail(user, recipients, message.encode("utf-8"))
         server.close()
         logger.debug('Successfully sent the mail')
