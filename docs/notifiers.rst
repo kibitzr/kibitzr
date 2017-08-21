@@ -9,7 +9,7 @@ list of notifiers will be called.
 
 Kibitzr supports following notifier types:
 
-1. ``smtp`` - Send an e-mail through any SMTP server
+1. ``smtp`` - Send an e-mail through any SMTP server; See SMTP_ for details
 2. ``mailgun`` - or send it through mailgun_ API
 3. ``slack`` - Trigger `Slack Incoming Webhook`_
 4. ``telegram`` - Send message through :ref:`private Telegram Bot <telegram>`
