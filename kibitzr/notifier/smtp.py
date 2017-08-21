@@ -1,10 +1,11 @@
 import logging
-import smtplib
 import functools
+from smtplib import SMTP
 
 import six
 
 from ..conf import settings
+from ..compat import SMTPNotSupportedError
 
 
 logger = logging.getLogger(__name__)
@@ -65,12 +66,12 @@ def send_email(user, password, recipients, subject, body, host, port):
         )
     )
     try:
-        server = smtplib.SMTP(host, port)  # ("smtp.gmail.com", 587)
+        server = SMTP(host, port)  # ("smtp.gmail.com", 587)
         server.ehlo()
         try:
             server.starttls()
             server.login(user, password)
-        except smtplib.SMTPNotSupportedError:
+        except SMTPNotSupportedError:
             # Localhost SMTP servers don't use authentication
             pass
         server.sendmail(user, recipients, message.encode("utf-8"))
