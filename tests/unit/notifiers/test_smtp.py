@@ -34,7 +34,7 @@ def test_smtp_shortcut(fake_send_email, settings):
     )
 
 
-@mock.patch.object(smtp.smtplib, 'SMTP')
+@mock.patch('kibitzr.notifier.smtp.SMTP')
 def test_smtp_explicit_form(fake_smtp, settings):
     settings.creds.update({
         'smtp': {
@@ -83,4 +83,22 @@ def test_config_is_passed(fake_send_email, settings):
         body='report',
         host='host',
         port='port',
+    )
+
+
+@mock.patch('kibitzr.notifier.smtp.SMTP')
+def test_smtp_uses_local_server_by_default(fake_smtp, settings):
+    settings.creds.pop('smtp', None)
+    smtp.notify(
+        {'name': 'Name'},
+        'report',
+        'you@site.com',
+    )
+    fake_smtp.assert_called_once_with('localhost', 25)
+    fake_smtp.return_value.login.assert_called_once_with('you@site.com', '')
+    fake_smtp.return_value.sendmail.assert_called_once_with(
+        'you@site.com',
+        ['you@site.com'],
+        b'From: you@site.com\r\nTo: you@site.com\r\n'
+        b'Subject: Kibitzr update for Name\r\n\r\nreport\r\n',
     )

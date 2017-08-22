@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## [4.0.9] - 2017-08-21
+## Fixed
+- Allow SMTP without authentication
+## Changed
+- Use local SMTP server by default
+
 ## [4.0.8] - 2017-08-02
 ## Fixed
 - Fixed xpath selector transform
