@@ -98,6 +98,7 @@ Let's follow the configuration file line-by-line to see how it works.
 On the first line we define a dictionary key ``checks``:
 
 .. code-block:: yaml
+
     checks:
 
 Then, starting with indentation and dash goes the name of the first check:

@@ -48,6 +48,7 @@ class PageHistory(object):
         2) Commit changes in git
         3.1) If something changed, return tuple(True, changes)
         3.2) If nothing changed, return tuple(False, None)
+
         If style is "verbose", return changes in human-friendly format,
         else use unified diff
         """

@@ -24,6 +24,7 @@ Plain text
 * ``python: code`` - Execute arbitrary Python *code* on passed content. See :ref:`Python support` for details.
 * ``bash: code`` - Execute arbitrary bash *code* on passed content. Call ``grep``, ``awk`` or ``sed``, for example.
 * ``jinja: template`` - Render Jinja2 template. See `jinja transform`_ for reference.  
+
 JSON
 ----
 

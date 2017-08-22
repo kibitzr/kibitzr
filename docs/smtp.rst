@@ -24,7 +24,7 @@ E-mail configuration
 Recipients list can also be just one string for brevity.
 Subject can be omitted, than check's name will be used.
 
-Following configurations are the same:
+Following configurations are equivalent:
 
 .. code:: yaml
 

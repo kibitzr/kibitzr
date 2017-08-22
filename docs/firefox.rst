@@ -28,3 +28,4 @@ But you have to stick to the old version of `selenium`_ python package:
 
 .. _`this page`: https://github.com/mozilla/geckodriver/releases/
 .. _`selenium`: http://www.seleniumhq.org/
+.. _`xvfb`: https://www.x.org/archive/X11R7.6/doc/man/man1/Xvfb.1.xhtml
