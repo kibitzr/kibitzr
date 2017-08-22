@@ -1,4 +1,4 @@
-.. _SMTP
+.. _SMTP:
 
 ======================================
 Send notifications emails through SMTP
