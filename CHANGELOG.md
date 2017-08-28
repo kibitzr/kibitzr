@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## [4.0.10] - 2017-08-28
+## Changed
+- Fix #47: Xpath transform encodes content to UTF-8 before parsing (X|HT)ML
+
 ## [4.0.9] - 2017-08-21
 ## Fixed
 - Allow SMTP without authentication
