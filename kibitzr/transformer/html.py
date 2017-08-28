@@ -68,8 +68,17 @@ class SoupOps(object):
 
 
 def xpath_selector(selector, html):
+    """
+    Returns Xpath match for `selector` within `html`.
+
+    :param selector: XPath string
+    :param html: Unicode content
+    """
     from lxml import etree
-    root = etree.fromstring(html, parser=etree.HTMLParser())
+    # lxml requires argument to be bytes
+    # see https://github.com/kibitzr/kibitzr/issues/47
+    encoded = html.encode('utf-8')
+    root = etree.fromstring(encoded,  parser=etree.HTMLParser())
     elements = root.xpath(selector)
     if elements:
         return True, etree.tostring(
