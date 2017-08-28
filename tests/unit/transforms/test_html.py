@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from bs4 import BeautifulSoup
 
 from kibitzr.transformer import transform_factory
@@ -23,14 +24,14 @@ def test_css_selector():
 def test_css_selector_all():
     ok, content = run_transform('css-all', 'div', HTML)
     assert ok is True
-    assert prettify(content) == '\n'.join([
-        '<div id="content">',
-        ' Hello world!',
-        '</div>',
-        '',
-        '<div class="footer">',
-        ' Footer content',
-        '</div>',
+    assert prettify(content) == u'\n'.join([
+        u'<div id="content">',
+        u' Привет, Мир!',
+        u'</div>',
+        u'',
+        u'<div class="footer">',
+        u' Footer content',
+        u'</div>',
     ])
 
 
@@ -43,21 +44,21 @@ def test_xpath_selector():
 def test_extract_test():
     ok, content = run_transform('text', None, HTML)
     assert ok is True
-    assert content.strip() == "\n".join([
-        "Page",
-        "Hello world!",
-        "Footer content",
+    assert content.strip() == u"\n".join([
+        u"Page",
+        u"Привет, Мир!",
+        u"Footer content",
     ])
 
 
-HTML = """
+HTML = u"""
 <html>
     <body>
         <h2 class="header nav">
             <a href="page.html" id="page-link">Page</a>
         </h2>
         <div id="content">
-            Hello world!
+            Привет, Мир!
         </div>
         <div class="footer">
             Footer content

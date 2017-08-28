@@ -12,10 +12,6 @@ import six
 logger = logging.getLogger(__name__)
 
 
-def transform_factory(conf):
-    return TransformPipeline(conf)
-
-
 def load_transforms():
     path = os.path.dirname(os.path.abspath(__file__))
     before, sep, _ = __name__.rpartition('.')
@@ -29,10 +25,18 @@ def load_transforms():
 
 
 class TransformPipeline(object):
+    """
+    Create transformation pipeline from check conf.
+    Class instances are callable (executing run_pipeline)
+    """
 
     REGISTRY = load_transforms()
 
     def __init__(self, conf):
+        """
+        Create list of transforms for rules
+        defined in conf['transform'].
+        """
         self.conf = conf
         rules = self.conf.get('transform', [])
         if isinstance(rules, six.string_types):
@@ -56,6 +60,10 @@ class TransformPipeline(object):
     __call__ = run_pipeline
 
     def create_transform(self, rule):
+        """
+        Create single transform from rule.
+        Rule can be string, or {key: value} pair
+        """
         try:
             name, value = next(iter(rule.items()))
         except AttributeError:
@@ -68,6 +76,12 @@ class TransformPipeline(object):
             )
 
     def on_error(self, content):
+        """
+        In case of error, conf['error'] is checked for policy name.
+        It can be 'ignore', or 'notify' (default).
+        Ignore policy replaces content with None,
+        Notify policy passes content through.
+        """
         error_policy = self.conf.get('error', 'notify')
         if error_policy == 'ignore':
             if content:
@@ -81,3 +95,6 @@ class TransformPipeline(object):
             logger.warning("Unknown error policy: %r", error_policy)
             logger.info("Defaulting to 'notify'")
             return content
+
+
+transform_factory = TransformPipeline
