@@ -51,7 +51,7 @@ def test_extract_test():
     ])
 
 
-HTML = u"""
+HTML = u"""<?xml version="1.0" encoding="utf-8"?>
 <html>
     <body>
         <h2 class="header nav">
