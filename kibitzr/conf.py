@@ -76,7 +76,7 @@ class ReloadableSettings(object):
         Read and parse configuration file
         """
         with self.open_conf() as fp:
-            return yaml.load(fp)
+            return yaml.safe_load(fp)
 
     @contextlib.contextmanager
     def open_conf(self):
@@ -146,7 +146,7 @@ class PlainYamlCreds(object):
         creds = {}
         try:
             with self.open_creds() as fp:
-                creds = yaml.load(fp)
+                creds = yaml.safe_load(fp)
         except IOError:
             logger.info("No credentials file found at %s",
                         os.path.abspath(self.creds_filename))
