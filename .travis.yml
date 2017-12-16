@@ -7,7 +7,7 @@ python:
   - 3.4
   - 3.5
 addons:
-    firefox: "52.0"
+    firefox: "57.0"
 install:
   - >
     curl -L https://github.com/mozilla/geckodriver/releases/download/v0.19.1/geckodriver-v0.19.1-linux64.tar.gz
