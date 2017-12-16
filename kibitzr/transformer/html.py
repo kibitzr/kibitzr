@@ -78,7 +78,7 @@ def xpath_selector(selector, html):
     # lxml requires argument to be bytes
     # see https://github.com/kibitzr/kibitzr/issues/47
     encoded = html.encode('utf-8')
-    root = etree.fromstring(encoded,  parser=etree.HTMLParser())
+    root = etree.fromstring(encoded, parser=etree.HTMLParser())
     elements = root.xpath(selector)
     if elements:
         return True, etree.tostring(
