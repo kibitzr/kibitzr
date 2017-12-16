@@ -14,6 +14,8 @@ install:
     curl -L https://github.com/mozilla/geckodriver/releases/download/v0.19.1/geckodriver-v0.19.1-linux64.tar.gz
     | tar zxf -
   - pip install -e . -r requirements_dev.txt coveralls
+env:
+  - PYTHONPATH=$TRAVIS_BUILD_DIR  # For geckodriver binary
 before_script: flake8 kibitzr tests
 script: coverage run --source=kibitzr setup.py test
 after_success:
