@@ -67,9 +67,9 @@ Let's start with something simple. It's not very useful check, but it shows the 
 
     checks:
       - name: Current Time
-        url: https://www.timeanddate.com/worldclock/usa/new-york
+        url: https://www.worldtimeserver.com/current_time_in_US-NY.aspx
         transform:
-          - css: "#qlook > div"
+          - css: "span#theTime"
           - text
         notify:
           - python: print(content)
@@ -81,14 +81,14 @@ You will see something like this:
 .. code-block:: bash
 
     $ kibitzr once
-    2017-03-28 22:02:39,465 [INFO] kibitzr.checker: Fetching 'Current Time' at 'https://www.timeanddate.com/worldclock/usa/new-york'
+    2017-03-28 22:02:39,465 [INFO] kibitzr.checker: Fetching Current Time at https://www.worldtimeserver.com/current_time_in_US-NY.aspx
     2017-03-28 22:02:39,687 [INFO] kibitzr.notifier.custom: Executing custom notifier
     10:02:39 pm
     EDT
     2017-03-28 22:02:39,687 [INFO] kibitzr.main: Scheduling checks for 'Current Time' every 15 seconds
     2017-03-28 22:02:39,688 [INFO] kibitzr.main: Starting infinite loop
     2017-03-28 22:02:54,705 [INFO] schedule: Running job Every 15 seconds do check() (last run: [never], next run: 2017-03-28 22:02:54)
-    2017-03-28 22:02:54,705 [INFO] kibitzr.checker: Fetching 'Current Time' at 'https://www.timeanddate.com/worldclock/usa/new-york'
+    2017-03-28 22:02:54,705 [INFO] kibitzr.checker: Fetching Current Time at https://www.worldtimeserver.com/current_time_in_US-NY.aspx
     2017-03-28 22:02:54,823 [INFO] kibitzr.notifier.custom: Executing custom notifier
     10:02:54 pm
     EDT
@@ -113,7 +113,7 @@ Right after name, we define URL:
 
 .. code-block:: yaml
 
-        url: https://www.timeanddate.com/worldclock/usa/new-york
+        url: https://www.worldtimeserver.com/current_time_in_US-NY.aspx
 
 Please note, that all keys are in lower case.
 
@@ -122,7 +122,7 @@ So far so good, we came to transformations:
 .. code-block:: yaml
 
         transform:
-          - css: "#qlook > div"
+          - css: "span#theTime"
           - text
 
 ``transform`` value must be a list (as denoted by dashes).
