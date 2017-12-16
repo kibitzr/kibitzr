@@ -6,13 +6,13 @@ python:
   - 2.7
   - 3.4
   - 3.5
+  - 3.6
 addons:
     firefox: "57.0"
 install:
   - >
     curl -L https://github.com/mozilla/geckodriver/releases/download/v0.19.1/geckodriver-v0.19.1-linux64.tar.gz
     | tar zxf -
-    && sudo mv geckodriver /usr/local/bin/
   - pip install -e . -r requirements_dev.txt coveralls
 before_script: flake8 kibitzr tests
 script: coverage run --source=kibitzr setup.py test
