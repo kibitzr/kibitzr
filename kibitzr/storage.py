@@ -103,23 +103,23 @@ class ChangesReporter(object):
     def word(self):
         """Return last changes with word diff"""
         try:
-            output = self.git.diff(
+            output = ensure_unicode(self.git.diff(
                 '--no-color',
                 '--word-diff=plain',
                 'HEAD~1:content',
                 'HEAD:content',
-            ).stdout
+            ).stdout)
         except sh.ErrorReturnCode_128:
-            result = self.git.show(
+            result = ensure_unicode(self.git.show(
                 "HEAD:content"
-            ).stdout
+            ).stdout)
         else:
             ago = ensure_unicode(self.git.log(
                 '-2',
                 '--pretty=format:last change was %cr',
                 'content'
             ).stdout).splitlines()
-            lines = ensure_unicode(output).splitlines()
+            lines = output.splitlines()
             result = u'\n'.join(
                 itertools.chain(
                     itertools.islice(
