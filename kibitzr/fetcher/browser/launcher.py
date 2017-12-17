@@ -3,7 +3,6 @@ FireFox housekeeping - starting and stopping process
 """
 
 import os
-import sys
 import shutil
 import logging
 from contextlib import contextmanager
