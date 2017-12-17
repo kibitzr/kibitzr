@@ -21,7 +21,7 @@ RUN apt -qqy update                     \
 COPY . /kibitzr/
 
 RUN cd /kibitzr                         \
-    && pip install -e .                 \
+    && pip install -e .
 
 ENV PYTHONUNBUFFERED true
 
