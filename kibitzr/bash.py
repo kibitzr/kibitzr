@@ -82,6 +82,13 @@ class WindowsExecutor(BashExecutor):
     EXECUTABLE = "cmd.exe"
     ARGS = ["/Q", "/C"]
 
+    @classmethod
+    def run_scipt(cls, name, stdin):
+        return BashExecutor.run_scipt(
+            name,
+            stdin.decode("utf-8"),
+        )
+
 
 def ensure_text(text):
     if not isinstance(text, six.text_type):
