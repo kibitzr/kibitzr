@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## [5.0.0] - 2017-12-16
+## Changed
+- Dropped support for Firefox < 56 (using -headless instead of XVFB)
+
 ## [4.0.10] - 2017-08-28
 ## Changed
 - Fix #47: Xpath transform encodes content to UTF-8 before parsing (X|HT)ML

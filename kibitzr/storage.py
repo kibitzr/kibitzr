@@ -84,6 +84,15 @@ class PageHistory(object):
             self.git.config("user.name", "Your Name")
 
 
+def ensure_unicode(text):
+    # On Windows + Python 3 stdout is Unicode
+    # and can't be decoded.
+    try:
+        return text.decode("utf-8")
+    except AttributeError:
+        return text
+
+
 class ChangesReporter(object):
 
     def __init__(self, git, subject, style=None):
@@ -94,21 +103,22 @@ class ChangesReporter(object):
     def word(self):
         """Return last changes with word diff"""
         try:
-            output = self.git.diff(
+            output = ensure_unicode(self.git.diff(
                 '--no-color',
                 '--word-diff=plain',
                 'HEAD~1:content',
                 'HEAD:content',
-            ).stdout.decode('utf-8')
+            ).stdout)
         except sh.ErrorReturnCode_128:
-            result = self.git.show(
-                "HEAD:content").stdout.decode("utf-8")
+            result = ensure_unicode(self.git.show(
+                "HEAD:content"
+            ).stdout)
         else:
-            ago = self.git.log(
+            ago = ensure_unicode(self.git.log(
                 '-2',
                 '--pretty=format:last change was %cr',
                 'content'
-            ).stdout.decode('utf-8').splitlines()
+            ).stdout).splitlines()
             lines = output.splitlines()
             result = u'\n'.join(
                 itertools.chain(
@@ -127,12 +137,12 @@ class ChangesReporter(object):
 
     def default(self):
         """Return last changes in truncated unified diff format"""
-        output = self.git.log(
+        output = ensure_unicode(self.git.log(
             '-1',
             '-p',
             '--no-color',
             '--format=%s',
-        ).stdout.decode('utf-8')
+        ).stdout)
         lines = output.splitlines()
         return u'\n'.join(
             itertools.chain(

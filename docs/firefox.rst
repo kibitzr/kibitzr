@@ -4,28 +4,16 @@
 Installing FireFox
 ==================
 
-Installing Firefox can be cumbersome.
-First, you'll need `xvfb`_ to run FireFox in headless mode::
+Firefox brings Kibitzr capabilities to the whole new level.
+In the old days installing Firefox was cumbersome. But since version 56 it's no longer the case.
+Firefox has special helper binary, that allows automating browser tasks.
+It's called `geckodriver`_. On the upside, it generally works fine.
+On the downside, it's early beta and it's not yet available in OS repositories
+and must be downloaded from `this page`_.
 
-    apt install xvfb firefox
-
-Modern FireFox
---------------
-
-If FireFox version is greater than **52**, it will require additional binary - geckodriver.
-It's not available in OS repositories and must be downloaded from `this page`_.
-Simple untar the binary to ``/usr/local/bin`` or ``~/bin/`` - it must be on ``PATH`` environment variable.
-
-Old FireFox
------------
-
-Having FireFox version less than **52** is easier in setup.
-But you have to stick to the old version of `selenium`_ python package:
-
-.. code-block:: console
-
-    $ pip install 'selenium<3.0'
+Unpack the binary and move it to ``/usr/local/bin`` or ``~/bin/``.
+Also you can just add directory with binary to the ``PATH`` environment variable.
 
 .. _`this page`: https://github.com/mozilla/geckodriver/releases/
+.. _`geckodriver`: https://github.com/mozilla/geckodriver/
 .. _`selenium`: http://www.seleniumhq.org/
-.. _`xvfb`: https://www.x.org/archive/X11R7.6/doc/man/man1/Xvfb.1.xhtml

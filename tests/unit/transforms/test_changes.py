@@ -15,7 +15,7 @@ def history(style=None):
     try:
         yield page_history
     finally:
-        shutil.rmtree(storage_dir)
+        shutil.rmtree(storage_dir, ignore_errors=True)
 
 
 def test_unified_diff_sample():

@@ -73,7 +73,7 @@ class FirefoxFetcher(object):
         """
         url = conf['url']
         # If Firefox is broken, it will raise here, causing kibitzr restart:
-        self.driver.set_window_size(1024, 768)
+        self.driver.set_window_size(1366, 800)
         self.driver.implicitly_wait(2)
         self.driver.get(url)
         try:

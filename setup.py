@@ -43,7 +43,7 @@ if os.name == 'nt':
     # sh predecessor working under Windows:
     install_requires.append('pbs')
 else:
-    install_requires.extend(['sh', 'xvfbwrapper'])
+    install_requires.extend(['sh'])
 
 
 setup(
