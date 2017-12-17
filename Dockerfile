@@ -23,6 +23,8 @@ COPY . /kibitzr/
 RUN cd /kibitzr                         \
     && pip install -e .
 
+WORKDIR /root/
+
 ENV PYTHONUNBUFFERED true
 
 ENTRYPOINT ["kibitzr"]
