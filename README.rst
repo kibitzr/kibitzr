@@ -25,10 +25,6 @@ Kibitzr
         :target: https://www.codefactor.io/repository/github/kibitzr/kibitzr
         :alt: CodeFactor
 
-.. image:: https://www.quantifiedcode.com/api/v1/project/cf48e075a106486fadf998d0ef99b344/badge.svg
-        :target: https://www.quantifiedcode.com/app/project/cf48e075a106486fadf998d0ef99b344
-        :alt: Code issues
-
 .. image:: https://coveralls.io/repos/github/kibitzr/kibitzr/badge.svg?branch=master
         :target: https://coveralls.io/github/kibitzr/kibitzr?branch=master
         :alt: Coveralls
