@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## [5.1.0] - 2018-04-10
+
+## Added
+- kibitzr clean command to delete changes history (#13 thanks to @attilanagy)
+- Jinja filters: int and float
+
 ## [5.0.0] - 2017-12-16
 ## Changed
 - Dropped support for Firefox < 56 (using -headless instead of XVFB)
