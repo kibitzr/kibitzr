@@ -86,8 +86,8 @@ class PageHistory(object):
 
     @staticmethod
     def clean():
-        """Clean git repo"""
-        shutil.rmtree(PageHistory.STORAGE_DIR, ignore_errors=True)
+        """Remove storage dir (delete all git repos)"""
+        shutil.rmtree(PageHistory.STORAGE_DIR)
 
 
 def ensure_unicode(text):
