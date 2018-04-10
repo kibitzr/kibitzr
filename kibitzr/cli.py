@@ -68,5 +68,12 @@ def telegram_chat():
     telegram_chat()
 
 
+@cli.command()
+def clean():
+    """Clean change history"""
+    from kibitzr.storage import PageHistory
+    PageHistory.clean()
+
+
 if __name__ == "__main__":
     cli()

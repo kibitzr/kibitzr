@@ -1,6 +1,7 @@
 import os
 import itertools
 import io
+import shutil
 
 from kibitzr.compat import sh
 
@@ -82,6 +83,11 @@ class PageHistory(object):
             self.git.init()
             self.git.config("user.email", "you@example.com")
             self.git.config("user.name", "Your Name")
+
+    @staticmethod
+    def clean():
+        """Clean git repo"""
+        shutil.rmtree(PageHistory.STORAGE_DIR, ignore_errors=True)
 
 
 def ensure_unicode(text):
