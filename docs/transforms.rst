@@ -50,6 +50,8 @@ Following variables are passed into a context:
 Also set of built-in Jinja filters is augmented with:
 
 * ``text`` - strip all HTML tags and return only text
+* ``float`` - remove all characters except numbers and point.
+* ``int`` - convert text or float to integer
 
 Because Jinja transform uses general-purpose template engine, it can supersede simpler transforms.
 However greater powers come with more points of failure.

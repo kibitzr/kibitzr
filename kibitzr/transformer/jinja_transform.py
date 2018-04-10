@@ -17,6 +17,7 @@ class JinjaTransform(object):
         from jinja2 import Environment
         environment = Environment()
         environment.filters['text'] = text_filter
+        environment.filters['int'] = int_filter
         environment.filters['float'] = float_filter
         environment.filters['dollars'] = dollars_filter
         self.template = environment.from_string(code)
@@ -51,6 +52,10 @@ RE_NOT_FLOAT = re.compile(r'[^0-9\.]')
 def dollars_filter(number):
     sign = '-' if number < 0 else ''
     return '{0}${1:,}'.format(sign, abs(number))
+
+
+def int_filter(text):
+    return int(text)
 
 
 def float_filter(text):
