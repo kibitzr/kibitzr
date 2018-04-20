@@ -11,6 +11,8 @@ sets a priority for conflict resolution.
 Promoter instance is initialized with conf and delegates calls to fetcher.
 """
 
+from kibitzr.conf import ConfigurationError
+
 from .loader import load_promoters
 
 
@@ -24,3 +26,7 @@ def fetcher_factory(conf):
     if applicable:
         best_match = sorted(applicable, reverse=True)[0][1]
         return best_match(conf)
+    else:
+        raise ConfigurationError(
+            'No fetcher is applicable for "{0}"'.format(conf['name'])
+        )
