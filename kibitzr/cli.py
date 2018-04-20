@@ -64,8 +64,9 @@ def init():
 @cli.command()
 def telegram_chat():
     """Return chat id for the last message sent to Telegram Bot"""
-    from kibitzr.main import telegram_chat
-    telegram_chat()
+    # rename import to escape name clashing:
+    from kibitzr.main import telegram_chat as kilogram
+    kilogram()
 
 
 @cli.command()
@@ -73,6 +74,13 @@ def clean():
     """Clean change history"""
     from kibitzr.storage import PageHistory
     PageHistory.clean()
+
+
+@cli.command()
+def stash():
+    """Print stash contents"""
+    from kibitzr.stash import Stash
+    Stash.print_content()
 
 
 if __name__ == "__main__":
