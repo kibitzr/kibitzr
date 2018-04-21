@@ -24,6 +24,11 @@ class Stash(object):
             for key, value in data.items():
                 db[key] = value
 
+    @classmethod
+    def print_content(cls):
+        for key, value in cls().read().items():
+            print("{0}: {1}".format(key, value))
+
 
 class LazyStash(Stash):
     def __init__(self):

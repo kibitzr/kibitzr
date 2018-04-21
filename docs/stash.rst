@@ -8,14 +8,19 @@ Overview
 --------
 
 Kibitzr maintains persistent key-value storage - ``stash``.
-All data inside ``stash`` is accessible inside all checks.
-It is meant to be populated in notify.
-Than it can be referred from :ref:`python-fetcher` and :ref:`jinja transform`.
+All data inside ``stash`` is accessible inside all checks
+and can be referred from :ref:`python-fetcher` and :ref:`jinja transform`.
 
-Stash keys are populated in notifies.
+Stash keys are populated in notify.
 Use ``stash`` notifier and provide it key-value dictionary.
 Each value is a Jinja template.
 It has access to the same context as Jinja transform.
+
+Stored values can be printed with command:
+
+.. code-block:: shell
+
+    $ kibitzr stash
 
 Example
 -------
