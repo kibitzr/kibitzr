@@ -3,7 +3,8 @@
 ## Unreleased
 
 ## Changed
-- Firefox persistent profile mode now prompts for Return to save profile
+- `kibitzr firefox` now prompts for Return to save profile
+- Firefox profile directory path moved to capabilities in the new version
 
 ## [5.1.1] - 2018-04-19
 
