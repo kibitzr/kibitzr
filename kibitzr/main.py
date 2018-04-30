@@ -81,7 +81,7 @@ def execute_conf(conf):
 
 
 def run_firefox():
-    setup_logger(logging.DEBUG)
+    setup_logger(logging.INFO)
     persistent_firefox()
 
 

@@ -13,6 +13,7 @@ from jinja2 import Template
 
 from kibitzr.conf import settings
 from .launcher import firefox, PROFILE_DIR
+from .trigger import prompt_return
 
 
 logger = logging.getLogger(__name__)
@@ -22,9 +23,11 @@ HOME_PAGE = 'https://kibitzr.github.io/'
 def persistent_firefox():
     if not os.path.exists(PROFILE_DIR):
         os.makedirs(PROFILE_DIR)
+    print("Kibitzr is running Firefox in persistent profile mode.")
     with firefox(headless=False) as driver:
         driver.get(HOME_PAGE)
         while True:
+            prompt_return()
             try:
                 # Property raises when browser is closed:
                 driver.title
@@ -32,15 +35,23 @@ def persistent_firefox():
                 # All kinds of things happen when closing Firefox
                 break
             else:
-                time.sleep(0.2)
-        update_profile(driver)
+                update_profile(driver)
+                print(
+                    "Firefox profile is saved. "
+                    "Close browser now to reuse profile in further runs."
+                )
+    print(
+        "Firefox is closed. "
+        "To delete saved profile remove following directory: {0}"
+        .format(os.path.abspath(PROFILE_DIR))
+    )
 
 
 def update_profile(driver):
     if os.path.exists(PROFILE_DIR):
         shutil.rmtree(PROFILE_DIR)
     shutil.copytree(
-        driver.profile.profile_dir,
+        driver.capabilities['moz:profile'],
         PROFILE_DIR,
         ignore=shutil.ignore_patterns(
             "parent.lock",

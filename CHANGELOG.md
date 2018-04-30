@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+## Changed
+- Firefox persistent profile mode now prompts for Return to save profile
+
 ## [5.1.1] - 2018-04-19
 
 ## Added
