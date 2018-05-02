@@ -15,12 +15,11 @@ class BasePromoter(object):
 
     def __init__(self, conf):
         self.conf = conf
-        self.fetcher_func = None  # To be overriden in descendants
 
     @staticmethod
     def is_applicable(conf):
         """Return whether this promoter is applicable for given conf"""
-        return True
+        return bool(conf)
 
     def log_announcement(self):
         logger.info(u"Fetching %s using %s",
@@ -29,5 +28,4 @@ class BasePromoter(object):
 
     def fetch(self):
         self.log_announcement()
-        return self.fetcher_func(self.conf)
     __call__ = fetch

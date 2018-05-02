@@ -48,11 +48,6 @@ class RequestsPromoter(URLPromoter):
 
     PRIORITY = 5  # default fallback
 
-    def __init__(self, conf):
-        from .simple import requests_fetcher
-        super(RequestsPromoter, self).__init__(conf)
-        self.fetcher_func = requests_fetcher(conf)
-
     @classmethod
     def is_applicable(cls, conf):
         """Return whether this promoter is applicable for given conf"""
@@ -61,15 +56,15 @@ class RequestsPromoter(URLPromoter):
             not cls.needs_firefox(conf),
         ))
 
+    def fetch(self):
+        from .simple import requests_fetcher
+        super(RequestsPromoter, self).fetch()
+        return requests_fetcher(self.conf)
+
 
 class FirefoxPromoter(URLPromoter):
 
     PRIORITY = 15
-
-    def __init__(self, conf):
-        from .browser.fetcher import firefox_fetcher
-        super(FirefoxPromoter, self).__init__(conf)
-        self.fetcher_func = firefox_fetcher
 
     @classmethod
     def is_applicable(cls, conf):
@@ -79,15 +74,15 @@ class FirefoxPromoter(URLPromoter):
             cls.needs_firefox(conf),
         ))
 
+    def fetch(self):
+        from .browser.fetcher import firefox_fetcher
+        super(FirefoxPromoter, self).fetch()
+        return firefox_fetcher(self.conf)
+
 
 class ScriptPromoter(BasePromoter):
 
     PRIORITY = 15
-
-    def __init__(self, conf):
-        from .script import fetch_by_script
-        super(ScriptPromoter, self).__init__(conf)
-        self.fetcher_func = fetch_by_script
 
     @staticmethod
     def is_applicable(conf):
@@ -100,3 +95,8 @@ class ScriptPromoter(BasePromoter):
     def log_announcement(self):
         logger.info("Fetching %r using script",
                     self.conf['name'])
+
+    def fetch(self):
+        from .script import fetch_by_script
+        super(ScriptPromoter, self).fetch()
+        return fetch_by_script(self.conf)
