@@ -126,8 +126,9 @@ Start persistent Firefox session with
     $ kibitzr firefox
 
 Than authenticate on all sites, that require first-login 2-FA.
-Once browser is closed, new profile will be saved in ``./firefox_profile`` directory.
-If this directory exists, kibitzr will load it for every Firefox check.
+When ready, hit Return in the terminal prompt.
+New profile will be saved in ``firefox_profile`` directory.
+If this directory exists, kibitzr will load it for each following run.
 
 Note: if running kibitzr remotely through SSH, use `X11 forwarding`_.
 
