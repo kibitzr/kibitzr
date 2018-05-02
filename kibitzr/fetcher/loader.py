@@ -48,6 +48,10 @@ class RequestsPromoter(URLPromoter):
 
     PRIORITY = 5  # default fallback
 
+    def __init__(self, conf):
+        super(RequestsPromoter, self).__init__(conf)
+        self._fetcher = None
+
     @classmethod
     def is_applicable(cls, conf):
         """Return whether this promoter is applicable for given conf"""
@@ -59,7 +63,9 @@ class RequestsPromoter(URLPromoter):
     def fetch(self):
         from .simple import requests_fetcher
         super(RequestsPromoter, self).fetch()
-        return requests_fetcher(self.conf)
+        if not self._fetcher:
+            self._fetcher = requests_fetcher(self.conf)
+        return self._fetcher()
 
 
 class FirefoxPromoter(URLPromoter):

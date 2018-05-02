@@ -28,4 +28,6 @@ class BasePromoter(object):
 
     def fetch(self):
         self.log_announcement()
-    __call__ = fetch
+
+    def __call__(self):
+        return self.fetch()
