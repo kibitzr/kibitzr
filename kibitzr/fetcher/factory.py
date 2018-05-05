@@ -16,12 +16,15 @@ from kibitzr.conf import ConfigurationError
 from .loader import load_promoters
 
 
-PROMOTERS = load_promoters()
+PROMOTERS = None
 
 
 def fetcher_factory(conf):
     """Return initialized fetcher capable of processing given conf."""
+    global PROMOTERS
     applicable = []
+    if not PROMOTERS:
+        PROMOTERS = load_promoters()
     for promoter in PROMOTERS:
         if promoter.is_applicable(conf):
             applicable.append((promoter.PRIORITY, promoter))
