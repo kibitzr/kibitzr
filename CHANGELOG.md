@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## [5.3.0.alpha] - 2018-05-06
+
 - Added [undocumented] fetcher extension interface
 
 ## [5.2.0] - 2018-05-06
