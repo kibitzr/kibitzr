@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## [5.2.0] - 2018-05-06
+
 ## Changed
 - `kibitzr firefox` now prompts for Return to save profile
 - Firefox profile directory path moved to capabilities in the new version
