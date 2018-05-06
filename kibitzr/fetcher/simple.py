@@ -57,7 +57,7 @@ class SessionFetcher(object):
 
 
 def requests_fetcher(conf):
-    def fetcher(conf):
+    def fetcher():
         return session_fetcher.fetch()
     session_fetcher = SessionFetcher(conf)
     return fetcher
