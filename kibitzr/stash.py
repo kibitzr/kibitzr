@@ -32,13 +32,19 @@ class Stash(object):
 
 class LazyStash(Stash):
     def __init__(self):
-        self._stash = None
+        self._stashobj = None
 
     @property
-    def stash(self):
-        if self._stash is None:
-            self._stash = self.read()
-        return self._stash
+    def _stash(self):
+        if self._stashobj is None:
+            self._stashobj = self.read()
+        return self._stashobj
 
     def __getitem__(self, key):
-        return self.stash[key]
+        return self._stash[key]
+
+    def get(self, key, default=None):
+        try:
+            return self._stash[key]
+        except KeyError:
+            return default
