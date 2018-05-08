@@ -62,7 +62,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'kibitzr=kibitzr.cli:cli'
+            'kibitzr=kibitzr.cli:extended_cli'
         ]
     },
     include_package_data=True,

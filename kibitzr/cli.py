@@ -2,6 +2,7 @@ import sys
 import logging
 
 import click
+import entrypoints
 
 
 LOG_LEVEL_CODES = {
@@ -10,6 +11,24 @@ LOG_LEVEL_CODES = {
     "warning": logging.WARNING,
     "error": logging.ERROR,
 }
+
+
+def merge_extensions(click_group):
+    """
+    Each extension is called with click group for
+    ultimate agility while preserving cli context.
+    """
+    for extension in load_extensions():
+        extension(click_group)
+    return click_group
+
+
+def load_extensions():
+    """Return list of Kibitzr CLI extensions"""
+    return [
+        point.load()
+        for point in entrypoints.get_group_all("kibitzr.cli")
+    ]
 
 
 @click.group()
@@ -83,5 +102,8 @@ def stash():
     Stash.print_content()
 
 
+extended_cli = merge_extensions(cli)
+
+
 if __name__ == "__main__":
-    cli()
+    extended_cli()
