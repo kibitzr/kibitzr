@@ -51,8 +51,8 @@ def version():
 @cli.command()
 def firefox():
     """Launch Firefox with persistent profile"""
-    from kibitzr.main import run_firefox
-    run_firefox()
+    from kibitzr.app import Application
+    Application().run_firefox()
 
 
 @cli.command()
@@ -60,8 +60,9 @@ def firefox():
 @click.pass_context
 def once(ctx, name):
     """Run kibitzr checks once and exit"""
-    from kibitzr.main import main
-    sys.exit(main(once=True, log_level=ctx.obj['log_level'], names=name))
+    from kibitzr.app import Application
+    app = Application()
+    sys.exit(app.main(once=True, log_level=ctx.obj['log_level'], names=name))
 
 
 @cli.command()
@@ -69,23 +70,25 @@ def once(ctx, name):
 @click.pass_context
 def run(ctx, name):
     """Run kibitzr in the foreground mode"""
-    from kibitzr.main import main
-    sys.exit(main(once=False, log_level=ctx.obj['log_level'], names=name))
+    from kibitzr.app import Application
+    app = Application()
+    sys.exit(app.main(once=False, log_level=ctx.obj['log_level'], names=name))
 
 
 @cli.command()
 def init():
     """Create boilerplate configuration files"""
-    from kibitzr.main import bootstrap
-    bootstrap()
+    from kibitzr.app import Application
+    Application.bootstrap()
 
 
 @cli.command()
 def telegram_chat():
     """Return chat id for the last message sent to Telegram Bot"""
     # rename import to escape name clashing:
-    from kibitzr.main import telegram_chat as kilogram
-    kilogram()
+    from kibitzr.app import Application
+    app = Application()
+    app.telegram_chat()
 
 
 @cli.command()
