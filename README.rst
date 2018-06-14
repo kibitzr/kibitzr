@@ -29,8 +29,8 @@ Kibitzr
         :target: https://coveralls.io/github/kibitzr/kibitzr?branch=master
         :alt: Coveralls
 
-.. image:: http://pepy.tech/badge/kibitzr
-        :target: http://pepy.tech/project/kibitzr
+.. image:: https://pepy.tech/badge/kibitzr
+        :target: https://pepy.tech/project/kibitzr
         :alt: Downloads
 
 Kibitzr is like a secret twin brother who does routine tasks and asks for nothing in return.
