@@ -62,7 +62,7 @@ def once(ctx, name):
     """Run kibitzr checks once and exit"""
     from kibitzr.app import Application
     app = Application()
-    sys.exit(app.main(once=True, log_level=ctx.obj['log_level'], names=name))
+    sys.exit(app.run(once=True, log_level=ctx.obj['log_level'], names=name))
 
 
 @cli.command()
@@ -72,7 +72,7 @@ def run(ctx, name):
     """Run kibitzr in the foreground mode"""
     from kibitzr.app import Application
     app = Application()
-    sys.exit(app.main(once=False, log_level=ctx.obj['log_level'], names=name))
+    sys.exit(app.run(once=False, log_level=ctx.obj['log_level'], names=name))
 
 
 @cli.command()

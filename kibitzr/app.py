@@ -38,7 +38,7 @@ class Application(object):
     def bootstrap():
         create_boilerplate()
 
-    def main(self, once=False, log_level=logging.INFO, names=None):
+    def run(self, once=False, log_level=logging.INFO, names=None):
         # Reset global state for testability:
         self.signals.update({
             'reload_conf_pending': False,
