@@ -4,10 +4,12 @@ from ..compat import mock
 from ..helpers import SettingsMock
 
 
-@pytest.fixture(autouse=True)
-def settings():
+@pytest.fixture(scope="function")
+def settings(request):
     """Override native settings singleton with empty one"""
-    return SettingsMock.instance()
+    instance = SettingsMock.instance()
+    request.addfinalizer(SettingsMock.dispose)
+    return instance
 
 
 @pytest.fixture(autouse=True)
@@ -21,7 +23,7 @@ def app():
     return Application()
 
 
-def test_loop_aborts_without_checks(app):
+def test_loop_aborts_without_checks(app, settings):
     assert app.run() == 1
 
 
