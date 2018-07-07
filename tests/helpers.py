@@ -19,6 +19,10 @@ class SettingsMock(ReloadableSettings):
         ReloadableSettings._instance = cls()
         return ReloadableSettings._instance
 
+    @staticmethod
+    def dispose():
+        ReloadableSettings._instance = None
+
 
 @contextlib.contextmanager
 def stash_mock():

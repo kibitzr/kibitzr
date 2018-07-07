@@ -48,7 +48,7 @@ else:
 
 setup(
     name='kibitzr',
-    version='5.3.0.alpha',
+    version='5.3.0.alpha1',
     description="Self hosted web page changes monitoring",
     long_description=readme + '\n\n' + history,
     author="Peter Demin",
@@ -62,7 +62,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'kibitzr=kibitzr.cli:cli'
+            'kibitzr=kibitzr.cli:extended_cli'
         ]
     },
     include_package_data=True,
