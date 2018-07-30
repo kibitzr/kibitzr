@@ -10,6 +10,7 @@ Stable release
 To install kibitzr, run this command in your terminal:
 
 .. code-block:: bash
+
     $ virtualenv venv
     $ source venv/bin/activate
     $ pip install kibitzr
