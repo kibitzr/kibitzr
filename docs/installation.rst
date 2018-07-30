@@ -9,7 +9,7 @@ Stable release
 
 To install kibitzr, run this command in your terminal:
 
-.. code-block:: console
+.. code-block:: bash
     $ virtualenv venv
     $ source venv/bin/activate
     $ pip install kibitzr
@@ -30,7 +30,7 @@ Kibitzr has many integrations and depending on what features are used may requir
 The recommended way to have all dependencies installed and configured is to use `docker`_.
 Example of running kibitzr within docker container.
 
-.. code-block:: console
+.. code-block:: bash
 
     $ docker run -v $PWD:/root/.config/kibitzr -v $PWD/pages:/pages peterdemin/kibitzr
 

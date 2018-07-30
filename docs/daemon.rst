@@ -8,7 +8,7 @@ Recommended way of daemonizing kibitzr is by using `supervisord`_.
 
 You can install supervisord along with the kibitzr by running:
 
-.. code-block:: console
+.. code-block:: bash
 
     $ pip install supervisord
 
@@ -49,13 +49,13 @@ Just make sure, that ``logs`` directory exists and is writable.
 
 Having this configuration in `supervisor.ini`, launch using command:
 
-.. code-block:: console
+.. code-block:: bash
     
     $ supervisord -c supervisor.ini
 
 Later you can inspect kibitzr status with
 
-.. code-block:: console
+.. code-block:: bash
     
     $ supervisorctl -c supervisor.ini status
 
@@ -63,7 +63,7 @@ Later you can inspect kibitzr status with
 
 Or shut down kibitzr it with:
 
-.. code-block:: console
+.. code-block:: bash
     
     $ supervisorctl -c supervisor.ini stop kibitzr
 
