@@ -27,6 +27,7 @@ install_requires = [
     'bs4',
     'cachecontrol',
     'Click>=6.0',
+    'defusedxml',
     'entrypoints',
     'Jinja2',
     'lazy-object-proxy',
