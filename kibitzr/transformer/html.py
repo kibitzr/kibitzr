@@ -75,11 +75,12 @@ def xpath_selector(selector, html):
     :param html: Unicode content
     """
     from defusedxml import lxml as dlxml
+    from lxml import etree
 
     # lxml requires argument to be bytes
     # see https://github.com/kibitzr/kibitzr/issues/47
     encoded = html.encode('utf-8')
-    root = dlxml.fromstring(encoded)
+    root = dlxml.fromstring(encoded, parser=etree.HTMLParser())
     elements = root.xpath(selector)
     if elements:
         return True, dlxml.tostring(

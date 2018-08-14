@@ -1,7 +1,0 @@
-{
-  "tests/simulation/test_fetcher.py::test_scenario": true,
-  "tests/simulation/test_forms.py::test_fill_form_sample": true,
-  "tests/unit/transforms/test_json.py::test_jq_sample": true,
-  "tests/unit/transforms/test_script.py::test_bash_transform_error_is_captured": true,
-  "tests/unit/transforms/test_script.py::test_bash_transform_sample": true
-}
