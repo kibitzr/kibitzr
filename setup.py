@@ -23,23 +23,17 @@ def changelog_version():
                     return version
 
 
-install_requires = [
-    'bs4',
-    'cachecontrol',
-    'Click>=6.0',
-    'defusedxml',
-    'entrypoints',
-    'Jinja2',
-    'lazy-object-proxy',
-    'lxml',
-    'python-telegram-bot',
-    'pytimeparse',
-    'pyyaml',
-    'requests',
-    'schedule',
-    'selenium',
-    'six',
-]
+def read_requirements():
+    with open(os.path.join('requirements', 'base.in')) as fp:
+        lines = [line.split('#', 1)[0].strip()
+                 for line in fp]
+    # drop empty lines:
+    return [line
+            for line in lines
+            if line and not line.startswith('#')]
+
+
+install_requires = read_requirements()
 if os.name == 'nt':
     # sh predecessor working under Windows:
     install_requires.append('pbs')

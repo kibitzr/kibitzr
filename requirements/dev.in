@@ -1,3 +1,5 @@
+-r base.in
+
 Sphinx
 bump2version
 coverage
@@ -6,7 +8,7 @@ flake8
 mock
 pep8
 pip
-pylint>=1.4,<1.5
+pylint
 pytest
 pytest-cov
 pytest-mock
@@ -14,3 +16,4 @@ pytest-pep8
 tox
 watchdog
 wheel
+pip-compile-multi

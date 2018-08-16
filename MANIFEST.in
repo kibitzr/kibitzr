@@ -1,6 +1,4 @@
-
 include AUTHORS.rst
-
 include CONTRIBUTING.rst
 include HISTORY.rst
 include CHANGELOG.rst
@@ -10,6 +8,7 @@ include CHANGELOG.md
 
 recursive-include tests *
 recursive-include kibitzr *
+recursive-include requirements *
 recursive-exclude * __pycache__
 recursive-exclude * *.py[co]
 
