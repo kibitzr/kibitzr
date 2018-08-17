@@ -2,19 +2,20 @@
 <html>
   <head>
     <script>
-			function getUrlVars() {
-				var vars = {};
-				var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-					vars[key] = value;
-				});
-				return vars;
-			}
+      function getUrlVars() {
+        var vars = {};
+        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+          vars[key] = value;
+        });
+        return vars;
+      }
     </script>
   </head>
-	<body>
-		<ul id="params">
-		</ul>
-	</body>
+  <body>
+    <div class="unclosed-tag">
+      <ul id="params">
+      </ul>
+  </body>
   <script>
     var params = getUrlVars();
     var text = "";

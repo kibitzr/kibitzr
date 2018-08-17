@@ -10,7 +10,7 @@ def test_fill_form_sample(target):
             {'css': '#pass', 'creds': 'pass'}
         ],
         # 'scenario': 'import pdb; pdb.set_trace()',
-        'transform': [{'css': '#params'}, 'text'],
+        'transform': [{'css': '.unclosed-tag > #params'}, 'text'],
         # 'headless': False,
     }
     ok, content = Checker(conf).check()
