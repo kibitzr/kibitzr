@@ -8,7 +8,6 @@ flake8
 mock
 pep8
 pip
-pylint
 pytest
 pytest-cov
 pytest-mock
@@ -17,3 +16,7 @@ tox
 watchdog
 wheel
 pip-compile-multi
+
+# for Python 2 compatibility
+pylint<2  
+astroid<2
