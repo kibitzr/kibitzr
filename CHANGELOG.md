@@ -2,9 +2,21 @@
 
 ## Unreleased
 
+## [5.3.2] - 2018-08-16
+
+## Changed
+- Made custom Jinja filters ignore None values
+- convert lxml to defusedxml in transformer/html.py (#61 thanks to @unit-00)
+
+## [5.3.1] - 2018-07-06
+
+## Added
+- [undocumented] CLI extension interface
+
 ## [5.3.0.alpha] - 2018-05-06
 
-- Added [undocumented] fetcher extension interface
+## Added
+- [undocumented] fetcher extension interface
 
 ## [5.2.0] - 2018-05-06
 
