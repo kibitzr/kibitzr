@@ -11,10 +11,8 @@ cachecontrol==0.12.5
 certifi==2018.8.13        # via python-telegram-bot, requests
 chardet==3.0.4            # via requests
 click==6.7
-configparser==3.5.0       # via entrypoints
 defusedxml==0.5.0
 entrypoints==0.2.3
-future==0.16.0            # via python-telegram-bot
 idna==2.7                 # via requests
 jinja2==2.10
 lazy-object-proxy==1.3.1
