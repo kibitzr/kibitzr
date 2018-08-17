@@ -1,0 +1,106 @@
+---
+- hosts: local
+  connection: local
+  become: yes
+  become_user: root
+  tasks:
+    - name: Create user
+      user:
+          name: kibitzr
+          system: yes
+          create_home: yes
+          home: /var/lib/kibitzr
+          shell: /bin/false
+
+    - name: Install dependencies
+      action: >
+        {{ ansible_pkg_mgr }} name={{ item }} state=present update_cache=yes
+      with_items:
+        - firefox
+        - git
+        - jq
+        - python-lxml
+        - python-yaml
+        - python-pip
+        - python-lazy-object-proxy
+
+    - name: Install from pip
+      pip: 
+          name: kibitzr
+          virtualenv: /opt/kibitzr
+          virtualenv_python: python2.7
+
+    - name: Set home permissions
+      file:
+          path: /var/lib/kibitzr
+          state: directory
+          owner: kibitzr
+          group: kibitzr
+          mode: 0700
+      notify: Bootstrap
+
+    - name: Download geckodriver archive
+      get_url:
+          url: https://github.com/mozilla/geckodriver/releases/download/v0.20.1/geckodriver-v0.20.1-linux64.tar.gz
+          dest: /tmp/geckodriver.tar.gz
+
+    - name: Extract geckodriver
+      unarchive:
+          src: /tmp/geckodriver.tar.gz
+          dest: /var/lib/kibitzr/
+
+    - name: Put systemd unit
+      copy:
+          dest: /etc/systemd/system/kibitzr.service
+          content: |
+              [Unit]
+              Description=Kibitzr Daemon
+              After=syslog.target network.target
+
+              [Service]
+              User=kibitzr
+              Group=kibitzr
+              Type=simple
+              WorkingDirectory=/var/lib/kibitzr
+              ExecStart=/opt/kibitzr/bin/kibitzr run
+              ExecReload=/bin/kill -USR1 $MAINPID
+              Environment="PATH=/opt/kibitzr/bin:/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:"
+              TimeoutStopSec=30
+              KillMode=process
+              Restart=on-failure
+
+              [Install]
+              WantedBy=multi-user.target
+          owner: root
+          group: root
+          mode: 0644
+      notify: Reload systemd
+
+    - name: Start daemon
+      systemd:
+          name: kibitzr.service
+          enabled: yes
+          state: started
+          masked: no
+
+  handlers:
+    - name: Reload systemd
+      systemd: daemon_reload=yes
+
+- hosts: local
+  connection: local
+  become: yes
+  become_user: kibitzr
+  tasks:
+    - name: Bootstrap
+      command: /opt/kibitzr/bin/kibitzr init
+      args:
+          chdir: /var/lib/kibitzr
+          creates: /var/lib/kibitzr/kibitzr.yml
+      notify: Test run
+
+  handlers:
+    - name: Test run
+      command: /opt/kibitzr/bin/kibitzr once
+      args:
+          chdir: /var/lib/kibitzr

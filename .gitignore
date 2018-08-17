@@ -70,3 +70,5 @@ ui/node_modules/
 firefox_profile
 CHANGELOG.rst
 stash.db
+ansible/kibitzr.retry
+ansible/ansible.cfg
