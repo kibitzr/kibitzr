@@ -13,7 +13,7 @@ install:
   - >
     curl -L https://github.com/mozilla/geckodriver/releases/download/v0.20.1/geckodriver-v0.20.1-linux64.tar.gz
     | tar zxf -
-  - pip install -e . -r requirements_dev.txt coveralls
+  - pip install -e . -r requirements/dev.txt coveralls
 env:
   - PATH=$PATH:$TRAVIS_BUILD_DIR  # For geckodriver binary
 before_script: flake8 kibitzr tests
