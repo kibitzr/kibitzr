@@ -1,6 +1,7 @@
 import re
 import logging
 import json
+import functools
 
 import six
 
@@ -49,15 +50,30 @@ class JinjaTransform(object):
 RE_NOT_FLOAT = re.compile(r'[^0-9\.]')
 
 
+def ignore_cast_error(func):
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except (TypeError, ValueError):
+            logger.warning("Invalid value passed in Jinja transform",
+                           exc_info=True)
+            return None
+    return wrapper
+
+
+@ignore_cast_error
 def dollars_filter(number):
     sign = '-' if number < 0 else ''
     return '{0}${1:,}'.format(sign, abs(number))
 
 
+@ignore_cast_error
 def int_filter(text):
     return int(text)
 
 
+@ignore_cast_error
 def float_filter(text):
     return float(RE_NOT_FLOAT.sub('', text))
 
