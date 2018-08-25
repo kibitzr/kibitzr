@@ -4,6 +4,7 @@ import time
 import code
 
 import schedule
+import entrypoints
 
 from .conf import settings, SettingsParser
 from .fetcher import cleanup_fetchers, persistent_firefox
@@ -59,6 +60,7 @@ class Application(object):
                     names=names
                 )
                 if checkers:
+                    self.before_start(checkers)
                     self.execute_all(checkers)
                     if once:
                         return 0
@@ -164,3 +166,15 @@ class Application(object):
         else:
             # Third Ctrl+C to hard stop:
             self.disconnect_signals()
+
+    def before_start(self, checkers):
+        """
+        Loads entry points named kibitzr.before_start
+        and call each one with two arguments:
+
+            1. Application instance;
+            2. List of configured checkers
+        """
+        for point in entrypoints.get_group_all("kibitzr.before_start"):
+            entry = point.load()
+            entry(self, checkers)

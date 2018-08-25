@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## [5.3.3] - 2018-08-24
+
+## Added
+- [undocumented] `before_start` extension interface
+
 ## [5.3.2] - 2018-08-16
 
 ## Changed
