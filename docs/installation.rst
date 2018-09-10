@@ -28,12 +28,18 @@ Dependencies
 
 Kibitzr has many integrations and depending on what features are used may require additional setup.
 
-The recommended way to have all dependencies installed and configured is to use `docker`_.
-Example of running kibitzr within docker container.
+The recommended way to have all dependencies installed and configured is to use `Docker`_.
+
+Docker
+------
+
+You need a current version of `Docker present on your machine <https://docs.docker.com/install/>`_.
+
+If you would like to run it as a service just add a ``kibitzr.yml`` file and a ``pages`` folder to your current directory and run the following command:
 
 .. code-block:: bash
 
-    $ docker run -v $PWD:/root/.config/kibitzr -v $PWD/pages:/pages peterdemin/kibitzr
+    docker run -v $PWD:/root/.config/kibitzr -v $PWD/pages:/pages peterdemin/kibitzr run
 
 Manual installation
 -------------------
@@ -68,7 +74,7 @@ Some of the dependencies are used only when corresponding features are used in `
 
         apt install python-lxml
 
-.. _docker: https://www.docker.com/
+.. _Docker: https://www.docker.com/
 .. _Dockerfile: https://github.com/kibitzr/kibitzr/blob/master/Dockerfile
 .. _git: https://git-scm.com/
 .. _xvfb: https://www.x.org/archive/X11R7.6/doc/man/man1/Xvfb.1.xhtml
