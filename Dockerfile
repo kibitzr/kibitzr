@@ -8,10 +8,10 @@ RUN apt -qqy update                     \
        firefox                          \
        git                              \
        jq                               \
-       python-lazy-object-proxy         \
-       python-lxml                      \
-       python-yaml                      \
-       python-pip                       \
+       python3-lazy-object-proxy         \
+       python3-lxml                      \
+       python3-yaml                      \
+       python3-pip                       \
     && curl -L https://github.com/mozilla/geckodriver/releases/download/v0.20.1/geckodriver-v0.20.1-linux64.tar.gz | tar zxf -  \
     && mv geckodriver /usr/local/bin/   \
     && apt-get remove -y curl           \
@@ -21,7 +21,7 @@ RUN apt -qqy update                     \
 COPY . /kibitzr/
 
 RUN cd /kibitzr                         \
-    && pip install -e .
+    && pip3 install -e .
 
 WORKDIR /root/
 
