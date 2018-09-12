@@ -25,6 +25,7 @@ Documentation Contents
    notifiers
    python
    stash
+   extensions
    recipes
    contributing
    contributors

@@ -8,3 +8,4 @@ GitHub users, who contributed to Kibitzr in arbitrary order:
 * `Delirious Lettuce <https://github.com/delirious-lettuce>`_
 * `Martin Virtel <https://github.com/mvtango>`_
 * `Attila Nagy <https://github.com/attilanagy>`_
+* `Niklas Heer <https://github.com/niklas-heer>`_
