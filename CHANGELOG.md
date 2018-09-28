@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## [5.3.4] - 2018-09-28
+
+## Added
+- `xpath-all` transform (#67 thanks to @cescobarresi)
+
 ## [5.3.3] - 2018-08-24
 
 ## Added
