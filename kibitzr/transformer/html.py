@@ -88,20 +88,13 @@ def xpath_selector(selector, html, select_all):
         logger.warning('XPath selector not found: %r', selector)
         return False, html
     if select_all is False:
-        elements = [ elements[0] ]
+        elements = elements[0:1]
 
-    elements = [re.sub('\s+', ' ',
+    elements = [re.sub(r'\s+', ' ',
                 dlxml.tostring(ele, method='html', encoding='unicode')).strip()
                 for ele in elements]
 
     return True, u"\n".join(six.text_type(x) for x in elements)
-
-    return True, dlxml.tostring(
-        next(iter(elements)),
-        method='html',
-        pretty_print=True,
-        encoding='unicode',
-    )
 
 
 @contextlib.contextmanager
