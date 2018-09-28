@@ -41,6 +41,15 @@ def test_xpath_selector():
     assert content.strip() == '<a href="page.html" id="page-link">Page</a>'
 
 
+def test_xpath_selector_all():
+    ok, content = run_transform('xpath-all', '//div', HTML)
+    assert ok is True
+    assert content == u'\n'.join([
+        u'<div id="content"> Привет, Мир! </div>',
+        u'<div class="footer"> Footer content </div>',
+    ])
+
+
 def test_extract_test():
     ok, content = run_transform('text', None, HTML)
     assert ok is True
