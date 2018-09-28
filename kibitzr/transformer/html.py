@@ -67,31 +67,41 @@ class SoupOps(object):
     }
 
 
-def xpath_selector(selector, html):
+def xpath_selector(selector, html, select_all):
     """
     Returns Xpath match for `selector` within `html`.
 
     :param selector: XPath string
     :param html: Unicode content
+    :param select_all: True to get all matches
     """
     from defusedxml import lxml as dlxml
     from lxml import etree
+    import re
 
     # lxml requires argument to be bytes
     # see https://github.com/kibitzr/kibitzr/issues/47
     encoded = html.encode('utf-8')
     root = dlxml.fromstring(encoded, parser=etree.HTMLParser())
     elements = root.xpath(selector)
-    if elements:
-        return True, dlxml.tostring(
-            next(iter(elements)),
-            method='html',
-            pretty_print=True,
-            encoding='unicode',
-        )
-    else:
+    if not elements:
         logger.warning('XPath selector not found: %r', selector)
         return False, html
+    if select_all is False:
+        elements = [ elements[0] ]
+
+    elements = [re.sub('\s+', ' ',
+                dlxml.tostring(ele, method='html', encoding='unicode')).strip()
+                for ele in elements]
+
+    return True, u"\n".join(six.text_type(x) for x in elements)
+
+    return True, dlxml.tostring(
+        next(iter(elements)),
+        method='html',
+        pretty_print=True,
+        encoding='unicode',
+    )
 
 
 @contextlib.contextmanager
@@ -123,5 +133,6 @@ def register():
         key: bake_html(key)
         for key in ('css', 'css-all', 'tag', 'text')
     }
-    registry['xpath'] = bake_parametrized(xpath_selector)
+    registry['xpath'] = bake_parametrized(xpath_selector, select_all=False)
+    registry['xpath-all'] = bake_parametrized(xpath_selector, select_all=True)
     return registry

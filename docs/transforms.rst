@@ -13,6 +13,7 @@ HTML
 * ``css: selector`` - crop HTML to the first encountered outer HTML matching passed `CSS selector`_.
 * ``css-all: selector`` - crop HTML to the concatenated list of all matching elements.
 * ``xpath: path`` - crop HTML to contents of the passed `XPath`_.
+* ``xpath-all: path`` - crop HTML to the concatenated list of all matching elements.
 * ``text`` - strip all HTML tags and return only text.
 
 Plain text
