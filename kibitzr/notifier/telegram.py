@@ -28,9 +28,15 @@ class TelegramBot(object):
         return self._chat_id
 
     def post(self, report, **kwargs):
+        # Telegram max message length is 4096 utf chars
+        messages = [report[i:i + 4096] for i in range(0, len(report), 4096)]
+        for m in messages:
+            self.send_message(m)
+
+    def send_message(self, message):
         message = self.bot.send_message(
             self.chat_id,
-            report,
+            message,
             parse_mode='Markdown',
         )
         return message
