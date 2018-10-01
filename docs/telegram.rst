@@ -23,6 +23,10 @@ That's why, you have to save chat id explicitly.
 Kibitzr will send messages to chat, where first message was sent to bot
 (like `filial imprinting`_).
 
+Telegram has a `maximum message length of 4096 utf-8 characters`_. Telegram Notify will check this
+for you and split the message in to multiple messages of 4096 characters each. Messages doesn't
+necessarely get delivered, by the telegram network, in the same order that they are sent.
+
 Example of ``kibitzr-creds.yml`` file:
 
 .. code-block:: yaml
@@ -45,3 +49,4 @@ Also chat identifier can be configured for each check in ``kibitzr.yml`` using f
 .. _BotFather: https://telegram.me/botfather
 .. _filial imprinting: https://en.wikipedia.org/wiki/Imprinting_(psychology)#Filial_imprinting
 .. _don't have an ability to search for users: https://core.telegram.org/bots#4-how-are-bots-different-from-humans
+.. _maximum message length of 4096 utf-8 characters: https://core.telegram.org/method/messages.sendMessage
