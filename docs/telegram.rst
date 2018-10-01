@@ -41,6 +41,28 @@ Also chat identifier can be configured for each check in ``kibitzr.yml`` using f
         notify:
           - telegram: 118860645
 
+
+Telegram Split
+--------------
+``telegram-split`` will split the report in to multiple messages before sending. The default
+``split-on`` is the new line char ``\n``. The configuration can be one of:
+
+.. code-block:: yaml
+
+    checks:
+      ...
+        notify:
+          # use default split on '\n'
+          - telegram-split: 118860645
+
+      ...
+        notify:
+          # use custom split on '&'
+          - telegram-split: 
+            chat-id: 118860645
+            split-on : "&"
+
+
 .. _Telegram IM: https://telegram.org/
 .. _BotFather: https://telegram.me/botfather
 .. _filial imprinting: https://en.wikipedia.org/wiki/Imprinting_(psychology)#Filial_imprinting
