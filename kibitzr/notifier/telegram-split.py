@@ -15,11 +15,7 @@ class TelegramBotSplit(TelegramBot):
     def post(self, report, **kwargs):
         """Overwrite post to split message on token"""
         for m in report.split(self.split_on):
-            self.bot.send_message(
-                self.chat_id,
-                m,
-                parse_mode='Markdown',
-            )
+            super(TelegramBotSplit, self).post(m)
 
 
 def notify_factory(conf, value):
@@ -32,7 +28,6 @@ def notify_factory(conf, value):
     except (TypeError, KeyError):
         split_on = "\n"
 
-    print(split_on)
     return TelegramBotSplit(chat_id=chat_id, split_on=split_on).post
 
 
