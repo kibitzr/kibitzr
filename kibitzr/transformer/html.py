@@ -83,18 +83,33 @@ def xpath_selector(selector, html, select_all):
     # see https://github.com/kibitzr/kibitzr/issues/47
     encoded = html.encode('utf-8')
     root = dlxml.fromstring(encoded, parser=etree.HTMLParser())
-    elements = root.xpath(selector)
-    if not elements:
+    xpath_results = root.xpath(selector)
+    if not xpath_results:
         logger.warning('XPath selector not found: %r', selector)
         return False, html
-    if select_all is False:
-        elements = elements[0:1]
 
-    elements = [re.sub(r'\s+', ' ',
-                dlxml.tostring(ele, method='html', encoding='unicode')).strip()
-                for ele in elements]
+    if isinstance(xpath_results, list):
+        if select_all is False:
+            xpath_results = xpath_results[0:1]
+    else:
+        xpath_results = [xpath_results]
 
-    return True, u"\n".join(six.text_type(x) for x in elements)
+    # Serialize xpath_results
+    results = []
+    for r in xpath_results:
+        # namespace declarations
+        if isinstance(r, tuple):
+            results.append("%s=\"%s\"" % (r[0], r[1]))
+        # an element
+        elif hasattr(r, 'tag'):
+            results.append(
+                re.sub(r'\s+', ' ',
+                       dlxml.tostring(r, method='html', encoding='unicode'))
+            )
+        else:
+            results.append(r)
+
+    return True, u"\n".join(six.text_type(x).strip() for x in results)
 
 
 @contextlib.contextmanager
