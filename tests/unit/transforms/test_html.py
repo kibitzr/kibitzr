@@ -38,7 +38,7 @@ def test_css_selector_all():
 def test_xpath_selector():
     ok, content = run_transform('xpath', '//body/h2/a[@id="page-link"]', HTML)
     assert ok is True
-    assert content.strip() == '<a href="page.html" id="page-link">Page</a>'
+    assert content == '<a href="page.html" id="page-link">Page</a>'
 
 
 def test_xpath_selector_all():
@@ -48,6 +48,30 @@ def test_xpath_selector_all():
         u'<div id="content"> Привет, Мир! </div>',
         u'<div class="footer"> Footer content </div>',
     ])
+
+
+def test_xpath_selector_boolean():
+    ok, content = run_transform('xpath', 'boolean(//body/h2/a)', HTML)
+    assert ok is True
+    assert content == 'True'
+
+
+def test_xpath_selector_float():
+    ok, content = run_transform('xpath', 'count(//div)', HTML)
+    assert ok is True
+    assert content == '2.0'
+
+
+def test_xpath_selector_attribute():
+    ok, content = run_transform('xpath', '//body/h2/a/@href', HTML)
+    assert ok is True
+    assert content == 'page.html'
+
+
+def test_xpath_selector_namespace():
+    ok, content = run_transform('xpath', '/html/namespace::*[name()]', HTML)
+    assert ok is True
+    assert content == 'xml="http://www.w3.org/XML/1998/namespace"'
 
 
 def test_extract_test():
