@@ -95,6 +95,7 @@ def xpath_selector(selector, html, select_all):
         xpath_results = [xpath_results]
 
     # Serialize xpath_results
+    # see https://lxml.de/xpathxslt.html#xpath-return-values
     results = []
     for r in xpath_results:
         # namespace declarations
