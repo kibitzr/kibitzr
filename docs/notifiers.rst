@@ -13,7 +13,6 @@ Kibitzr supports following notifier types:
 2. ``mailgun`` - or send it through mailgun_ API
 3. ``slack`` - Trigger `Slack Incoming Webhook`_
 4. ``telegram`` - Send message through :ref:`private Telegram Bot <telegram>`
-4. ``telegram-split`` - Send messages through :ref:`private Telegram Bot <telegram>`
 5. ``zapier`` - Trigger `Zapier Catch Hook`_
 6. ``gitter`` - Or post to gitter's chat
 7. ``python`` - Run Python script
