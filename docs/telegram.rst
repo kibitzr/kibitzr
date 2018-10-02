@@ -57,7 +57,7 @@ Optionally can be configured to split in to multiple messages by setting ``split
       ...
         notify:
           - telegram: 
-            chat-id: 118860645
+            chat: 118860645
             split-on: "\n"
 
 

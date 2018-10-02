@@ -53,7 +53,7 @@ class TelegramBot(object):
 
 def notify_factory(conf, value):
     try:
-        chat_id = value['chat-id']
+        chat_id = value['chat']
     except (TypeError, KeyError):
         chat_id = value
     try:
