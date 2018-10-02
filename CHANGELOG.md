@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+## [5.3.5] - 2018-10-02
+
+## Added
+- Telegram notifier option `split-on` (#70 thanks to @cescobarresi)
+
+## Changed
+- Fixed `xpath` transform for attribute and namespace access (#68 thanks to @cescobarresi)
+
 ## [5.3.4] - 2018-09-28
 
 ## Added
