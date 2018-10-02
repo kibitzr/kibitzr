@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 
 
 class TelegramBot(object):
-    def __init__(self, chat_id=None):
+    def __init__(self, chat_id=None, split_on=None):
         from telegram.bot import Bot
         telegram_creds = settings().creds['telegram']
         token = telegram_creds['token']
@@ -16,6 +16,7 @@ class TelegramBot(object):
             self._chat_id = chat_id
         else:
             self._chat_id = telegram_creds.get('chat')
+        self.split_on = split_on
         self.bot = Bot(token=token)
 
     @property
@@ -28,9 +29,21 @@ class TelegramBot(object):
         return self._chat_id
 
     def post(self, report, **kwargs):
+        if self.split_on:
+            report = report.split(self.split_on)
+        else:
+            report = [report]
+
+        for r in report:
+            # Telegram max message length is 4096 chars
+            messages = [r[i:i + 4096] for i in range(0, len(r), 4096)]
+            for m in messages:
+                self.send_message(m)
+
+    def send_message(self, message):
         message = self.bot.send_message(
             self.chat_id,
-            report,
+            message,
             parse_mode='Markdown',
         )
         return message
@@ -39,7 +52,16 @@ class TelegramBot(object):
 
 
 def notify_factory(conf, value):
-    return TelegramBot(value).post
+    try:
+        chat_id = value['chat-id']
+    except (TypeError, KeyError):
+        chat_id = value
+    try:
+        split_on = value['split-on']
+    except (TypeError, KeyError):
+        split_on = None
+
+    return TelegramBot(chat_id=chat_id, split_on=split_on).post
 
 
 def chat_id():
