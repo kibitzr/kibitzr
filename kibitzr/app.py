@@ -137,13 +137,26 @@ class Application(object):
         schedule.clear()
         for checker in checkers:
             conf = checker.conf
-            period = conf["period"]
-            logger.info(
-                "Scheduling checks for %r every %r seconds",
-                conf["name"],
-                period,
-            )
-            schedule.every(period).seconds.do(checker.check)
+            for s in conf['schedule']:
+                job = getattr(schedule.every(s['interval']), s['unit'])
+                if s['at'] is not None:
+                    logger.info(
+                        "Scheduling checks for %r every %r %s at %r",
+                        conf["name"],
+                        s['interval'],
+                        s['unit'],
+                        s['at']
+                    )
+                    job.at(s['at'])
+                else:
+                    logger.info(
+                        "Scheduling checks for %r every %r %s",
+                        conf["name"],
+                        s['interval'],
+                        s['unit'],
+                    )
+                # Add job to scheduler
+                job.do(checker.check)
 
     def execute_all(self, checkers):
         for checker in checkers:

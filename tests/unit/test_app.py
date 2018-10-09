@@ -43,7 +43,7 @@ def test_dummy_schedule(app, settings, check_noop):
     settings.checks.append({
         'name': 'A',
         'script': {'python': 'ok, content = True, "ok"'},
-        'period': 0,
+        'schedule': [{'interval': 0, 'unit': 'seconds', 'at': None}],
     })
     assert 1 == app.run()
     assert check_noop.call_count == 2
