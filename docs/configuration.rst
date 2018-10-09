@@ -35,7 +35,8 @@ Check may have ``url``.
 If it is provided, it will be used to fetch data.
 Another option is ``script``, which is an arbitrary bash script.
 
-Check will be executed every ``period`` seconds.
+Check will be executed every ``period`` seconds and/or on every ``schedule``. 
+See :red:`Schedule documentation <schedule>` for a complete list of possibilities.
 
 Fetched data from ``url`` (or ``script`` output) is passed
 to a pipeline of transformations defined under ``transform`` key.
@@ -165,5 +166,3 @@ For the more complete list of available formats refer to pytimeparse_ docs.
 .. _BeautifulSoup: https://www.crummy.com/software/BeautifulSoup/
 .. _mailgun: https://mailgun.com/
 .. _slack: https://slack.com/
-.. _selenium: https://selenium-python.readthedocs.io/api.html
-.. _pytimeparse: https://pypi.python.org/pypi/pytimeparse/

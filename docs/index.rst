@@ -21,6 +21,7 @@ Documentation Contents
    credentials
    usage
    scenario
+   schedule
    transforms
    notifiers
    python
