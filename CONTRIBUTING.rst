@@ -68,7 +68,7 @@ Ready to contribute? Here's how to set up `kibitzr` for local development.
 
     $ mkvirtualenv kibitzr
     $ cd kibitzr/
-    $ python setup.py develop
+    $ pip install -e . -r requirements/dev.txt
 
 4. Create a branch for local development::
 
@@ -79,16 +79,14 @@ Ready to contribute? Here's how to set up `kibitzr` for local development.
 5. When you're done making changes, check that your changes pass flake8 and the tests, including testing other Python versions with tox::
 
     $ flake8 kibitzr tests
-    $ python setup.py test or py.test
+    $ pytest
     $ tox
-
-   To get flake8 and tox, just pip install them into your virtualenv.
 
 6. Commit your changes and push your branch to GitHub::
 
     $ git add .
     $ git commit -m "Your detailed description of your changes."
-    $ git push origin name-of-your-bugfix-or-feature
+    $ git push -u origin name-of-your-bugfix-or-feature
 
 7. Submit a pull request through the GitHub website.
 
@@ -108,7 +106,6 @@ Before you submit a pull request, check that it meets these guidelines:
 Tips
 ----
 
-To run a subset of tests::
+To run a subset of tests pass it as an argument to pytest::
 
-$ py.test tests.test_kibitzr
-
+    $ pytest tests/unit/transforms
