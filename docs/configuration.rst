@@ -166,3 +166,5 @@ For the more complete list of available formats refer to pytimeparse_ docs.
 .. _BeautifulSoup: https://www.crummy.com/software/BeautifulSoup/
 .. _mailgun: https://mailgun.com/
 .. _slack: https://slack.com/
+.. _selenium: https://selenium-python.readthedocs.io/api.html
+.. _pytimeparse: https://pypi.python.org/pypi/pytimeparse/
