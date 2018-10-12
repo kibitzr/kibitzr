@@ -8,6 +8,8 @@ import six
 import yaml
 import pytimeparse
 import entrypoints
+import schedule
+import collections
 
 
 logger = logging.getLogger(__name__)
@@ -255,7 +257,16 @@ class SettingsParser(object):
                     interval = s['every']
                 at = s.get('at', None)
 
-                check_schedule.append({
+                try:
+                    getattr(schedule.every(1), unit)
+                except:
+                    raise ConfigurationError(
+                        "Unit %r not valid. Referenced in check %r"
+                        % (unit, check['name'])
+                    )
+
+                check_schedule.append(
+                        {
                     'interval': interval,
                     'unit': unit,
                     'at': at

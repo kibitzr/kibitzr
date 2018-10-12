@@ -76,7 +76,7 @@ checks:
           - python: print(content)
       schedule:
           - every: 1
-            unit: day
+            unit: days
             at: "15:30"
           - every: hour
           - every: 4
@@ -132,7 +132,7 @@ checks = [
         'transform': [{'css': 'span#theTime'}, 'text'],
         'notify': [{'python': 'print(content)'}],
         'schedule': [
-            {'interval': 1, 'unit': 'day', 'at': '15:30'},
+            {'interval': 1, 'unit': 'days', 'at': '15:30'},
             {'interval': 1, 'unit': 'hour', 'at': None},
             {'interval': 4, 'unit': 'minutes', 'at': None},
             {'interval': 1, 'unit': 'saturday', 'at': '11:17'},
@@ -236,3 +236,9 @@ def test_empty_period():
     with patch_conf(conf):
         conf = ReloadableSettings('::')
     assert conf.checks[0]['schedule'] == [{'interval': 300, 'unit': 'seconds', 'at': None}]
+
+def test_invalid_unit():
+    conf = "checks: [{name: x, schedule:{every: badunit}}]"
+    with patch_conf(conf):
+        with pytest.raises(ConfigurationError):
+            conf = ReloadableSettings('::')

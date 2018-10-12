@@ -36,7 +36,7 @@ If it is provided, it will be used to fetch data.
 Another option is ``script``, which is an arbitrary bash script.
 
 Check will be executed every ``period`` seconds and/or on every ``schedule``. 
-See :red:`Schedule documentation <schedule>` for a complete list of possibilities.
+See :ref:`Schedule documentation <schedule>` for a complete list of possibilities.
 
 Fetched data from ``url`` (or ``script`` output) is passed
 to a pipeline of transformations defined under ``transform`` key.
