@@ -4,19 +4,13 @@ import copy
 import logging.config
 import contextlib
 
-import six
 import yaml
-import pytimeparse
 import entrypoints
-import schedule
-import collections
 
+from . import timeline
+from .exceptions import ConfigurationError
 
 logger = logging.getLogger(__name__)
-
-
-class ConfigurationError(RuntimeError):
-    pass
 
 
 class ReloadableSettings(object):
@@ -188,7 +182,7 @@ class SettingsParser(object):
         for check in checks:
             self.inject_scenarios(check, conf.get('scenarios', {}))
             self.inject_notifiers(check, conf.get('notifiers', {}))
-            self.parse_schedule(check)
+            self.expand_schedule(check)
         return checks
 
     @staticmethod
@@ -215,64 +209,10 @@ class SettingsParser(object):
             check['scenario'] = shared_scenario
 
     @staticmethod
-    def parse_schedule(check):
-        check_schedule = []
-        if "period" not in check and "schedule" not in check:
-            check_schedule.append({
-                'interval': 300,
-                'unit': 'seconds',
-                'at': None
-            })
-        elif "period" in check:
-            period = check["period"]
-            if isinstance(period, six.string_types):
-                seconds = int(pytimeparse.parse(period))
-                logger.debug('Parsed "%s" to %d seconds',
-                             period, seconds)
-                period = seconds
-            check_schedule.append({
-                'interval': period,
-                'unit': 'seconds',
-                'at': None
-            })
+    def expand_schedule(check):
+        check_schedule = timeline.parse_check(check)
+        if 'period' in check:
             del check['period']
-        if "schedule" in check:
-            try:
-                # single schedule
-                conf_schedule = [
-                    {'every': check['schedule']['every'],
-                     'unit': check['schedule'].get('unit', None),
-                     'at': check['schedule'].get('at', None)}
-                ]
-            except TypeError:
-                # multiple schedules
-                conf_schedule = check['schedule']
-
-            for s in conf_schedule:
-                if isinstance(s['every'], six.string_types):
-                    unit = s['every']
-                    interval = 1
-                else:
-                    unit = s['unit']
-                    interval = s['every']
-                at = s.get('at', None)
-
-                try:
-                    getattr(schedule.every(1), unit)
-                except:
-                    raise ConfigurationError(
-                        "Unit %r not valid. Referenced in check %r"
-                        % (unit, check['name'])
-                    )
-
-                check_schedule.append(
-                        {
-                    'interval': interval,
-                    'unit': unit,
-                    'at': at
-                })
-                logger.debug('Parsed "%s" to %r',
-                             s, check_schedule[-1])
         check['schedule'] = check_schedule
 
     @staticmethod

@@ -7,6 +7,7 @@ from kibitzr.conf import (
     PlainYamlCreds,
     ConfigurationError,
 )
+from kibitzr.timeline import TimelineRule
 from ..compat import mock
 
 
@@ -98,33 +99,33 @@ checks = [
         'transforms': ['text', {'changes': 'verbose'}],
         'scenario': 'driver.find_element_by_css_selector(".login").click()\n',
         'notify': [{'smtp': 'kibitzrrr@gmail.com'}],
-        'schedule': [{'interval': 60, 'unit': 'seconds', 'at': None}]
+        'schedule': [TimelineRule(interval=60, unit='seconds', at=None)]
     },
     {
         'name': 'WordPress A Plugin',
         'url': "http://wordpress/A",
         'notify': ['mailgun'],
-        'schedule': [{'interval': 300, 'unit': 'seconds', 'at': None}]
+        'schedule': [TimelineRule(interval=300, unit='seconds', at=None)]
     },
     {
         'name': 'WordPress B Plugin',
         'url': "http://wordpress/B",
         'notify': ['mailgun'],
-        'schedule': [{'interval': 300, 'unit': 'seconds', 'at': None}]
+        'schedule': [TimelineRule(interval=300, unit='seconds', at=None)]
     },
     {
         'name': 'Alarm clock',
         'url': "https://www.worldtimeserver.com/current_time_in_US-NY.aspx",
         'transform': [{'css': 'span#theTime'}, 'text'],
         'notify': [{'python': 'print(content)'}],
-        'schedule': [{'interval': 1, 'unit': 'day', 'at': '6:30'}]
+        'schedule': [TimelineRule(interval=1, unit='day', at='6:30')]
     },
     {
         'name': 'Noon alarm',
         'url': "https://www.worldtimeserver.com/current_time_in_US-NY.aspx",
         'transform': [{'css': 'span#theTime'}, 'text'],
         'notify': [{'python': 'print(content)'}],
-        'schedule': [{'interval': 1, 'unit': 'day', 'at': '20:30'}]
+        'schedule': [TimelineRule(interval=1, unit='day', at='20:30')]
     },
     {
         'name': 'Crazy scheduling alarm',
@@ -132,10 +133,10 @@ checks = [
         'transform': [{'css': 'span#theTime'}, 'text'],
         'notify': [{'python': 'print(content)'}],
         'schedule': [
-            {'interval': 1, 'unit': 'days', 'at': '15:30'},
-            {'interval': 1, 'unit': 'hour', 'at': None},
-            {'interval': 4, 'unit': 'minutes', 'at': None},
-            {'interval': 1, 'unit': 'saturday', 'at': '11:17'},
+            TimelineRule(interval=1, unit='days', at='15:30'),
+            TimelineRule(interval=1, unit='hour', at=None),
+            TimelineRule(interval=4, unit='minutes', at=None),
+            TimelineRule(interval=1, unit='saturday', at='11:17')
         ]
     },
 ]
@@ -203,7 +204,7 @@ def test_reread():
     assert conf.checks == [{
         'name': 'Name',
         'url': 'URL',
-        'schedule': [{'interval': 60, 'unit': 'seconds', 'at': None}],
+        'schedule': [TimelineRule(interval=60, unit='seconds', at=None)]
     }]
 
 
@@ -220,7 +221,7 @@ def test_unnamed_check():
         conf = ReloadableSettings('::')
     assert conf.checks == [{
         'name': 'Unnamed check 1',
-        'schedule': [{'interval': 1, 'unit': 'seconds', 'at': None}],
+        'schedule': [TimelineRule(interval=1, unit='seconds', at=None)]
     }]
 
 
@@ -228,17 +229,37 @@ def test_period_parse():
     conf = "checks: [{period: 1 hour}]"
     with patch_conf(conf):
         conf = ReloadableSettings('::')
-    assert conf.checks[0]['schedule'] == [{'interval': 3600, 'unit': 'seconds', 'at': None}]
+    assert conf.checks[0]['schedule'] == [TimelineRule(interval=3600, unit='seconds', at=None)]
 
 
 def test_empty_period():
     conf = "checks: [{name: x}]"
     with patch_conf(conf):
         conf = ReloadableSettings('::')
-    assert conf.checks[0]['schedule'] == [{'interval': 300, 'unit': 'seconds', 'at': None}]
+    assert conf.checks[0]['schedule'] == [TimelineRule(interval=300, unit='seconds', at=None)]
+
 
 def test_invalid_unit():
-    conf = "checks: [{name: x, schedule:{every: badunit}}]"
+    conf = (
+        "checks:\n"
+        "  - name: x\n"
+        "    schedule: \n"
+        "      every: 2\n"
+        "      unit: invalidunit\n"
+    )
+    with patch_conf(conf):
+        with pytest.raises(ConfigurationError):
+            conf = ReloadableSettings('::')
+
+
+def test_invalid_every():
+    conf = (
+        "checks:\n"
+        "  - name: x\n"
+        "    schedule: \n"
+        "      every: '2'\n"
+        "      unit: seconds\n"
+    )
     with patch_conf(conf):
         with pytest.raises(ConfigurationError):
             conf = ReloadableSettings('::')
