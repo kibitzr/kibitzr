@@ -31,12 +31,13 @@ class SessionFetcher(object):
         })
         self.url = conf['url']
         self.valid_http = set(conf.get('valid_http', [200]))
+        self.verify_cert = conf.get('verify_cert', True)
 
     def fetch(self):
         retries = 3
         for retry in range(retries):
             try:
-                response = self.session.get(self.url, timeout=(3.05, 27))
+                response = self.session.get(self.url, timeout=(3.05, 27), verify=self.verify_cert)
             except self.EXCEPTED as exc:
                 if retry < retries - 1:
                     self.sleep_on_exception(exc, retry)

@@ -32,8 +32,9 @@ If no name is provided, it will be auto-generated.
 The name is used in notifications and internally as a check identifier.
 
 Check may have ``url``.
-If it is provided, it will be used to fetch data.
-Another option is ``script``, which is an arbitrary bash script.
+If it is provided, it will be used to fetch data. Optionally ``verify_cert`` can be set
+to ``False`` to skip verificaiton of the SSL certificate.
+Alternativelly data can be fetched by ``script``, which is an arbitrary bash script.
 
 Check will be executed every ``period`` seconds.
 
