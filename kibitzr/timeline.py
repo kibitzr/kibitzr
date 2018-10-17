@@ -89,7 +89,7 @@ class Timeline(object):
                         s.unit,
                         s.at
                     )
-                    job.at(s['at'])
+                    job.at(s.at)
                 else:
                     logger.info(
                         "Scheduling checks for %r every %r %s",
