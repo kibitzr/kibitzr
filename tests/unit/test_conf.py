@@ -1,14 +1,12 @@
-import contextlib
-
 import pytest
 from kibitzr.conf import (
     settings,
     ReloadableSettings,
-    PlainYamlCreds,
     ConfigurationError,
 )
 from kibitzr.timeline import TimelineRule
 from ..compat import mock
+from .helpers import patch_conf, patch_creds
 
 
 sample_conf = """
@@ -150,28 +148,6 @@ notifiers = {
 }
 
 
-@contextlib.contextmanager
-def patch_source(klass, method, data):
-    fake_file = mock.mock_open(read_data=data)
-    with mock.patch.object(klass,
-                           method,
-                           fake_file,
-                           create=True) as fake_method:
-        yield fake_method
-
-
-@contextlib.contextmanager
-def patch_creds(data):
-    with patch_source(PlainYamlCreds, 'open_creds', data) as fake_method:
-        yield fake_method
-
-
-@contextlib.contextmanager
-def patch_conf(data):
-    with patch_source(ReloadableSettings, 'open_conf', data) as fake_method:
-        yield fake_method
-
-
 def test_complex_conf_sample():
     with patch_conf(sample_conf):
         with patch_creds(sample_creds):
@@ -223,43 +199,3 @@ def test_unnamed_check():
         'name': 'Unnamed check 1',
         'schedule': [TimelineRule(interval=1, unit='seconds', at=None)]
     }]
-
-
-def test_period_parse():
-    conf = "checks: [{period: 1 hour}]"
-    with patch_conf(conf):
-        conf = ReloadableSettings('::')
-    assert conf.checks[0]['schedule'] == [TimelineRule(interval=3600, unit='seconds', at=None)]
-
-
-def test_empty_period():
-    conf = "checks: [{name: x}]"
-    with patch_conf(conf):
-        conf = ReloadableSettings('::')
-    assert conf.checks[0]['schedule'] == [TimelineRule(interval=300, unit='seconds', at=None)]
-
-
-def test_invalid_unit():
-    conf = (
-        "checks:\n"
-        "  - name: x\n"
-        "    schedule: \n"
-        "      every: 2\n"
-        "      unit: invalidunit\n"
-    )
-    with patch_conf(conf):
-        with pytest.raises(ConfigurationError):
-            conf = ReloadableSettings('::')
-
-
-def test_invalid_every():
-    conf = (
-        "checks:\n"
-        "  - name: x\n"
-        "    schedule: \n"
-        "      every: '2'\n"
-        "      unit: seconds\n"
-    )
-    with patch_conf(conf):
-        with pytest.raises(ConfigurationError):
-            conf = ReloadableSettings('::')

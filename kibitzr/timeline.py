@@ -1,7 +1,8 @@
-import logging
-import six
 import collections
+import logging
+import re
 
+import six
 import pytimeparse
 import schedule
 
@@ -13,8 +14,10 @@ TimelineRule = collections.namedtuple("TimelineRule", "interval unit at")
 
 
 class Timeline(object):
-    def __init__(self, scheduler):
-        self.scheduler = scheduler
+    RE_TIME = re.compile(r'\d\d:\d\d')
+
+    def __init__(self, scheduler=None):
+        self.scheduler = scheduler or schedule.default_scheduler
 
     @classmethod
     def parse_check(cls, check):
@@ -29,8 +32,7 @@ class Timeline(object):
             period = check["period"]
             if isinstance(period, six.string_types):
                 seconds = int(pytimeparse.parse(period))
-                logger.debug('Parsed "%s" to %d seconds',
-                             period, seconds)
+                logger.debug('Parsed "%s" to %d seconds', period, seconds)
                 period = seconds
             check_schedule.append(TimelineRule(
                 interval=period,
@@ -38,42 +40,67 @@ class Timeline(object):
                 at=None
             ))
         if "schedule" in check:
-            try:
-                # single schedule
-                conf_schedule = [
-                    {'every': check['schedule']['every'],
-                     'unit': check['schedule'].get('unit', None),
-                     'at': check['schedule'].get('at', None)}
-                ]
-            except TypeError:
-                # multiple schedules
-                conf_schedule = check['schedule']
-
-            for s in conf_schedule:
-                if isinstance(s['every'], six.string_types):
-                    unit = s['every']
-                    interval = 1
-                else:
-                    unit = s['unit']
-                    interval = s['every']
-                at = s.get('at', None)
-
-                try:
-                    getattr(schedule.every(1), unit)
-                except:
-                    raise ConfigurationError(
-                        "Unit %r not valid. Referenced in check %r"
-                        % (unit, check['name'])
-                    )
-
-                check_schedule.append(TimelineRule(
-                    interval=interval,
-                    unit=unit,
-                    at=at
-                ))
-                logger.debug('Parsed "%s" to %r',
-                             s, check_schedule[-1])
+            schedule_value = check['schedule']
+            if isinstance(schedule_value, dict):
+                check_schedule.append(
+                    cls._clean_single_schedule(check, schedule_value)
+                )
+            elif isinstance(schedule_value, list):
+                check_schedule.extend([
+                    cls._clean_single_schedule(check, item)
+                    for item in schedule_value
+                ])
+            else:
+                raise ConfigurationError(
+                    'Check {0} has invalid schedule configuration: {1}'
+                    .format(check['name'], check['schedule'])
+                )
         return check_schedule
+
+    @classmethod
+    def _clean_single_schedule(cls, check, schedule_dict):
+        if not isinstance(schedule_dict, dict):
+            raise ConfigurationError(
+                'Check {0} has invalid schedule configuration: {1}'
+                .format(check['name'], schedule_dict),
+            )
+        try:
+            every = schedule_dict['every']
+        except KeyError:
+            raise ConfigurationError(
+                "Check {0} has invalid schedule format: {1}"
+                .format(check['name'], schedule_dict)
+            )
+        if isinstance(every, six.string_types):
+            # "every: day" shortcut
+            unit, every = every, 1
+        else:
+            unit = schedule_dict.get('unit')
+        unit = cls._clean_unit(check, unit)
+        at = cls._clean_at(check, schedule_dict.get('at'))
+        rule = TimelineRule(every, unit, at)
+        logger.debug('Parsed schedule "%r" to %r', schedule_dict, rule)
+        return rule
+
+    @staticmethod
+    def _clean_unit(check, unit):
+        try:
+            getattr(schedule.every(1), unit)
+        except:
+            raise ConfigurationError(
+                "Unit {0} is not one of valid options. Referenced in check {1}"
+                .format(unit, check['name'])
+            )
+        return unit
+
+    @classmethod
+    def _clean_at(cls, check, at):
+        if at is None or cls.RE_TIME.match(at):
+            return at
+        raise ConfigurationError(
+            'Check {0} schedule has invalid value for "at": {1}'
+            .format(check['name'], at)
+        )
 
     def schedule_checks(self, checkers):
         self.scheduler.clear()
@@ -105,7 +132,7 @@ class Timeline(object):
 # create a Timeline instance:
 
 # default_timeline explicitly uses the default scheduler
-default_timeline = Timeline(schedule.default_scheduler)
+default_timeline = Timeline()
 
 
 def parse_check(check):

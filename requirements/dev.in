@@ -15,6 +15,7 @@ pytest-pep8
 tox
 watchdog
 wheel
+freezegun
 pip-compile-multi
 
 # for Python 2 compatibility
