@@ -35,11 +35,11 @@ A check runs for each ``schedule`` item configured.
 
 The syntax is:
 
- * ``every`` (integer) - period (default 1);
- * ``unit`` (string) - unit of the period;
+ * ``every`` (integer) - interval length, required;
+ * ``unit`` (string) - unit of the interval;
  * ``at`` (string) - time to run the check in HH:MM format. Applicable only if unit is "days".
 
-The rule mimics the pattern: "Every ``every`` ``unit`` at ``at``." All parts are optional, but one of ``every`` or ``unit`` must be present.
+The rule mimics the pattern: "Every ``every`` ``unit`` at ``at``."
 
 .. code-block:: yaml
     
