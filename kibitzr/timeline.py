@@ -14,7 +14,7 @@ TimelineRule = collections.namedtuple("TimelineRule", "interval unit at")
 
 
 class Timeline(object):
-    RE_TIME = re.compile(r'\d\d:\d\d')
+    RE_TIME = re.compile(r'\d?\d:\d\d')
 
     def __init__(self, scheduler=None):
         self.scheduler = scheduler or schedule.default_scheduler
