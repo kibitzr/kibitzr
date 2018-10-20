@@ -11,7 +11,7 @@ sets a priority for conflict resolution.
 Promoter instance is initialized with conf and delegates calls to fetcher.
 """
 
-from kibitzr.conf import ConfigurationError
+from kibitzr.exceptions import ConfigurationError
 
 from .loader import load_promoters
 

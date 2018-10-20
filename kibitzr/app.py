@@ -3,13 +3,13 @@ import signal
 import time
 import code
 
-import schedule
 import entrypoints
 
 from .conf import settings, SettingsParser
 from .fetcher import cleanup_fetchers, persistent_firefox
 from .checker import Checker
 from .bootstrap import create_boilerplate
+from . import timeline
 
 
 logger = logging.getLogger(__name__)
@@ -116,7 +116,7 @@ class Application(object):
         logging.getLogger("").setLevel(log_level)
 
     def check_forever(self, checkers):
-        self.schedule_checks(checkers)
+        timeline.schedule_checks(checkers)
         logger.info("Starting infinite loop")
         while not self.signals['reload_conf_pending']:
             if self.signals['interrupted']:
@@ -127,23 +127,10 @@ class Application(object):
                     banner="Kibitzr debug shell",
                     local=locals(),
                 )
-            schedule.run_pending()
+            timeline.run_pending()
             if self.signals['interrupted']:
                 break
             time.sleep(1)
-
-    @staticmethod
-    def schedule_checks(checkers):
-        schedule.clear()
-        for checker in checkers:
-            conf = checker.conf
-            period = conf["period"]
-            logger.info(
-                "Scheduling checks for %r every %r seconds",
-                conf["name"],
-                period,
-            )
-            schedule.every(period).seconds.do(checker.check)
 
     def execute_all(self, checkers):
         for checker in checkers:

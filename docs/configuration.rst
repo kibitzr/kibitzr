@@ -36,7 +36,8 @@ If it is provided, it will be used to fetch data. Optionally ``verify_cert`` can
 to ``False`` to skip verificaiton of the SSL certificate.
 Alternativelly data can be fetched by ``script``, which is an arbitrary bash script.
 
-Check will be executed every ``period`` seconds.
+Check will be executed every ``period`` seconds and/or on every ``schedule``. 
+See :ref:`Schedule documentation <schedule>` for a complete list of possibilities.
 
 Fetched data from ``url`` (or ``script`` output) is passed
 to a pipeline of transformations defined under ``transform`` key.

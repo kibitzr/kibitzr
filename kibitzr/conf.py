@@ -4,17 +4,13 @@ import copy
 import logging.config
 import contextlib
 
-import six
 import yaml
-import pytimeparse
 import entrypoints
 
+from . import timeline
+from .exceptions import ConfigurationError
 
 logger = logging.getLogger(__name__)
-
-
-class ConfigurationError(RuntimeError):
-    pass
 
 
 class ReloadableSettings(object):
@@ -186,7 +182,7 @@ class SettingsParser(object):
         for check in checks:
             self.inject_scenarios(check, conf.get('scenarios', {}))
             self.inject_notifiers(check, conf.get('notifiers', {}))
-            self.fix_period(check)
+            self.expand_schedule(check)
         return checks
 
     @staticmethod
@@ -213,13 +209,11 @@ class SettingsParser(object):
             check['scenario'] = shared_scenario
 
     @staticmethod
-    def fix_period(check):
-        period = check.setdefault('period', 300)
-        if isinstance(period, six.string_types):
-            seconds = int(pytimeparse.parse(period))
-            logger.debug('Parsed "%s" to %d seconds',
-                         period, seconds)
-            check['period'] = seconds
+    def expand_schedule(check):
+        check_schedule = timeline.parse_check(check)
+        if 'period' in check:
+            del check['period']
+        check['schedule'] = check_schedule
 
     @staticmethod
     def unpack_batches(checks):
