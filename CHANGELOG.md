@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## [5.4.0] - 2018-10-20
+
+## Added
+- Schedule option (#71 thanks to @cescobarresi)
+- Option to omit HTTPS certificate verification in simple fetcher (#72 thanks to @cescobarresi)
+
 ## [5.3.5] - 2018-10-02
 
 ## Added
