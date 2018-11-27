@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## [5.4.1] - 2018-11-27
+
+## Changed
+- Replaced option `verify_cert` with `verify-cert` for consistency
+
 ## [5.4.0] - 2018-10-20
 
 ## Added

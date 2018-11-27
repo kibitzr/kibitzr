@@ -31,7 +31,7 @@ class SessionFetcher(object):
         })
         self.url = conf['url']
         self.valid_http = set(conf.get('valid_http', [200]))
-        self.verify_cert = conf.get('verify_cert', True)
+        self.verify_cert = conf.get('verify-cert', conf.get('verify_cert', True))
 
     def fetch(self):
         retries = 3
