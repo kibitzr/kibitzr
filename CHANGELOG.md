@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+## Changed
+- Better support for dynamic forms filling. Check only first form field for accessibility.
+
 ## [5.4.1] - 2018-11-27
 
 ## Changed

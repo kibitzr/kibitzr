@@ -140,12 +140,17 @@ class FirefoxFetcher(object):
         form = conf.get('form', [])
         fields = []
         creds = settings().creds
+        first_field = True
         for field in form:
             click = field.get('click')
             text = self._parse_field_text(field, conf, creds)
             selector_type, selector = self._parse_field_selector(field)
             if selector:
-                element = self._find_element(selector, selector_type)
+                element = self._find_element(
+                    selector,
+                    selector_type,
+                    check_displayed=first_field,
+                )
                 if element:
                     fields.append({
                         'element': element,
@@ -155,13 +160,15 @@ class FirefoxFetcher(object):
                 else:
                     logging.warning("Element {%s: %s} not found",
                                     selector_type, selector)
+            else:
+                logging.warning("Failed to parse selector %r", field)
+            first_field = False
         if len(fields) == len(form):
             return fields
-        else:
-            logging.info(
-                "Skipped form filling because not all fields were found"
-            )
-            return []
+        logging.info(
+            "Skipped form filling because not all fields were found"
+        )
+        return []
 
     @staticmethod
     def _parse_field_selector(field):
@@ -202,6 +209,7 @@ class FirefoxFetcher(object):
             for crumb in bread_crumbs:
                 node = node[crumb]
             return node
+        return None
 
     def _run_scenario(self, conf):
         scenario = conf.get('scenario')
@@ -248,7 +256,7 @@ class FirefoxFetcher(object):
             result[name] = self._find_element(selector, selector_type.lower())
         return result
 
-    def _find_element(self, selector, selector_type):
+    def _find_element(self, selector, selector_type, check_displayed=False):
         """
         Return first matching displayed element of non-zero size
         or None if nothing found
@@ -265,9 +273,10 @@ class FirefoxFetcher(object):
                 % (selector_type, selector)
             )
         for element in elements:
-            if element.is_displayed():
-                if sum(element.size.values()) > 0:
-                    return element
+            if check_displayed:
+                if not element.is_displayed() or sum(element.size.values()) <= 0:
+                    continue
+            return element
 
     def _exec_scenario(self, code, conf, elements):
         logger.info("Executing custom scenario")
