@@ -12,7 +12,7 @@ RUN apt -qqy update                     \
        python3-lxml                      \
        python3-yaml                      \
        python3-pip                       \
-    && curl -L https://github.com/mozilla/geckodriver/releases/download/v0.20.1/geckodriver-v0.20.1-linux64.tar.gz | tar zxf -  \
+    && curl -L https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-linux64.tar.gz | tar zxf -  \
     && mv geckodriver /usr/local/bin/   \
     && apt-get remove -y curl           \
     && apt-get clean                    \
