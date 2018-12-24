@@ -6,58 +6,54 @@
 #    pip-compile-multi
 #
 -r base.txt
-alabaster==0.7.11         # via sphinx
+alabaster==0.7.12         # via sphinx
 apipkg==1.5               # via execnet
 argh==0.26.2              # via watchdog
-asn1crypto==0.24.0        # via cryptography
 astroid==1.6.5
-atomicwrites==1.1.5       # via pytest
-attrs==18.1.0             # via pytest
+atomicwrites==1.2.1       # via pytest
+attrs==18.2.0             # via pytest
 babel==2.6.0              # via sphinx
-bump2version==0.5.8
-cffi==1.11.5              # via cryptography
-coverage==4.5.1
-cryptography==2.3.1
+bump2version==0.5.10
+coverage==4.5.2
 docutils==0.14            # via sphinx
 execnet==1.5.0            # via pytest-cache
-first==2.0.1              # via pip-tools
-flake8==3.5.0
+filelock==3.0.10          # via tox
+flake8==3.6.0
 freezegun==0.3.11
-imagesize==1.0.0          # via sphinx
+imagesize==1.1.0          # via sphinx
 isort==4.3.4              # via pylint
 mccabe==0.6.1             # via flake8, pylint
 mock==2.0.0
 more-itertools==4.3.0     # via pytest
-packaging==17.1           # via sphinx
-pathlib2==2.3.2           # via pytest
+packaging==18.0           # via sphinx
 pathtools==0.1.2          # via watchdog
-pbr==4.2.0                # via mock
+pbr==5.1.1                # via mock
 pep8==1.7.1
-pip-compile-multi==1.2.1
-pip-tools==2.0.2          # via pip-compile-multi
-pluggy==0.7.1             # via pytest, tox
-py==1.5.4                 # via pytest, tox
-pycodestyle==2.3.1        # via flake8
-pycparser==2.18           # via cffi
-pyflakes==1.6.0           # via flake8
-pygments==2.2.0           # via sphinx
+pip-compile-multi==1.2.2
+pip-tools==3.1.0          # via pip-compile-multi
+pluggy==0.8.0             # via pytest, tox
+py==1.7.0                 # via pytest, tox
+pycodestyle==2.4.0        # via flake8
+pyflakes==2.0.0           # via flake8
+pygments==2.3.0           # via sphinx
 pylint==1.9.3
-pyparsing==2.2.0          # via packaging
+pyparsing==2.3.0          # via packaging
 pytest-cache==1.0         # via pytest-pep8
-pytest-cov==2.5.1
+pytest-cov==2.6.0
 pytest-mock==1.10.0
 pytest-pep8==1.0.6
-pytest==3.7.1
-python-dateutil==2.7.3    # via freezegun
-pytz==2018.5              # via babel
+pytest==4.0.1
+python-dateutil==2.7.5    # via freezegun
+pytz==2018.7              # via babel
 snowballstemmer==1.2.1    # via sphinx
-sphinx==1.7.6
+sphinx==1.8.2
 sphinxcontrib-websupport==1.1.0  # via sphinx
+toml==0.10.0              # via tox
 toposort==1.5             # via pip-compile-multi
-tox==3.2.1
-virtualenv==16.0.0        # via tox
-watchdog==0.8.3
-wheel==0.31.1
+tox==3.5.3
+virtualenv==16.1.0        # via tox
+watchdog==0.9.0
+wheel==0.32.3
 wrapt==1.10.11            # via astroid
 
 # The following packages are considered to be unsafe in a requirements file:
