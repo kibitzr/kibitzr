@@ -2,8 +2,11 @@
 
 ## Unreleased
 
+## [5.4.2] - 2018-12-27
+
 ## Changed
 - Better support for dynamic forms filling. Check only first form field for accessibility.
+- Changed `bash` to `shell` in docs and added alias.
 
 ## [5.4.1] - 2018-11-27
 
