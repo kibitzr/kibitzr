@@ -10,5 +10,9 @@ class BashNotify(object):
         execute_bash(self.code, report)
 
 
+def register(registry):
+    registry['shell'] = registry['bash'] = notify_factory
+
+
 def notify_factory(conf, value):
     return BashNotify(value)

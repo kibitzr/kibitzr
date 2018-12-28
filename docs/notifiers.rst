@@ -15,8 +15,8 @@ Kibitzr supports following notifier types:
 4. ``telegram`` - Send message through :ref:`private Telegram Bot <telegram>`
 5. ``zapier`` - Trigger `Zapier Catch Hook`_
 6. ``gitter`` - Or post to gitter's chat
-7. ``python`` - Run Python script
-8. ``bash`` - Run bash script
+7. ``python`` - Run :ref:`Python script <python>`
+8. ``shell`` - Run :ref:`shell script <shell>`
 9. ``stash`` - Save to persistent global key-value storage; See :ref:`stash` for details
 
 Each notifier requires different configuration.

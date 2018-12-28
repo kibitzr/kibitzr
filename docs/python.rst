@@ -52,9 +52,9 @@ Python Fetcher
 
 To fetch content with a script instead of URL, check must
 have no ``url`` key, and have ``script`` defined.
-If ``script``'s value is a string, it will be used as bash script.
+If ``script``'s value is a string, it will be used as shell script.
 Alternatively ``script`` can hold a dictionary of one item.
-Item's key can be ``bash`` or ``python``.
+Item's key can be ``shell`` (for :ref:`Shell fetcher <shell>`) or ``python``.
 If ``script``'s only key is ``python``, then it's value will be
 executed as a Python script.
 Script is an arbitrary Python code with few constraints:

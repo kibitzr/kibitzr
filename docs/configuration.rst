@@ -34,7 +34,7 @@ The name is used in notifications and internally as a check identifier.
 Check may have ``url``.
 If it is provided, it will be used to fetch data. Optionally ``verify-cert`` can be set
 to ``False`` to skip verificaiton of the SSL certificate.
-Alternativelly data can be fetched by ``script``, which is an arbitrary bash script.
+Alternativelly data can be fetched by ``script``, which is an arbitrary shell script.
 
 Check will be executed every ``period`` seconds and/or on every ``schedule``. 
 See :ref:`Schedule documentation <schedule>` for a complete list of possibilities.

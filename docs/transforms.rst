@@ -22,9 +22,13 @@ Plain text
 * ``changes`` - Compare to the previous version of the content and return difference report.
 * ``changes: verbose`` - Same as ``changes``, but in human-friendly format.
 * ``changes: word`` - Same as ``changes``, but highlight changes within a string.
-* ``python: code`` - Execute arbitrary Python *code* on passed content. See :ref:`Python support` for details.
-* ``bash: code`` - Execute arbitrary bash *code* on passed content. Call ``grep``, ``awk`` or ``sed``, for example.
 * ``jinja: template`` - Render Jinja2 template. See `jinja transform`_ for reference.  
+
+Code
+----
+
+* ``python: code`` - Execute arbitrary :ref:`Python *code* <python>` on passed content.
+* ``shell: code`` - Execute arbitrary :ref:`shell` *code* on passed content. Call ``grep``, ``awk`` or ``sed``, for example.
 
 JSON
 ----

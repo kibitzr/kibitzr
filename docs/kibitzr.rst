@@ -13,6 +13,14 @@ Subpackages
 Submodules
 ----------
 
+kibitzr.app module
+------------------
+
+.. automodule:: kibitzr.app
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 kibitzr.bash module
 -------------------
 
@@ -45,6 +53,14 @@ kibitzr.cli module
     :undoc-members:
     :show-inheritance:
 
+kibitzr.compat module
+---------------------
+
+.. automodule:: kibitzr.compat
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 kibitzr.conf module
 -------------------
 
@@ -53,10 +69,18 @@ kibitzr.conf module
     :undoc-members:
     :show-inheritance:
 
-kibitzr.main module
--------------------
+kibitzr.exceptions module
+-------------------------
 
-.. automodule:: kibitzr.main
+.. automodule:: kibitzr.exceptions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kibitzr.stash module
+--------------------
+
+.. automodule:: kibitzr.stash
     :members:
     :undoc-members:
     :show-inheritance:
@@ -65,6 +89,14 @@ kibitzr.storage module
 ----------------------
 
 .. automodule:: kibitzr.storage
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kibitzr.timeline module
+-----------------------
+
+.. automodule:: kibitzr.timeline
     :members:
     :undoc-members:
     :show-inheritance:

@@ -46,4 +46,5 @@ def register():
         'changes': changes_transform_factory,
         'python': bake_parametrized(python_transform, pass_conf=True),
         'bash': bake_parametrized(bash_transform),
+        'shell': bake_parametrized(bash_transform),
     }
