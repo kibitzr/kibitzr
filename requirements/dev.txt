@@ -24,33 +24,34 @@ imagesize==1.1.0          # via sphinx
 isort==4.3.4              # via pylint
 mccabe==0.6.1             # via flake8, pylint
 mock==2.0.0
-more-itertools==4.3.0     # via pytest
+more-itertools==5.0.0     # via pytest
 packaging==18.0           # via sphinx
+pathlib2==2.3.3           # via pytest
 pathtools==0.1.2          # via watchdog
 pbr==5.1.1                # via mock
 pep8==1.7.1
 pip-compile-multi==1.2.2
-pip-tools==3.1.0          # via pip-compile-multi
+pip-tools==3.2.0          # via pip-compile-multi
 pluggy==0.8.0             # via pytest, tox
 py==1.7.0                 # via pytest, tox
 pycodestyle==2.4.0        # via flake8
 pyflakes==2.0.0           # via flake8
-pygments==2.3.0           # via sphinx
-pylint==1.9.3
+pygments==2.3.1           # via sphinx
+pylint==1.9.4
 pyparsing==2.3.0          # via packaging
 pytest-cache==1.0         # via pytest-pep8
 pytest-cov==2.6.0
 pytest-mock==1.10.0
 pytest-pep8==1.0.6
-pytest==4.0.1
+pytest==4.0.2
 python-dateutil==2.7.5    # via freezegun
 pytz==2018.7              # via babel
 snowballstemmer==1.2.1    # via sphinx
-sphinx==1.8.2
+sphinx==1.8.3
 sphinxcontrib-websupport==1.1.0  # via sphinx
 toml==0.10.0              # via tox
 toposort==1.5             # via pip-compile-multi
-tox==3.5.3
+tox==3.6.1
 virtualenv==16.1.0        # via tox
 watchdog==0.9.0
 wheel==0.32.3
