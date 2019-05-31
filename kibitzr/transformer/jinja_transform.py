@@ -140,16 +140,23 @@ class LazyXML(object):
         return self._root
 
     def xpath(self, selector):
+        def to_string(element):
+            try:
+                return self.etree.tostring(
+                    element,
+                    method='html',
+                    pretty_print=True,
+                    encoding='unicode',
+                )
+            except TypeError:
+                return str(element)
+
         elements = self.root.xpath(selector)
-        return [
-            self.etree.tostring(
-                element,
-                method='html',
-                pretty_print=True,
-                encoding='unicode',
-            )
-            for element in elements
-        ]
+
+        if isinstance(elements, (list, tuple)):
+            return [to_string(element) for element in elements]
+        else:
+            return to_string(elements)
 
 
 def register():

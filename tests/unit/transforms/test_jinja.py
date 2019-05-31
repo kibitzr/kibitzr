@@ -1,3 +1,4 @@
+import pytest
 from kibitzr.transformer.jinja_transform import JinjaTransform
 
 from ...helpers import stash_mock
@@ -34,13 +35,24 @@ def test_css_selector_is_passed():
     assert content == "P"
 
 
-def test_xpath_selector_is_passed():
+# For possible types of xpath evaluation:
+# https://lxml.de/xpathxslt.html#xpath-return-values
+@pytest.mark.parametrize("selector,expected", [
+    pytest.param("//div/p", "P", id="elements"),
+    pytest.param("//a/@href", "#", id="attributes"),
+    pytest.param("string(//p)", "P", id="string"),
+    pytest.param("count(//p)", "1.0", id="float"),
+    pytest.param("true()", "True", id="boolean"),
+    ])
+def test_xpath_selector_is_passed(selector, expected):
+    code = '{{ xpath("%s") | text }}' % selector
+
     ok, content = jinja_transform(
-        '{{ xpath("//div/p") | text }}',
-        '<div><a>A</a><p>P</p></div>',
-    )
+        code,
+        '<div><a href="#">A</a><p>P</p></div>'
+        )
     assert ok is True
-    assert content == "P"
+    assert content == expected
 
 
 def test_stash_is_passed():
