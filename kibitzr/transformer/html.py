@@ -5,9 +5,6 @@ import functools
 
 import six
 
-from .utils import bake_parametrized
-from .xpath import xpath_selector
-
 
 logger = logging.getLogger(__name__)
 
@@ -91,12 +88,10 @@ def bake_html(key):
 
 def register():
     """
-    Return dictionary of tranform factories
+    Return dictionary of transform factories
     """
     registry = {
         key: bake_html(key)
         for key in ('css', 'css-all', 'tag', 'text')
     }
-    registry['xpath'] = bake_parametrized(xpath_selector, select_all=False)
-    registry['xpath-all'] = bake_parametrized(xpath_selector, select_all=True)
     return registry

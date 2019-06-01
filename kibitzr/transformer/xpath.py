@@ -5,6 +5,8 @@ import six
 from defusedxml import lxml as dlxml
 from lxml import etree
 
+from .utils import bake_parametrized
+
 
 logger = logging.getLogger(__name__)
 
@@ -68,3 +70,14 @@ def xpath_selector(selector, html, select_all):
         logger.warning('XPath selector not found: %r', selector)
         return False, html
     return True, serialize_xpath_results(xpath_results, select_all)
+
+
+def register():
+    """
+    Return dictionary of transform factories
+    """
+    registry = {
+        'xpath': bake_parametrized(xpath_selector, select_all=False),
+        'xpath-all': bake_parametrized(xpath_selector, select_all=True)
+    }
+    return registry
