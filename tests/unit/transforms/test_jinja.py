@@ -43,14 +43,14 @@ def test_css_selector_is_passed():
     pytest.param("string(//p)", "P", id="string"),
     pytest.param("count(//p)", "1.0", id="float"),
     pytest.param("true()", "True", id="boolean"),
-    ])
+])
 def test_xpath_selector_is_passed(selector, expected):
     code = '{{ xpath("%s") | text }}' % selector
 
     ok, content = jinja_transform(
         code,
         '<div><a href="#">A</a><p>P</p></div>'
-        )
+    )
     assert ok is True
     assert content == expected
 
