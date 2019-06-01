@@ -1,45 +1,41 @@
 import logging
+import re
 
 import six
+from defusedxml import lxml as dlxml
+from lxml import etree
+
 
 logger = logging.getLogger(__name__)
 
 
 def parse_html(html):
-    from defusedxml import lxml as dlxml
-    from lxml import etree
+    """
+    Returns `html` parsed with lxml.
 
+    :param html: Unicode content
+    """
     # lxml requires argument to be bytes
     # see https://github.com/kibitzr/kibitzr/issues/47
     encoded = html.encode('utf-8')
     return dlxml.fromstring(encoded, parser=etree.HTMLParser())
 
 
-def xpath_selector(selector, html, select_all):
+def serialize_xpath_results(xpath_results, select_all):
     """
-    Returns Xpath match for `selector` within `html`.
+    Serializes results of xpath evaluation.
 
-    :param selector: XPath string
-    :param html: Unicode content
+    :param xpath_results: Results of xpath evaluation.
+    See: https://lxml.de/xpathxslt.html#xpath-return-values
+
     :param select_all: True to get all matches
     """
-    from defusedxml import lxml as dlxml
-    import re
-
-    root = parse_html(html)
-    xpath_results = root.xpath(selector)
-    if not xpath_results:
-        logger.warning('XPath selector not found: %r', selector)
-        return False, html
-
     if isinstance(xpath_results, list):
         if select_all is False:
             xpath_results = xpath_results[0:1]
     else:
         xpath_results = [xpath_results]
 
-    # Serialize xpath_results
-    # see https://lxml.de/xpathxslt.html#xpath-return-values
     results = []
     for r in xpath_results:
         # namespace declarations
@@ -54,4 +50,21 @@ def xpath_selector(selector, html, select_all):
         else:
             results.append(r)
 
-    return True, u"\n".join(six.text_type(x).strip() for x in results)
+    return u"\n".join(six.text_type(x).strip() for x in results)
+
+
+def xpath_selector(selector, html, select_all):
+    """
+    Returns Xpath match for `selector` within `html`.
+
+    :param selector: XPath string
+    :param html: Unicode content
+    :param select_all: True to get all matches
+    """
+    root = parse_html(html)
+    xpath_results = root.xpath(selector)
+
+    if not xpath_results:
+        logger.warning('XPath selector not found: %r', selector)
+        return False, html
+    return True, serialize_xpath_results(xpath_results, select_all)
