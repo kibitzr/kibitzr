@@ -1,9 +1,6 @@
 import logging
-import re
 
 import six
-from defusedxml import lxml as dlxml
-from lxml import etree
 
 from .utils import bake_parametrized
 
@@ -17,6 +14,9 @@ def parse_html(html):
 
     :param html: Unicode content
     """
+    from defusedxml import lxml as dlxml
+    from lxml import etree
+
     # lxml requires argument to be bytes
     # see https://github.com/kibitzr/kibitzr/issues/47
     encoded = html.encode('utf-8')
@@ -32,6 +32,9 @@ def serialize_xpath_results(xpath_results, select_all):
 
     :param select_all: True to get all matches
     """
+    from defusedxml import lxml as dlxml
+    import re
+
     if isinstance(xpath_results, list):
         if select_all is False:
             xpath_results = xpath_results[0:1]
