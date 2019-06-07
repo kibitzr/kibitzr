@@ -7,7 +7,7 @@ import six
 
 from kibitzr.stash import LazyStash
 from .html import deep_recursion, SoupOps
-
+from .xpath import parse_html, serialize_xpath_results
 
 logger = logging.getLogger(__name__)
 
@@ -125,31 +125,18 @@ class LazyHTML(object):
 
 class LazyXML(object):
     def __init__(self, content):
-        from lxml import etree
         self.xml = content
         self._root = None
-        self.etree = etree
 
     @property
     def root(self):
         if self._root is None:
-            self._root = self.etree.fromstring(
-                self.xml,
-                parser=self.etree.HTMLParser(),
-            )
+            self._root = parse_html(self.xml)
         return self._root
 
     def xpath(self, selector):
         elements = self.root.xpath(selector)
-        return [
-            self.etree.tostring(
-                element,
-                method='html',
-                pretty_print=True,
-                encoding='unicode',
-            )
-            for element in elements
-        ]
+        return serialize_xpath_results(elements, select_all=True)
 
 
 def register():
