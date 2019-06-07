@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## [5.4.3] - 2019-06-07
+
+## Fixed
+- Fixed `xpath` in Jinja transform for attribute and namespace access (#81 thanks to @mstarzyk)
+
 ## [5.4.2] - 2018-12-27
 
 ## Changed
