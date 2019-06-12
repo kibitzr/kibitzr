@@ -31,3 +31,4 @@ Documentation Contents
    recipes
    contributing
    contributors
+   history

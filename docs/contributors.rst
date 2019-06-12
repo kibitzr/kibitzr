@@ -10,3 +10,5 @@ People, who contributed to Kibitzr in arbitrary order:
 * `Attila Nagy <https://github.com/attilanagy>`_
 * `Niklas Heer <https://github.com/niklas-heer>`_
 * `Francesco Barresi <https://github.com/cescobarresi>`_
+* `Maciek Starzyk <https://github.com/mstarzyk>`_
+* `ColdIce <https://github.com/ColdIce1>`_

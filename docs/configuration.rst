@@ -58,6 +58,42 @@ Kibitzr supports browser interactions. They can be activated by using any of key
 Browser interaction is a strong side of Kibitzr and a tough article in itself.
 Please refer to :ref:`Browser automation <scenario>` documentation.
 
+.. _selenium: https://selenium-python.readthedocs.io/api.html
+
+Environment variables
+---------------------
+
+Kibitzr provides read access to environment variables in a number of ways.
+
+Inside :ref:`Python` scripts, use Pythonic builtin module ``os``:
+
+.. code-block:: python
+
+    import os
+    os.environ['NAME']
+
+In shell scripts use bash syntax:
+
+.. code-block:: bash
+
+    echo ${NAME}
+
+Jinja templates have ``env`` dictionary in their context:
+
+.. code-block:: jinja
+
+    {{ env.NAME }}
+
+``kibitzr-creds.yml`` supports bash-like environment interpolation provided by yamlenv_ library:
+
+.. code-block:: yaml
+
+    service:
+        username: ${ USERNAME }
+        password: ${ PASSWORD }
+
+.. _yamlenv: https://pypi.org/project/yamlenv/
+
 .. _configuration-example:
 
 Example break down
@@ -163,9 +199,4 @@ The number of seconds to wait between (*start of*) checks.
 Kibitzr understands time to the extent, you can write ``1 hour`` instead of ``3600``.
 For the more complete list of available formats refer to pytimeparse_ docs.
 
-.. _requests: http://docs.python-requests.org/
-.. _BeautifulSoup: https://www.crummy.com/software/BeautifulSoup/
-.. _mailgun: https://mailgun.com/
-.. _slack: https://slack.com/
-.. _selenium: https://selenium-python.readthedocs.io/api.html
 .. _pytimeparse: https://pypi.python.org/pypi/pytimeparse/
