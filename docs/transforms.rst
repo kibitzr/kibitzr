@@ -51,8 +51,9 @@ Following variables are passed into a context:
 * ``json`` - input parsed from JSON
 * ``css`` - crop input HTML to CSS selector, similar to ``css-all`` transform
 * ``xpath`` - crop input XML to XPath selector, similar to ``xpath`` transform
+* ``env`` - environment variables dictionary.
 
-Also set of built-in Jinja filters is augmented with:
+Also set of built-in Jinja filters is extended with:
 
 * ``text`` - strip all HTML tags and return only text
 * ``float`` - remove all characters except numbers and point.

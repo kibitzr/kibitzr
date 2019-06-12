@@ -1,4 +1,5 @@
 import re
+import os
 import logging
 import json
 import functools
@@ -44,6 +45,7 @@ class JinjaTransform(object):
             'json': LazyJSON(content),
             'css': html.css,
             'xpath': xml.xpath,
+            'env': os.environ,
         }
 
 
