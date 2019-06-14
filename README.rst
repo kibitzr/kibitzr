@@ -33,6 +33,10 @@ Kibitzr
         :target: https://pepy.tech/project/kibitzr
         :alt: Downloads
 
+.. image:: https://incubator.sig.eu/TEST-SMELLS/edge/badge/kibitzr/kibitzr?branch=master
+        :target: https://incubator.sig.eu/TEST-SMELLS/
+        :alt: BCH compliance
+
 Kibitzr is like a secret twin brother who does routine tasks and asks for nothing in return.
 
 * Problems? Ask in issues_, or gitter_
