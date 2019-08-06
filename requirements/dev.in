@@ -1,6 +1,5 @@
 -r base.in
 
-Sphinx
 bump2version
 coverage
 cryptography
@@ -8,7 +7,7 @@ flake8
 mock
 pep8
 pip
-pytest
+pytest<=4.6
 pytest-cov
 pytest-mock
 pytest-pep8
@@ -19,5 +18,7 @@ freezegun
 pip-compile-multi
 
 # for Python 2 compatibility
-pylint<2  
+Sphinx<2
+pylint<2,!=1.9.5  # 1.9.5 missing for 3.7, 2 unsupported by 2.7
 astroid<2
+more-itertools<=5
