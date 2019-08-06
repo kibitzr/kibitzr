@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-## [6.0.0] - Unreleased
+## [6.0.0] - 2019-08-06
 ## Removed
 - Support for Python 2.6, 3.4
 ## Added
