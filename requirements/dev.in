@@ -21,3 +21,4 @@ pip-compile-multi
 # for Python 2 compatibility
 pylint<2  
 astroid<2
+more-itertools<=5
