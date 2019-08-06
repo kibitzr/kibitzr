@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## [6.0.0] - Unreleased
+## Removed
+- Support for Python 2.6, 3.4
+## Added
+- Support for Python 3.7
+
 ## [5.4.4] - 2019-08-06
 ## Fixed
 - skip handling of unsupported SIGUSR1 under Windows #73.
