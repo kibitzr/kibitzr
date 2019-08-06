@@ -30,10 +30,16 @@ class Application(object):
             'orig': {
                 signal.SIGINT: None,
                 signal.SIGTERM: None,
-                signal.SIGUSR1: None,
-                signal.SIGUSR2: None,
             }
         }
+        try:
+            self.signals['orig'].update({
+                signal.SIGUSR1: None,
+                signal.SIGUSR2: None,
+            })
+        except AttributeError:
+            # Unavailable on Windows
+            pass
 
     @staticmethod
     def bootstrap():
