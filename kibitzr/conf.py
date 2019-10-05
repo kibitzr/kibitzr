@@ -27,7 +27,7 @@ class ReloadableSettings(object):
     def __init__(self, config_dir):
         self.filename = os.path.join(config_dir, self.CONFIG_FILENAME)
         self.checks = None
-        self.creds = CompositeCreds(config_dir)
+        self.creds = CompositeCreds(config_dir, False)
         self.parser = SettingsParser()
         self.reread()
 
@@ -59,6 +59,8 @@ class ReloadableSettings(object):
         logger.debug("Loading settings from %s",
                      os.path.abspath(self.filename))
         conf = self.read_conf()
+        if conf.get('interpolate_variables', None):
+            self.creds.interpolate = True
         changed = self.creds.reread()
         checks = self.parser.parse_checks(conf)
         if self.checks != checks:
@@ -82,8 +84,9 @@ class ReloadableSettings(object):
 
 class CompositeCreds(object):
 
-    def __init__(self, config_dir):
-        self.plain = PlainYamlCreds(config_dir)
+    def __init__(self, config_dir, interpolate=False):
+        self.interpolate = interpolate
+        self.plain = PlainYamlCreds(config_dir, self.interpolate)
         self.extensions = {}
         self.load_extensions()
 
@@ -119,11 +122,12 @@ class PlainYamlCreds(object):
 
     CREDENTIALS_FILENAME = 'kibitzr-creds.yml'
 
-    def __init__(self, config_dir):
+    def __init__(self, config_dir, interpolate=False):
         super(PlainYamlCreds, self).__init__()
         self.creds = {}
         self.creds_filename = os.path.join(config_dir,
                                            self.CREDENTIALS_FILENAME)
+        self.interpolate = interpolate
         self.reread()
 
     def __contains__(self, key):
@@ -143,6 +147,21 @@ class PlainYamlCreds(object):
         try:
             with self.open_creds() as fp:
                 creds = yaml.safe_load(fp)
+            if self.interpolate:
+                try:
+                    # try to interpolate environment variables, do nothing if
+                    # yamlenv is not installed
+                    import yamlenv
+                    # dump creds back to yml, so we can parse it and interpolate
+                    yml = yaml.safe_dump(creds)
+                    creds = yamlenv.load(yml)
+                    # TODO: check yamlenv for support for safe_load and uncomment
+                    #  the line below removing the above one.
+                    # creds = yamlenv.safe_load(yml)
+                except ModuleNotFoundError:
+                    logger.info("yamlenv not installed. Yaml Credentials will not be interpolated.",
+                                os.path.abspath(self.creds_filename))
+
         except IOError:
             logger.info("No credentials file found at %s",
                         os.path.abspath(self.creds_filename))
