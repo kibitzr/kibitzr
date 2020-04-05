@@ -7,7 +7,7 @@ Installation
 Stable release
 --------------
 
-To install kibitzr, run this command in your terminal:
+To install kibitzr, run these commands in your terminal:
 
 .. code-block:: bash
 
@@ -33,13 +33,16 @@ The recommended way to have all dependencies installed and configured is to use 
 Docker
 ------
 
-You need a current version of `Docker present on your machine <https://docs.docker.com/install/>`_.
+Make sure `Docker is installed <https://docs.docker.com/install/>`_.
 
-If you would like to run it as a service just add a ``kibitzr.yml`` file and a ``pages`` folder to your current directory and run the following command:
+Run the following commands to pull docker image, create example configuration and run kibitzr:
 
 .. code-block:: bash
 
-    docker run -v $PWD:/root/.config/kibitzr -v $PWD/pages:/pages peterdemin/kibitzr run
+    mkdir kzr-example
+    cd kzr-example
+    docker run -v $PWD:/root --rm peterdemin/kibitzr init
+    docker run -v $PWD:/root --rm peterdemin/kibitzr run
 
 Manual installation
 -------------------
@@ -52,7 +55,7 @@ When installed through pip, they are compiling libraries.
 This process requires gcc (which is almost always present)
 and Python header files (which are not installed on vanilla Linux).
 
-You can either install those dependencies use OS installer::
+You can either install those dependencies using OS installer::
 
     apt install python-lazy-object-proxy python-yaml
 
