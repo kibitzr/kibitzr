@@ -45,7 +45,7 @@ Following configurations are equivalent:
         notify:
           - smtp:
               subject: Kibitzr update for full
-              recepients:
+              recipients:
                 - kibitzrrr@gmail.com
 
 
