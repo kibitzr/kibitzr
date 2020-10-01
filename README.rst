@@ -37,7 +37,7 @@ Kibitzr
         :target: https://incubator.sig.eu/TEST-SMELLS/
         :alt: BCH compliance
 
-Kibitzr is like a secret twin brother who does routine tasks and asks for nothing in return.
+Kibitzr is like a secret twin brother who does routine tasks and asks for nothing in return. Try and see it for yourself.
 
 * Problems? Ask in issues_, or gitter_
 * Documentation: https://kibitzr.readthedocs.io.
