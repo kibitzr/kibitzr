@@ -5,30 +5,30 @@
 #
 #    pip-compile-multi
 #
-asn1crypto==0.24.0        # via cryptography
 beautifulsoup4==4.8.0     # via bs4
-bs4==0.0.1
-cachecontrol==0.12.5
+bs4==0.0.1                # via -r base.in
+cachecontrol==0.12.5      # via -r base.in
 certifi==2019.6.16        # via python-telegram-bot, requests
 cffi==1.12.3              # via cryptography
 chardet==3.0.4            # via requests
-click==7.0
-cryptography==2.7         # via python-telegram-bot
-defusedxml==0.5.0
-entrypoints==0.3
+click==7.0                # via -r base.in
+cryptography==3.2         # via python-telegram-bot
+defusedxml==0.5.0         # via -r base.in
+entrypoints==0.3          # via -r base.in
+future==0.18.2            # via python-telegram-bot
 idna==2.8                 # via requests
-jinja2==2.10.1
-lazy-object-proxy==1.4.1
-lxml==4.4.0
+jinja2==2.10.1            # via -r base.in
+lazy-object-proxy==1.4.1  # via -r base.in
+lxml==4.4.0               # via -r base.in
 markupsafe==1.1.1         # via jinja2
 msgpack==0.6.1            # via cachecontrol
 pycparser==2.19           # via cffi
-python-telegram-bot==11.1.0
-pytimeparse==1.1.8
-pyyaml==5.1.2
-requests==2.22.0
-schedule==0.6.0
-selenium==3.141.0
-six==1.12.0
+python-telegram-bot==11.1.0  # via -r base.in
+pytimeparse==1.1.8        # via -r base.in
+pyyaml==5.1.2             # via -r base.in
+requests==2.22.0          # via -r base.in, cachecontrol
+schedule==0.6.0           # via -r base.in
+selenium==3.141.0         # via -r base.in
+six==1.12.0               # via -r base.in, cryptography
 soupsieve==1.9.2          # via beautifulsoup4
 urllib3==1.25.3           # via requests, selenium
