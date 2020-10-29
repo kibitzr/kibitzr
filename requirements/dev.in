@@ -9,7 +9,7 @@ pep8
 pip
 pytest<=4.6
 pytest-cov
-pytest-mock
+pytest-mock < 3  # For pytest 4.6 support
 pytest-pep8
 tox
 watchdog
