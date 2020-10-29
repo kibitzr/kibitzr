@@ -10,7 +10,7 @@ def test_bash_transform_sample():
         content="ACTGA",
     )
     assert ok is True
-    assert content == "BCTGB"
+    assert content.strip() == "BCTGB"
 
 
 def test_python_transform_sample():
@@ -20,7 +20,7 @@ def test_python_transform_sample():
         conf=None,
     )
     assert ok is True
-    assert content == "BCTGB"
+    assert content.strip() == "BCTGB"
 
 
 def test_bash_transform_error_is_captured():
@@ -29,7 +29,7 @@ def test_bash_transform_error_is_captured():
         content="?",
     )
     assert ok is False
-    assert "ls: cannot access" in content
+    assert "ls" in content
     assert "/NO-SUCH-DIR" in content
     assert "No such file or directory" in content
 
@@ -50,4 +50,4 @@ def test_empty_stdin_is_skipped():
         content="",
     )
     assert ok is True
-    assert "" == content
+    assert content == ""
