@@ -10,7 +10,7 @@ Setup process consists of 4 steps:
 1. Create Bot with `BotFather`_
 2. Save telegram token to ``kibitzr-creds.yml``
 3. Write a message (anything) to you new bot
-4. Run ``kibitzr telegram_chat``
+4. Run ``kibitzr telegram-chat``
 5. Save the result to ``kibitzr-creds.yml``
 
 Configuration
