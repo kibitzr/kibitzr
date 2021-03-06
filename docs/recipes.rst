@@ -120,3 +120,32 @@ BitBucket pull request ready to merge
             except NoSuchElementException:
                 # Second time session will be already authorized
                 pass
+                
+                
+Air Pollution in Paris via Telegram
+-------------------------------------
+
+.. code-block:: yaml
+
+    checks:
+      - name: Air Quality Today in Paris
+        url: https://www.airparif.asso.fr/accueil-airparif
+        delay: 3
+        transform:
+          - css-all: ".indice-color.text-light"
+          - text
+          - jinja: |
+              🇫 🇷  Pollution in Paris 🇫 🇷
+              📅 **Today**📅
+              Ozone:  {{ lines.0.lower() }}
+              Dioxyde d'Azote: {{ lines.1.lower() }}
+              Particules PM10:{{ lines.2.lower() }}
+              Particules PM2: {{ lines.3.lower() }}
+              📅**Forecast for Tomorrow**📅
+              Ozone:  {{ lines.4.lower() }}
+              Dioxyde d'Azote: {{ lines.5.lower() }}
+              Particules PM10:{{ lines.6.lower() }}
+              Particules PM2: {{ lines.7.lower() }}
+        notify:
+          - telegram
+
