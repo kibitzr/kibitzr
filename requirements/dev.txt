@@ -5,60 +5,228 @@
 #
 #    pip-compile-multi
 #
--r base.txt
-alabaster==0.7.12         # via sphinx
-apipkg==1.5               # via execnet
-appdirs==1.4.4            # via virtualenv
-astroid==1.6.6            # via -r requirements/dev.in, pylint
-atomicwrites==1.4.0       # via pytest
-attrs==20.2.0             # via pytest
-babel==2.8.0              # via sphinx
-bump2version==1.0.1       # via -r requirements/dev.in
-coverage==5.3             # via -r requirements/dev.in, pytest-cov
-distlib==0.3.1            # via virtualenv
-docutils==0.16            # via sphinx
-execnet==1.7.1            # via pytest-cache
-filelock==3.0.12          # via tox, virtualenv
-flake8==3.8.4             # via -r requirements/dev.in
-freezegun==1.0.0          # via -r requirements/dev.in
-imagesize==1.2.0          # via sphinx
-importlib-metadata==2.0.0  # via flake8, pluggy, pytest, tox, virtualenv
-importlib-resources==3.3.0  # via virtualenv
-isort==5.6.4              # via pylint
-mccabe==0.6.1             # via flake8, pylint
-mock==4.0.2               # via -r requirements/dev.in
-more-itertools==5.0.0     # via -r requirements/dev.in, pytest
-packaging==20.4           # via pytest, sphinx, tox
-pathtools==0.1.2          # via watchdog
-pep8==1.7.1               # via -r requirements/dev.in, pytest-pep8
-pip-compile-multi==2.1.0  # via -r requirements/dev.in
-pip-tools==5.3.1          # via pip-compile-multi
-pluggy==0.13.1            # via pytest, tox
-py==1.9.0                 # via pytest, tox
-pycodestyle==2.6.0        # via flake8
-pyflakes==2.2.0           # via flake8
-pygments==2.7.2           # via sphinx
-pylint==1.9.4             # via -r requirements/dev.in
-pyparsing==2.4.7          # via packaging
-pytest-cache==1.0         # via pytest-pep8
-pytest-cov==2.10.1        # via -r requirements/dev.in
-pytest-mock==2.0.0        # via -r requirements/dev.in
-pytest-pep8==1.0.6        # via -r requirements/dev.in
-pytest==4.6.0             # via -r requirements/dev.in, pytest-cache, pytest-cov, pytest-mock, pytest-pep8
-python-dateutil==2.8.1    # via freezegun
-snowballstemmer==2.0.0    # via sphinx
-sphinx==1.8.5             # via -r requirements/dev.in
-sphinxcontrib-serializinghtml==1.1.4  # via sphinxcontrib-websupport
-sphinxcontrib-websupport==1.2.4  # via sphinx
-toml==0.10.1              # via tox
-toposort==1.5             # via pip-compile-multi
-tox==3.20.1               # via -r requirements/dev.in
-virtualenv==20.1.0        # via tox
-watchdog==0.10.3          # via -r requirements/dev.in
-wcwidth==0.2.5            # via pytest
-wheel==0.35.1             # via -r requirements/dev.in
-wrapt==1.12.1             # via astroid
-zipp==3.4.0               # via importlib-metadata, importlib-resources
+alabaster==0.7.12
+    # via sphinx
+apipkg==1.5
+    # via execnet
+appdirs==1.4.4
+    # via virtualenv
+apscheduler==3.6.3
+    # via python-telegram-bot
+astroid==1.6.6
+    # via
+    #   -r dev.in
+    #   pylint
+atomicwrites==1.4.0
+    # via pytest
+attrs==20.2.0
+    # via pytest
+babel==2.8.0
+    # via sphinx
+beautifulsoup4==4.9.3
+    # via bs4
+bs4==0.0.1
+    # via -r base.in
+bump2version==1.0.1
+    # via -r dev.in
+cachecontrol==0.12.6
+    # via -r base.in
+certifi==2020.6.20
+    # via
+    #   python-telegram-bot
+    #   requests
+cffi==1.14.3
+    # via cryptography
+chardet==3.0.4
+    # via requests
+click==7.1.2
+    # via
+    #   -r base.in
+    #   pip-compile-multi
+    #   pip-tools
+coverage==5.3
+    # via
+    #   -r dev.in
+    #   pytest-cov
+cryptography==3.2.1
+    # via
+    #   -r dev.in
+    #   python-telegram-bot
+decorator==4.4.2
+    # via python-telegram-bot
+defusedxml==0.5.0
+    # via -r base.in
+distlib==0.3.1
+    # via virtualenv
+docutils==0.16
+    # via sphinx
+entrypoints==0.3
+    # via -r base.in
+execnet==1.7.1
+    # via pytest-cache
+filelock==3.0.12
+    # via
+    #   tox
+    #   virtualenv
+flake8==3.8.4
+    # via -r dev.in
+freezegun==1.0.0
+    # via -r dev.in
+idna==2.10
+    # via requests
+imagesize==1.2.0
+    # via sphinx
+importlib-metadata==2.0.0
+    # via pytest
+isort==5.6.4
+    # via pylint
+jinja2==2.11.2
+    # via
+    #   -r base.in
+    #   sphinx
+lazy-object-proxy==1.5.1
+    # via
+    #   -r base.in
+    #   astroid
+lxml==4.6.1
+    # via -r base.in
+markupsafe==1.1.1
+    # via jinja2
+mccabe==0.6.1
+    # via
+    #   flake8
+    #   pylint
+mock==4.0.2
+    # via -r dev.in
+more-itertools==5.0.0
+    # via
+    #   -r dev.in
+    #   pytest
+msgpack==1.0.0
+    # via cachecontrol
+packaging==20.4
+    # via
+    #   pytest
+    #   sphinx
+    #   tox
+pathtools==0.1.2
+    # via watchdog
+pep8==1.7.1
+    # via
+    #   -r dev.in
+    #   pytest-pep8
+pip-compile-multi==2.1.0
+    # via -r dev.in
+pip-tools==5.3.1
+    # via pip-compile-multi
+pluggy==0.13.1
+    # via
+    #   pytest
+    #   tox
+py==1.9.0
+    # via
+    #   pytest
+    #   tox
+pycodestyle==2.6.0
+    # via flake8
+pycparser==2.20
+    # via cffi
+pyflakes==2.2.0
+    # via flake8
+pygments==2.7.4
+    # via sphinx
+pylint==1.9.4
+    # via -r dev.in
+pyparsing==2.4.7
+    # via packaging
+pytest-cache==1.0
+    # via pytest-pep8
+pytest-cov==2.10.1
+    # via -r dev.in
+pytest-mock==2.0.0
+    # via -r dev.in
+pytest-pep8==1.0.6
+    # via -r dev.in
+pytest==4.6.0
+    # via
+    #   -r dev.in
+    #   pytest-cache
+    #   pytest-cov
+    #   pytest-mock
+    #   pytest-pep8
+python-dateutil==2.8.1
+    # via freezegun
+python-telegram-bot==13.0
+    # via -r base.in
+pytimeparse==1.1.8
+    # via -r base.in
+pytz==2020.1
+    # via
+    #   apscheduler
+    #   babel
+    #   tzlocal
+pyyaml==5.3.1
+    # via -r base.in
+requests==2.24.0
+    # via
+    #   -r base.in
+    #   cachecontrol
+    #   sphinx
+schedule==0.6.0
+    # via -r base.in
+selenium==3.141.0
+    # via -r base.in
+six==1.15.0
+    # via
+    #   -r base.in
+    #   apscheduler
+    #   astroid
+    #   cryptography
+    #   more-itertools
+    #   packaging
+    #   pip-tools
+    #   pylint
+    #   pytest
+    #   python-dateutil
+    #   sphinx
+    #   tox
+    #   virtualenv
+snowballstemmer==2.0.0
+    # via sphinx
+soupsieve==2.0.1
+    # via beautifulsoup4
+sphinx==1.8.5
+    # via -r dev.in
+sphinxcontrib-serializinghtml==1.1.4
+    # via sphinxcontrib-websupport
+sphinxcontrib-websupport==1.2.4
+    # via sphinx
+toml==0.10.1
+    # via tox
+toposort==1.5
+    # via pip-compile-multi
+tornado==6.0.4
+    # via python-telegram-bot
+tox==3.20.1
+    # via -r dev.in
+tzlocal==2.1
+    # via apscheduler
+urllib3==1.25.11
+    # via
+    #   requests
+    #   selenium
+virtualenv==20.1.0
+    # via tox
+watchdog==0.10.3
+    # via -r dev.in
+wcwidth==0.2.5
+    # via pytest
+wheel==0.35.1
+    # via -r dev.in
+wrapt==1.12.1
+    # via astroid
+zipp==3.4.0
+    # via importlib-metadata
 
 # The following packages are considered to be unsafe in a requirements file:
 # pip
