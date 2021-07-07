@@ -132,7 +132,7 @@ If this directory exists, kibitzr will load it for each following run.
 
 Note: if running kibitzr remotely through SSH, use `X11 forwarding`_.
 
-.. _`X11 forwarding`: <https://duckduckgo.com/?q=ssh+x11+forwarding&t=h_&ia=web>`
+.. _`X11 forwarding`: https://duckduckgo.com/?q=ssh+x11+forwarding&t=h_&ia=web`
 
 Debugging/Troubleshooting
 -------------------------
