@@ -1,4 +1,4 @@
-FROM phusion/baseimage:0.11
+FROM phusion/baseimage:master
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -12,7 +12,7 @@ RUN apt -qqy update                     \
        python3-lxml                      \
        python3-yaml                      \
        python3-pip                       \
-    && curl -L https://github.com/mozilla/geckodriver/releases/download/v0.27.0/geckodriver-v0.27.0-linux64.tar.gz | tar zxf -  \
+    && curl -L https://github.com/mozilla/geckodriver/releases/download/v0.29.1/geckodriver-v0.29.1-linux64.tar.gz | tar zxf -  \
     && mv geckodriver /usr/local/bin/   \
     && apt-get remove -y curl           \
     && apt-get clean                    \

@@ -11,7 +11,7 @@ addons:
     firefox: latest
 install:
   - >
-    curl -L https://github.com/mozilla/geckodriver/releases/download/v0.27.0/geckodriver-v0.27.0-linux64.tar.gz
+    curl -L https://github.com/mozilla/geckodriver/releases/download/v0.29.1/geckodriver-v0.29.1-linux64.tar.gz
     | tar zxf -
   - pip install -e . -r requirements/dev.txt coveralls
 env:
