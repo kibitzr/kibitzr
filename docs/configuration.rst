@@ -36,7 +36,7 @@ If it is provided, it will be used to fetch data. Optionally ``verify-cert`` can
 to ``False`` to skip verificaiton of the SSL certificate.
 Alternativelly data can be fetched by ``script``, which is an arbitrary shell script.
 
-Check will be executed every ``period`` seconds and/or on every ``schedule``. 
+Check will be executed every ``period`` seconds and/or on every ``schedule``.
 See :ref:`Schedule documentation <schedule>` for a complete list of possibilities.
 
 Fetched data from ``url`` (or ``script`` output) is passed
@@ -46,7 +46,7 @@ supported transformations.
 
 Finally transformed data is passed to a list of notifiers
 defined under ``notify`` key.
-See :ref:`Notifier documentation <transforms>` for a complete list of
+See :ref:`Notifier documentation <notifiers>` for a complete list of
 supported notifiers.
 
 Kibitzr supports browser interactions. They can be activated by using any of keys:
