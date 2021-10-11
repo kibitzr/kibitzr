@@ -14,10 +14,11 @@ Kibitzr supports following notifier types:
 3. ``slack`` - Trigger `Slack Incoming Webhook`_
 4. ``telegram`` - Send message through :ref:`private Telegram Bot <telegram>`
 5. ``zapier`` - Trigger `Zapier Catch Hook`_
-6. ``gitter`` - Or post to gitter's chat
-7. ``python`` - Run :ref:`Python script <python>`
-8. ``shell`` - Run :ref:`shell script <shell>`
-9. ``stash`` - Save to persistent global key-value storage; See :ref:`stash` for details
+6. ``gitter`` - Post to gitter's chat
+7. ``gotify`` - Push notification via :ref:`Gotify <gotify>`
+8. ``python`` - Run :ref:`Python script <python>`
+9. ``shell`` - Run :ref:`shell script <shell>`
+10. ``stash`` - Save to persistent global key-value storage; See :ref:`stash` for details
 
 Each notifier requires different configuration.
 For the sake of security, sensitive information
@@ -57,3 +58,7 @@ Example configurations
 
     zapier:
         url: https://hooks.zapier.com/hooks/catch/1670195/9asu13/
+
+    gotify:
+        url: https://gotify.example.de/
+        token: A0dIInnCs1J1zNN
