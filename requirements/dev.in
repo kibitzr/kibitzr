@@ -7,9 +7,9 @@ flake8
 mock
 pep8
 pip
-pytest<=4.6
+pytest
 pytest-cov
-pytest-mock < 3  # For pytest 4.6 support
+pytest-mock
 pytest-pep8
 tox
 watchdog
@@ -17,8 +17,7 @@ wheel
 freezegun
 pip-compile-multi
 
-# for Python 2 compatibility
-Sphinx<2
-pylint<2,!=1.9.5  # 1.9.5 missing for 3.7, 2 unsupported by 2.7
-astroid<2
-more-itertools<=5
+Sphinx
+pylint
+astroid
+more-itertools
