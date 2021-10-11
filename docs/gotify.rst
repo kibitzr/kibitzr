@@ -4,7 +4,7 @@
 Gotify Notifier
 =================
 
-Kibitzr supports sending notifications via Gotify_.
+Kibitzr supports sending notifications via `Gotify service`_.
 
 Configuration
 -------------
@@ -54,4 +54,4 @@ you can do that by adding a ``verify: false`` flag to the configuration:
         verify: false
 
 
-.. _Gotify: https://gotify.net/
+.. _Gotify service: https://gotify.net/

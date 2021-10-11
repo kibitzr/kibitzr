@@ -13,3 +13,4 @@ People, who contributed to Kibitzr in arbitrary order:
 * `Maciek Starzyk <https://github.com/mstarzyk>`_
 * `ColdIce <https://github.com/ColdIce1>`_
 * `Jesaja Everling <https://github.com/jeverling>`_
+* `egvimo <https://github.com/egvimo>`_

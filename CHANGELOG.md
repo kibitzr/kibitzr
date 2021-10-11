@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## [6.0.1] - 2021-10-11
+## Added
+- [Gotify notifier](https://kibitzr.readthedocs.io/en/latest/gotify.html) by [egvimo](https://github.com/egvimo) in [PR#108](for://github.com/kibitzr/kibitzr/pull/108)
+
 ## [6.0.0] - 2019-08-06
 ## Removed
 - Support for Python 2.6, 3.4
