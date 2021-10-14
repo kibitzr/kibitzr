@@ -10,22 +10,14 @@ def test_fill_form_sample(target):
             {'id': 'name', 'value': '{{ "name" | sort | join("") }}'},
             {'css': '#pass', 'creds': 'pass'}
         ],
-        # 'scenario': 'import pdb; pdb.set_trace()',
-        'transform': [{'css': '.unclosed-tag > #params'}, 'text'],
+        'transform': [
+            # {'python': 'print(ok, content); content = content or ""'},
+            {'css': '.unclosed-tag > #params'},
+            'text',
+        ],
         # 'headless': False,
     }
-    total_attempts = 3
-    for attempt in range(total_attempts):
-        try:
-            ok, content = Checker(conf).check()
-        except TypeError:
-            if attempt == total_attempts - 1:
-                raise
-            # Maybe HTTP server haven't started yet?..
-            time.sleep(1.0)
-            continue
-        else:
-            break
+    ok, content = Checker(conf).check()
     assert ok is True
     assert content == "\n".join([
         "name = aemn",

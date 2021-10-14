@@ -233,7 +233,8 @@ class FirefoxFetcher(object):
             time.sleep(delay)
 
     def _get_html(self):
-        for attempt in range(3):
+        total_attempts = 3
+        for attempt in range(1, total_attempts + 1):
             try:
                 elem = self.driver.find_element_by_xpath("//*")
                 html = elem.get_attribute("outerHTML")
@@ -241,11 +242,16 @@ class FirefoxFetcher(object):
                 # Crazy (but stable) race condition,
                 # new page loaded after call to find_element_by_xpath
                 # Just retry:
-                if attempt < 2:
-                    time.sleep(1)
-                else:
+                if attempt == total_attempts:
                     raise
+                time.sleep(1)
             else:
+                if html is None:
+                    if attempt == total_attempts:
+                        html = ""
+                    else:
+                        time.sleep(1)
+                        continue
                 return html
 
     def _find_elements(self, elements):
