@@ -1,4 +1,3 @@
-import time
 from kibitzr.checker import Checker
 
 
