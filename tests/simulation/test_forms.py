@@ -1,3 +1,4 @@
+import time
 from kibitzr.checker import Checker
 
 
@@ -20,6 +21,8 @@ def test_fill_form_sample(target):
         except TypeError:
             if attempt == total_attempts - 1:
                 raise
+            # Maybe HTTP server haven't started yet?..
+            time.sleep(1.0)
             continue
         else:
             break
