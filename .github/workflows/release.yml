@@ -6,7 +6,25 @@ on:
       - '*'
 
 jobs:
-  push-to-dockerhub:
+  github:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get the Git tag
+        id: get_tag
+        run: echo ::set-output name=TAG::${GITHUB_REF/refs\/tags\//}
+
+      - name: Create Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.get_tag.outputs.TAG }}
+          release_name: Release ${{ steps.get_tag.outputs.TAG }}
+          draft: false
+          prerelease: false
+
+  dockerhub:
     runs-on: ubuntu-latest
 
     steps:
@@ -36,20 +54,13 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64,linux/arm/v7,linux/arm64
           push: true
-          tags: egvimo/kibitzr:latest,egvimo/kibitzr:${{ steps.get_tag.outputs.TAG }}
-
-  update-dockerhub-description:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Check out
-        uses: actions/checkout@v2
+          tags: peterdemin/kibitzr:latest,peterdemin/kibitzr:${{ steps.get_tag.outputs.TAG }}
 
       - name: Update repository description
         uses: peter-evans/dockerhub-description@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          repository: egvimo/kibitzr
+          repository: peterdemin/kibitzr
           readme-filepath: ./README.rst # TODO Use separate Markdown readme for Dockerhub
           short-description: ${{ github.event.repository.description }}
