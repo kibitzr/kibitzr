@@ -10,8 +10,8 @@ Kibitzr
 .. image:: https://img.shields.io/pypi/v/kibitzr.svg
         :target: https://pypi.python.org/pypi/kibitzr
 
-.. image:: https://img.shields.io/travis/kibitzr/kibitzr.svg
-        :target: https://travis-ci.org/kibitzr/kibitzr?branch=master
+.. image:: https://github.com/kibitzr/kibitzr/actions/workflows/test.yml/badge.svg
+        :target: https://github.com/kibitzr/kibitzr/actions/workflows/test.yml
 
 .. image:: https://readthedocs.org/projects/kibitzr/badge/?version=latest
         :target: https://kibitzr.readthedocs.io/en/latest/?badge=latest
