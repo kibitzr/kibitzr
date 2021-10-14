@@ -17,10 +17,6 @@ Kibitzr
         :target: https://kibitzr.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
 
-.. image:: https://gitpitch.com/assets/badge.svg
-        :target: https://gitpitch.com/kibitzr/kibitzr/master?grs=github&t=white
-        :alt: GitPitch
-
 .. image:: https://www.codefactor.io/repository/github/kibitzr/kibitzr/badge
         :target: https://www.codefactor.io/repository/github/kibitzr/kibitzr
         :alt: CodeFactor
@@ -33,9 +29,6 @@ Kibitzr
         :target: https://pepy.tech/project/kibitzr
         :alt: Downloads
 
-.. image:: https://incubator.sig.eu/TEST-SMELLS/edge/badge/kibitzr/kibitzr?branch=master
-        :target: https://incubator.sig.eu/TEST-SMELLS/
-        :alt: BCH compliance
 
 Kibitzr is like a secret twin brother who does routine tasks and asks for nothing in return. Try and see it for yourself.
 
