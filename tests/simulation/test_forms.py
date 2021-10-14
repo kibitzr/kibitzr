@@ -13,7 +13,16 @@ def test_fill_form_sample(target):
         'transform': [{'css': '.unclosed-tag > #params'}, 'text'],
         # 'headless': False,
     }
-    ok, content = Checker(conf).check()
+    total_attempts = 3
+    for attempt in range(total_attempts):
+        try:
+            ok, content = Checker(conf).check()
+        except TypeError:
+            if attempt == total_attempts - 1:
+                raise
+            continue
+        else:
+            break
     assert ok is True
     assert content == "\n".join([
         "name = aemn",
