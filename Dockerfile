@@ -22,6 +22,7 @@ RUN apt -qqy update                     \
 COPY . /kibitzr/
 
 RUN cd /kibitzr                         \
+    && pip3 install --upgrade pip       \
     && pip3 install -e .
 
 WORKDIR /root/
