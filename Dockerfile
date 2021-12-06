@@ -4,15 +4,16 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt -qqy update                     \
     && apt -y install                   \
-       curl                             \
+       libffi-dev                       \
        firefox                          \
        git                              \
        jq                               \
-       python3-lazy-object-proxy         \
-       python3-lxml                      \
-       python3-yaml                      \
-       python3-pip                       \
-    && curl -L https://github.com/mozilla/geckodriver/releases/download/v0.29.1/geckodriver-v0.29.1-linux64.tar.gz | tar zxf -  \
+       python3-lazy-object-proxy        \
+       python3-lxml                     \
+       python3-yaml                     \
+       python3-pip                      \
+       curl                             \
+    && curl -L https://github.com/mozilla/geckodriver/releases/download/v0.30.0/geckodriver-v0.30.0-linux64.tar.gz | tar zxf -  \
     && mv geckodriver /usr/local/bin/   \
     && apt-get remove -y curl           \
     && apt-get clean                    \
