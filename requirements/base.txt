@@ -7,14 +7,12 @@
 #
 apscheduler==3.6.3
     # via python-telegram-bot
-backports.zoneinfo==0.2.1
-    # via tzlocal
 beautifulsoup4==4.10.0
     # via bs4
 bs4==0.0.1
-    # via -r requirements/base.in
+    # via -r base.in
 cachecontrol==0.12.6
-    # via -r requirements/base.in
+    # via -r base.in
 cachetools==4.2.2
     # via python-telegram-bot
 certifi==2021.10.8
@@ -24,65 +22,55 @@ certifi==2021.10.8
 charset-normalizer==2.0.6
     # via requests
 click==8.0.3
-    # via -r requirements/base.in
+    # via -r base.in
 defusedxml==0.7.1
-    # via -r requirements/base.in
+    # via -r base.in
 entrypoints==0.3
-    # via -r requirements/base.in
+    # via -r base.in
 idna==3.2
     # via requests
-importlib-metadata==4.2.0
-    # via click
-importlib-resources==5.2.2
-    # via backports.zoneinfo
 jinja2==3.0.2
-    # via -r requirements/base.in
+    # via -r base.in
 lazy-object-proxy==1.6.0
-    # via -r requirements/base.in
-lxml==4.6.3
-    # via -r requirements/base.in
+    # via -r base.in
+lxml==4.6.5
+    # via -r base.in
 markupsafe==2.0.1
     # via jinja2
 msgpack==1.0.2
     # via cachecontrol
 python-telegram-bot==13.7
-    # via -r requirements/base.in
+    # via -r base.in
 pytimeparse==1.1.8
-    # via -r requirements/base.in
+    # via -r base.in
 pytz==2021.3
     # via
     #   apscheduler
     #   python-telegram-bot
 pyyaml==5.4.1
-    # via -r requirements/base.in
+    # via -r base.in
 requests==2.26.0
     # via
-    #   -r requirements/base.in
+    #   -r base.in
     #   cachecontrol
 schedule==1.1.0
-    # via -r requirements/base.in
+    # via -r base.in
 selenium==3.141.0
-    # via -r requirements/base.in
+    # via -r base.in
 six==1.16.0
     # via
-    #   -r requirements/base.in
+    #   -r base.in
     #   apscheduler
 soupsieve==2.2.1
     # via beautifulsoup4
 tornado==6.1
     # via python-telegram-bot
-typing-extensions==3.10.0.2
-    # via importlib-metadata
 tzlocal==3.0
     # via apscheduler
 urllib3==1.26.7
     # via
     #   requests
     #   selenium
-zipp==3.6.0
-    # via
-    #   importlib-metadata
-    #   importlib-resources
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
