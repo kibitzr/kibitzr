@@ -43,7 +43,7 @@ else:
 
 setup(
     name='kibitzr',
-    version='6.1.0',
+    version='6.1.1',
     description="Self hosted web page changes monitoring",
     long_description=readme + '\n\n' + history,
     author="Peter Demin",
