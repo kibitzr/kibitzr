@@ -1,6 +1,9 @@
 # Changelog
 
 ## Unreleased
+## [6.1.0] - 2022-01-28
+## Added
+- `kibitzr reload` command to pick up configuration changes without restart by [fi-do](https://github.com/fi-do) in [PR#115](https://github.com/kibitzr/kibitzr/pull/115)
 
 ## [6.0.2] - 2021-12-05
 - Update docker image
