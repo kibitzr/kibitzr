@@ -13,3 +13,4 @@ requests
 schedule
 selenium
 six
+psutil

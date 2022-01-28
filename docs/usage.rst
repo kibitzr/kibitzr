@@ -19,6 +19,7 @@ Usage
       firefox        Launch Firefox with persistent profile
       init           Create boilerplate configuration files
       once           Run kibitzr checks once and exit
+      reload         Send signal to reload configuration for kibitzr process
       run            Run kibitzr in the foreground mode
       telegram_chat  Return chat id for the last message sent to...
       version        Print version

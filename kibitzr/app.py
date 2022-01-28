@@ -2,6 +2,8 @@ import logging
 import signal
 import time
 import code
+import psutil
+import os
 
 import entrypoints
 
@@ -171,3 +173,14 @@ class Application(object):
         for point in entrypoints.get_group_all("kibitzr.before_start"):
             entry = point.load()
             entry(self, checkers)
+
+    @staticmethod
+    def send_reload():
+        """
+        Sends SIGUSR1 to all processes that execute kibitzr
+        """
+        user_id = os.geteuid()
+        for proc in psutil.process_iter(['uids', 'name', 'pid']):
+            if proc.info['name'] == "kibitzr" and proc.info['uids'][0] == user_id:
+                proc.send_signal(signal.SIGUSR1)
+                logger.info(f"Send singal SIGUSR1 to process: {proc.info['pid']}")
