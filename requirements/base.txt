@@ -8,12 +8,14 @@
 apscheduler==3.6.3
     # via python-telegram-bot
 backports.zoneinfo==0.2.1
-    # via tzlocal
+    # via
+    #   pytz-deprecation-shim
+    #   tzlocal
 beautifulsoup4==4.10.0
     # via bs4
 bs4==0.0.1
     # via -r requirements/base.in
-cachecontrol==0.12.6
+cachecontrol==0.12.10
     # via -r requirements/base.in
 cachetools==4.2.2
     # via python-telegram-bot
@@ -21,7 +23,7 @@ certifi==2021.10.8
     # via
     #   python-telegram-bot
     #   requests
-charset-normalizer==2.0.6
+charset-normalizer==2.0.10
     # via requests
 click==8.0.3
     # via -r requirements/base.in
@@ -29,25 +31,25 @@ defusedxml==0.7.1
     # via -r requirements/base.in
 entrypoints==0.3
     # via -r requirements/base.in
-idna==3.2
+idna==3.3
     # via requests
 importlib-metadata==4.2.0
     # via click
-importlib-resources==5.2.2
+importlib-resources==5.4.0
     # via backports.zoneinfo
-jinja2==3.0.2
+jinja2==3.0.3
     # via -r requirements/base.in
-lazy-object-proxy==1.6.0
+lazy-object-proxy==1.7.1
     # via -r requirements/base.in
-lxml==4.6.3
+lxml==4.7.1
     # via -r requirements/base.in
 markupsafe==2.0.1
     # via jinja2
-msgpack==1.0.2
+msgpack==1.0.3
     # via cachecontrol
 psutil==5.9.0
     # via -r requirements/base.in
-python-telegram-bot==13.7
+python-telegram-bot==13.10
     # via -r requirements/base.in
 pytimeparse==1.1.8
     # via -r requirements/base.in
@@ -55,9 +57,11 @@ pytz==2021.3
     # via
     #   apscheduler
     #   python-telegram-bot
-pyyaml==5.4.1
+pytz-deprecation-shim==0.1.0.post0
+    # via tzlocal
+pyyaml==6.0
     # via -r requirements/base.in
-requests==2.26.0
+requests==2.27.1
     # via
     #   -r requirements/base.in
     #   cachecontrol
@@ -69,15 +73,17 @@ six==1.16.0
     # via
     #   -r requirements/base.in
     #   apscheduler
-soupsieve==2.2.1
+soupsieve==2.3.1
     # via beautifulsoup4
 tornado==6.1
     # via python-telegram-bot
-typing-extensions==3.10.0.2
+typing-extensions==4.0.1
     # via importlib-metadata
-tzlocal==3.0
+tzdata==2021.5
+    # via pytz-deprecation-shim
+tzlocal==4.1
     # via apscheduler
-urllib3==1.26.7
+urllib3==1.26.8
     # via
     #   requests
     #   selenium

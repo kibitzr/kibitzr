@@ -8,7 +8,7 @@
 -r base.txt
 alabaster==0.7.12
     # via sphinx
-astroid==2.8.2
+astroid==2.9.3
     # via
     #   -r requirements/dev.in
     #   pylint
@@ -22,11 +22,11 @@ bump2version==1.0.1
     # via -r requirements/dev.in
 cffi==1.14.6
     # via cryptography
-coverage[toml]==6.0.1
+coverage[toml]==6.2
     # via
     #   -r requirements/dev.in
     #   pytest-cov
-cryptography==35.0.0
+cryptography==36.0.1
     # via -r requirements/dev.in
 distlib==0.3.3
     # via virtualenv
@@ -54,7 +54,7 @@ mccabe==0.6.1
     #   pylint
 mock==4.0.3
     # via -r requirements/dev.in
-more-itertools==8.10.0
+more-itertools==8.12.0
     # via -r requirements/dev.in
 packaging==21.0
     # via
@@ -67,7 +67,7 @@ pep8==1.7.1
     # via
     #   -r requirements/dev.in
     #   pytest-pep8
-pip-compile-multi==2.4.2
+pip-compile-multi==2.4.3
     # via -r requirements/dev.in
 pip-tools==6.4.0
     # via pip-compile-multi
@@ -91,7 +91,7 @@ pyflakes==2.4.0
     # via flake8
 pygments==2.10.0
     # via sphinx
-pylint==2.11.1
+pylint==2.12.2
     # via -r requirements/dev.in
 pyparsing==2.4.7
     # via packaging
@@ -139,7 +139,7 @@ tomli==1.2.1
     #   pep517
 toposort==1.7
     # via pip-compile-multi
-tox==3.24.4
+tox==3.24.5
     # via -r requirements/dev.in
 typed-ast==1.4.3
     # via astroid
@@ -147,7 +147,7 @@ virtualenv==20.8.1
     # via tox
 watchdog==2.1.6
     # via -r requirements/dev.in
-wheel==0.37.0
+wheel==0.37.1
     # via
     #   -r requirements/dev.in
     #   pip-tools
