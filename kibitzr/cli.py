@@ -105,6 +105,14 @@ def stash():
     Stash.print_content()
 
 
+@cli.command()
+def reload():
+    """Send signal to reload configuration for kibitzr process"""
+    from kibitzr.app import Application
+    app = Application()
+    app.send_reload()
+
+
 extended_cli = merge_extensions(cli)
 
 
