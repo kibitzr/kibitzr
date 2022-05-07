@@ -33,7 +33,7 @@ entrypoints==0.4
     # via -r requirements/base.in
 idna==3.3
     # via requests
-importlib-metadata==4.8.3
+importlib-metadata==4.2.0
     # via click
 importlib-resources==5.4.0
     # via backports.zoneinfo
