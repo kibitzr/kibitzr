@@ -6,7 +6,7 @@ from ..conf import settings
 logger = logging.getLogger(__name__)
 
 
-class WebHookNotify(object):
+class WebHookNotify:
 
     CREDS_KEY = 'webhook'
     POST_KEY = 'message'

@@ -8,7 +8,7 @@ from .transformer import transform_factory
 logger = logging.getLogger(__name__)
 
 
-class Checker(object):
+class Checker:
     def __init__(self, conf):
         self.conf = conf
         self.fetch = fetcher_factory(conf)

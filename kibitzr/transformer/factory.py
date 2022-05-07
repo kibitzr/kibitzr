@@ -24,7 +24,7 @@ def load_transforms():
     return registry
 
 
-class TransformPipeline(object):
+class TransformPipeline:
     """
     Create transformation pipeline from check conf.
     Class instances are callable (executing run_pipeline)
@@ -70,10 +70,8 @@ class TransformPipeline(object):
             name, value = rule, None
         try:
             return self.REGISTRY[name](value, conf=self.conf)
-        except KeyError:
-            raise RuntimeError(
-                "Unknown transform: %r" % (name,)
-            )
+        except KeyError as exc:
+            raise RuntimeError(f"Unknown transform: {name}") from exc
 
     def on_error(self, content):
         """
@@ -88,13 +86,12 @@ class TransformPipeline(object):
                 logger.error("Ignoring error in %s",
                              repr(content)[:60])
             return None
-        elif error_policy == 'notify':
+        if error_policy == 'notify':
             logger.debug("Notifying on error")
             return content
-        else:
-            logger.warning("Unknown error policy: %r", error_policy)
-            logger.info("Defaulting to 'notify'")
-            return content
+        logger.warning("Unknown error policy: %r", error_policy)
+        logger.info("Defaulting to 'notify'")
+        return content
 
 
 transform_factory = TransformPipeline

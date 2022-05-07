@@ -10,7 +10,7 @@ from kibitzr import __version__ as version
 logger = logging.getLogger(__name__)
 
 
-class SessionFetcher(object):
+class SessionFetcher:
     RETRIABLE_EXCEPTIONS = (
         (requests.HTTPError, 5),
         (requests.ConnectionError, 15),

@@ -7,7 +7,7 @@ from ..conf import settings
 logger = logging.getLogger(__name__)
 
 
-class TelegramBot(object):
+class TelegramBot:
     def __init__(self, chat_id=None, split_on=None):
         from telegram.bot import Bot
         telegram_creds = settings().creds['telegram']

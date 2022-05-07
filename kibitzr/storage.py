@@ -12,7 +12,7 @@ def report_changes(conf, content):
     return PageHistory(conf).report_changes(content)
 
 
-class PageHistory(object):
+class PageHistory:
     """
     Single file changes history using git
     """
@@ -31,10 +31,7 @@ class PageHistory(object):
         )
         self.ensure_repo_exists()
         if conf.get('url'):
-            self.commit_msg = u"{name} at {url}".format(
-                name=conf['name'],
-                url=conf.get('url'),
-            )
+            self.commit_msg = f"{conf['name']} at {conf.get('url')}"
         else:
             self.commit_msg = conf['name']
         self.reporter = ChangesReporter(
@@ -56,8 +53,7 @@ class PageHistory(object):
         self.write(content)
         if self.commit():
             return True, self.reporter.report()
-        else:
-            return False, None
+        return False, None
 
     def write(self, content):
         """Save content on disk"""
@@ -99,7 +95,7 @@ def ensure_unicode(text):
         return text
 
 
-class ChangesReporter(object):
+class ChangesReporter:
 
     def __init__(self, git, subject, style=None):
         self.git = git
@@ -172,13 +168,11 @@ class ChangesReporter(object):
             before = None
         after = self.git.show('HEAD:content').strip()
         if before is not None:
-            return (u'{subject}\nNew value:\n{after}\n'
-                    u'Old value:\n{before}\n'
-                    .format(subject=self.subject,
-                            before=before,
-                            after=after))
-        else:
-            return u'\n'.join([self.subject, after])
+            return (
+                f"{self.subject}\nNew value:\n{after}\n"
+                f"Old value:\n{before}\n"
+            )
+        return u'\n'.join([self.subject, after])
 
     def new(self):
         content = self.git.show('HEAD:content').strip()

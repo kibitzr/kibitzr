@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 NAME = 'python'
 
 
-class PythonNotify(object):
+class PythonNotify:
 
     def __init__(self, conf, value):
         self.code = value

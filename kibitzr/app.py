@@ -22,7 +22,7 @@ __all__ = [
 ]
 
 
-class Application(object):
+class Application:
 
     def __init__(self):
         self.signals = {

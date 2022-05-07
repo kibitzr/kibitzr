@@ -16,22 +16,21 @@ from kibitzr.exceptions import ConfigurationError
 from .loader import load_promoters
 
 
-PROMOTERS = None
+_PROMOTERS = None
 
 
 def fetcher_factory(conf):
     """Return initialized fetcher capable of processing given conf."""
-    global PROMOTERS
+    global _PROMOTERS  # pylint: disable=global-statement
     applicable = []
-    if not PROMOTERS:
-        PROMOTERS = load_promoters()
-    for promoter in PROMOTERS:
+    if not _PROMOTERS:
+        _PROMOTERS = load_promoters()
+    for promoter in _PROMOTERS:
         if promoter.is_applicable(conf):
             applicable.append((promoter.PRIORITY, promoter))
     if applicable:
         best_match = sorted(applicable, reverse=True)[0][1]
         return best_match(conf)
-    else:
-        raise ConfigurationError(
-            'No fetcher is applicable for "{0}"'.format(conf['name'])
-        )
+    raise ConfigurationError(
+        'No fetcher is applicable for "{conf["name"]}"'
+    )

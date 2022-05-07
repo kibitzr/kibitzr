@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 TimelineRule = collections.namedtuple("TimelineRule", "interval unit at")
 
 
-class Timeline(object):
+class Timeline:
     RE_TIME = re.compile(r'\d?\d:\d\d')
 
     def __init__(self, scheduler=None):
@@ -52,8 +52,7 @@ class Timeline(object):
                 ])
             else:
                 raise ConfigurationError(
-                    'Check {0} has invalid schedule configuration: {1}'
-                    .format(check['name'], check['schedule'])
+                    f"Check {check['name']} has invalid schedule configuration: {check['schedule']}"
                 )
         return check_schedule
 
@@ -61,16 +60,14 @@ class Timeline(object):
     def _clean_single_schedule(cls, check, schedule_dict):
         if not isinstance(schedule_dict, dict):
             raise ConfigurationError(
-                'Check {0} has invalid schedule configuration: {1}'
-                .format(check['name'], schedule_dict),
+                f"Check {check['name']} has invalid schedule configuration: {schedule_dict}"
             )
         try:
             every = schedule_dict['every']
-        except KeyError:
+        except KeyError as exc:
             raise ConfigurationError(
-                "Check {0} has invalid schedule format: {1}"
-                .format(check['name'], schedule_dict)
-            )
+                f"Check {check['name']} has invalid schedule format: {schedule_dict}"
+            ) from exc
         if isinstance(every, six.string_types):
             # "every: day" shortcut
             unit, every = every, 1
@@ -86,11 +83,10 @@ class Timeline(object):
     def _clean_unit(check, unit):
         try:
             getattr(schedule.every(1), unit)
-        except:
+        except Exception as exc:
             raise ConfigurationError(
-                "Unit {0} is not one of valid options. Referenced in check {1}"
-                .format(unit, check['name'])
-            )
+                f"Unit {unit} is not one of valid options. Referenced in check {check['name']}"
+            ) from exc
         return unit
 
     @classmethod
@@ -98,8 +94,7 @@ class Timeline(object):
         if at is None or cls.RE_TIME.match(at):
             return at
         raise ConfigurationError(
-            'Check {0} schedule has invalid value for "at": {1}'
-            .format(check['name'], at)
+            f"Check {check['name']} schedule has invalid value for 'at': {at}"
         )
 
     def schedule_checks(self, checkers):

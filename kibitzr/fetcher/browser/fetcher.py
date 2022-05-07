@@ -42,8 +42,8 @@ def persistent_firefox():
                 )
     print(
         "Firefox is closed. "
-        "To delete saved profile remove following directory: {0}"
-        .format(os.path.abspath(PROFILE_DIR))
+        "To delete saved profile remove following directory: "
+        f"{os.path.abspath(PROFILE_DIR)}"
     )
 
 
@@ -70,7 +70,7 @@ def firefox_fetcher(conf):
         return fetcher.fetch(conf)
 
 
-class FirefoxFetcher(object):
+class FirefoxFetcher:
 
     def __init__(self, driver):
         self.driver = driver
@@ -253,6 +253,7 @@ class FirefoxFetcher(object):
                         time.sleep(1)
                         continue
                 return html
+        return None
 
     def _find_elements(self, elements):
         logger.info("Finding elements")
@@ -275,8 +276,7 @@ class FirefoxFetcher(object):
             elements = self.driver.find_elements_by_css_selector('#' + selector)
         else:
             raise RuntimeError(
-                "Unknown selector_type: %s for selector: %s"
-                % (selector_type, selector)
+                f"Unknown selector_type: {selector_type} for selector: {selector}"
             )
         for element in elements:
             if check_displayed:
@@ -287,7 +287,7 @@ class FirefoxFetcher(object):
     def _exec_scenario(self, code, conf, elements):
         logger.info("Executing custom scenario")
         logger.debug(code)
-        exec(
+        exec(  # pylint: disable=exec-used
             code,
             {
                 'conf': conf,

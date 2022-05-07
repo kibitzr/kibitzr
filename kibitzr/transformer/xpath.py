@@ -14,6 +14,7 @@ def parse_html(html):
 
     :param html: Unicode content
     """
+    # pylint: disable=import-outside-toplevel
     from defusedxml import lxml as dlxml
     from lxml import etree
 
@@ -32,8 +33,9 @@ def serialize_xpath_results(xpath_results, select_all):
 
     :param select_all: True to get all matches
     """
-    from defusedxml import lxml as dlxml
+    # pylint: disable=import-outside-toplevel
     import re
+    from defusedxml import lxml as dlxml
 
     if isinstance(xpath_results, list):
         if select_all is False:
@@ -45,7 +47,7 @@ def serialize_xpath_results(xpath_results, select_all):
     for r in xpath_results:
         # namespace declarations
         if isinstance(r, tuple):
-            results.append("%s=\"%s\"" % (r[0], r[1]))
+            results.append(f'{r[0]}="{r[1]}"')
         # an element
         elif hasattr(r, 'tag'):
             results.append(

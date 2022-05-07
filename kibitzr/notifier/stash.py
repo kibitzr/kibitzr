@@ -5,7 +5,7 @@ from kibitzr.transformer.jinja_transform import JinjaTransform
 class StashNotify(Stash):
 
     def __init__(self, conf, value):
-        super(StashNotify, self).__init__()
+        super().__init__()
         self.conf = conf
         self.data = value
 

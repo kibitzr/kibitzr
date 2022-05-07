@@ -13,7 +13,7 @@ from .exceptions import ConfigurationError
 logger = logging.getLogger(__name__)
 
 
-class ReloadableSettings(object):
+class ReloadableSettings:
     _instance = None
     CONFIG_DIRS = (
         '',
@@ -41,8 +41,8 @@ class ReloadableSettings(object):
             if os.path.exists(file_path):
                 return directory
         raise ConfigurationError(
-            "kibitzr.yml not found in following locations: %s"
-            % ", ".join([x[1] for x in candidates])
+            "kibitzr.yml not found in following locations: {}"  # pylint: disable=consider-using-f-string
+            .format(", ".join([x[1] for x in candidates]))
         )
 
     @classmethod
@@ -64,8 +64,7 @@ class ReloadableSettings(object):
         if self.checks != checks:
             self.checks = checks
             return True
-        else:
-            return changed
+        return changed
 
     def read_conf(self):
         """
@@ -76,11 +75,11 @@ class ReloadableSettings(object):
 
     @contextlib.contextmanager
     def open_conf(self):
-        with open(self.filename) as fp:
+        with open(self.filename, encoding='utf8') as fp:
             yield fp
 
 
-class CompositeCreds(object):
+class CompositeCreds:
 
     def __init__(self, config_dir):
         self.plain = PlainYamlCreds(config_dir)
@@ -109,18 +108,17 @@ class CompositeCreds(object):
     def __getitem__(self, key):
         if key in self.extensions:
             return self.extensions[key]
-        elif key in self.plain:
+        if key in self.plain:
             return self.plain[key]
-        else:
-            raise KeyError("Credentials not found: {0}".format(key))
+        raise KeyError(f"Credentials not found: {key}")
 
 
-class PlainYamlCreds(object):
+class PlainYamlCreds:
 
     CREDENTIALS_FILENAME = 'kibitzr-creds.yml'
 
     def __init__(self, config_dir):
-        super(PlainYamlCreds, self).__init__()
+        super().__init__()
         self.creds = {}
         self.creds_filename = os.path.join(config_dir,
                                            self.CREDENTIALS_FILENAME)
@@ -155,7 +153,7 @@ class PlainYamlCreds(object):
 
     @contextlib.contextmanager
     def open_creds(self):
-        with open(self.creds_filename) as fp:
+        with open(self.creds_filename, encoding='utf8') as fp:
             yield fp
 
 
@@ -166,7 +164,7 @@ def settings():
     return ReloadableSettings.instance()
 
 
-class SettingsParser(object):
+class SettingsParser:
     RE_PUNCTUATION = re.compile(r'\W+')
     UNNAMED_PATTERN = 'Unnamed check {0}'
 
@@ -260,8 +258,8 @@ class SettingsParser(object):
                     yield templated_check
                 else:
                     raise ConfigurationError(
-                        "Template %r not found. Referenced in check %r"
-                        % (check['template'], check['name'])
+                        f"Template {check['template']} not found. "
+                        f"Referenced in check {check['name']}"
                     )
             else:
                 yield check

@@ -9,7 +9,7 @@ import six
 logger = logging.getLogger(__name__)
 
 
-class SoupOps(object):
+class SoupOps:
     def __init__(self, selector=None, select_all=False):
         self.selector = selector
         self.select_all = select_all

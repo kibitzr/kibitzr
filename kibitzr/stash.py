@@ -5,12 +5,13 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class Stash(object):
+class Stash:
 
     FILENAME = 'stash.db'
 
     @contextlib.contextmanager
     def open(self):
+        # pylint: disable=import-outside-toplevel
         import shelve
         with contextlib.closing(shelve.open(self.FILENAME)) as db:
             yield db
@@ -27,7 +28,7 @@ class Stash(object):
     @classmethod
     def print_content(cls):
         for key, value in cls().read().items():
-            print("{0}: {1}".format(key, value))
+            print(f"{key}: {value}")
 
 
 class LazyStash(Stash):

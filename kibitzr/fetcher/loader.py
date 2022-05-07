@@ -1,3 +1,4 @@
+# pylint: disable=import-outside-toplevel
 import logging
 import entrypoints
 
@@ -49,7 +50,7 @@ class RequestsPromoter(URLPromoter):
     PRIORITY = 5  # default fallback
 
     def __init__(self, conf):
-        super(RequestsPromoter, self).__init__(conf)
+        super().__init__(conf)
         self._fetcher = None
 
     @classmethod
@@ -62,7 +63,7 @@ class RequestsPromoter(URLPromoter):
 
     def fetch(self):
         from .simple import requests_fetcher
-        super(RequestsPromoter, self).fetch()
+        super().fetch()
         if not self._fetcher:
             self._fetcher = requests_fetcher(self.conf)
         return self._fetcher()
@@ -82,7 +83,7 @@ class FirefoxPromoter(URLPromoter):
 
     def fetch(self):
         from .browser.fetcher import firefox_fetcher
-        super(FirefoxPromoter, self).fetch()
+        super().fetch()
         return firefox_fetcher(self.conf)
 
 
@@ -104,5 +105,5 @@ class ScriptPromoter(BasePromoter):
 
     def fetch(self):
         from .script import fetch_by_script
-        super(ScriptPromoter, self).fetch()
+        super().fetch()
         return fetch_by_script(self.conf)

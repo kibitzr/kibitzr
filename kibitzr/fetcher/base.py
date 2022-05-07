@@ -4,7 +4,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class BasePromoter(object):
+class BasePromoter:
     """
     Promoters are filtered by the result of is_applicable call,
     then sorted by PRIORITY.

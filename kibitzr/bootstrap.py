@@ -36,13 +36,13 @@ def create_boilerplate():
     if they do not exist.
     """
     if not os.path.exists('kibitzr.yml'):
-        with open('kibitzr.yml', 'wt') as fp:
+        with open('kibitzr.yml', 'wt', encoding='utf8') as fp:
             logger.info("Saving sample check in kibitzr.yml")
             fp.write(KIBITZR_YML)
     else:
         logger.info("kibitzr.yml already exists. Skipping")
     if not os.path.exists('kibitzr-creds.yml'):
-        with open('kibitzr-creds.yml', 'wt') as fp:
+        with open('kibitzr-creds.yml', 'wt', encoding='utf8') as fp:
             logger.info("Creating kibitzr-creds.yml")
             fp.write(KIBITZR_CREDS_YML)
         os.chmod('kibitzr-creds.yml', stat.S_IRUSR | stat.S_IWUSR)

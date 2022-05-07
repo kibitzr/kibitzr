@@ -7,7 +7,7 @@ from ..conf import settings
 logger = logging.getLogger(__name__)
 
 
-class GotifyNotify(object):
+class GotifyNotify:
     def __init__(self, value):
         import requests
         self.session = requests.Session()

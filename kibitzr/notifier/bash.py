@@ -1,7 +1,7 @@
 from ..bash import execute_bash
 
 
-class BashNotify(object):
+class BashNotify:
 
     def __init__(self, value):
         self.code = value

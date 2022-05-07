@@ -143,7 +143,7 @@ def execute_bash(code, stdin=None):
     return executor(code).execute(stdin)
 
 
-class BashExecutor(object):
+class BashExecutor:
 
     EXECUTABLE = "bash"
     ARGS = []

@@ -31,7 +31,7 @@ def load_notifiers():
     return registry
 
 
-class CompositeNotifier(object):
+class CompositeNotifier:
 
     REGISTRY = load_notifiers()
 

@@ -110,7 +110,7 @@ def test_schedule_daily_uses_current_time_by_default():
     assert next_run.minute == 34
 
 
-class DummyCheck(object):
+class DummyCheck:
     def __init__(self, rules):
         self.conf = {
             'name': 'dummy',

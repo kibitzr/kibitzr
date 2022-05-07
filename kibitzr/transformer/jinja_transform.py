@@ -13,7 +13,7 @@ from .xpath import parse_html, serialize_xpath_results
 logger = logging.getLogger(__name__)
 
 
-class JinjaTransform(object):
+class JinjaTransform:
 
     def __init__(self, code, conf):
         from jinja2 import Environment
@@ -67,7 +67,7 @@ def ignore_cast_error(func):
 @ignore_cast_error
 def dollars_filter(number):
     sign = '-' if number < 0 else ''
-    return '{0}${1:,}'.format(sign, abs(number))
+    return f"{sign}${abs(number):,}"
 
 
 @ignore_cast_error
@@ -90,7 +90,7 @@ def text_filter(html):
         raise RuntimeError("Extract text failed")
 
 
-class LazyJSON(object):
+class LazyJSON:
     def __init__(self, content):
         self.text = content
         self._json = None
@@ -105,7 +105,7 @@ class LazyJSON(object):
         return self.json[key]
 
 
-class LazyHTML(object):
+class LazyHTML:
     def __init__(self, content):
         self.html = content
         self._soup = None
@@ -125,7 +125,7 @@ class LazyHTML(object):
             return result
 
 
-class LazyXML(object):
+class LazyXML:
     def __init__(self, content):
         self.xml = content
         self._root = None

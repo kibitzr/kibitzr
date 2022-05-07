@@ -53,17 +53,12 @@ def notify(conf, report, notifier_conf):
 
 
 def send_email(user, password, recipients, subject, body, host, port):
+    # pylint: disable=too-many-arguments
     message = (
-        u"From: {user}\r\n"
-        u"To: {to}\r\n"
-        u"Subject: {subject}\r\n\r\n"
-        u"{body}\r\n"
-        .format(
-            user=user,
-            to=", ".join(recipients),
-            subject=subject,
-            body=body,
-        )
+        f"From: {user}\r\n"
+        f"To: {', '.join(recipients)}\r\n"
+        f"Subject: {subject}\r\n\r\n"
+        f"{body}\r\n"
     )
     try:
         server = SMTP(host, port)  # ("smtp.gmail.com", 587)
