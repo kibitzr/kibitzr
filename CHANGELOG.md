@@ -1,6 +1,9 @@
 # Changelog
 
-## Unreleased
+## [6.2.1] - 2022-05-07
+## Fixed
+- Python version requirement (3.6+) for the package.
+
 ## [6.2.0] - 2022-05-07
 ## Changed
 - SMTP notifier will not try to authenticate when either user or password is missing from configuration.
