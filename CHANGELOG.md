@@ -1,6 +1,11 @@
 # Changelog
 
 ## Unreleased
+## [6.2.0] - 2022-05-07
+## Changed
+- SMTP notifier will not try to authenticate when either user or password is missing from configuration.
+  Thanks to [QJKX](https://github.com/QJKX) in [PR#122](https://github.com/kibitzr/kibitzr/pull/122)
+
 ## [6.1.0] - 2022-01-28
 ## Added
 - `kibitzr reload` command to pick up configuration changes without restart by [fi-do](https://github.com/fi-do) in [PR#115](https://github.com/kibitzr/kibitzr/pull/115)

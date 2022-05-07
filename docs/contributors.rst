@@ -14,3 +14,5 @@ People, who contributed to Kibitzr in arbitrary order:
 * `ColdIce <https://github.com/ColdIce1>`_
 * `Jesaja Everling <https://github.com/jeverling>`_
 * `egvimo <https://github.com/egvimo>`_
+* `fi-do <https://github.com/fi-do>`_
+* `QJKX <https://github.com/QJKX>`_
