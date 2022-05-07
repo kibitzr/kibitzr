@@ -95,7 +95,7 @@ def test_smtp_uses_local_server_by_default(fake_smtp, settings):
         'you@site.com',
     )
     fake_smtp.assert_called_once_with('localhost', 25)
-    fake_smtp.return_value.login.assert_called_once_with('you@site.com', '')
+    fake_smtp.return_value.login.assert_not_called()
     fake_smtp.return_value.sendmail.assert_called_once_with(
         'you@site.com',
         ['you@site.com'],

@@ -26,7 +26,7 @@ def notify(conf, report, notifier_conf):
     logger.info("Executing SMTP notifier")
     credentials = settings().creds.get('smtp', {})
     user = credentials.get('user')
-    password = credentials.get('password')
+    password = credentials.get('password', '')
     host = credentials.get('host', 'localhost')
     port = credentials.get('port', 25)
     try:
@@ -70,7 +70,7 @@ def send_email(user, password, recipients, subject, body, host, port):
         server.ehlo()
         try:
             server.starttls()
-            if user is not None:
+            if user and password:
                 server.login(user, password)
         except SMTPNotSupportedError:
             # Localhost SMTP servers don't use authentication
