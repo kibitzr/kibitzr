@@ -3,28 +3,19 @@
 import os
 from setuptools import setup
 
-with open('README.rst') as readme_file:
+with open('README.rst', encoding='utf-8') as readme_file:
     readme = readme_file.read()
 
 try:
     # Might be missing if no pandoc installed
-    with open('CHANGELOG.rst') as history_file:
+    with open('CHANGELOG.rst', encoding='utf-8') as history_file:
         history = history_file.read()
 except IOError:
     history = ""
 
 
-def changelog_version():
-    with open('CHANGELOG.md') as fp:
-        for line in fp:
-            if line.startswith('## '):
-                version = line.split()[1].strip('[]')
-                if set(version).issubset('0123456789.'):
-                    return version
-
-
 def read_requirements():
-    with open(os.path.join('requirements', 'base.in')) as fp:
+    with open(os.path.join('requirements', 'base.in'), encoding='utf-8') as fp:
         lines = [line.split('#', 1)[0].strip()
                  for line in fp]
     # drop empty lines:
@@ -75,6 +66,7 @@ setup(
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
     ],
+    python_requires='>=3.6',
     test_suite='tests',
     setup_requires=['pytest-runner'],
     tests_require=[
