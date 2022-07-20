@@ -2,7 +2,7 @@
 
 ## [7.0.0] - 2022-07-19
 ## Removed
-- Python 3.6 support
+- Python 3.6 and 3.7 support.
 
 ## Added
 - Python 3.10 support
