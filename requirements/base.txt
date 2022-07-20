@@ -7,10 +7,6 @@
 #
 apscheduler==3.6.3
     # via python-telegram-bot
-backports.zoneinfo==0.2.1
-    # via
-    #   pytz-deprecation-shim
-    #   tzlocal
 beautifulsoup4==4.10.0
     # via bs4
 bs4==0.0.1
@@ -33,10 +29,6 @@ entrypoints==0.4
     # via -r requirements/base.in
 idna==3.3
     # via requests
-importlib-metadata==4.2.0
-    # via click
-importlib-resources==5.4.0
-    # via backports.zoneinfo
 jinja2==3.0.3
     # via -r requirements/base.in
 lazy-object-proxy==1.7.1
@@ -77,8 +69,6 @@ soupsieve==2.3.1
     # via beautifulsoup4
 tornado==6.1
     # via python-telegram-bot
-typing-extensions==4.0.1
-    # via importlib-metadata
 tzdata==2021.5
     # via pytz-deprecation-shim
 tzlocal==4.1
@@ -87,10 +77,6 @@ urllib3==1.26.8
     # via
     #   requests
     #   selenium
-zipp==3.6.0
-    # via
-    #   importlib-metadata
-    #   importlib-resources
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
