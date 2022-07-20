@@ -114,7 +114,8 @@ disable=missing-docstring,
         nonzero-method,
         map-builtin-not-iterating,
         bare-except,
-        bad-builtin
+        bad-builtin,
+        import-outside-toplevel
 
 
 [REPORTS]
