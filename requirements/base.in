@@ -1,4 +1,4 @@
-Click>=6
+click<8
 Jinja2
 bs4
 cachecontrol
