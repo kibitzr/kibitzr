@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt -qqy update                     \
     && apt -y install                   \
        libffi-dev                       \
-       firefox                          \
+       firefox-esr                      \
        git                              \
        jq                               \
        python3-lazy-object-proxy        \
