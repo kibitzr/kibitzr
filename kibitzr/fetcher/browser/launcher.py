@@ -41,10 +41,10 @@ def firefox(headless=True):
     Instance is reused and must be cleaned up on exit.
     """
     from selenium import webdriver
-    from selenium.webdriver.firefox.options import Options
+    from selenium.webdriver import FirefoxOptions
     if headless:
         driver_key = 'headless'
-        firefox_options = Options()
+        firefox_options = FirefoxOptions()
         firefox_options.add_argument('-headless')
     else:
         driver_key = 'headed'
@@ -57,6 +57,6 @@ def firefox(headless=True):
     if FIREFOX_INSTANCE[driver_key] is None:
         FIREFOX_INSTANCE[driver_key] = webdriver.Firefox(
             firefox_profile=firefox_profile,
-            firefox_options=firefox_options,
+            options=firefox_options,
         )
     yield FIREFOX_INSTANCE[driver_key]
