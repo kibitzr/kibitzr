@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.0.0] - 2022-07-19
+## Removed
+- Python 3.6 support
+
+## Added
+- Python 3.10 support
+
 ## [6.2.1] - 2022-05-07
 ## Fixed
 - Python version requirement (3.6+) for the package.
