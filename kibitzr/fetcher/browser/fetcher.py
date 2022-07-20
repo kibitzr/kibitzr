@@ -9,6 +9,7 @@ from selenium.common.exceptions import (
     NoSuchElementException,
     StaleElementReferenceException,
 )
+from selenium.webdriver.common.by import By
 from jinja2 import Template
 
 from kibitzr.conf import settings
@@ -213,7 +214,7 @@ class FirefoxFetcher:
 
     def _run_scenario(self, conf):
         scenario = conf.get('scenario')
-        if isinstance(scenario, collections.Mapping):
+        if isinstance(scenario, collections.abc.Mapping):
             code = scenario['python']
             elements = scenario.get('elements', {})
         else:
@@ -236,11 +237,11 @@ class FirefoxFetcher:
         total_attempts = 3
         for attempt in range(1, total_attempts + 1):
             try:
-                elem = self.driver.find_element_by_xpath("//*")
+                elem = self.driver.find_element(By.XPATH, "//*")
                 html = elem.get_attribute("outerHTML")
             except (NoSuchElementException, StaleElementReferenceException):
                 # Crazy (but stable) race condition,
-                # new page loaded after call to find_element_by_xpath
+                # new page loaded after call to find_element
                 # Just retry:
                 if attempt == total_attempts:
                     raise
@@ -269,11 +270,11 @@ class FirefoxFetcher:
         or None if nothing found
         """
         if selector_type == 'css':
-            elements = self.driver.find_elements_by_css_selector(selector)
+            elements = self.driver.find_elements(By.CSS_SELECTOR, selector)
         elif selector_type == 'xpath':
-            elements = self.driver.find_elements_by_xpath(selector)
+            elements = self.driver.find_elements(By.XPATH, selector)
         elif selector_type == 'id':
-            elements = self.driver.find_elements_by_css_selector('#' + selector)
+            elements = self.driver.find_elements(By.CSS_SELECTOR, '#' + selector)
         else:
             raise RuntimeError(
                 f"Unknown selector_type: {selector_type} for selector: {selector}"
@@ -294,6 +295,7 @@ class FirefoxFetcher:
                 'creds': settings().creds,
                 'driver': self.driver,
                 'elements': elements,
+                'By': By,
             },
         )
 
