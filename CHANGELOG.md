@@ -1,253 +1,253 @@
 # Changelog
 
 ## [7.0.0] - 2022-07-19
-## Removed
+### Removed
 - Python 3.6 and 3.7 support.
 
-## Added
+### Added
 - Python 3.10 support
 
 ## [6.2.1] - 2022-05-07
-## Fixed
+### Fixed
 - Python version requirement (3.6+) for the package.
 
 ## [6.2.0] - 2022-05-07
-## Changed
+### Changed
 - SMTP notifier will not try to authenticate when either user or password is missing from configuration.
   Thanks to [QJKX](https://github.com/QJKX) in [PR#122](https://github.com/kibitzr/kibitzr/pull/122)
 
 ## [6.1.0] - 2022-01-28
-## Added
+### Added
 - `kibitzr reload` command to pick up configuration changes without restart by [fi-do](https://github.com/fi-do) in [PR#115](https://github.com/kibitzr/kibitzr/pull/115)
 
 ## [6.0.2] - 2021-12-05
 - Update docker image
 
 ## [6.0.1] - 2021-10-11
-## Added
+### Added
 - [Gotify notifier](https://kibitzr.readthedocs.io/en/latest/gotify.html) by [egvimo](https://github.com/egvimo) in [PR#108](for://github.com/kibitzr/kibitzr/pull/108)
 
 ## [6.0.0] - 2019-08-06
-## Removed
+### Removed
 - Support for Python 2.6, 3.4
 
-## Added
+### Added
 - Support for Python 3.7
 
 ## [5.4.4] - 2019-08-06
-## Fixed
+### Fixed
 - skip handling of unsupported SIGUSR1 under Windows #73.
 
-## Added
+### Added
 - provide context for `{{ env }}` dictionary in all Jinja templates.
 
 ## [5.4.3] - 2019-06-07
-## Fixed
+### Fixed
 - Fixed `xpath` in Jinja transform for attribute and namespace access (#81 thanks to @mstarzyk).
 
 ## [5.4.2] - 2018-12-27
-## Changed
+### Changed
 - Better support for dynamic forms filling. Check only first form field for accessibility.
 - Changed `bash` to `shell` in docs and added alias.
 
 ## [5.4.1] - 2018-11-27
-## Changed
+### Changed
 - Replaced option `verify_cert` with `verify-cert` for consistency.
 
 ## [5.4.0] - 2018-10-20
-## Added
+### Added
 - Schedule option (#71 thanks to @cescobarresi).
 - Option to omit HTTPS certificate verification in simple fetcher (#72 thanks to @cescobarresi).
 
 ## [5.3.5] - 2018-10-02
-## Added
+### Added
 - Telegram notifier option `split-on` (#70 thanks to @cescobarresi).
-## Changed
+### Changed
 - Fixed `xpath` transform for attribute and namespace access (#68 thanks to @cescobarresi).
 
 ## [5.3.4] - 2018-09-28
-## Added
+### Added
 - `xpath-all` transform (#67 thanks to @cescobarresi).
 
 ## [5.3.3] - 2018-08-24
-## Added
+### Added
 - [undocumented] `before_start` extension interface.
 
 ## [5.3.2] - 2018-08-16
-## Changed
+### Changed
 - Made custom Jinja filters ignore None values.
 - convert lxml to defusedxml in transformer/html.py (#61 thanks to @unit-00).
 
 ## [5.3.1] - 2018-07-06
-## Added
+### Added
 - [undocumented] CLI extension interface.
 
 ## [5.3.0.alpha] - 2018-05-06
-## Added
+### Added
 - [undocumented] fetcher extension interface.
 
 ## [5.2.0] - 2018-05-06
-## Changed
+### Changed
 - `kibitzr firefox` now prompts for Return to save profile.
 - Firefox profile directory path moved to capabilities in the new version.
 
 ## [5.1.1] - 2018-04-19
-## Added
+### Added
 - `kibitzr stash` command to show stash contents.
 
 ## [5.1.0] - 2018-04-10
 
-## Added
+### Added
 - kibitzr clean command to delete changes history (#13 thanks to @attilanagy).
 - Jinja filters: int and float.
 
 ## [5.0.0] - 2017-12-16
-## Changed
+### Changed
 - Dropped support for Firefox < 56 (using -headless instead of XVFB).
 
 ## [4.0.10] - 2017-08-28
-## Changed
+### Changed
 - Fix #47: Xpath transform encodes content to UTF-8 before parsing (X|HT)ML.
 
 ## [4.0.9] - 2017-08-21
-## Fixed
+### Fixed
 - Allow SMTP without authentication.
-## Changed
+### Changed
 - Use local SMTP server by default.
 
 ## [4.0.8] - 2017-08-02
-## Fixed
+### Fixed
 - Fixed xpath selector transform.
 
 ## [4.0.7] - 2017-06-29
-## Fixed
+### Fixed
 - Fixed interruption exit code (1).
 
 ## [4.0.6] - 2017-06-28
-## Fixed
+### Fixed
 - Exit(2) when receiving SIGTERM/SIGINT.
 
 ## [4.0.5] - 2017-06-14
-## Fixed
+### Fixed
 - Exit(1) Kibitzr when Firefox goes funny business.
 
 ## [4.0.4] - 2017-06-07
-## Changed
+### Changed
 - Firefox fetcher: Implicitly wait 2 seconds for selects.
 - Firefox fetcher: Resize window before each fetch.
-## Fixed
+### Fixed
 - bash transform: Skip execution for empty content.
 
 ## [4.0.3] - 2017-05-25
-## Added
+### Added
 - Changes style "new" - show only current content if it changed.
-## Fixed
+### Fixed
 - text filter in Jinja templates.
 - Adapted list of requirements for Windows.
 
 ## [4.0.2] - 2017-05-21
-## Added
+### Added
 - Explicit telegram imprinting.
-## Fixed
+### Fixed
 - Dynamically import only what's needed in checks.
 - Better Windows support.
 - Support for non-ascii URLs.
 
 ## [4.0.1] - 2017-05-10
-## Added
+### Added
 - Credentials extensions through entry points (for kibitzr-keyring).
 
 ## [4.0.0] - 2017-05-08
-## Added
+### Added
 - `kibitzr init` - create sample configuration files.
-## Changed
+### Changed
 - Changed kibitzr CLI commands structure (`kibitzr run` instead of `kibitzr`).
 
 ## [3.1.8] - 2017-05-08
-## Fixed
+### Fixed
 - Unspecified period caused error (introduced in 3.1.4).
 
 ## [3.1.7] - 2017-05-06
-## Fixed
+### Fixed
 - Gracefull shutdown on SIGTERM (as on SIGINT).
 
 ## [3.1.6] - 2017-05-05
-## Fixed
+### Fixed
 - Jinja transform.
-## Added
+### Added
 - CHANGELOG to PyPI page.
 
 ## [3.1.4] - 2017-05-04
-## Changed
+### Changed
 - human-readable period.
 
 ## [3.1.3] - 2017-05-01
-## Fixed
+### Fixed
 - Bash and Python transforms parameter (dis)order.
 - Skip Bash transform if input is empty.
-## Changed
+### Changed
 - Requests fetcher uses caching.
 
 ## [3.1.0] - 2017-05-01
-## Added
+### Added
 - Jinja transform.
-## Removed
+### Removed
 - cut and sort transforms (superseded by bash).
 
 ## [3.0.11] - 2017-04-30
-## Added
+### Added
 - Browser form filling shorthand.
 
 ## [3.0.10] - 2017-04-29
-## Added
+### Added
 - Bash transform.
-## Fixed
+### Fixed
 - jq transform input encoding.
 
 ## [3.0.9] - 2017-04-25
-## Fixed
+### Fixed
 - Firefox fetcher: retry 3 times on stale element exception.
 - Persistent Firefox: Ignore all exceptions when closing.
 
 ## [3.0.8] - 2017-04-24
-## Added
+### Added
 - Transformer css-all selector which returns all elements instead of first.
 - Python transformer.
-## Changed
+### Changed
 - Missing check name autopopulated from URL or autogenerated.
 
 ## [3.0.7] - 2017-04-19
-## Added
+### Added
 - Zapier notifier.
 
 ## [3.0.6] - 2017-04-19
-## Added
+### Added
 - Telegram notifier.
 
 ## [3.0.3] - 2017-04-18
-## Added
+### Added
 - Persistent firefox profile [undocumented].
 
 ## [3.0.2] - 2017-04-18
-## Added
+### Added
 - Short form for SMTP notifier #11.
-## Fixed
+### Fixed
 - Weird BS4 misbehaviour in CSS selector.
 
 ## [3.0.1] - 2017-04-07
-## Fixed
+### Fixed
 - Exit if no checks defined.
 - Better credentials reloading.
 
 ## [3.0.0] - 2017-04-04
-## Changed
+### Changed
 - Switched to selenium >3 and Firefox >48.
 
 ## [2.7.4] - 2017-04-01
-## Changed
+### Changed
 - Closing FireFox tab after it was fetched to reduce idle CPU.
 
 ## [2.7.3] - 2017-03-31
-## Added
+### Added
 - Started CHANGELOG.
 - script.python fetcher.

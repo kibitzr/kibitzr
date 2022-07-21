@@ -1,3 +1,5 @@
+:orphan:
+
 kibitzr.fetcher.browser package
 ===============================
 

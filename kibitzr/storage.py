@@ -13,9 +13,8 @@ def report_changes(conf, content):
 
 
 class PageHistory:
-    """
-    Single file changes history using git
-    """
+    """Single file changes history using git."""
+
     STORAGE_DIR = "pages"
 
     def __init__(self, conf, storage_dir=None, style=None):
@@ -41,11 +40,12 @@ class PageHistory:
         )
 
     def report_changes(self, content):
-        """
-        1) Write changes in file,
-        2) Commit changes in git
-        3.1) If something changed, return tuple(True, changes)
-        3.2) If nothing changed, return tuple(False, None)
+        """Save contents and commit it to git.
+
+        1. Write changes in file.
+        2. Commit changes in git.
+        3. If something changed, return tuple(True, changes).
+        4. If nothing changed, return tuple(False, None).
 
         If style is "verbose", return changes in human-friendly format,
         else use unified diff
@@ -59,8 +59,8 @@ class PageHistory:
         """Save content on disk"""
         with io.open(self.target, 'w', encoding='utf-8') as fp:
             fp.write(content)
-            if not content.endswith(u'\n'):
-                fp.write(u'\n')
+            if not content.endswith('\n'):
+                fp.write('\n')
 
     def commit(self):
         """git commit and return whether there were changes"""
@@ -122,7 +122,7 @@ class ChangesReporter:
                 'content'
             ).stdout).splitlines()
             lines = output.splitlines()
-            result = u'\n'.join(
+            result = '\n'.join(
                 itertools.chain(
                     itertools.islice(
                         itertools.dropwhile(
@@ -146,7 +146,7 @@ class ChangesReporter:
             '--format=%s',
         ).stdout)
         lines = output.splitlines()
-        return u'\n'.join(
+        return '\n'.join(
             itertools.chain(
                 lines[:1],
                 itertools.islice(
@@ -172,8 +172,8 @@ class ChangesReporter:
                 f"{self.subject}\nNew value:\n{after}\n"
                 f"Old value:\n{before}\n"
             )
-        return u'\n'.join([self.subject, after])
+        return '\n'.join([self.subject, after])
 
     def new(self):
         content = self.git.show('HEAD:content').strip()
-        return u'\n'.join([self.subject, content])
+        return '\n'.join([self.subject, content])
