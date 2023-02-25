@@ -16,3 +16,4 @@ People, who contributed to Kibitzr in arbitrary order:
 * `egvimo <https://github.com/egvimo>`_
 * `fi-do <https://github.com/fi-do>`_
 * `QJKX <https://github.com/QJKX>`_
+* `Ivan Zarudny <https://github.com/mcrozz>`_
