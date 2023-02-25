@@ -5,118 +5,111 @@
 #
 #    pip-compile-multi
 #
-apscheduler==3.6.3
-    # via python-telegram-bot
+anyio==3.6.2
+    # via httpcore
 async-generator==1.10
     # via
     #   trio
     #   trio-websocket
-attrs==21.4.0
+attrs==22.2.0
     # via
     #   outcome
     #   trio
-beautifulsoup4==4.11.1
+beautifulsoup4==4.11.2
     # via bs4
 bs4==0.0.1
     # via -r requirements/base.in
 cachecontrol==0.12.11
     # via -r requirements/base.in
-cachetools==4.2.2
-    # via python-telegram-bot
-certifi==2022.6.15
+certifi==2022.12.7
     # via
-    #   python-telegram-bot
+    #   httpcore
+    #   httpx
     #   requests
-    #   urllib3
-cffi==1.15.1
-    # via cryptography
-charset-normalizer==2.1.0
+    #   selenium
+charset-normalizer==3.0.1
     # via requests
 click==8.1.3
     # via -r requirements/base.in
-cryptography==37.0.4
-    # via
-    #   pyopenssl
-    #   urllib3
 defusedxml==0.7.1
     # via -r requirements/base.in
 entrypoints==0.4
     # via -r requirements/base.in
-h11==0.13.0
-    # via wsproto
-idna==3.3
+exceptiongroup==1.1.0
+    # via trio
+h11==0.14.0
     # via
+    #   httpcore
+    #   wsproto
+h2==4.1.0
+    # via httpx
+hpack==4.0.0
+    # via h2
+httpcore==0.16.3
+    # via httpx
+httpx[http2]==0.23.3
+    # via python-telegram-bot
+hyperframe==6.0.1
+    # via h2
+idna==3.4
+    # via
+    #   anyio
     #   requests
+    #   rfc3986
     #   trio
-    #   urllib3
 jinja2==3.1.2
     # via -r requirements/base.in
-lazy-object-proxy==1.7.1
+lazy-object-proxy==1.9.0
     # via -r requirements/base.in
-lxml==4.9.1
+lxml==4.9.2
     # via -r requirements/base.in
-markupsafe==2.1.1
+markupsafe==2.1.2
     # via jinja2
 msgpack==1.0.4
     # via cachecontrol
 outcome==1.2.0
     # via trio
-psutil==5.9.1
+psutil==5.9.4
     # via -r requirements/base.in
-pycparser==2.21
-    # via cffi
-pyopenssl==22.0.0
-    # via urllib3
 pysocks==1.7.1
     # via urllib3
-python-telegram-bot==13.13
+python-telegram-bot==20.1
     # via -r requirements/base.in
 pytimeparse==1.1.8
     # via -r requirements/base.in
-pytz==2022.1
-    # via
-    #   apscheduler
-    #   python-telegram-bot
-pytz-deprecation-shim==0.1.0.post0
-    # via tzlocal
 pyyaml==6.0
     # via -r requirements/base.in
-requests==2.28.1
+requests==2.28.2
     # via
     #   -r requirements/base.in
     #   cachecontrol
+rfc3986[idna2008]==1.5.0
+    # via httpx
 schedule==1.1.0
     # via -r requirements/base.in
-selenium==4.3.0
+selenium==4.8.2
     # via -r requirements/base.in
 six==1.16.0
+    # via -r requirements/base.in
+sniffio==1.3.0
     # via
-    #   -r requirements/base.in
-    #   apscheduler
-sniffio==1.2.0
-    # via trio
+    #   anyio
+    #   httpcore
+    #   httpx
+    #   trio
 sortedcontainers==2.4.0
     # via trio
-soupsieve==2.3.2.post1
+soupsieve==2.4
     # via beautifulsoup4
-tornado==6.2
-    # via python-telegram-bot
-trio==0.21.0
+trio==0.22.0
     # via
     #   selenium
     #   trio-websocket
 trio-websocket==0.9.2
     # via selenium
-tzdata==2022.1
-    # via pytz-deprecation-shim
-tzlocal==4.2
-    # via apscheduler
-urllib3[secure,socks]==1.26.10
+urllib3[socks]==1.26.14
     # via
     #   requests
     #   selenium
-wsproto==1.1.0
+wsproto==1.2.0
     # via trio-websocket
-
-# The following packages are considered to be unsafe in a requirements file:
-# setuptools

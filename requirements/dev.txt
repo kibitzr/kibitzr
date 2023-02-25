@@ -6,91 +6,101 @@
 #    pip-compile-multi
 #
 -r base.txt
-alabaster==0.7.12
+alabaster==0.7.13
     # via sphinx
-astroid==2.11.7
+astroid==2.14.2
     # via
     #   -r requirements/dev.in
     #   pylint
-babel==2.10.3
+babel==2.11.0
     # via sphinx
-build==0.8.0
+build==0.10.0
     # via pip-tools
 bump2version==1.0.1
     # via -r requirements/dev.in
-coverage[toml]==6.4.2
+cachetools==5.3.0
+    # via tox
+cffi==1.15.1
+    # via cryptography
+chardet==5.1.0
+    # via tox
+colorama==0.4.6
+    # via tox
+coverage[toml]==7.2.0
     # via
     #   -r requirements/dev.in
     #   pytest-cov
-dill==0.3.5.1
+cryptography==39.0.1
+    # via -r requirements/dev.in
+dill==0.3.6
     # via pylint
-distlib==0.3.5
+distlib==0.3.6
     # via virtualenv
-docutils==0.18.1
+docutils==0.19
     # via sphinx
 execnet==1.9.0
     # via pytest-cache
-filelock==3.7.1
+filelock==3.9.0
     # via
     #   tox
     #   virtualenv
-flake8==4.0.1
+flake8==6.0.0
     # via -r requirements/dev.in
-freezegun==1.2.1
+freezegun==1.2.2
     # via -r requirements/dev.in
 imagesize==1.4.1
     # via sphinx
-iniconfig==1.1.1
+iniconfig==2.0.0
     # via pytest
-isort==5.10.1
+isort==5.12.0
     # via pylint
-mccabe==0.6.1
+mccabe==0.7.0
     # via
     #   flake8
     #   pylint
-mock==4.0.3
+mock==5.0.1
     # via -r requirements/dev.in
-more-itertools==8.13.0
+more-itertools==9.0.0
     # via -r requirements/dev.in
-packaging==21.3
+packaging==23.0
     # via
     #   build
+    #   pyproject-api
     #   pytest
     #   sphinx
     #   tox
-pep517==0.12.0
-    # via build
 pep8==1.7.1
     # via
     #   -r requirements/dev.in
     #   pytest-pep8
-pip-compile-multi==2.4.6
+pip-compile-multi==2.6.2
     # via -r requirements/dev.in
-pip-tools==6.8.0
+pip-tools==6.12.2
     # via pip-compile-multi
-platformdirs==2.5.2
+platformdirs==3.0.0
     # via
     #   pylint
+    #   tox
     #   virtualenv
 pluggy==1.0.0
     # via
     #   pytest
     #   tox
-py==1.11.0
-    # via
-    #   pytest
-    #   tox
-pycodestyle==2.8.0
+pycodestyle==2.10.0
     # via flake8
-pyflakes==2.4.0
+pycparser==2.21
+    # via cffi
+pyflakes==3.0.1
     # via flake8
-pygments==2.12.0
+pygments==2.14.0
     # via sphinx
-pylint==2.14.5
+pylint==2.16.2
     # via -r requirements/dev.in
-pyparsing==3.0.9
-    # via packaging
-pytest==7.1.2
+pyproject-api==1.5.0
+    # via tox
+pyproject-hooks==1.0.0
+    # via build
+pytest==7.2.1
     # via
     #   -r requirements/dev.in
     #   pytest-cache
@@ -99,23 +109,25 @@ pytest==7.1.2
     #   pytest-pep8
 pytest-cache==1.0
     # via pytest-pep8
-pytest-cov==3.0.0
+pytest-cov==4.0.0
     # via -r requirements/dev.in
-pytest-mock==3.8.2
+pytest-mock==3.10.0
     # via -r requirements/dev.in
 pytest-pep8==1.0.6
     # via -r requirements/dev.in
 python-dateutil==2.8.2
     # via freezegun
+pytz==2022.7.1
+    # via babel
 snowballstemmer==2.2.0
     # via sphinx
-sphinx==5.0.2
+sphinx==6.1.3
     # via -r requirements/dev.in
-sphinxcontrib-applehelp==1.0.2
+sphinxcontrib-applehelp==1.0.4
     # via sphinx
 sphinxcontrib-devhelp==1.0.2
     # via sphinx
-sphinxcontrib-htmlhelp==2.0.0
+sphinxcontrib-htmlhelp==2.0.1
     # via sphinx
 sphinxcontrib-jsmath==1.0.1
     # via sphinx
@@ -123,26 +135,28 @@ sphinxcontrib-qthelp==1.0.3
     # via sphinx
 sphinxcontrib-serializinghtml==1.1.5
     # via sphinx
-toml==0.10.2
-    # via tox
 tomli==2.0.1
     # via
     #   build
     #   coverage
-    #   pep517
     #   pylint
+    #   pyproject-api
+    #   pyproject-hooks
     #   pytest
-tomlkit==0.11.1
+    #   tox
+tomlkit==0.11.6
     # via pylint
-toposort==1.7
+toposort==1.9
     # via pip-compile-multi
-tox==3.25.1
+tox==4.4.6
     # via -r requirements/dev.in
-virtualenv==20.15.1
+typing-extensions==4.5.0
+    # via astroid
+virtualenv==20.19.0
     # via tox
-watchdog==2.1.9
+watchdog==2.3.0
     # via -r requirements/dev.in
-wheel==0.37.1
+wheel==0.38.4
     # via
     #   -r requirements/dev.in
     #   pip-tools
