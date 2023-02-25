@@ -1,5 +1,9 @@
 # Changelog
 
+## [7.0.1] - 2023-02-24
+### Added
+- Support for Discord webhook notifier
+
 ## [7.0.0] - 2022-07-19
 ### Removed
 - Python 3.6 and 3.7 support.
