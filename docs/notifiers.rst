@@ -19,6 +19,7 @@ Kibitzr supports following notifier types:
 8. ``python`` - Run :ref:`Python script <python>`
 9. ``shell`` - Run :ref:`shell script <shell>`
 10. ``stash`` - Save to persistent global key-value storage; See :ref:`stash` for details
+11. ``discord`` - Trigger Discord's webhook
 
 Each notifier requires different configuration.
 For the sake of security, sensitive information
@@ -62,3 +63,6 @@ Example configurations
     gotify:
         url: https://gotify.example.de/
         token: A0dIInnCs1J1zNN
+
+    discord:
+        url: https://discord.com/api/webhooks/1234567890123456789/qwertyu1pQWER3YUOP_qw4rtyuo6QWER8YU-qwe9tyuopQ1ERTY2OPqw3rtyu-4werty
