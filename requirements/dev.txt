@@ -140,8 +140,6 @@ pytest-pep8==1.0.6
     # via -r requirements/dev.in
 python-dateutil==2.8.2
     # via freezegun
-pytz==2022.7.1
-    # via babel
 readme-renderer==37.3
     # via twine
 requests-toolbelt==0.10.1

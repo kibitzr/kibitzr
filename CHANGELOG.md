@@ -1,5 +1,10 @@
 # Changelog
 
+## [7.0.2] - 2023-02-24
+### Added
+- Support for Twilio notifier.
+  Thanks to [Colin Unger](https://github.com/lockshaw) in [PR#137](https://github.com/kibitzr/kibitzr/pull/137)
+
 ## [7.0.1] - 2023-02-24
 ### Added
 - Support for Discord webhook notifier.

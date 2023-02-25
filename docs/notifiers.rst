@@ -20,6 +20,7 @@ Kibitzr supports following notifier types:
 9. ``shell`` - Run :ref:`shell script <shell>`
 10. ``stash`` - Save to persistent global key-value storage; See :ref:`stash` for details
 11. ``discord`` - Trigger Discord's webhook
+12. ``twilio`` - Send SMS through Twilio client 
 
 Each notifier requires different configuration.
 For the sake of security, sensitive information
@@ -66,3 +67,7 @@ Example configurations
 
     discord:
         url: https://discord.com/api/webhooks/1234567890123456789/qwertyu1pQWER3YUOP_qw4rtyuo6QWER8YU-qwe9tyuopQ1ERTY2OPqw3rtyu-4werty
+
+    twilio:
+        account_sid: "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        auth_token: "your_auth_token"
