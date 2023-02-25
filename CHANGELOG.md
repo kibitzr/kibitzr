@@ -2,7 +2,8 @@
 
 ## [7.0.1] - 2023-02-24
 ### Added
-- Support for Discord webhook notifier
+- Support for Discord webhook notifier.
+  Thanks to [Iwa](https://github.com/mcrozz) in [PR#136](https://github.com/kibitzr/kibitzr/pull/136)
 
 ## [7.0.0] - 2022-07-19
 ### Removed
