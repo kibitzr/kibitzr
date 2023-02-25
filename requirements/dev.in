@@ -16,6 +16,7 @@ watchdog
 wheel
 freezegun
 pip-compile-multi
+twine
 
 Sphinx
 pylint
