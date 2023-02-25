@@ -20,7 +20,7 @@ def test_twilio_sample(fake_client, settings):  # pylint: disable=redefined-oute
             'phone_number': 'phone_number',
         }
     })
-    notify('report', notifier_conf={})
+    notify('report', notifier_conf={'recipients': ['recipient']})
     fake_client.assert_called_once_with('sid', 'token')
     client_instance = fake_client.return_value
     client_instance.messages.create.assert_called_once_with(
