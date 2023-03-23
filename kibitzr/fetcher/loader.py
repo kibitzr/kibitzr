@@ -1,4 +1,3 @@
-# pylint: disable=import-outside-toplevel
 import logging
 import entrypoints
 
@@ -34,7 +33,7 @@ class URLPromoter(BasePromoter):
         return bool(conf.get('url'))
 
     def log_announcement(self):
-        logger.info(u"Fetching %s at %s",
+        logger.info("Fetching %s at %s",
                     self.conf['name'], self.conf['url'])
 
     @staticmethod
@@ -62,7 +61,7 @@ class RequestsPromoter(URLPromoter):
         ))
 
     def fetch(self):
-        from .simple import requests_fetcher
+        from .simple import requests_fetcher  # pylint: disable=import-outside-toplevel
         super().fetch()
         if not self._fetcher:
             self._fetcher = requests_fetcher(self.conf)
@@ -82,6 +81,7 @@ class FirefoxPromoter(URLPromoter):
         ))
 
     def fetch(self):
+        # pylint: disable=import-outside-toplevel
         from .browser.fetcher import firefox_fetcher
         super().fetch()
         return firefox_fetcher(self.conf)
@@ -104,6 +104,6 @@ class ScriptPromoter(BasePromoter):
                     self.conf['name'])
 
     def fetch(self):
-        from .script import fetch_by_script
+        from .script import fetch_by_script  # pylint: disable=import-outside-toplevel
         super().fetch()
         return fetch_by_script(self.conf)

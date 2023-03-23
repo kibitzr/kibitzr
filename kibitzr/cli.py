@@ -44,14 +44,14 @@ def cli(ctx, log_level):
 @cli.command()
 def version():
     """Print version"""
-    from kibitzr import __version__ as kibitzr_version
+    from kibitzr import __version__ as kibitzr_version  # pylint: disable=import-outside-toplevel
     print(kibitzr_version)
 
 
 @cli.command()
 def firefox():
     """Launch Firefox with persistent profile"""
-    from kibitzr.app import Application
+    from kibitzr.app import Application  # pylint: disable=import-outside-toplevel
     Application().run_firefox()
 
 
@@ -60,7 +60,7 @@ def firefox():
 @click.pass_context
 def once(ctx, name):
     """Run kibitzr checks once and exit"""
-    from kibitzr.app import Application
+    from kibitzr.app import Application  # pylint: disable=import-outside-toplevel
     app = Application()
     sys.exit(app.run(once=True, log_level=ctx.obj['log_level'], names=name))
 
@@ -70,7 +70,7 @@ def once(ctx, name):
 @click.pass_context
 def run(ctx, name):
     """Run kibitzr in the foreground mode"""
-    from kibitzr.app import Application
+    from kibitzr.app import Application  # pylint: disable=import-outside-toplevel
     app = Application()
     sys.exit(app.run(once=False, log_level=ctx.obj['log_level'], names=name))
 
@@ -78,7 +78,7 @@ def run(ctx, name):
 @cli.command()
 def init():
     """Create boilerplate configuration files"""
-    from kibitzr.app import Application
+    from kibitzr.app import Application  # pylint: disable=import-outside-toplevel
     Application.bootstrap()
 
 
@@ -86,7 +86,7 @@ def init():
 def telegram_chat():
     """Return chat id for the last message sent to Telegram Bot"""
     # rename import to escape name clashing:
-    from kibitzr.app import Application
+    from kibitzr.app import Application  # pylint: disable=import-outside-toplevel
     app = Application()
     app.telegram_chat()
 
@@ -94,21 +94,21 @@ def telegram_chat():
 @cli.command()
 def clean():
     """Clean change history"""
-    from kibitzr.storage import PageHistory
+    from kibitzr.storage import PageHistory  # pylint: disable=import-outside-toplevel
     PageHistory.clean()
 
 
 @cli.command()
 def stash():
     """Print stash contents"""
-    from kibitzr.stash import Stash
+    from kibitzr.stash import Stash  # pylint: disable=import-outside-toplevel
     Stash.print_content()
 
 
 @cli.command()
 def reload():
     """Send signal to reload configuration for kibitzr process"""
-    from kibitzr.app import Application
+    from kibitzr.app import Application  # pylint: disable=import-outside-toplevel
     app = Application()
     app.send_reload()
 

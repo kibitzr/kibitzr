@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 
 class GotifyNotify:
     def __init__(self, value):
-        import requests
+        import requests  # pylint: disable=import-outside-toplevel
         self.session = requests.Session()
         gotify_creds = settings().creds['gotify']
         self.url = gotify_creds['url'].rstrip('/') + '/message'

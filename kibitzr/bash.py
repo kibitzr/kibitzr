@@ -178,7 +178,7 @@ class BashExecutor:
 
     @classmethod
     def run_scipt(cls, name, stdin):
-        from kibitzr.compat import sh
+        from kibitzr.compat import sh  # pylint: disable=import-outside-toplevel
         logger.debug("Launching script %r", name)
         try:
             args = cls.ARGS + [name]

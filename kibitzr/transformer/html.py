@@ -67,7 +67,7 @@ class SoupOps:
 
 @contextlib.contextmanager
 def soup(html):
-    from bs4 import BeautifulSoup
+    from bs4 import BeautifulSoup  # pylint: disable=import-outside-toplevel
     with deep_recursion():
         yield BeautifulSoup(html, "html.parser")
 

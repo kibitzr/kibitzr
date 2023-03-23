@@ -22,7 +22,7 @@ def pretty_json(text):
 
 
 def run_jq(query, text):
-    from kibitzr.compat import sh
+    from kibitzr.compat import sh  # pylint: disable=import-outside-toplevel
     jq = sh.Command("jq").bake('--monochrome-output', '--raw-output')
     logger.debug("Running jq query %s against %s", query, text)
     try:

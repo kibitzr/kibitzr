@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 class JinjaTransform:
 
     def __init__(self, code, conf):
-        from jinja2 import Environment
+        from jinja2 import Environment  # pylint: disable=import-outside-toplevel
         environment = Environment()
         environment.filters['text'] = text_filter
         environment.filters['int'] = int_filter
@@ -26,7 +26,7 @@ class JinjaTransform:
         self.conf = conf
 
     def render(self, content, context=None):
-        from jinja2 import TemplateError
+        from jinja2 import TemplateError  # pylint: disable=import-outside-toplevel
         try:
             return True, self.template.render(context or self.context(content))
         except TemplateError:
@@ -112,7 +112,7 @@ class LazyHTML:
 
     @property
     def soup(self):
-        from bs4 import BeautifulSoup
+        from bs4 import BeautifulSoup  # pylint: disable=import-outside-toplevel
         if self._soup is None:
             self._soup = BeautifulSoup(self.html, "html.parser")
         return self._soup

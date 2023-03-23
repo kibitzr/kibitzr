@@ -12,7 +12,7 @@ class WebHookNotify:
     POST_KEY = 'message'
 
     def __init__(self, creds_key=None, conf=None, value=None, post_key=None):
-        import requests
+        import requests  # pylint: disable=import-outside-toplevel
         self.session = requests.Session()
         self.url = self.load_url(creds_key or self.CREDS_KEY, value)
         self.post_key = post_key or self.POST_KEY

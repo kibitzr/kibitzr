@@ -40,8 +40,8 @@ def firefox(headless=True):
     Context manager returning Selenium webdriver.
     Instance is reused and must be cleaned up on exit.
     """
-    from selenium import webdriver
-    from selenium.webdriver import FirefoxOptions
+    from selenium import webdriver  # pylint: disable=import-outside-toplevel
+    from selenium.webdriver import FirefoxOptions  # pylint: disable=import-outside-toplevel
     if headless:
         driver_key = 'headless'
         firefox_options = FirefoxOptions()

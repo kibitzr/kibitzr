@@ -29,6 +29,7 @@ class TelegramBot:
         return self._chat_id
 
     def post(self, report, **kwargs):
+        del kwargs
         if self.split_on:
             report = report.split(self.split_on)
         else:
@@ -52,6 +53,7 @@ class TelegramBot:
 
 
 def notify_factory(conf, value):
+    del conf
     try:
         chat_id = value['chat']
     except (TypeError, KeyError):
@@ -64,6 +66,6 @@ def notify_factory(conf, value):
     return TelegramBot(chat_id=chat_id, split_on=split_on).post
 
 
-def chat_id():
+def get_chat_id():
     bot = TelegramBot()
     print(bot.chat_id)

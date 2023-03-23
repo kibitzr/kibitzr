@@ -1,9 +1,9 @@
+import os
 import logging
 import signal
 import time
 import code
 import psutil
-import os
 
 import entrypoints
 
@@ -72,8 +72,7 @@ class Application:
                     self.execute_all(checkers)
                     if once:
                         return 0
-                    else:
-                        self.check_forever(checkers)
+                    self.check_forever(checkers)
                 else:
                     logger.warning("No checks defined. Exiting")
                     return 1
@@ -116,8 +115,8 @@ class Application:
 
     @staticmethod
     def telegram_chat():
-        from .notifier.telegram import chat_id
-        chat_id()
+        from .notifier.telegram import get_chat_id  # pylint: disable=import-outside-toplevel
+        get_chat_id()
 
     @staticmethod
     def setup_logger(log_level=logging.INFO):
@@ -148,14 +147,17 @@ class Application:
                 break
 
     def on_reload_config(self, *args, **kwargs):
+        del args, kwargs
         logger.info("Received SIGUSR1. Flagging configuration reload")
         self.signals['reload_conf_pending'] = True
 
     def on_backdoor(self, *args, **kwargs):
+        del args, kwargs
         logger.info("Received SIGUSR2. Flagging backdoor to open")
         self.signals['open_backdoor'] = True
 
     def on_interrupt(self, *args, **kwargs):
+        del args, kwargs
         if not self.signals['interrupted']:
             self.signals['interrupted'] = True
         else:
@@ -183,4 +185,4 @@ class Application:
         for proc in psutil.process_iter(['uids', 'name', 'pid']):
             if proc.info['name'] == "kibitzr" and proc.info['uids'][0] == user_id:
                 proc.send_signal(signal.SIGUSR1)
-                logger.info(f"Send singal SIGUSR1 to process: {proc.info['pid']}")
+                logger.info("Send singal SIGUSR1 to process: %r", proc.info['pid'])

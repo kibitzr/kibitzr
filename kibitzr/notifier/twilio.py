@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 def notify_factory(conf, value):
     @functools.wraps(notify)
     def baked_notify(report):
-        from twilio.rest import Client
+        from twilio.rest import Client  # pylint: disable=import-outside-toplevel
         return notify(
             report=report,
             notifier_conf=value,
