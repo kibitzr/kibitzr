@@ -1,5 +1,10 @@
 # Changelog
 
+## [7.0.3] - 2023-03-23
+### Fixed
+- Update import path for the new version of telegram bot.
+  [Issue#138](https://github.com/kibitzr/kibitzr/issues/138)
+
 ## [7.0.2] - 2023-02-24
 ### Added
 - Support for Twilio notifier.
