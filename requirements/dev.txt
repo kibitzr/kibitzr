@@ -8,11 +8,11 @@
 -r base.txt
 alabaster==0.7.13
     # via sphinx
-astroid==2.14.2
+astroid==2.15.0
     # via
     #   -r requirements/dev.in
     #   pylint
-babel==2.11.0
+babel==2.12.1
     # via sphinx
 bleach==6.0.0
     # via readme-renderer
@@ -28,11 +28,11 @@ chardet==5.1.0
     # via tox
 colorama==0.4.6
     # via tox
-coverage[toml]==7.2.0
+coverage[toml]==7.2.2
     # via
     #   -r requirements/dev.in
     #   pytest-cov
-cryptography==39.0.1
+cryptography==39.0.2
     # via -r requirements/dev.in
 dill==0.3.6
     # via pylint
@@ -44,7 +44,7 @@ docutils==0.19
     #   sphinx
 execnet==1.9.0
     # via pytest-cache
-filelock==3.9.0
+filelock==3.10.2
     # via
     #   tox
     #   virtualenv
@@ -54,7 +54,7 @@ freezegun==1.2.2
     # via -r requirements/dev.in
 imagesize==1.4.1
     # via sphinx
-importlib-metadata==6.0.0
+importlib-metadata==6.1.0
     # via
     #   keyring
     #   twine
@@ -76,7 +76,7 @@ mdurl==0.1.2
     # via markdown-it-py
 mock==5.0.1
     # via -r requirements/dev.in
-more-itertools==9.0.0
+more-itertools==9.1.0
     # via
     #   -r requirements/dev.in
     #   jaraco-classes
@@ -93,11 +93,11 @@ pep8==1.7.1
     #   pytest-pep8
 pip-compile-multi==2.6.2
     # via -r requirements/dev.in
-pip-tools==6.12.2
+pip-tools==6.12.3
     # via pip-compile-multi
 pkginfo==1.9.6
     # via twine
-platformdirs==3.0.0
+platformdirs==3.1.1
     # via
     #   pylint
     #   tox
@@ -117,13 +117,13 @@ pygments==2.14.0
     #   readme-renderer
     #   rich
     #   sphinx
-pylint==2.16.2
+pylint==2.17.1
     # via -r requirements/dev.in
-pyproject-api==1.5.0
+pyproject-api==1.5.1
     # via tox
 pyproject-hooks==1.0.0
     # via build
-pytest==7.2.1
+pytest==7.2.2
     # via
     #   -r requirements/dev.in
     #   pytest-cache
@@ -144,7 +144,7 @@ readme-renderer==37.3
     # via twine
 requests-toolbelt==0.10.1
     # via twine
-rich==13.3.1
+rich==13.3.2
     # via twine
 snowballstemmer==2.2.0
     # via sphinx
@@ -173,27 +173,27 @@ tomli==2.0.1
     #   tox
 tomlkit==0.11.6
     # via pylint
-toposort==1.9
+toposort==1.10
     # via pip-compile-multi
-tox==4.4.6
+tox==4.4.7
     # via -r requirements/dev.in
 twine==4.0.2
     # via -r requirements/dev.in
 typing-extensions==4.5.0
     # via astroid
-virtualenv==20.19.0
+virtualenv==20.21.0
     # via tox
-watchdog==2.3.0
+watchdog==3.0.0
     # via -r requirements/dev.in
 webencodings==0.5.1
     # via bleach
-wheel==0.38.4
+wheel==0.40.0
     # via
     #   -r requirements/dev.in
     #   pip-tools
-wrapt==1.14.1
+wrapt==1.15.0
     # via astroid
-zipp==3.14.0
+zipp==3.15.0
     # via importlib-metadata
 
 # The following packages are considered to be unsafe in a requirements file:
