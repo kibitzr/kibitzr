@@ -14,8 +14,8 @@ except IOError:
     history = ""
 
 
-def read_requirements():
-    with open(os.path.join('requirements', 'base.in'), encoding='utf-8') as fp:
+def read_requirements(ext: str = 'in'):
+    with open(os.path.join('requirements', f'base.{ext}'), encoding='utf-8') as fp:
         lines = [line.split('#', 1)[0].strip()
                  for line in fp]
     # drop empty lines:
@@ -24,12 +24,14 @@ def read_requirements():
             if line and not line.startswith('#')]
 
 
-install_requires = read_requirements()
-if os.name == 'nt':
-    # sh predecessor working under Windows:
-    install_requires.append('pbs')
-else:
-    install_requires.extend(['sh<2'])
+def get_requirements(locked: bool):
+    requirements = read_requirements('txt' if locked else 'in')
+    if os.name == 'nt':
+        # sh predecessor working under Windows:
+        requirements.append('pbs')
+    else:
+        requirements.extend(['sh<2'])
+    return requirements
 
 
 setup(
@@ -52,7 +54,6 @@ setup(
         ]
     },
     include_package_data=True,
-    install_requires=install_requires,
     license="MIT license",
     zip_safe=False,
     keywords='kibitzr',
@@ -67,6 +68,10 @@ setup(
     ],
     python_requires='>=3.8',
     test_suite='tests',
+    install_requires=get_requirements(locked=False),
+    extras_require={
+        'locked': get_requirements(locked=True),
+    },
     setup_requires=['pytest-runner'],
     tests_require=[
         'pytest',
