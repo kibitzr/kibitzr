@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 
 class TelegramBot:
     def __init__(self, chat_id=None, split_on=None):
-        from telegram.bot import Bot
+        from telegram import Bot  # pylint: disable=import-outside-toplevel
         telegram_creds = settings().creds['telegram']
         token = telegram_creds['token']
         if chat_id is not None:
