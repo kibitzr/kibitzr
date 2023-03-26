@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 import logging
+import asyncio
 
 from ..conf import settings
 
@@ -47,6 +48,7 @@ class TelegramBot:
             message,
             parse_mode='Markdown',
         )
+        asyncio.run(message)
         return message
 
     __call__ = post
