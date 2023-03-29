@@ -1,5 +1,10 @@
 # Changelog
 
+## [7.0.4] - 2023-03-29
+### Fixed
+- Update usage for the new version of telegram bot.
+  Thanks to [Pan Luo](https://github.com/xcompass) in [PR#139](https://github.com/kibitzr/kibitzr/pull/139)
+
 ## [7.0.3] - 2023-03-23
 ### Fixed
 - Update import path for the new version of telegram bot.
