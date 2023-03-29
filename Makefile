@@ -79,6 +79,7 @@ release: dist ## package and upload a release
 	twine upload dist/*
 
 dist: clean ## builds source and wheel package
+	pandoc -f markdown -t rst CHANGELOG.md -o CHANGELOG.rst
 	python setup.py sdist bdist_wheel
 
 install: clean ## install the package to the active Python's site-packages
