@@ -36,7 +36,7 @@ def get_requirements(locked: bool):
 
 setup(
     name='kibitzr',
-    version='7.0.3',
+    version='7.0.4',
     description="Self hosted web page changes monitoring",
     long_description=readme + '\n\n' + history,
     author="Peter Demin",
