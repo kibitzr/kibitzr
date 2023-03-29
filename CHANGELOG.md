@@ -1,5 +1,9 @@
 # Changelog
 
+## [7.0.5] - 2023-03-29
+### Fixed
+- Restore CHANGELOG markup conversion
+
 ## [7.0.4] - 2023-03-29
 ### Fixed
 - Update usage for the new version of telegram bot.
