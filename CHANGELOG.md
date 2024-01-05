@@ -1,5 +1,10 @@
 # Changelog
 
+## [7.0.6] - 2024-01-05
+### Added
+- Support for ntfy notifier.
+  Thanks to [wunter8](https://github.com/wunter8) in [PR#141](https://github.com/kibitzr/kibitzr/pull/141).
+
 ## [7.0.5] - 2023-03-29
 ### Fixed
 - Restore CHANGELOG markup conversion
