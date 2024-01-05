@@ -21,6 +21,7 @@ Kibitzr supports following notifier types:
 10. ``stash`` - Save to persistent global key-value storage; See :ref:`stash` for details
 11. ``discord`` - Trigger Discord's webhook
 12. ``twilio`` - Send SMS through Twilio client 
+13. ``ntfy`` - Send notifications via :ref:`ntfy <ntfy>`
 
 Each notifier requires different configuration.
 For the sake of security, sensitive information
@@ -71,3 +72,7 @@ Example configurations
     twilio:
         account_sid: "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
         auth_token: "your_auth_token"
+
+    ntfy:
+        url: "https://ntfy.sh"
+        topic: "secret-topic"
