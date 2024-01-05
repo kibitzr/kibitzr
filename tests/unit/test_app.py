@@ -11,7 +11,7 @@ def test_main_executes_all_checks_before_loop(app, settings):
             'name': 'A',
             'script': {'python': 'ok, content = True, "ok"'}
         })
-        assert app.run() == 1
+        assert app.run() == 0
     assert the_loop.call_count == 1
     assert the_loop.call_args[0][0][0].check.call_count == 1
 
@@ -22,6 +22,6 @@ def test_main_filters_names(app, settings):
             {'name': 'A', 'url': 'A'},
             {'name': 'B', 'url': 'B'},
         ])
-        assert app.run(names=['B']) == 1
+        assert app.run(names=['B']) == 0
     assert the_loop.call_count == 1
     assert the_loop.call_args[0][0][0].check.call_count == 1

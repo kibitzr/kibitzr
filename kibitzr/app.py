@@ -59,7 +59,7 @@ class Application:
         try:
             while True:
                 if self.signals['interrupted']:
-                    return 1
+                    break
                 if self.signals['reload_conf_pending']:
                     settings().reread()
                     self.signals['reload_conf_pending'] = False
