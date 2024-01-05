@@ -32,7 +32,6 @@ class NtfyNotify:
         )
         logger.debug(response.text)
         response.raise_for_status()
-        return response
     __call__ = post
 
     def json(self, report):
