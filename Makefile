@@ -70,9 +70,9 @@ docs: ## generate Sphinx HTML documentation, including API docs
 	rm -f docs/modules.rst
 	sphinx-apidoc -o docs/ kibitzr
 	$(MAKE) -C docs clean html
-	$(BROWSER) docs/_build/html/index.html
 
 servedocs: docs ## compile the docs watching for changes
+	$(BROWSER) docs/_build/html/index.html
 	watchmedo shell-command -p '*.rst' -c '$(MAKE) -C docs html' -R -D .
 
 release: dist ## package and upload a release
