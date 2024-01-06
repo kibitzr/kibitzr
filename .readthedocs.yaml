@@ -10,7 +10,9 @@ build:
     - pandoc
   commands:
     - pip install -r requirements/dev.txt
-    - make install dist docs || true
+    - make install
+    - make dist
+    - make docs
 
 sphinx:
   configuration: docs/conf.py
