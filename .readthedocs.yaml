@@ -10,9 +10,7 @@ build:
     - pandoc
   commands:
     - pip install -r requirements/dev.txt
-    - make install
-    - make dist
-    - make docs
+    - make install dist docs
     - mkdir -p $READTHEDOCS_OUTPUT/
     - mv docs/_build/html $READTHEDOCS_OUTPUT/
 
