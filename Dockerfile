@@ -15,7 +15,6 @@ RUN apt -qqy update                     \
        curl                             \
     && curl -L https://github.com/mozilla/geckodriver/releases/download/v0.32.2/geckodriver-v0.32.2-linux64.tar.gz | tar zxf -  \
     && mv geckodriver /usr/local/bin/   \
-    && apt-get remove -y curl           \
     && apt-get clean                    \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
