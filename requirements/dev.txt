@@ -8,65 +8,73 @@
 -r base.txt
 alabaster==0.7.13
     # via sphinx
-astroid==2.15.0
+astroid==3.1.0
     # via
     #   -r requirements/dev.in
     #   pylint
-babel==2.12.1
+babel==2.15.0
     # via sphinx
-bleach==6.0.0
-    # via readme-renderer
-build==0.10.0
+backports-tarfile==1.1.1
+    # via jaraco-context
+build==1.2.1
     # via pip-tools
 bump2version==1.0.1
     # via -r requirements/dev.in
-cachetools==5.3.0
+cachetools==5.3.3
     # via tox
-cffi==1.15.1
+cffi==1.16.0
     # via cryptography
-chardet==5.1.0
+chardet==5.2.0
     # via tox
 colorama==0.4.6
     # via tox
-coverage[toml]==7.2.2
+coverage[toml]==7.5.1
     # via
     #   -r requirements/dev.in
     #   pytest-cov
-cryptography==39.0.2
+cryptography==42.0.7
     # via -r requirements/dev.in
-dill==0.3.6
+dill==0.3.8
     # via pylint
-distlib==0.3.6
+distlib==0.3.8
     # via virtualenv
-docutils==0.19
+docutils==0.20.1
     # via
     #   readme-renderer
     #   sphinx
-execnet==1.9.0
+execnet==2.1.1
     # via pytest-cache
-filelock==3.10.2
+filelock==3.14.0
     # via
     #   tox
     #   virtualenv
-flake8==6.0.0
+flake8==7.0.0
     # via -r requirements/dev.in
-freezegun==1.2.2
+freezegun==1.5.0
     # via -r requirements/dev.in
 imagesize==1.4.1
     # via sphinx
-importlib-metadata==6.1.0
+importlib-metadata==7.1.0
     # via
+    #   build
     #   keyring
+    #   sphinx
     #   twine
+importlib-resources==6.4.0
+    # via keyring
 iniconfig==2.0.0
     # via pytest
-isort==5.12.0
+isort==5.13.2
     # via pylint
-jaraco-classes==3.2.3
+jaraco-classes==3.4.0
     # via keyring
-keyring==23.13.1
+jaraco-context==5.3.0
+    # via keyring
+jaraco-functools==4.0.1
+    # via keyring
+keyring==25.2.0
     # via twine
-markdown-it-py==2.2.0
+markdown-it-py==3.0.0
     # via rich
 mccabe==0.7.0
     # via
@@ -74,13 +82,16 @@ mccabe==0.7.0
     #   pylint
 mdurl==0.1.2
     # via markdown-it-py
-mock==5.0.1
+mock==5.1.0
     # via -r requirements/dev.in
-more-itertools==9.1.0
+more-itertools==10.2.0
     # via
     #   -r requirements/dev.in
     #   jaraco-classes
-packaging==23.0
+    #   jaraco-functools
+nh3==0.2.17
+    # via readme-renderer
+packaging==24.0
     # via
     #   build
     #   pyproject-api
@@ -91,39 +102,41 @@ pep8==1.7.1
     # via
     #   -r requirements/dev.in
     #   pytest-pep8
-pip-compile-multi==2.6.2
+pip-compile-multi==2.6.3
     # via -r requirements/dev.in
-pip-tools==6.12.3
+pip-tools==7.4.1
     # via pip-compile-multi
-pkginfo==1.9.6
+pkginfo==1.10.0
     # via twine
-platformdirs==3.1.1
+platformdirs==4.2.1
     # via
     #   pylint
     #   tox
     #   virtualenv
-pluggy==1.0.0
+pluggy==1.5.0
     # via
     #   pytest
     #   tox
-pycodestyle==2.10.0
+pycodestyle==2.11.1
     # via flake8
-pycparser==2.21
+pycparser==2.22
     # via cffi
-pyflakes==3.0.1
+pyflakes==3.2.0
     # via flake8
-pygments==2.14.0
+pygments==2.18.0
     # via
     #   readme-renderer
     #   rich
     #   sphinx
-pylint==2.17.1
+pylint==3.1.0
     # via -r requirements/dev.in
-pyproject-api==1.5.1
+pyproject-api==1.6.1
     # via tox
-pyproject-hooks==1.0.0
-    # via build
-pytest==7.2.2
+pyproject-hooks==1.1.0
+    # via
+    #   build
+    #   pip-tools
+pytest==8.2.0
     # via
     #   -r requirements/dev.in
     #   pytest-cache
@@ -132,23 +145,27 @@ pytest==7.2.2
     #   pytest-pep8
 pytest-cache==1.0
     # via pytest-pep8
-pytest-cov==4.0.0
+pytest-cov==5.0.0
     # via -r requirements/dev.in
-pytest-mock==3.10.0
+pytest-mock==3.14.0
     # via -r requirements/dev.in
 pytest-pep8==1.0.6
     # via -r requirements/dev.in
-python-dateutil==2.8.2
+python-dateutil==2.9.0.post0
     # via freezegun
-readme-renderer==37.3
+pytz==2024.1
+    # via babel
+readme-renderer==43.0
     # via twine
-requests-toolbelt==0.10.1
+requests-toolbelt==1.0.0
     # via twine
-rich==13.3.2
+rfc3986==2.0.0
+    # via twine
+rich==13.7.1
     # via twine
 snowballstemmer==2.2.0
     # via sphinx
-sphinx==6.1.3
+sphinx==7.1.2
     # via -r requirements/dev.in
 sphinxcontrib-applehelp==1.0.4
     # via sphinx
@@ -166,35 +183,31 @@ tomli==2.0.1
     # via
     #   build
     #   coverage
+    #   pip-tools
     #   pylint
     #   pyproject-api
-    #   pyproject-hooks
     #   pytest
     #   tox
-tomlkit==0.11.6
+tomlkit==0.12.4
     # via pylint
 toposort==1.10
     # via pip-compile-multi
-tox==4.4.7
+tox==4.15.0
     # via -r requirements/dev.in
-twine==4.0.2
+twine==5.0.0
     # via -r requirements/dev.in
-typing-extensions==4.5.0
-    # via astroid
-virtualenv==20.21.0
+virtualenv==20.26.1
     # via tox
-watchdog==3.0.0
+watchdog==4.0.0
     # via -r requirements/dev.in
-webencodings==0.5.1
-    # via bleach
-wheel==0.40.0
+wheel==0.43.0
     # via
     #   -r requirements/dev.in
     #   pip-tools
-wrapt==1.15.0
-    # via astroid
-zipp==3.15.0
-    # via importlib-metadata
+zipp==3.18.1
+    # via
+    #   importlib-metadata
+    #   importlib-resources
 
 # The following packages are considered to be unsafe in a requirements file:
 # pip
