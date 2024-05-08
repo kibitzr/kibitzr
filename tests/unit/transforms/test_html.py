@@ -44,4 +44,4 @@ def prettify(html):
     return "\n".join(
         child.prettify()
         for child in BeautifulSoup(html, "lxml").html.body.children
-    )
+    ).strip()
