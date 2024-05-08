@@ -11,7 +11,7 @@ pytimeparse
 pyyaml
 requests
 schedule
-selenium
+selenium<4.10  # Removes firefox_profile option from Webdriver
 six
 psutil
 twilio
