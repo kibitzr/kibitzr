@@ -5,118 +5,132 @@
 #
 #    pip-compile-multi
 #
-anyio==3.6.2
-    # via httpcore
-async-generator==1.10
-    # via trio
-attrs==22.2.0
+aiohttp==3.9.5
     # via
+    #   aiohttp-retry
+    #   twilio
+aiohttp-retry==2.8.3
+    # via twilio
+aiosignal==1.3.1
+    # via aiohttp
+anyio==4.3.0
+    # via httpx
+async-timeout==4.0.3
+    # via aiohttp
+attrs==23.2.0
+    # via
+    #   aiohttp
     #   outcome
     #   trio
-beautifulsoup4==4.12.0
+beautifulsoup4==4.12.3
     # via bs4
-bs4==0.0.1
+bs4==0.0.2
     # via -r requirements/base.in
-cachecontrol==0.12.11
+cachecontrol==0.14.0
     # via -r requirements/base.in
-certifi==2022.12.7
+certifi==2024.2.2
     # via
     #   httpcore
     #   httpx
     #   requests
     #   selenium
-charset-normalizer==3.1.0
+charset-normalizer==3.3.2
     # via requests
-click==8.1.3
+click==8.1.7
     # via -r requirements/base.in
 defusedxml==0.7.1
     # via -r requirements/base.in
 entrypoints==0.4
     # via -r requirements/base.in
-exceptiongroup==1.1.1
+exceptiongroup==1.2.1
     # via
+    #   anyio
     #   trio
     #   trio-websocket
+frozenlist==1.4.1
+    # via
+    #   aiohttp
+    #   aiosignal
 h11==0.14.0
     # via
     #   httpcore
     #   wsproto
-h2==4.1.0
+httpcore==1.0.5
     # via httpx
-hpack==4.0.0
-    # via h2
-httpcore==0.16.3
-    # via httpx
-httpx[http2]==0.23.3
+httpx==0.27.0
     # via python-telegram-bot
-hyperframe==6.0.1
-    # via h2
-idna==3.4
+idna==3.7
     # via
     #   anyio
+    #   httpx
     #   requests
-    #   rfc3986
     #   trio
-jinja2==3.1.2
+    #   yarl
+jinja2==3.1.4
     # via -r requirements/base.in
-lazy-object-proxy==1.9.0
+lazy-object-proxy==1.10.0
     # via -r requirements/base.in
 lxml==5.2.1
     # via -r requirements/base.in
-markupsafe==2.1.2
+markupsafe==2.1.5
     # via jinja2
-msgpack==1.0.5
+msgpack==1.0.8
     # via cachecontrol
-outcome==1.2.0
+multidict==6.0.5
+    # via
+    #   aiohttp
+    #   yarl
+outcome==1.3.0.post0
     # via trio
-psutil==5.9.4
+psutil==5.9.8
     # via -r requirements/base.in
-pyjwt==2.6.0
+pyjwt==2.8.0
     # via twilio
 pysocks==1.7.1
     # via urllib3
-python-telegram-bot==20.1
+python-telegram-bot==21.1.1
     # via -r requirements/base.in
 pytimeparse==1.1.8
     # via -r requirements/base.in
-pytz==2022.7.1
-    # via twilio
 pyyaml==6.0.1
     # via -r requirements/base.in
-requests==2.28.2
+requests==2.31.0
     # via
     #   -r requirements/base.in
     #   cachecontrol
     #   twilio
-rfc3986[idna2008]==1.5.0
-    # via httpx
-schedule==1.1.0
+schedule==1.2.1
     # via -r requirements/base.in
-selenium==4.8.2
+selenium==4.20.0
     # via -r requirements/base.in
 six==1.16.0
     # via -r requirements/base.in
-sniffio==1.3.0
+sniffio==1.3.1
     # via
     #   anyio
-    #   httpcore
     #   httpx
     #   trio
 sortedcontainers==2.4.0
     # via trio
-soupsieve==2.4
+soupsieve==2.5
     # via beautifulsoup4
-trio==0.22.0
+trio==0.25.0
     # via
     #   selenium
     #   trio-websocket
-trio-websocket==0.10.2
+trio-websocket==0.11.1
     # via selenium
-twilio==7.17.0
+twilio==9.0.5
     # via -r requirements/base.in
-urllib3[socks]==1.26.15
+typing-extensions==4.11.0
+    # via
+    #   anyio
+    #   selenium
+urllib3[socks]==2.2.1
     # via
     #   requests
     #   selenium
 wsproto==1.2.0
     # via trio-websocket
+yarl==1.9.4
+    # via aiohttp
