@@ -3,7 +3,7 @@ from kibitzr.app import Application
 from ..helpers import SettingsMock
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture(scope="function", autouse=True)
 def settings(request):
     """Override native settings singleton with empty one"""
     instance = SettingsMock.instance()

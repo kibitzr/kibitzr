@@ -158,6 +158,8 @@ def test_complex_conf_sample():
 
 @mock.patch("kibitzr.conf.os.path.exists", return_value=False)
 def test_missing_config_raises_configuration_error(exists):
+    # Undo autoused fixture for mocked settings:
+    ReloadableSettings._instance = None
     with pytest.raises(ConfigurationError):
         settings()
 
