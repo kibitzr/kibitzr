@@ -22,7 +22,7 @@ COPY . /kibitzr/
 
 RUN cd /kibitzr                         \
     && pip3 install --upgrade pip       \
-    && pip3 install -e .[locked]
+    && pip3 install -e '.[locked]'
 
 WORKDIR /root/
 
