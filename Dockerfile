@@ -1,4 +1,4 @@
-FROM python:bullseye
+FROM debian:sid
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -8,6 +8,7 @@ RUN apt -qqy update                     \
        firefox-esr                      \
        git                              \
        jq                               \
+       python3                          \
        python3-lazy-object-proxy        \
        python3-lxml                     \
        python3-yaml                     \
@@ -21,8 +22,7 @@ RUN apt -qqy update                     \
 COPY . /kibitzr/
 
 RUN cd /kibitzr                         \
-    && pip3 install --upgrade pip       \
-    && pip3 install -e '.[locked]'
+    && pip3 install --break-system-packages -e '.[locked]'
 
 WORKDIR /root/
 
