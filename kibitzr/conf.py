@@ -141,6 +141,15 @@ class PlainYamlCreds:
         try:
             with self.open_creds() as fp:
                 creds = yaml.safe_load(fp)
+            try:
+                # try to interpolate environment variables, do nothing if
+                # yamlenv is not installed
+                import yamlenv
+                # dump creds back to yml, so we can parse it and interpolate
+                yml = yaml.safe_dump(creds)
+                creds = yamlenv.load(yml)
+            except ModuleNotFoundError:
+                pass
         except IOError:
             logger.info("No credentials file found at %s",
                         os.path.abspath(self.creds_filename))
