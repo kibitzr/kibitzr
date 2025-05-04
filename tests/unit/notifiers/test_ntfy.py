@@ -23,13 +23,9 @@ def test_ntfy_default(settings):
     with mock.patch.object(notify.session, 'post') as fake_post:
         notify('report')
     fake_post.assert_called_once_with(
-        url='http://localhost:8080',
-        json={
-            'topic': 'secret-topic',
-            'title': 'kibitzr',
-            'message': 'report',
-            'priority': 3
-        },
+        url='http://localhost:8080/secret-topic',
+        headers={'X-Title': 'kibitzr', 'X-Priority': '3'},
+        data='report',
     )
 
     assert 'Authorization' not in notify.session.headers
@@ -48,13 +44,9 @@ def test_ntfy_override_defaults(settings):
     with mock.patch.object(notify.session, 'post') as fake_post:
         notify('report')
     fake_post.assert_called_once_with(
-        url='http://localhost:8080',
-        json={
-            'topic': 'another-topic',
-            'title': 'Important Notification',
-            'message': 'report',
-            'priority': 5
-        },
+        url='http://localhost:8080/another-topic',
+        headers={'X-Title': 'Important Notification', 'X-Priority': '5'},
+        data='report',
     )
 
     assert 'Authorization' in notify.session.headers
