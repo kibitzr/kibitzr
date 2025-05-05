@@ -14,7 +14,7 @@ RUN apt -qqy update                     \
        python3-yaml                     \
        python3-pip                      \
        curl                             \
-    && curl -L https://github.com/mozilla/geckodriver/releases/download/v0.32.2/geckodriver-v0.32.2-linux64.tar.gz | tar zxf -  \
+    && curl -L https://github.com/mozilla/geckodriver/releases/download/v0.36.0/geckodriver-v0.36.0-linux64.tar.gz | tar zxf -  \
     && mv geckodriver /usr/local/bin/   \
     && apt-get clean                    \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
