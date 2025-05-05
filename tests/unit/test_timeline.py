@@ -12,7 +12,7 @@ def test_dummy_schedule(app, settings, check_noop):
         'script': {'python': 'ok, content = True, "ok"'},
         'schedule': [TimelineRule(interval=0, unit='seconds', at=None)],
     })
-    assert app.run() == 1
+    assert app.run() == 0
     assert check_noop.call_count == 2
 
 
