@@ -58,8 +58,6 @@ def update_profile(driver):
             "parent.lock",
             "lock",
             ".parentlock",
-            "*.sqlite-shm",
-            "*.sqlite-wal",
         ),
     )
 

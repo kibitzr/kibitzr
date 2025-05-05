@@ -21,10 +21,10 @@ def cleanup():
     temp_dirs = []
     for key in ('headless', 'headed'):
         if FIREFOX_INSTANCE[key] is not None:
-            if FIREFOX_INSTANCE[key].profile:
-                temp_dirs.append(FIREFOX_INSTANCE[key].profile.profile_dir)
+            if FIREFOX_INSTANCE[key]['profile']:
+                temp_dirs.append(FIREFOX_INSTANCE[key]['profile'].path)
             try:
-                FIREFOX_INSTANCE[key].quit()
+                FIREFOX_INSTANCE[key]['webdriver'].quit()
                 FIREFOX_INSTANCE[key] = None
             except:
                 logger.exception(
@@ -41,22 +41,22 @@ def firefox(headless=True):
     Instance is reused and must be cleaned up on exit.
     """
     from selenium import webdriver  # pylint: disable=import-outside-toplevel
-    from selenium.webdriver import FirefoxOptions  # pylint: disable=import-outside-toplevel
+    from selenium.webdriver.firefox.options import Options  # pylint: disable=import-outside-toplevel
+    firefox_options = Options()
     if headless:
         driver_key = 'headless'
-        firefox_options = FirefoxOptions()
         firefox_options.add_argument('-headless')
     else:
         driver_key = 'headed'
-        firefox_options = None
     # Load profile, if it exists:
     if os.path.isdir(PROFILE_DIR):
         firefox_profile = webdriver.FirefoxProfile(PROFILE_DIR)
+        firefox_options.profile = firefox_profile
     else:
         firefox_profile = None
     if FIREFOX_INSTANCE[driver_key] is None:
-        FIREFOX_INSTANCE[driver_key] = webdriver.Firefox(
-            firefox_profile=firefox_profile,
-            options=firefox_options,
-        )
-    yield FIREFOX_INSTANCE[driver_key]
+        FIREFOX_INSTANCE[driver_key] = {
+            'webdriver': webdriver.Firefox(options=firefox_options),
+            'profile': firefox_profile
+        }
+    yield FIREFOX_INSTANCE[driver_key]['webdriver']
