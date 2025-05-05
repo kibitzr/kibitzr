@@ -1,6 +1,6 @@
 FROM debian:sid
 
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt -qqy update                     \
     && apt -y install                   \
@@ -26,6 +26,6 @@ RUN cd /kibitzr                         \
 
 WORKDIR /root/
 
-ENV PYTHONUNBUFFERED true
+ENV PYTHONUNBUFFERED=true
 
 ENTRYPOINT ["kibitzr"]
