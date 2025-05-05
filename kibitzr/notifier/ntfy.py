@@ -22,24 +22,25 @@ class NtfyNotify:
         if 'topic' in value:
             self.topic = value.get('topic')
         self.title = value.get('title', 'kibitzr')
-        self.priority = value.get('priority', 3)
+        self.priority = str(value.get('priority', 3))
+
+        self.url = f'{self.url.rstrip("/")}/{self.topic}'
 
     def post(self, report):
         logger.info("Executing ntfy notifier")
         response = self.session.post(
             url=self.url,
-            json=self.json(report),
+            headers=self.headers(),
+            data=report,
         )
         logger.debug(response.text)
         response.raise_for_status()
     __call__ = post
 
-    def json(self, report):
+    def headers(self):
         return {
-            'topic': self.topic,
-            'title': self.title,
-            'message': report,
-            'priority': self.priority
+            'X-Title': self.title,
+            'X-Priority': self.priority
         }
 
 
