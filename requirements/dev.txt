@@ -56,12 +56,8 @@ imagesize==1.4.1
     # via sphinx
 importlib-metadata==7.1.0
     # via
-    #   build
     #   keyring
-    #   sphinx
     #   twine
-importlib-resources==6.4.0
-    # via keyring
 iniconfig==2.0.0
     # via pytest
 isort==5.13.2
@@ -153,8 +149,6 @@ pytest-pep8==1.0.6
     # via -r requirements/dev.in
 python-dateutil==2.9.0.post0
     # via freezegun
-pytz==2024.1
-    # via babel
 readme-renderer==43.0
     # via twine
 requests-toolbelt==1.0.0
@@ -205,9 +199,7 @@ wheel==0.43.0
     #   -r requirements/dev.in
     #   pip-tools
 zipp==3.18.1
-    # via
-    #   importlib-metadata
-    #   importlib-resources
+    # via importlib-metadata
 
 # The following packages are considered to be unsafe in a requirements file:
 # pip
