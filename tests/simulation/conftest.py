@@ -25,7 +25,6 @@ def target_website(request):
 
 @pytest.fixture
 def target():
-    global server_address
     return server_address
 
 

@@ -10,7 +10,7 @@ def test_dummy_schedule(app, settings, check_noop):
     settings.checks.append({
         'name': 'A',
         'script': {'python': 'ok, content = True, "ok"'},
-        'schedule': [TimelineRule(interval=0, unit='seconds', at=None)],
+        'schedule': [TimelineRule(interval=0.001, unit='seconds', at=None)],
     })
     assert app.run() == 1
     assert check_noop.call_count == 2
@@ -18,12 +18,11 @@ def test_dummy_schedule(app, settings, check_noop):
 
 def interrupt_on_nth_call(app, n):
     def interrupter():
-        if interrupter.n > 1:
-            interrupter.n -= 1
+        nonlocal n
+        if n > 1:
+            n -= 1
         else:
             app.on_interrupt()
-        return None
-    interrupter.n = n
     return interrupter
 
 
