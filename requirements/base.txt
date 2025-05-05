@@ -70,7 +70,7 @@ idna==3.10
     #   yarl
 jinja2==3.1.6
     # via -r requirements/base.in
-lazy-object-proxy==1.11.0
+lazy-object-proxy==1.10.0
     # via -r requirements/base.in
 lxml==5.4.0
     # via -r requirements/base.in
