@@ -1,5 +1,14 @@
 # Changelog
 
+## [8.0.0] - 2025-05-05
+### Breaking change
+- Dropped support of Python 3.8.
+### Added
+- Testing for Python 3.11, 3.12, and 3.13.
+### Fixed
+- Large paylod for ntfy notifier.
+  Thanks to [wunter8](https://github.com/wunter8) in [PR#146](https://github.com/kibitzr/kibitzr/pull/146).
+
 ## [7.0.6] - 2024-01-05
 ### Added
 - Support for ntfy notifier.
