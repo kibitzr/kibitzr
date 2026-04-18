@@ -2,6 +2,7 @@ import pytest
 from kibitzr.conf import (
     settings,
     ReloadableSettings,
+    SettingsParser,
     ConfigurationError,
 )
 from kibitzr.timeline import TimelineRule
@@ -201,3 +202,39 @@ def test_unnamed_check():
         'name': 'Unnamed check 1',
         'schedule': [TimelineRule(interval=1, unit='seconds', at=None)]
     }]
+
+
+def test_parse_checks_with_none_conf():
+    parser = SettingsParser()
+    checks = parser.parse_checks(None)
+    assert checks == []
+
+
+def test_parse_checks_with_checks_none():
+    parser = SettingsParser()
+    checks = parser.parse_checks({'checks': None})
+    assert checks == []
+
+
+def test_parse_checks_with_pages_none():
+    parser = SettingsParser()
+    checks = parser.parse_checks({'pages': None})
+    assert checks == []
+
+
+def test_parse_checks_with_empty_checks():
+    parser = SettingsParser()
+    checks = parser.parse_checks({'checks': []})
+    assert checks == []
+
+
+def test_parse_checks_with_empty_pages():
+    parser = SettingsParser()
+    checks = parser.parse_checks({'pages': []})
+    assert checks == []
+
+
+def test_parse_checks_without_checks_or_pages():
+    parser = SettingsParser()
+    checks = parser.parse_checks({})
+    assert checks == []

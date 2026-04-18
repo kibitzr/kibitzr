@@ -182,7 +182,9 @@ class SettingsParser:
         Unpack configuration from human-friendly form
         to strict check definitions.
         """
-        checks = conf.get('checks', conf.get('pages', []))
+        if conf is None:
+            conf = {}
+        checks = conf.get('checks') or conf.get('pages') or []
         checks = list(self.unpack_batches(checks))
         checks = list(self.unpack_templates(checks, conf.get('templates', {})))
         self.inject_missing_names(checks)
